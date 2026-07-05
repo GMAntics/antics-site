@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antics — Party Games</title>
+  <meta name="description" content="Antics: pass-the-phone party games. Ring of Fire, Truth or Dare, Never Have I Ever, Most Likely To, Drink If, and Imposter — with a sober mode for every game.">
+  <style>
+    :root {
+      --bg: #0E0A1F;
+      --surface: #1C1535;
+      --pink: #FF2E7E;
+      --orange: #FFB02E;
+      --cyan: #25E5FF;
+      --lime: #B8FF3D;
+      --purple: #9D6BFF;
+      --white: #FFFFFF;
+      --dim: #9C92C7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 32px 20px;
+    }
+    main { max-width: 560px; }
+    .mark { font-size: 72px; }
+    h1 {
+      font-size: 64px; font-weight: 900; letter-spacing: 8px; margin: 8px 0 4px;
+    }
+    h1 span { color: var(--pink); }
+    .tagline { font-size: 20px; color: var(--dim); margin-bottom: 28px; }
+    .games { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 32px; }
+    .chip {
+      background: var(--surface); border-radius: 999px;
+      padding: 8px 16px; font-size: 14px; font-weight: 700;
+    }
+    .chip:nth-child(1) { color: var(--orange); }
+    .chip:nth-child(2) { color: var(--cyan); }
+    .chip:nth-child(3) { color: var(--lime); }
+    .chip:nth-child(4) { color: var(--purple); }
+    .chip:nth-child(5) { color: var(--orange); }
+    .chip:nth-child(6) { color: var(--pink); }
+    .soon {
+      display: inline-block; background: var(--pink); color: var(--white);
+      font-weight: 800; border-radius: 14px; padding: 14px 26px;
+      font-size: 16px; letter-spacing: 0.5px;
+    }
+    .note { margin-top: 18px; color: var(--dim); font-size: 13px; }
+    .links { margin-top: 40px; font-size: 14px; }
+    a { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="mark">🎉</div>
+    <h1>ANT<span>ICS</span></h1>
+    <p class="tagline">Pass the phone. Cause chaos.</p>
+    <div class="games">
+      <span class="chip">🔥 Ring of Fire</span>
+      <span class="chip">🙊 Never Have I Ever</span>
+      <span class="chip">😈 Truth or Dare</span>
+      <span class="chip">👉 Most Likely To</span>
+      <span class="chip">🥂 Drink If</span>
+      <span class="chip">🕵️ Imposter</span>
+    </div>
+    <span class="soon">Coming soon to the App Store</span>
+    <p class="note">18+ · Every game has an alcohol-free Sober mode · Drink responsibly</p>
+    <p class="links"><a href="privacy.html">Privacy Policy</a></p>
+  </main>
+</body>
+</html>
