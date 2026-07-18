@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Antics</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Download Antics, the pass-the-phone party games app.">
+  <!-- No-JS fallback. Long enough that the analytics beacon always fires. -->
+  <meta http-equiv="refresh" content="2;url=https://apps.apple.com/gb/app/id6787743558">
+  <style>
+    :root { --bg: #0E0A1F; --pink: #FF2E7E; --white: #FFFFFF; --dim: #9C92C7; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--white); min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 32px 20px;
+    }
+    .logo { font-size: 40px; font-weight: 900; letter-spacing: 6px; }
+    .logo span { color: var(--pink); }
+    .tag { color: var(--dim); margin-top: 8px; font-size: 16px; }
+    .status { margin-top: 28px; font-size: 15px; color: var(--dim); }
+    .btn {
+      display: inline-block; margin-top: 18px; background: var(--pink);
+      color: var(--white); text-decoration: none; font-weight: 800;
+      padding: 14px 28px; border-radius: 999px; font-size: 16px;
+    }
+    .small { margin-top: 22px; font-size: 13px; color: var(--dim); }
+    .small a { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <div class="logo">ANT<span>ICS</span></div>
+  <p class="tag">Pass the phone. Cause chaos.</p>
+
+  <p class="status" id="status">Opening the App Store&hellip;</p>
+  <a class="btn" id="store" href="https://apps.apple.com/gb/app/id6787743558">Get Antics on iPhone</a>
+
+  <p class="small">Not working? <a href="/">anticsapp.com</a></p>
+
+  <script>
+    // The QR on the in-app referral card points here rather than straight at
+    // the App Store: this page always resolves (even before the app is live),
+    // it can be repointed without shipping an app update, and every scan is
+    // counted by the privacy-first analytics beacon below. The short delay
+    // guarantees the beacon fires before the redirect.
+    (function () {
+      var url = 'https://apps.apple.com/gb/app/id6787743558';
+      setTimeout(function () { window.location.replace(url); }, 900);
+    })();
+  </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
