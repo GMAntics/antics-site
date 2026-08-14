@@ -7,8 +7,8 @@
   <title>Get Antics</title>
   <meta name="robots" content="noindex">
   <meta name="description" content="Download Antics, the pass-the-phone party games app.">
-  <!-- No-JS fallback. Long enough that the analytics beacon always fires. -->
-  <meta http-equiv="refresh" content="2;url=https://apps.apple.com/gb/app/id6787743558">
+  <!-- No meta-refresh fallback: it cannot be cancelled per-platform, and it
+       was bouncing Android scanners to Apple. No-JS users get the button. -->
   <style>
     :root { --bg: #0E0A1F; --pink: #FF2E7E; --white: #FFFFFF; --dim: #9C92C7; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,7 +47,27 @@
     // counted by the privacy-first analytics beacon below. The short delay
     // guarantees the beacon fires before the redirect.
     (function () {
-      var url = 'https://apps.apple.com/gb/app/id6787743558';
+      // Flip to true the day the Play production listing is public.
+      var PLAY_LIVE = false;
+      var APPLE = 'https://apps.apple.com/gb/app/id6787743558';
+      var PLAY = 'https://play.google.com/store/apps/details?id=com.anticsapp.antics';
+      var android = /android/i.test(navigator.userAgent);
+      var status = document.getElementById('status');
+      var btn = document.getElementById('store');
+      if (android && !PLAY_LIVE) {
+        // No redirect: the Play listing is not public yet, and sending an
+        // Android phone to Apple's store installs nothing.
+        status.textContent = 'Antics for Android is days away.';
+        btn.textContent = 'See what’s coming';
+        btn.href = '/';
+        return;
+      }
+      var url = android ? PLAY : APPLE;
+      if (android) {
+        status.textContent = 'Opening Google Play…';
+        btn.textContent = 'Get Antics on Android';
+        btn.href = url;
+      }
       setTimeout(function () { window.location.replace(url); }, 900);
     })();
   </script>
