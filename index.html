@@ -103,6 +103,27 @@
       max-width: 280px; font-size: 14px; line-height: 1.5; color: #D8D3EE;
     }
     .fact strong { color: var(--white); display: block; margin-bottom: 4px; font-size: 15px; }
+    /* A .fact used on its own (QR card, signup) must self-centre. */
+    .fact.solo { margin-left: auto; margin-right: auto; max-width: 360px; }
+
+    /* Mobile: the three tall frames become a swipeable slideshow instead of
+       a stacked mile of screenshots. */
+    @media (max-width: 720px) {
+      .shots {
+        flex-wrap: nowrap; justify-content: flex-start;
+        overflow-x: auto; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 12px; padding: 0 16vw 18px;
+        scrollbar-width: none;
+      }
+      .shots::-webkit-scrollbar { display: none; }
+      .shots img { flex: 0 0 auto; width: 68vw; scroll-snap-align: center; }
+      .shots img:nth-child(2), .shots img:nth-child(3) { margin-top: 0; }
+      .swipe-hint { display: block; }
+    }
+    .swipe-hint {
+      display: none; color: var(--dim); font-size: 13px; margin-top: 2px;
+    }
 
     .socials { margin-top: 52px; font-size: 15px; }
     .socials a {
@@ -124,7 +145,7 @@
 
     <p class="note">18+ · Forfeits, not filler · No ads, ever</p>
 
-    <div class="fact" style="margin-top:20px;text-align:center;">
+    <div class="fact solo" style="margin-top:20px;text-align:center;">
       <img src="qr-get.png" alt="QR code — scan to download Antics"
         style="width:132px;height:132px;border-radius:12px;background:#fff;padding:8px;" loading="lazy">
       <p style="margin-top:8px;font-size:14px;opacity:.85;">On your laptop? Point your phone camera here.</p>
@@ -135,6 +156,7 @@
       <img src="img/01-antics-mode.png" alt="Antics mode — nobody chooses, everybody plays">
       <img src="img/03-ring-of-fire.png" alt="The Four Kings, the classic circle game, fully dealt">
     </div>
+    <span class="swipe-hint">swipe →</span>
 
     <h2>EIGHT GAMES. ONE APP.</h2>
     <div class="games">
@@ -183,7 +205,7 @@
       <a href="https://www.instagram.com/antics.app">Instagram</a>
     </div>
 
-    <div class="fact" style="margin-top:28px;text-align:center;">
+    <div class="fact solo" style="margin-top:28px;text-align:center;">
       <strong>📬 First to know</strong>
       The best new cards and updates, straight to your inbox. No spam, ever.
       <form id="signup" style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
