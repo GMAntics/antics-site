@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your free week of Antics</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="A mate sent you a free week of Antics Premium.">
+  <!-- Referral v2: ?t=<share-token> resolves via the backend to an Apple
+       offer-code redemption URL. JS-gated on purpose: link-preview bots and
+       scanners don't run JS, so they never touch the resolver. The resolver
+       allocates nothing either way (custom codes are multi-use); this page
+       just keeps the noise away and gives no-JS users a real button. -->
+  <style>
+    :root { --bg: #0E0A1F; --pink: #FF2E7E; --white: #FFFFFF; --dim: #9C92C7; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--white); min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center; padding: 32px 20px;
+    }
+    .logo { font-size: 40px; font-weight: 900; letter-spacing: 6px; }
+    .logo span { color: var(--pink); }
+    .tag { color: var(--dim); margin-top: 8px; font-size: 16px; }
+    .status { margin-top: 28px; font-size: 15px; color: var(--dim); }
+    .btn {
+      display: inline-block; margin-top: 18px; background: var(--pink);
+      color: var(--white); text-decoration: none; font-weight: 800;
+      padding: 14px 28px; border-radius: 999px; font-size: 16px;
+    }
+    .small { margin-top: 22px; font-size: 13px; color: var(--dim); }
+    .small a { color: var(--dim); }
+  </style>
+</head>
+<body>
+  <div class="logo">ANT<span>ICS</span></div>
+  <p class="tag">A mate sent you a free week of Premium 🎁</p>
+
+  <p class="status" id="status">Getting your free week ready&hellip;</p>
+  <a class="btn" id="go" href="/get/">Claim in the App Store</a>
+
+  <p class="small">Free, ends automatically, no strings. <a href="/">anticsapp.com</a></p>
+
+  <script>
+    (function () {
+      var status = document.getElementById('status');
+      var btn = document.getElementById('go');
+      var token = new URLSearchParams(window.location.search).get('t') || '';
+      if (!token) { status.textContent = 'This link is missing its magic. Get Antics anyway:'; return; }
+      fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/resolve?t=' + encodeURIComponent(token))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (data && typeof data.url === 'string') {
+            btn.href = data.url;
+            status.textContent = 'Opening the App Store…';
+            // Give the beacon a beat, then hand over to Apple.
+            setTimeout(function () { window.location.replace(data.url); }, 600);
+          } else {
+            status.textContent = 'Nearly there. Tap to claim:';
+          }
+        })
+        .catch(function () {
+          status.textContent = 'Nearly there. Tap to claim:';
+        });
+    })();
+  </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
