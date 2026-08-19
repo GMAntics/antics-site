@@ -3,14 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Your free week of Antics</title>
+  <title>You're invited to Antics</title>
   <meta name="robots" content="noindex">
-  <meta name="description" content="A mate sent you a free week of Antics Premium.">
+  <meta name="description" content="A mate invited you to Antics.">
   <!-- Referral v2: ?t=<share-token> resolves via the backend to an Apple
        offer-code redemption URL. JS-gated on purpose: link-preview bots and
        scanners don't run JS, so they never touch the resolver. The resolver
        allocates nothing either way (custom codes are multi-use); this page
-       just keeps the noise away and gives no-JS users a real button. -->
+       just keeps the noise away and gives no-JS users a real button.
+       COPY LAW (19 Aug 2026): until Phase 1 mints real offer codes, this
+       page promises NO free week - every token falls back to /get, and an
+       Apple reviewer can follow the shared link here. Restore the free-week
+       copy only gated on the resolve response returning a redemption URL. -->
   <style>
     :root { --bg: #0E0A1F; --pink: #FF2E7E; --white: #FFFFFF; --dim: #9C92C7; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,19 +39,19 @@
 </head>
 <body>
   <div class="logo">ANT<span>ICS</span></div>
-  <p class="tag">A mate sent you a free week of Premium 🎁</p>
+  <p class="tag">A mate invited you to Antics 🎲</p>
 
-  <p class="status" id="status">Getting your free week ready&hellip;</p>
-  <a class="btn" id="go" href="/get/">Claim in the App Store</a>
+  <p class="status" id="status">Taking you to Antics&hellip;</p>
+  <a class="btn" id="go" href="/get/">Get Antics</a>
 
-  <p class="small">Free, ends automatically, no strings. <a href="/">anticsapp.com</a></p>
+  <p class="small">Pass the phone. Start scandals. <a href="/">anticsapp.com</a></p>
 
   <script>
     (function () {
       var status = document.getElementById('status');
       var btn = document.getElementById('go');
       var token = new URLSearchParams(window.location.search).get('t') || '';
-      if (!token) { status.textContent = 'This link is missing its magic. Get Antics anyway:'; return; }
+      if (!token) { status.textContent = 'This link is missing its magic. Get Antics anyway:'; btn.textContent = 'Get Antics'; return; }
       fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/resolve?t=' + encodeURIComponent(token))
         .then(function (r) { return r.json(); })
         .then(function (data) {
@@ -57,11 +61,11 @@
             // Give the beacon a beat, then hand over to Apple.
             setTimeout(function () { window.location.replace(data.url); }, 600);
           } else {
-            status.textContent = 'Nearly there. Tap to claim:';
+            status.textContent = 'Nearly there. Tap below:';
           }
         })
         .catch(function () {
-          status.textContent = 'Nearly there. Tap to claim:';
+          status.textContent = 'Nearly there. Tap below:';
         });
     })();
   </script>
