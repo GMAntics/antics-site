@@ -57,9 +57,18 @@
         .then(function (data) {
           if (data && typeof data.url === 'string') {
             btn.href = data.url;
-            status.textContent = 'Opening the App Store…';
+            // Phase 1 (21 Aug 2026): when the resolver returns Apple's
+            // redemption page, the free-week promise is TRUE - say it.
+            // Any other URL (e.g. the /get fallback) keeps the plain copy.
+            if (data.url.indexOf('apps.apple.com/redeem') !== -1) {
+              document.querySelector('.tag').textContent = 'A mate sent you a free week of Premium 🎁';
+              btn.textContent = 'Claim in the App Store';
+              status.textContent = 'Getting your free week ready…';
+            } else {
+              status.textContent = 'Opening the App Store…';
+            }
             // Give the beacon a beat, then hand over to Apple.
-            setTimeout(function () { window.location.replace(data.url); }, 600);
+            setTimeout(function () { window.location.replace(data.url); }, 900);
           } else {
             status.textContent = 'Nearly there. Tap below:';
           }
