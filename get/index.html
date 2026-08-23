@@ -51,7 +51,9 @@
       var PLAY_LIVE = true;
       var APPLE = 'https://apps.apple.com/gb/app/id6787743558';
       var PLAY = 'https://play.google.com/store/apps/details?id=com.anticsapp.antics';
-      var android = /android/i.test(navigator.userAgent);
+      var ua = navigator.userAgent;
+      var android = /android/i.test(ua);
+      var ios = /iphone|ipad|ipod/i.test(ua);
       var status = document.getElementById('status');
       var btn = document.getElementById('store');
       if (android && !PLAY_LIVE) {
@@ -62,13 +64,28 @@
         btn.href = '/';
         return;
       }
-      var url = android ? PLAY : APPLE;
       if (android) {
         status.textContent = 'Opening Google Play…';
         btn.textContent = 'Get Antics on Android';
-        btn.href = url;
+        btn.href = PLAY;
+        setTimeout(function () { window.location.replace(PLAY); }, 900);
+        return;
       }
-      setTimeout(function () { window.location.replace(url); }, 900);
+      if (ios) {
+        setTimeout(function () { window.location.replace(APPLE); }, 900);
+        return;
+      }
+      // Desktop or unknown device: no redirect (auto-bouncing a desktop
+      // browser to Apple stranded Android owners reading on laptops).
+      // Offer both stores and let them choose.
+      status.textContent = 'Free on iPhone and Android.';
+      btn.textContent = 'App Store';
+      var play = btn.cloneNode(false);
+      play.id = 'store-play';
+      play.href = PLAY;
+      play.textContent = 'Google Play';
+      play.style.marginLeft = '10px';
+      btn.parentNode.insertBefore(play, btn.nextSibling);
     })();
   </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
