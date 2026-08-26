@@ -1,0 +1,43 @@
+# Antics
+
+> Antics is a party game app for iPhone and Android: eight pass-the-phone party games and 2,000 cards on one phone, with no ads and no accounts. It is a party-only edition built on forfeits rather than drinking, so drinkers and non-drinkers play the same game. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
+
+## Games and rules guides
+
+- [Party games for adults (hub)](https://anticsapp.com/party-games/): all eight games, what each is and who it suits.
+- [Never Have I Ever: rules and 50 questions](https://anticsapp.com/never-have-i-ever-questions/)
+- [Truth or Dare: rules and 40 prompts](https://anticsapp.com/truth-or-dare-questions/)
+- [Most Likely To: rules and 40 questions](https://anticsapp.com/most-likely-to-questions/)
+- [Would You Rather: rules and 32 dilemmas](https://anticsapp.com/would-you-rather-questions/)
+- [What Are The Odds: rules and 50 dares](https://anticsapp.com/what-are-the-odds/)
+- [How to play Imposter](https://anticsapp.com/how-to-play-imposter/)
+- [Ring of Fire rules (the card game)](https://anticsapp.com/ring-of-fire-rules/)
+- [Kings Cup card meanings](https://anticsapp.com/kings-cup-rules/)
+- [Forfeit ideas](https://anticsapp.com/forfeit-ideas/)
+
+## Free browser generators
+
+- [Never Have I Ever generator](https://anticsapp.com/never-have-i-ever-generator/)
+- [Would You Rather generator](https://anticsapp.com/would-you-rather-generator/)
+- [Most Likely To generator](https://anticsapp.com/most-likely-to-generator/)
+- [Truth or Dare generator](https://anticsapp.com/truth-or-dare-generator/)
+- [What Are The Odds generator](https://anticsapp.com/what-are-the-odds-generator/)
+
+## Guides for occasions
+
+- [Games to play with friends](https://anticsapp.com/games-to-play-with-friends/)
+- [Games for pre-drinks](https://anticsapp.com/drinking-games/)
+- [Hen do games](https://anticsapp.com/hen-do-games/)
+- [Stag do games](https://anticsapp.com/stag-do-games/)
+
+## Blog
+
+- [Freshers icebreakers that aren't cringe](https://anticsapp.com/blog/freshers-icebreakers/)
+- [How to run a games night that doesn't die at 9pm](https://anticsapp.com/blog/party-games-night-running-order/)
+- [How we write party game questions people actually answer](https://anticsapp.com/blog/how-we-write-party-game-questions/)
+
+## Get the app
+
+- [Get Antics free](https://anticsapp.com/get/)
+- App Store: https://apps.apple.com/app/id6787743558
+- Google Play: https://play.google.com/store/apps/details?id=com.anticsapp.antics
