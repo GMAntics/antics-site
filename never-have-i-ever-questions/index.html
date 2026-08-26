@@ -135,6 +135,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="/js/generator.css">
 </head>
 <body>
 <article>
@@ -142,7 +143,10 @@
 
   <h1>Never Have I Ever: rules + 50 questions that actually land</h1>
   <p class="standfirst">The rules take 30 seconds. The hard part is questions that get gasps instead of shrugs, so here are 50, sorted from warm-up to spicy, written for a room of mates rather than copied off the internet.</p>
-  <p style="background:#1C1535;border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:14px 18px;margin:0 0 30px;font-size:16px;line-height:1.5;"><strong style="color:#fff;">Play free right now:</strong> open the <a href="/never-have-i-ever-generator/" style="color:#FF2E7E;font-weight:700;">Never Have I Ever generator</a> and tap for a random question, no sign-up.</p>
+  <div style="margin:0 0 32px;">
+    <div id="antics-gen" data-game="nhie">Loading the generator&hellip;</div>
+    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/never-have-i-ever-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  </div>
 
   <p>This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
 
@@ -248,6 +252,7 @@
 
   <div class="guides">
     <strong>More party game guides</strong>
+    <a href="/party-games/">Party games for adults: all 8 games in one app</a>
     <a href="/drinking-games/">The classic party games, explained</a>
     <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
     <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
@@ -282,5 +287,7 @@
 }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="/js/questions.js"></script>
+  <script src="/js/generator.js"></script>
 </body>
 </html>

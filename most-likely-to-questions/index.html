@@ -127,6 +127,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="/js/generator.css">
 </head>
 <body>
 <article>
@@ -134,7 +135,10 @@
 
   <h1>Most Likely To: 40 questions for maximum pointing</h1>
   <p class="standfirst">The simplest party game there is, and the most personal. Here are the rules in one line and 40 questions written for groups who actually know each other's business.</p>
-  <p style="background:#1C1535;border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:14px 18px;margin:0 0 30px;font-size:16px;line-height:1.5;"><strong style="color:#fff;">Play free right now:</strong> open the <a href="/most-likely-to-generator/" style="color:#FF2E7E;font-weight:700;">Most Likely To generator</a> and tap for a random question, no sign-up.</p>
+  <div style="margin:0 0 32px;">
+    <div id="antics-gen" data-game="mlt">Loading the generator&hellip;</div>
+    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/most-likely-to-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  </div>
 
   <div class="tldr">
     <p><strong>How to play:</strong> read a "who's most likely to…" out loud. Count down from three, and everyone points at someone: no abstaining, self-votes allowed if you're honest. <strong>Whoever has the most fingers on them drinks</strong> (or takes a forfeit sober). Split decision? Both drink, then the room debates it.</p>
@@ -218,6 +222,7 @@
 
   <div class="guides">
     <strong>More party game guides</strong>
+    <a href="/party-games/">Party games for adults: all 8 games in one app</a>
     <a href="/drinking-games/">The classic party games, explained</a>
     <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
     <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
@@ -250,5 +255,7 @@
 }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="/js/questions.js"></script>
+  <script src="/js/generator.js"></script>
 </body>
 </html>

@@ -129,6 +129,7 @@
     ]
   }
   </script>
+  <link rel="stylesheet" href="/js/generator.css">
 </head>
 <body>
 <article>
@@ -136,7 +137,10 @@
 
   <h1>Would You Rather: 32 questions that start arguments</h1>
   <p class="standfirst">The party rules (minority drinks) and 32 dilemmas built to split a room down the middle: phones and shame, love and dating, and some pure nonsense for when the room needs it.</p>
-  <p style="background:#1C1535;border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:14px 18px;margin:0 0 30px;font-size:16px;line-height:1.5;"><strong style="color:#fff;">Play free right now:</strong> open the <a href="/would-you-rather-generator/" style="color:#FF2E7E;font-weight:700;">Would You Rather generator</a> and tap for a random question, no sign-up.</p>
+  <div style="margin:0 0 32px;">
+    <div id="antics-gen" data-game="wyr">Loading the generator&hellip;</div>
+    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/would-you-rather-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  </div>
 
   <div class="tldr">
     <p><strong>Party rules:</strong> read a dilemma out loud. On three, everyone points left or right (or shouts A or B). <strong>The minority drinks</strong>, or takes a forfeit in the sober version. Ties mean everyone drinks, obviously.</p>
@@ -217,6 +221,7 @@
 
   <div class="guides">
     <strong>More party game guides</strong>
+    <a href="/party-games/">Party games for adults: all 8 games in one app</a>
     <a href="/drinking-games/">The classic party games, explained</a>
     <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
     <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
@@ -249,5 +254,7 @@
 }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="/js/questions.js"></script>
+  <script src="/js/generator.js"></script>
 </body>
 </html>

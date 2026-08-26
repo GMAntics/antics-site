@@ -97,6 +97,7 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/js/generator.css">
 </head>
 <body>
 <article>
@@ -104,7 +105,10 @@
 
   <h1>What Are The Odds: rules + 50 prompts worth the risk</h1>
   <p class="standfirst">The purest dare mechanic ever invented: one question, one countdown, two numbers. Nobody makes you do anything. You set your own odds, and then the universe decides. Rules in 30 seconds, then 50 prompts, all forfeit-based, none of them filler.</p>
-  <p style="background:#1C1535;border:1px solid rgba(255,255,255,0.10);border-radius:14px;padding:14px 18px;margin:0 0 30px;font-size:16px;line-height:1.5;"><strong style="color:#fff;">Play free right now:</strong> open the <a href="/what-are-the-odds-generator/" style="color:#FF2E7E;font-weight:700;">What Are The Odds generator</a> and tap for a random question, no sign-up.</p>
+  <div style="margin:0 0 32px;">
+    <div id="antics-gen" data-game="odds">Loading the generator&hellip;</div>
+    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/what-are-the-odds-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  </div>
 
   <div class="tldr">
     <p><strong>How to play:</strong> anyone asks anyone "What are the odds you [do the thing]?" The target sets a range based on pure dread: "1 in 15." Count down together, "three, two, one", and both of you say a number from 1 to 15 <strong>at the same time</strong>.</p>
@@ -238,6 +242,7 @@
 
   <div class="guides">
     <strong>More party game guides</strong>
+    <a href="/party-games/">Party games for adults: all 8 games in one app</a>
     <a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a>
     <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 50 questions</a>
     <a href="/most-likely-to-questions/">Most Likely To: 40 questions for maximum pointing</a>
@@ -291,5 +296,7 @@
 }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+  <script src="/js/questions.js"></script>
+  <script src="/js/generator.js"></script>
 </body>
 </html>
