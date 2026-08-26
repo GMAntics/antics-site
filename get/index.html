@@ -59,9 +59,13 @@
       // ?c=<code> tags this visit to a campaign (street-team QR, creator
       // link). Sanitised hard: it ends up in store URLs and analytics.
       var code = null;
+      var offer = null;
       try {
-        var m = /[?&]c=([a-z0-9-]{1,32})(&|$)/.exec(location.search.toLowerCase());
+        var q = location.search.toLowerCase();
+        var m = /[?&]c=([a-z0-9-]{1,32})(&|$)/.exec(q);
         if (m) code = m[1];
+        var mo = /[?&]o=([a-z0-9]{1,20})(&|$)/.exec(q);
+        if (mo) offer = mo[1].toUpperCase();
       } catch (e) {}
       if (code) {
         APPLE += '?ct=' + code + (PT ? '&pt=' + PT : '');
@@ -71,6 +75,16 @@
       var ua = navigator.userAgent;
       var android = /android/i.test(ua);
       var ios = /iphone|ipad|ipod/i.test(ua);
+
+      // Street-team flyers: ?o=<offercode> routes iPhones through Apple's
+      // offer-redemption flow, which applies the free week AND installs the
+      // app in one sheet - nobody types a code. Android ignores it (offer
+      // codes are Apple-only; Play route unchanged). Trade-off: the redeem
+      // URL cannot carry ct=, so iOS download attribution for these scans
+      // comes from redemptions-per-code instead.
+      if (offer && ios) {
+        APPLE = 'https://apps.apple.com/redeem?ctx=offercodes&id=6787743558&code=' + offer;
+      }
 
       // Scan/visit beacon into our own sink (same privacy contract as the
       // app: no identifiers, random per-visit session id). Fire-and-forget;
@@ -86,7 +100,7 @@
           body: JSON.stringify({
             events: [{
               name: 'get_visit',
-              props: { code: code || 'none', dest: android ? 'android' : ios ? 'ios' : 'desktop' },
+              props: { code: code || 'none', offer: offer || 'none', dest: android ? 'android' : ios ? (offer ? 'ios-redeem' : 'ios') : 'desktop' },
               ts: new Date().toISOString(),
               sessionId: 'web-' + Math.random().toString(36).slice(2, 10),
               appVersion: 'site',
