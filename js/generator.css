@@ -1,4 +1,6 @@
 /* Antics web generator styles. Self-contained; brand palette. */
+/* Reserve space before JS fills the tool, to avoid layout shift (CLS). */
+#antics-gen { min-height: 360px; display: block; }
 .agen {
   --agen-bg: #0E0A1F; --agen-surface: #1C1535; --agen-pink: #FF2E7E;
   --agen-white: #FFFFFF; --agen-dim: #9C92C7; --agen-body: #D8D3EE;
