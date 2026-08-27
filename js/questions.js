@@ -1,6 +1,6 @@
 // Antics free question pools for the web generators.
 // Sourced from the already-public guide pages (deck-derived, non-spicy).
-// The app holds ~2,000 cards; these free pools funnel to it.
+// The app holds ~thousands of cards; these free pools funnel to it.
 window.ANTICS_QUESTIONS = {
  "nhie": [
   "Sent a message to the group chat that was meant for one person.",

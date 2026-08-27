@@ -63,11 +63,11 @@
       if (idx < 0) {
         qEl.textContent = 'Tap below to draw your first ' + cfg.label + ' card.';
         copyBtn.style.visibility = 'hidden';
-        countEl.textContent = total + ' free cards. The app has 2,000.';
+        countEl.textContent = total + ' free cards. The app has thousands.';
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's all " + total + ' free ' + cfg.label + ' cards. The app has 2,000 more, plus seven other games.';
+        qEl.textContent = "That's all " + total + ' free ' + cfg.label + ' cards. The app has thousands more, plus seven other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
         countEl.textContent = 'You have seen every free card.';
@@ -80,7 +80,7 @@
       copyBtn.textContent = 'Copy';
       drawn++;
       countEl.textContent = 'Card ' + (idx + 1) + ' of ' + total;
-      ctaH.textContent = 'Want 2,000 more cards and 7 more games?';
+      ctaH.textContent = 'Want thousands more cards and 7 more games?';
     }
 
     nextBtn.addEventListener('click', function () {
