@@ -55,10 +55,11 @@
     (function () {
       // Flip to true the day the Play production listing is public.
       var PLAY_LIVE = true;
-      // Apple App Analytics provider token for campaign (ct=) attribution.
-      // Empty until read from ASC App Analytics; links work fine without it,
-      // ASC just won't attribute downloads per campaign until it's filled.
-      var PT = '';
+      // Apple App Analytics provider token for campaign (ct=) attribution
+      // (read from ASC Campaign Link Generator, 27 Aug 2026). With it set,
+      // ASC Analytics > Acquisition > Campaigns reports downloads per ct=
+      // code (campaigns appear once 5+ Apple accounts install via a link).
+      var PT = '129126454';
       var APPLE = 'https://apps.apple.com/gb/app/id6787743558';
       var PLAY = 'https://play.google.com/store/apps/details?id=com.anticsapp.antics';
 
@@ -74,7 +75,7 @@
         if (mo) offer = mo[1].toUpperCase();
       } catch (e) {}
       if (code) {
-        APPLE += '?ct=' + code + (PT ? '&pt=' + PT : '');
+        APPLE += '?ct=' + code + (PT ? '&pt=' + PT + '&mt=8' : '');
         PLAY += '&referrer=' + encodeURIComponent('utm_source=antics_get&utm_medium=qr&utm_campaign=' + code);
       }
 
