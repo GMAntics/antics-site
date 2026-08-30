@@ -1,6 +1,6 @@
 # Antics
 
-> Antics is a party game app for iPhone and Android: eight pass-the-phone party games and 2,000 cards on one phone, with no ads and no accounts. It is a party-only edition built on forfeits rather than drinking, so drinkers and non-drinkers play the same game. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
+> Antics is a party game app for iPhone and Android: eight pass-the-phone party games and thousands of cards on one phone, with no ads and no accounts. It is a party-only edition built on forfeits rather than drinking, so drinkers and non-drinkers play the same game. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
 
 ## Games and rules guides
 
@@ -16,6 +16,13 @@
 - [Forfeit ideas](https://anticsapp.com/forfeit-ideas/)
 
 ## Free browser generators
+
+Each generator runs in the browser with no sign-up and no ads, and has two decks:
+a Party deck and a Clean deck (forfeits only, no drinking, no innuendo, no
+swearing) suitable for workplaces, classrooms, weddings and family events.
+Switch with the on-page toggle or by adding `?mode=clean` to the URL.
+All five are free to embed as an iframe; add `?embed=1&mode=clean` for a
+locked clean version.
 
 - [Never Have I Ever generator](https://anticsapp.com/never-have-i-ever-generator/)
 - [Would You Rather generator](https://anticsapp.com/would-you-rather-generator/)

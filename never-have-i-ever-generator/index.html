@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Never Have I Ever Generator: Free Online Question Picker | Antics</title>
-  <meta name="description" content="A free Never Have I Ever generator. Tap for a fresh question written for real groups of mates, no sign-up, no ads. Get thousands more cards in the Antics app.">
+  <meta name="description" content="Free Never Have I Ever generator. Tap for a fresh question, with a clean version for work, school and weddings. No sign-up, no ads, free to embed.">
   <link rel="canonical" href="https://anticsapp.com/never-have-i-ever-generator/">
   <meta property="og:site_name" content="Antics">
   <meta property="og:title" content="Never Have I Ever generator">
@@ -26,6 +26,13 @@
     "applicationCategory": "GameApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires JavaScript",
+    "isAccessibleForFree": true,
+    "featureList": [
+      "Party deck: the full Never Have I Ever question set",
+      "Clean deck: forfeits only, no drinking, no innuendo, no swearing",
+      "Free to embed on any site as an iframe",
+      "No sign-up, no accounts, no ads"
+    ],
     "offers": {
       "@type": "Offer",
       "price": "0",
@@ -100,7 +107,8 @@
     <p class="lead site-chrome">Tap the button for a random Never Have I Ever question, written for real groups rather than copied off the internet. No sign-up, no ads, works on any phone. When you want more, the Antics app has thousands of cards across eight games.</p>
 
     <div class="tool-wrap">
-      <div id="antics-gen" data-game="nhie">
+      <div id="antics-gen" class="agen" data-game="nhie">
+        <div class="agen-modes" role="group" aria-label="Question deck"><button class="agen-mode is-on" type="button" data-mode="party" aria-pressed="true">Party</button><button class="agen-mode" type="button" data-mode="clean" aria-pressed="false">Clean</button></div>
         <div class="agen-card"><p class="agen-q">Never have I ever sent a message to the group chat that was meant for one person.</p></div>
         <div class="agen-controls"><button class="agen-next" type="button">Draw a card</button></div>
         <p class="agen-count">50 free cards. The app has thousands.</p>
@@ -127,9 +135,23 @@
       <li>Never have I ever kissed someone whose name I never learned.</li>
       </ul>
 
+      <h2>Clean Never Have I Ever questions</h2>
+      <p class="copy">Tap <strong>Clean</strong> on the generator above and the deck changes completely. 48 questions with no drinking, no innuendo and no swearing, built on forfeits instead, so it works for inductions, away days and sixth-form tutor groups. Nobody has to opt out and nobody has to explain why they are not drinking.</p>
+      <ul class="ex">
+      <li>Never have I ever waved back at someone who was waving at the person behind me.</li>
+      <li>Never have I ever forgotten someone's name halfway through introducing them.</li>
+      <li>Never have I ever assembled furniture and had parts confidently left over.</li>
+      <li>Never have I ever won an argument several hours later, in the shower, alone.</li>
+      </ul>
+      <p class="copy">Your choice sticks while you browse, and the clean deck has its own <a class="inline" href="?mode=clean">direct link</a> you can share or bookmark. Running a session for a group you do not know well? Start clean. You can always switch.</p>
+
       <h2>Put this generator on your site</h2>
-      <p class="copy">Free to embed. Paste this where you want it:</p>
-      <div class="embed-box"><code>&lt;iframe src="https://anticsapp.com/never-have-i-ever-generator/?embed=1" width="100%" height="440" style="border:0;max-width:560px" title="Antics never-have-i-ever-generator generator" loading="lazy"&gt;&lt;/iframe&gt;</code></div>
+      <p class="copy">Free to embed, no attribution required, no script to install. Pick the deck you want and paste the iframe where you want it. An iframe that names a deck stays on that deck, so the version you choose is the version your visitors get.</p>
+      <p class="copy"><strong>Party version</strong>, the full Never Have I Ever deck:</p>
+      <div class="embed-box"><code>&lt;iframe src="https://anticsapp.com/never-have-i-ever-generator/?embed=1&amp;mode=party" width="100%" height="510" style="border:0;max-width:560px" title="Antics Never Have I Ever generator" loading="lazy"&gt;&lt;/iframe&gt;</code></div>
+      <p class="copy"><strong>Clean version</strong>, forfeits only and nothing about drinking:</p>
+      <div class="embed-box"><code>&lt;iframe src="https://anticsapp.com/never-have-i-ever-generator/?embed=1&amp;mode=clean" width="100%" height="510" style="border:0;max-width:560px" title="Antics clean Never Have I Ever generator" loading="lazy"&gt;&lt;/iframe&gt;</code></div>
+      <p class="copy">Leave <code>mode</code> out entirely and your visitors get the Party and Clean switch themselves. Use <code>height="560"</code> if you do.</p>
 
       <h2>More free generators</h2>
       <div class="chips">
@@ -143,6 +165,7 @@
     </div>
   </main>
   <script src="/js/questions.js"></script>
+  <script src="/js/questions-clean.js"></script>
   <script src="/js/generator.js"></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* Antics web generator styles. Self-contained; brand palette. */
 /* Reserve space before JS fills the tool, to avoid layout shift (CLS). */
-#antics-gen { min-height: 360px; display: block; }
+#antics-gen { min-height: 412px; display: block; }
 .agen {
   --agen-bg: #0E0A1F; --agen-surface: #1C1535; --agen-pink: #FF2E7E;
   --agen-white: #FFFFFF; --agen-dim: #9C92C7; --agen-body: #D8D3EE;
@@ -45,7 +45,24 @@
   border: 1px solid rgba(255,255,255,0.10);
 }
 .agen-btn:hover { border-color: var(--agen-pink); }
+/* Deck toggle: Party vs Clean */
+.agen-modes {
+  display: inline-flex; gap: 4px; margin: 0 auto 16px;
+  background: var(--agen-surface); border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 999px; padding: 4px;
+}
+.agen-mode {
+  background: transparent; color: var(--agen-dim); border: 0;
+  border-radius: 999px; padding: 8px 20px; font-size: 14px; font-weight: 800;
+  cursor: pointer; font-family: inherit; letter-spacing: 0.2px;
+}
+.agen-mode:hover { color: var(--agen-white); }
+.agen-mode.is-on { background: var(--agen-pink); color: var(--agen-white); }
+.agen-mode:focus-visible { outline: 2px solid var(--agen-pink); outline-offset: 2px; }
 /* Embed mode: tighten for iframes */
 .agen-embed { padding: 8px; }
-.agen-embed .agen-card { padding: 32px 22px; min-height: 150px; }
+/* Iframes cannot resize themselves cross-origin, so hold the card at a
+   height that fits the longest card. A steady iframe beats a jumping one. */
+.agen-embed .agen-card { padding: 32px 22px; min-height: 204px; }
+.agen-embed .agen-modes { margin-bottom: 12px; }
 @media (max-width: 520px) { .agen-q { font-size: 20px; } }
