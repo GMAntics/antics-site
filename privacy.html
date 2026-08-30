@@ -52,7 +52,7 @@
   <main>
     <a class="logo" href="index.html">ANT<span>ICS</span></a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: 7 July 2026</p>
+    <p class="updated">Last updated: 30 August 2026</p>
 
     <div class="tldr">
       TL;DR: Antics has no accounts, no ads and no tracking. We never know
@@ -76,13 +76,16 @@
       information in your phone's local storage only:
     </p>
     <ul>
-      <li>Your confirmation that you are 18 or over</li>
       <li>Your local gameplay progress (like which cards you have already seen)</li>
       <li>Any player names you type in</li>
+      <li>A count of how many times you have opened the app, and the date you
+        first opened it. The exact values never leave your device; only a
+        coarse range (like "3-5 opens") ever appears in the anonymous usage
+        statistics described below</li>
     </ul>
     <p>
-      This information never leaves your device and is permanently removed
-      when you delete the app.
+      The exact values above never leave your device, and all of it is
+      permanently removed when you delete the app.
     </p>
 
     <h2>Purchases</h2>
@@ -114,8 +117,9 @@
       To understand which games get played and improve the app, Antics uses
       <a href="https://aptabase.com/legal/privacy">Aptabase</a>, a
       privacy-first analytics service. It records anonymous events such as
-      "a game was opened" or "a card was shown", with rough session-length
-      ranges. There are no user or device identifiers, no way to link
+      "a game was opened" or "a card was shown", with rough ranges for things
+      like session length, how many times the app has been opened, and how
+      long ago it was installed. There are no user or device identifiers, no way to link
       sessions together, and never any names, typed text, or card contents: 
       the statistics describe the app in aggregate, not you.
     </p>
@@ -125,7 +129,8 @@
     <ul>
       <li><strong>Apple</strong>: payments and DeviceCheck</li>
       <li><strong>RevenueCat</strong>: purchase unlocking and restore</li>
-      <li><strong>Supabase</strong>: hosts the referral-code database</li>
+      <li><strong>Supabase</strong>: hosts the referral-code database and a
+        copy of the same anonymous usage events</li>
       <li><strong>Aptabase</strong>: anonymous usage statistics</li>
     </ul>
     <p>
