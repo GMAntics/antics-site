@@ -80,9 +80,8 @@
       padding: 56px 20px 64px;
     }
     main { max-width: 960px; margin: 0 auto; }
-    .mark { font-size: 64px; }
+    .mark { width: 96px; height: 96px; border-radius: 22px; display: block; margin: 0 auto 10px; }
     h1 { font-size: 60px; font-weight: 900; letter-spacing: 8px; margin: 6px 0 4px; }
-    h1 span { color: var(--pink); }
     .tagline { font-size: 20px; color: var(--dim); margin-bottom: 26px; }
     .cta {
       display: inline-block; background: var(--pink); color: var(--white);
@@ -136,6 +135,9 @@
 
     /* Mobile: the three tall frames become a swipeable slideshow instead of
        a stacked mile of screenshots. */
+    /* A QR code is pointless if you are already on a phone: the store
+       buttons above do that job. Desktop keeps it. */
+    @media (max-width: 720px) { .qr-card { display: none; } }
     @media (max-width: 720px) {
       .shots {
         flex-wrap: nowrap; justify-content: flex-start;
@@ -171,8 +173,8 @@
 </head>
 <body>
   <main>
-    <div class="mark">🎉</div>
-    <h1>ANT<span>ICS</span></h1>
+    <img class="mark" src="/img/icon-512.png" alt="Antics" width="96" height="96">
+    <h1>ANTICS</h1>
     <p class="tagline">One phone. Everyone’s problem.</p>
 
     <a class="cta" id="appstore-link" href="https://apps.apple.com/app/id6787743558">Download on the App&nbsp;Store</a>
@@ -180,7 +182,7 @@
 
     <p class="note">18+ · Forfeits, not filler · No ads, ever</p>
 
-    <div class="fact solo" style="margin-top:20px;text-align:center;">
+    <div class="fact solo qr-card" style="margin-top:20px;text-align:center;">
       <img src="qr-get.png" alt="QR code: scan to download Antics"
         style="width:132px;height:132px;border-radius:12px;background:#fff;padding:8px;" loading="lazy">
       <p style="margin-top:8px;font-size:14px;opacity:.85;">On your laptop? Point your phone camera here.</p>
