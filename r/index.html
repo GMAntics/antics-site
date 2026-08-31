@@ -55,8 +55,36 @@
     (function () {
       var status = document.getElementById('status');
       var btn = document.getElementById('go');
+
+      // Visit beacon into our own sink, same privacy contract as /get: no
+      // identifiers, no token, random per-visit session id. Fired the moment
+      // the outcome is known; keepalive carries it through the redirect, and
+      // it must never surface an error.
+      function beacon(resolved) {
+        try {
+          fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
+            method: 'POST',
+            keepalive: true,
+            headers: {
+              'Content-Type': 'application/json',
+              'x-antics-key': '245f7fbff8572ca88ef529e8daeeecb3a752b1c22333a0f4',
+            },
+            body: JSON.stringify({
+              events: [{
+                name: 'r_visit',
+                props: { resolved: resolved },
+                ts: new Date().toISOString(),
+                sessionId: 'web-' + Math.random().toString(36).slice(2, 10),
+                appVersion: 'site',
+                platform: 'web',
+              }],
+            }),
+          }).catch(function () {});
+        } catch (e) {}
+      }
+
       var token = new URLSearchParams(window.location.search).get('t') || '';
-      if (!token) { status.textContent = 'This link is missing its magic. Get Antics anyway:'; btn.textContent = 'Get Antics'; return; }
+      if (!token) { beacon('none'); status.textContent = 'This link is missing its magic. Get Antics anyway:'; btn.textContent = 'Get Antics'; return; }
       fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/resolve?t=' + encodeURIComponent(token))
         .then(function (r) { return r.json(); })
         .then(function (data) {
@@ -66,19 +94,23 @@
             // redemption page, the free-week promise is TRUE - say it.
             // Any other URL (e.g. the /get fallback) keeps the plain copy.
             if (data.url.indexOf('apps.apple.com/redeem') !== -1) {
+              beacon('apple');
               document.querySelector('.tag').textContent = 'A mate sent you a free week of Premium 🎁';
               btn.textContent = 'Claim in the App Store';
               status.textContent = 'Getting your free week ready…';
             } else {
+              beacon('fallback');
               status.textContent = 'Opening the App Store…';
             }
             // Give the beacon a beat, then hand over to Apple.
             setTimeout(function () { window.location.replace(data.url); }, 900);
           } else {
+            beacon('fallback');
             status.textContent = 'Nearly there. Tap below:';
           }
         })
         .catch(function () {
+          beacon('error');
           status.textContent = 'Nearly there. Tap below:';
         });
     })();

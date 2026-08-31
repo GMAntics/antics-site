@@ -111,8 +111,8 @@
 
     function ctaLine() {
       return mode === 'clean'
-        ? 'From Antics, the 18+ party game app: 8 games, thousands of cards.'
-        : 'Want thousands more cards and 7 more games?';
+        ? 'From Antics, the 18+ party game app: a stack of games, thousands of cards.'
+        : 'Want thousands more cards and a whole stack more games?';
     }
     function deckLine() {
       return mode === 'clean'
