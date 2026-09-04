@@ -2,7 +2,7 @@
 /* Reserve space before JS fills the tool, to avoid layout shift (CLS). */
 #antics-gen { min-height: 412px; display: block; }
 .agen {
-  --agen-bg: #0E0A1F; --agen-surface: #1C1535; --agen-pink: #FF2E7E;
+  --agen-bg: #0E0A1F; --agen-action: #EA0059; --agen-surface: #1C1535; --agen-pink: #FF2E7E;
   --agen-white: #FFFFFF; --agen-dim: #9C92C7; --agen-body: #D8D3EE;
   max-width: 560px; margin: 0 auto; text-align: center;
 }
@@ -22,7 +22,7 @@
   margin: 20px 0 10px; flex-wrap: wrap;
 }
 .agen-next {
-  background: var(--agen-pink); color: var(--agen-white); border: 0;
+  background: var(--agen-action); color: var(--agen-white); border: 0;
   border-radius: 14px; padding: 15px 30px; font-size: 17px; font-weight: 800;
   cursor: pointer; letter-spacing: 0.3px;
 }
@@ -57,7 +57,7 @@
   cursor: pointer; font-family: inherit; letter-spacing: 0.2px;
 }
 .agen-mode:hover { color: var(--agen-white); }
-.agen-mode.is-on { background: var(--agen-pink); color: var(--agen-white); }
+.agen-mode.is-on { background: var(--agen-action); color: var(--agen-white); }
 .agen-mode:focus-visible { outline: 2px solid var(--agen-pink); outline-offset: 2px; }
 /* Embed mode: tighten for iframes */
 .agen-embed { padding: 8px; }
