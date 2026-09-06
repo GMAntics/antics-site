@@ -63,99 +63,171 @@
   <main>
     <a class="logo" href="index.html">ANTICS</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: 30 August 2026</p>
+    <p class="updated">Last updated: 6 September 2026</p>
 
     <div class="tldr">
-      TL;DR: Antics has no accounts, no ads and no tracking. We never know
-      who you are. The only data that exists is a random anonymous ID (for
-      purchases and referral codes) and anonymous usage statistics that
-      identify nobody.
+      TL;DR: Antics has no accounts, no ads and no tracking across other apps
+      or websites. We never know who you are. The app makes a random
+      anonymous ID on your phone and sends it with usage statistics that
+      identify nobody; purchases are keyed to an anonymous customer ID held
+      by our purchase provider (in some versions the same ID). Neither
+      identifies you.
     </div>
 
     <h2>What we don't collect</h2>
     <p>
       Antics has no user accounts, no sign-up, no advertising and no
-      tracking. We do not collect your name, email address, contacts,
-      location, or anything that identifies you. What you answer and who you
-      play with is never recorded: player names you type in never leave
-      your phone.
+      tracking across other apps or websites. We do not collect your name,
+      email address, contacts or location. What you answer and who you play
+      with is never recorded: player names you type in never leave your
+      phone.
     </p>
 
-    <h2>What stays on your device</h2>
+    <h2>What the app stores on your phone</h2>
     <p>
       To make the app work between sessions, Antics saves a small amount of
-      information in your phone's local storage only:
+      information in your phone's local storage:
     </p>
     <ul>
       <li>Your local gameplay progress (like which cards you have already seen)</li>
       <li>Any player names you type in</li>
+      <li>A random anonymous ID, created once, the first time you open
+        version 1.1.0 or later. It is not tied to your name, Apple ID, email
+        or anything else about who you are, and cannot be reversed to reveal
+        anything about you</li>
       <li>A count of how many times you have opened the app, and the date you
-        first opened it. The exact values never leave your device; only a
-        coarse range (like "3-5 opens") ever appears in the anonymous usage
-        statistics described below</li>
+        first opened it. Both are sent with the anonymous usage statistics as
+        plain counts (for example, "opened 12 times, installed 30 days ago"),
+        keyed to your anonymous ID</li>
     </ul>
     <p>
-      The exact values above never leave your device, and all of it is
-      permanently removed when you delete the app.
+      Any player names never leave your phone, and neither does the progress
+      file itself (the usage statistics below do record each prompt card
+      shown, by number). The anonymous ID and the two counts are sent to our own
+      servers with the usage statistics described below. Everything in this list is
+      removed from your phone when you delete the app; copies already sent
+      are covered under How long we keep data. Reinstalling the app creates
+      a new anonymous ID, unless your phone restores the app's data from a
+      backup. Restoring a purchase afterwards can let our purchase provider
+      connect the new install to the purchase records of your previous one
+      (see Purchases, below).
     </p>
 
     <h2>Purchases</h2>
     <p>
-      Payments are handled entirely by Apple: we never see your payment
-      details. To unlock what you've bought (and restore it if you reinstall),
-      the app uses RevenueCat, a purchase-management service. RevenueCat
-      receives a randomly generated anonymous ID and your purchase history for
-      this app. That ID is not linked to your name, Apple ID, email, or any
-      other identity, and it is not used for advertising or shared with anyone
-      else. See the
+      Payments are handled entirely by Apple or Google Play, whichever store
+      you installed from: we never see your payment details. To unlock what
+      you've bought (and restore it if you reinstall), the app uses
+      RevenueCat, a purchase-management service. RevenueCat holds an
+      anonymous customer ID for this install and your purchase history for
+      this app. Depending on the app version, that customer ID is either the
+      same anonymous ID described above or a separate random ID that
+      RevenueCat generates. Either way it is tied to this install's
+      purchases, never to a person: not to your name, Apple ID, email or
+      anything else about who you are, and it is not used for advertising or
+      shared with anyone else. If you restore a purchase after reinstalling,
+      RevenueCat's restore process moves your purchase records to the new
+      install's customer ID so your purchase keeps working. Where purchases
+      and usage statistics share one ID, that restore also lets us connect
+      your old install's usage history to the new one; it never links either
+      to a person. See the
       <a href="https://www.revenuecat.com/privacy/">RevenueCat privacy policy</a>.
     </p>
 
     <h2>Referral codes</h2>
     <p>
       If you use the invite feature, our server generates a referral code
-      linked to the same anonymous ID and stores it, along with which codes
-      have been redeemed, so that rewards can be granted fairly. When a code
-      is redeemed, the app also sends Apple a DeviceCheck token: a mechanism
-      built by Apple that lets us ask "has this iPhone redeemed a code
-      before?" without telling us anything about the device or its owner. We
-      never receive any device identifier, and none of this referral data can
-      be traced back to you personally.
+      linked to the first anonymous ID our purchase provider gave this
+      install (this stays separate from the on-device ID described above,
+      even in app versions where purchases otherwise share that ID, and is
+      never a name) and stores it, along with which codes have been
+      redeemed, so that rewards can be granted fairly. Redeeming happens in
+      Apple's own offer-code sheet; Apple's report tells us which code was
+      redeemed, when and in which country, never by whom. We never receive
+      any identifier for your phone itself (no hardware or advertising IDs),
+      and none of this referral data can be traced back to you personally.
     </p>
 
     <h2>Anonymous usage statistics</h2>
     <p>
-      To understand which games get played and improve the app, Antics uses
-      <a href="https://aptabase.com/legal/privacy">Aptabase</a>, a
-      privacy-first analytics service. It records anonymous events such as
-      "a game was opened" or "a card was shown", with rough ranges for things
-      like session length, how many times the app has been opened, and how
-      long ago it was installed. There are no user or device identifiers, no way to link
-      sessions together, and never any names, typed text, or card contents: 
-      the statistics describe the app in aggregate, not you.
+      To understand which games get played and improve the app, Antics
+      records anonymous events such as "a game was opened" or "a card was
+      shown", with counts such as session length, how many times the app has
+      been opened, and how long ago it was installed. Our lawful reason for
+      this is legitimate interest: we need to see how the app is used to
+      improve it. We do not advertise to you or build a profile of you. Each event also carries the app
+      version, build number, operating system version, platform and which
+      store the app was installed from; on Android, the first launch also
+      records which campaign link (if any) the app was installed from. These
+      events carry the anonymous ID stored on your phone, so we can tell how
+      a single install behaves over time, for example whether people tend to
+      come back the day after installing. Where that ID is also our purchase
+      provider's customer ID for the install (see Purchases), we can also
+      see whether an install kept playing after buying something. This never
+      reveals who you are: there is no name, email or contact information
+      attached, no one, us included, can turn it into a person or a phone,
+      and it is never used to advertise to you anywhere. We record which
+      card was shown and for how long, never names, typed text or what
+      anyone said: the statistics describe how the app is used, never a
+      private conversation. The anonymous ID on your phone is the User ID on
+      our App Store privacy label, which is why the label lists usage
+      statistics (and, through our purchase provider's ID, purchases) as
+      linked to you: linked to your install, never to a person.
+    </p>
+    <p>
+      Antics also uses <a href="https://aptabase.com/legal/privacy">Aptabase</a>,
+      a privacy-first analytics service, which receives the same events
+      without your anonymous ID. Aptabase keeps its own separate session that
+      is not linked to that ID, and we do not join the two.
     </p>
 
     <h2>Third parties</h2>
     <p>The complete list of services involved in running Antics:</p>
     <ul>
-      <li><strong>Apple</strong>: payments and DeviceCheck</li>
-      <li><strong>RevenueCat</strong>: purchase unlocking and restore</li>
-      <li><strong>Supabase</strong>: hosts the referral-code database and a
-        copy of the same anonymous usage events</li>
-      <li><strong>Aptabase</strong>: anonymous usage statistics</li>
+      <li><strong>Apple</strong>: payments and offer-code redemption</li>
+      <li><strong>Google</strong>: payments on Android</li>
+      <li><strong>RevenueCat</strong>: purchase unlocking and restore, keyed
+        to an anonymous customer ID for this install</li>
+      <li><strong>Supabase</strong>: hosts the referral-code database (keyed
+        to the purchase provider's first anonymous ID for the install, see
+        Referral codes) and our own copy of anonymous usage events (keyed to
+        the anonymous ID on your phone)</li>
+      <li><strong>Aptabase</strong>: a second, separate copy of anonymous
+        usage statistics, not linked to your anonymous ID</li>
+      <li><strong>Cloudflare</strong>: cookie-free visitor counts for this
+        website only</li>
     </ul>
     <p>
-      None of them receive anything that identifies you. There is no
-      advertising software in the app at all.
+      None of them receive your name or anything else about who you are.
+      There is no advertising software in the app at all.
+    </p>
+
+    <h2>How long we keep data</h2>
+    <p>
+      We have no automatic deletion schedule yet: anonymous usage events and
+      purchase history stay on our servers until you ask us to delete yours.
+      Referral codes and redemption records are kept for as long as the
+      invite feature exists. Aptabase keeps its copy under its own retention
+      rules (see its privacy policy). Deleting the app removes the ID from
+      your phone; it does not delete the usage events or purchase records
+      already on our servers. Contact us (below) if you would like us to
+      locate and delete your existing records as well.
     </p>
 
     <h2>Your rights</h2>
     <p>
-      Under UK data protection law you can ask what data is held and ask for
-      it to be deleted. Because everything is keyed to an anonymous ID, if you
-      contact us we may need you to read that ID out of the app so we can find
-      the records. Deleting the app removes everything stored on your device;
-      emailing us lets you clear any referral records too.
+      Under UK data protection law you can ask what data is held, ask for it
+      to be deleted, and object to or ask us to restrict this processing.
+      Because everything is keyed to an anonymous ID rather than your name,
+      we may not always be able to tell which records are yours from an
+      email alone, so please include as much detail as you can (roughly when
+      you installed, what you bought, and on which platform). Deleting the
+      app removes everything stored on your phone, the ID included; on a
+      reinstall you get a new anonymous ID unless your phone restores the
+      app's data from a backup. Emailing us lets us attempt to clear any
+      server-side records tied to the old one too. If you are unhappy with
+      how we handle your data, you can complain to the Information
+      Commissioner's Office (<a href="https://ico.org.uk">ico.org.uk</a>).
     </p>
 
     <h2>Age requirement</h2>
@@ -172,6 +244,12 @@
       If a future version of Antics changes how data is handled, this policy
       will be updated before that version is released, and the change will be
       clearly described here.
+    </p>
+    <p>
+      6 September 2026: from version 1.1.0 the app sends a random anonymous
+      ID and plain launch counts with its usage statistics (previously only
+      rough ranges and no ID), purchases may share that ID, and we added the
+      section on how long we keep data and a mention of Android payments.
     </p>
 
     <h2>Contact</h2>
