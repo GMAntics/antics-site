@@ -1,0 +1,17 @@
+#!/bin/sh
+# Refuse to push if any pretty redirect page's script fails to parse.
+# Added 7 Sep 2026 after a regex edit broke all 19 promoter pages for
+# seven minutes on the eve of freshers. Every <script> on a one-line
+# redirect page is checked with node before anything leaves this machine.
+set -e
+. "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
+bad=0
+for f in $(git ls-files '*/index.html'); do
+  if grep -q "location.replace(" "$f"; then
+    js=$(grep -o "<script>[^<]*</script>" "$f" | sed 's/<script>//;s/<\/script>//')
+    if [ -n "$js" ] && ! printf '%s' "$js" | node --check - >/dev/null 2>&1; then
+      echo "pre-push: redirect script in $f does not parse"; bad=1
+    fi
+  fi
+done
+[ $bad = 0 ] || { echo "pre-push: refusing to push broken redirect pages"; exit 1; }
