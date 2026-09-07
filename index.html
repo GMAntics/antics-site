@@ -91,6 +91,11 @@
     .cta.secondary {
       background: var(--surface); color: var(--white); margin-left: 10px;
     }
+    .cta.outline {
+      display: block; width: max-content; max-width: 100%; margin: 12px auto 0;
+      background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.22);
+    }
+    .cta.outline:hover { border-color: var(--cta-pink); }
     .note { margin-top: 16px; color: var(--dim); font-size: 13px; }
 
     .shots {
@@ -179,9 +184,9 @@
 
     <a class="cta" id="appstore-link" href="https://apps.apple.com/app/id6787743558">Download on the App&nbsp;Store</a>
     <a class="cta secondary" id="play-link" href="https://play.google.com/store/apps/details?id=com.anticsapp.antics">Get it on Google&nbsp;Play</a>
+    <a class="cta outline" href="/play/">Play a free round in your browser</a>
 
     <p class="note">18+ · Forfeits, not filler · No ads, ever</p>
-    <p class="note" style="margin-top:8px;"><a href="/play/" style="color:inherit;text-decoration:underline;">Or play a free round in your browser</a></p>
 
     <div class="fact solo qr-card" style="margin-top:20px;text-align:center;">
       <img src="qr-get.png" alt="QR code: scan to download Antics"
