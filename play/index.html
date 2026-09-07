@@ -200,7 +200,8 @@
       <div class="wall">
         <h2>That's your free round</h2>
         <p>Thousands more cards in the app, and it never runs out.</p>
-        <a class="btn-primary" href="/get/?c=web-play">Get Antics</a>
+        <a class="btn-primary" id="wall-get" href="/get/?c=web-play">Get Antics</a>
+        <p class="hint" id="wall-offer" hidden>Your free week of Premium from the flyer is attached to that button.</p>
         <div class="qr-box" id="qr-box">
           <img src="/qr-get.png" width="160" height="160" alt="QR code that opens Antics on your phone" loading="lazy">
           <p>On your laptop? Point your phone camera here.</p>
@@ -211,7 +212,7 @@
       </div>
     </section>
 
-    <p class="foot"><a href="/">Antics</a> is a party game app for iPhone and Android: a stack of games, thousands of cards, no ads. <a href="/get/?c=web-play">Get it free</a>.</p>
+    <p class="foot"><a href="/">Antics</a> is a party game app for iPhone and Android: a stack of games, thousands of cards, no ads. <a id="foot-get" href="/get/?c=web-play">Get it free</a>.</p>
   </main>
 
   <script src="/play/cards.js"></script>
@@ -224,6 +225,31 @@
 
     // Emoji, blurb and gradient mirror the app's home tiles (src/gamesConfig.ts,
     // strings.en.ts games.*.blurb) so the picker reads as the app, not a form.
+    // PROMOTER PASSTHROUGH (7 Sep 2026). A street-team link or flyer can
+    // open the round as /play/?c=<code>&o=<OFFER> (the same params /get/
+    // reads). The code and offer ride sessionStorage for the visit and are
+    // carried onto the wall's install button, so a promoter who leads with
+    // "scan this and play right now" still earns the redemption and the
+    // player still gets the free week. No code means the wall attributes
+    // to web-play. Same sanitising as /get/: the values end up in URLs.
+    var promo = { code: null, offer: null };
+    try {
+      var q = location.search.toLowerCase();
+      var mc = /[?&]c=([a-z0-9-]{1,32})(&|$)/.exec(q);
+      var mo = /[?&]o=([a-z0-9]{1,20})(&|$)/.exec(q);
+      if (mc) promo.code = mc[1];
+      if (mo) promo.offer = mo[1].toUpperCase();
+      if (promo.code || promo.offer) sessionStorage.setItem('anticsPlayPromo', JSON.stringify(promo));
+      else { var saved = sessionStorage.getItem('anticsPlayPromo'); if (saved) promo = JSON.parse(saved); }
+    } catch (e) {}
+    (function applyPromo() {
+      var href = '/get/?c=' + (promo.code || 'web-play') + (promo.offer ? '&o=' + promo.offer : '');
+      var a = document.getElementById('wall-get'); if (a) a.href = href;
+      var f = document.getElementById('foot-get'); if (f) f.href = href;
+      var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      var line = document.getElementById('wall-offer'); if (line && promo.offer && ios) line.hidden = false;
+    })();
+
     var GAMES = [
       { key: 'antics', name: 'Antics', emoji: '\uD83C\uDFB2', blurb: 'A bit of everything, one card at a time', g1: '#7A3CFF', g2: '#FF2E7E', dark: false },
       { key: 'neverHaveIEver', name: 'Never Have I Ever', emoji: '\uD83D\uDE4A', blurb: 'The secrets WILL come out', g1: '#37B6FF', g2: '#9D6BFF', dark: false },
