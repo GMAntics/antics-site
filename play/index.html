@@ -250,6 +250,22 @@
       var line = document.getElementById('wall-offer'); if (line && promo.offer && ios) line.hidden = false;
     })();
 
+    // MEASUREMENT (Guy ruled the two names 8 Sep 2026: play_started and
+    // play_wall_reached). Same beacon shape as /get/: no identifiers, one
+    // random id per visit, fire-and-forget, never surfaces an error. The
+    // ratio of the two is the number that says whether rounds get finished.
+    var PLAY_SID = 'web-' + Math.random().toString(36).slice(2, 10);
+    function beacon(name, props) {
+      try {
+        fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'Content-Type': 'application/json', 'x-antics-key': '245f7fbff8572ca88ef529e8daeeecb3a752b1c22333a0f4' },
+          body: JSON.stringify({ events: [{ name: name, props: props, ts: new Date().toISOString(), sessionId: PLAY_SID, appVersion: 'site', platform: 'web' }] })
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
     var GAMES = [
       { key: 'antics', name: 'Antics', emoji: '\uD83C\uDFB2', blurb: 'A bit of everything, one card at a time', g1: '#7A3CFF', g2: '#FF2E7E', dark: false },
       { key: 'neverHaveIEver', name: 'Never Have I Ever', emoji: '\uD83D\uDE4A', blurb: 'The secrets WILL come out', g1: '#37B6FF', g2: '#9D6BFF', dark: false },
@@ -382,6 +398,7 @@
     var forfeitLine = document.getElementById('forfeit-line');
 
     function startRound() {
+      beacon('play_started', { game: state.gameKey, names: state.players.length > 0 ? 'yes' : 'no', code: promo.code || 'none' });
       state.count = 0;
       state.idx = -1;
       lastTarget = null;
@@ -414,7 +431,7 @@
     }
 
     function endIfDone() {
-      if (state.count >= ROUND_LEN) { show('wall'); return true; }
+      if (state.count >= ROUND_LEN) { beacon('play_wall_reached', { game: state.gameKey, cards: state.count, code: promo.code || 'none' }); show('wall'); return true; }
       return false;
     }
 
