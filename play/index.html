@@ -426,7 +426,8 @@
       controls.innerHTML = '';
       controls.appendChild(mkBtn('🤭 Truth', 'btn-primary', function () { drawTod('truth'); }));
       controls.appendChild(mkBtn('😈 Dare', 'btn-ghost', function () { drawTod('dare'); }));
-      setProgress();
+      // The choice screen sits BEFORE the card it leads to, so it names that card.
+      progressEl.textContent = 'Card ' + Math.min(state.count + 1, ROUND_LEN) + ' of ' + ROUND_LEN;
     }
 
     function drawTod(which) {
