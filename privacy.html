@@ -63,15 +63,15 @@
   <main>
     <a class="logo" href="index.html">ANTICS</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: 6 September 2026</p>
+    <p class="updated">Last updated: 11 September 2026</p>
 
     <div class="tldr">
       TL;DR: Antics has no accounts, no ads and no tracking across other apps
       or websites. We never know who you are. The app makes a random
       anonymous ID on your phone and sends it with usage statistics that
-      identify nobody; purchases are keyed to an anonymous customer ID held
-      by our purchase provider (in some versions the same ID). Neither
-      identifies you.
+      identify nobody; purchases are keyed to a separate anonymous customer
+      ID held by our purchase provider, which newer versions of the app also
+      send with those statistics. Neither identifies you.
     </div>
 
     <h2>What we don't collect</h2>
@@ -120,15 +120,18 @@
       you've bought (and restore it if you reinstall), the app uses
       RevenueCat, a purchase-management service. RevenueCat holds an
       anonymous customer ID for this install and your purchase history for
-      this app. Depending on the app version, that customer ID is either the
-      same anonymous ID described above or a separate random ID that
-      RevenueCat generates. Either way it is tied to this install's
-      purchases, never to a person: not to your name, Apple ID, email or
-      anything else about who you are, and it is not used for advertising or
-      shared with anyone else. If you restore a purchase after reinstalling,
+      this app. That customer ID is a random ID that RevenueCat generates,
+      separate from the anonymous ID described above. It is tied to this
+      install's purchases, never to a person: not to your name, Apple ID,
+      email or anything else about who you are, and it is not used for
+      advertising or shared with anyone else. From version 1.1.1 on iPhone,
+      and on Android from the first version after 1.1.1, the app also sends
+      this customer ID with its usage statistics, which lets a purchase be
+      matched to how the app was used on that install (see Anonymous usage
+      statistics). If you restore a purchase after reinstalling,
       RevenueCat's restore process moves your purchase records to the new
-      install's customer ID so your purchase keeps working. Where purchases
-      and usage statistics share one ID, that restore also lets us connect
+      install's customer ID so your purchase keeps working. Where both
+      installs ran one of those versions, that restore also lets us connect
       your old install's usage history to the new one; it never links either
       to a person. See the
       <a href="https://www.revenuecat.com/privacy/">RevenueCat privacy policy</a>.
@@ -137,11 +140,10 @@
     <h2>Referral codes</h2>
     <p>
       If you use the invite feature, our server generates a referral code
-      linked to the first anonymous ID our purchase provider gave this
-      install (this stays separate from the on-device ID described above,
-      even in app versions where purchases otherwise share that ID, and is
-      never a name) and stores it, along with which codes have been
-      redeemed, so that rewards can be granted fairly. Redeeming happens in
+      linked to the first anonymous customer ID our purchase provider gave
+      this install (see Purchases: it is separate from the on-device ID
+      described above, and is never a name) and stores it, along with which
+      codes have been redeemed, so that rewards can be granted fairly. Redeeming happens in
       Apple's own offer-code sheet; Apple's report tells us which code was
       redeemed, when and in which country, never by whom. We never receive
       any identifier for your phone itself (no hardware or advertising IDs),
@@ -161,24 +163,29 @@
       records which campaign link (if any) the app was installed from. These
       events carry the anonymous ID stored on your phone, so we can tell how
       a single install behaves over time, for example whether people tend to
-      come back the day after installing. Where that ID is also our purchase
-      provider's customer ID for the install (see Purchases), we can also
-      see whether an install kept playing after buying something. This never
-      reveals who you are: there is no name, email or contact information
-      attached, no one, us included, can turn it into a person or a phone,
-      and it is never used to advertise to you anywhere. We record which
-      card was shown and for how long, never names, typed text or what
-      anyone said: the statistics describe how the app is used, never a
-      private conversation. The anonymous ID on your phone is the User ID on
-      our App Store privacy label, which is why the label lists usage
-      statistics (and, through our purchase provider's ID, purchases) as
-      linked to you: linked to your install, never to a person.
+      come back the day after installing. From version 1.1.1 on iPhone, and
+      on Android from the first version after 1.1.1, events also carry our
+      purchase provider's anonymous customer ID for the install (see
+      Purchases), which lets a purchase be matched to how the app was used,
+      for example whether an install kept playing after buying something.
+      Neither ID comes from an account or a login, because Antics has no
+      accounts, and neither is an advertising identifier or used to track
+      you across other apps or websites. This never reveals who you are:
+      there is no name, email or contact information attached, no one, us
+      included, can turn it into a person or a phone, and it is never used
+      to advertise to you anywhere. We record which card was shown and for
+      how long, never names, typed text or what anyone said: the statistics
+      describe how the app is used, never a private conversation. The
+      anonymous ID on your phone and our purchase provider's customer ID
+      both count as the User ID on our App Store privacy label, which is why
+      the label lists usage statistics and purchases as linked to you:
+      linked to your install, never to a person.
     </p>
     <p>
       Antics also uses <a href="https://aptabase.com/legal/privacy">Aptabase</a>,
       a privacy-first analytics service, which receives the same events
-      without your anonymous ID. Aptabase keeps its own separate session that
-      is not linked to that ID, and we do not join the two.
+      without either ID. Aptabase keeps its own separate session that is not
+      linked to either ID, and we do not join the two.
     </p>
 
     <h2>Third parties</h2>
@@ -190,10 +197,12 @@
         to an anonymous customer ID for this install</li>
       <li><strong>Supabase</strong>: hosts the referral-code database (keyed
         to the purchase provider's first anonymous ID for the install, see
-        Referral codes) and our own copy of anonymous usage events (keyed to
-        the anonymous ID on your phone)</li>
+        Referral codes), our own copy of anonymous usage events (keyed to
+        the anonymous ID on your phone and, in the versions named under
+        Purchases, also to the purchase provider's anonymous customer ID)
+        and a copy of the purchase records RevenueCat sends us</li>
       <li><strong>Aptabase</strong>: a second, separate copy of anonymous
-        usage statistics, not linked to your anonymous ID</li>
+        usage statistics, not linked to either ID</li>
       <li><strong>Cloudflare</strong>: cookie-free visitor counts for this
         website only</li>
     </ul>
@@ -251,6 +260,14 @@
       ID and plain launch counts with its usage statistics (previously only
       rough ranges and no ID), purchases may share that ID, and we added the
       section on how long we keep data and a mention of Android payments.
+    </p>
+    <p>
+      11 September 2026: from version 1.1.1 on iPhone, and on Android from
+      the first version after 1.1.1, usage statistics also carry our
+      purchase provider's anonymous customer ID, so a purchase can be
+      matched to how the app was used. We also corrected this page: no
+      released version of the app has used the on-device ID as the purchase
+      provider's customer ID, so the two have always been separate IDs.
     </p>
 
     <h2>Contact</h2>
