@@ -88,6 +88,16 @@
       // codes are Apple-only; Play route unchanged). Trade-off: the redeem
       // URL cannot carry ct=, so iOS download attribution for these scans
       // comes from redemptions-per-code instead.
+      // The 21 street-team codes minted for freshers expire 31 Oct 2026 and
+      // Apple cannot extend a code in place, so each has a replacement with
+      // an X suffix (expires 30 Jun 2027, ops/asc-street-offer-extend.mjs).
+      // The printed QRs carry the old spelling forever; from 1 Nov 2026 this
+      // page hands Apple the replacement instead. Date-gated so a scan before
+      // then still redeems the original, which is what the ledger expects.
+      var EXTENDED = ['AMANZ','BELLE1','BELLE2','BOURN1','BOURN2','CHLOE1','CHLOE2','ERIN1','ERIN2','GEORGIA1','GEORGIA2','IZZY','IZZY1','LEEDS1','LEEDS2','NEWC1','NEWC2','NOTTS1','NOTTS2','PIPPA1','PIPPA2'];
+      if (offer && EXTENDED.indexOf(offer) !== -1 && new Date() >= new Date('2026-11-01T00:00:00Z')) {
+        offer = offer + 'X';
+      }
       if (offer && ios) {
         APPLE = 'https://apps.apple.com/redeem?ctx=offercodes&id=6787743558&code=' + offer;
       }
