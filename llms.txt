@@ -46,6 +46,6 @@ locked clean version.
 
 ## Get the app
 
-- [Get Antics free](https://anticsapp.com/get/)
+- [Get Antics free](https://anticsapp.com/get/?c=site-llms)
 - App Store: https://apps.apple.com/app/id6787743558
 - Google Play: https://play.google.com/store/apps/details?id=com.anticsapp.antics

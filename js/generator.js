@@ -20,8 +20,12 @@
     clean: { key: 'clean', name: 'Clean', bank: 'ANTICS_QUESTIONS_CLEAN' }
   };
   var STORE = 'antics-gen-mode';
-  var APPLE = 'https://apps.apple.com/app/id6787743558';
-  var PLAY = 'https://play.google.com/store/apps/details?id=com.anticsapp.antics';
+  // The CTA buttons go through /get rather than straight at a store, so every
+  // install from a generator carries a campaign tag (?c=) and /get still sends
+  // each phone to the right store. Absolute, because this widget is embeddable
+  // on other sites where a root-relative /get would resolve to their origin.
+  var GET = 'https://anticsapp.com/get/';
+  function getUrl(tag) { return GET + '?c=' + tag; }
 
   function shuffle(a) {
     a = a.slice();
@@ -67,6 +71,11 @@
     // An embedding site that asked for one deck keeps it: no visitor toggle.
     var locked = embed && !!(urlMode || attrMode);
     var canSwitch = !locked && poolFor(mode === 'party' ? 'clean' : 'party', game).length > 0;
+    // Campaign tag for this widget's CTA. The game key is already lowercase
+    // a-z, so the tag matches /get's ?c= rule (a-z, 0-9, hyphen, 32 max).
+    // Embedded copies get their own prefix: an install from somebody else's
+    // page is a different story from one off our own generator page.
+    var ctaTag = (embed ? 'embed-generator-' : 'site-generator-') + game;
 
     var pool, order, total, idx, current = '';
 
@@ -98,8 +107,8 @@
       '<p class="agen-count"></p>' +
       '<div class="agen-cta">' +
         '<p class="agen-cta-h"></p>' +
-        '<a class="agen-btn" href="' + APPLE + '" rel="nofollow">App Store</a>' +
-        '<a class="agen-btn" href="' + PLAY + '" rel="nofollow">Google Play</a>' +
+        '<a class="agen-btn" href="' + getUrl(ctaTag) + '" rel="nofollow">App Store</a>' +
+        '<a class="agen-btn" href="' + getUrl(ctaTag) + '" rel="nofollow">Google Play</a>' +
       '</div>';
 
     var qEl = root.querySelector('.agen-q');
