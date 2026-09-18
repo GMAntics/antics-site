@@ -78,6 +78,52 @@
         PLAY += '&referrer=' + encodeURIComponent('utm_source=antics_get&utm_medium=qr&utm_campaign=' + code);
       }
 
+      // Meta Pixel, for Instagram/Facebook ad visits ONLY (Guy ruled it
+      // 18 Sep 2026). Meta needs the pixel to fire before we navigate away
+      // or the visit never counts as a landing page view. Two hard rules:
+      // (1) it loads only when ?c= starts with "meta-", so promoter QRs,
+      // Reddit and bio links request nothing from Meta at all; (2) it can
+      // never hold up or break the redirect. The 600ms cap below always
+      // expires before the existing 900ms redirect delay, so a slow,
+      // blocked or throwing Meta script costs the visitor nothing: the
+      // redirect still happens at 900ms exactly as it did before.
+      var META_PIXEL_ID = '2514730195715118';
+      var pixelDone = true;   // true = nothing to wait for
+      var pixelWaiting = null;
+      function pixelSettled() {
+        if (pixelDone) return;
+        pixelDone = true;
+        var fn = pixelWaiting;
+        pixelWaiting = null;
+        if (fn) { try { fn(); } catch (e) {} }
+      }
+      function afterPixel(fn) {
+        if (pixelDone) { fn(); return; }
+        pixelWaiting = fn;
+      }
+      if (code && code.indexOf('meta-') === 0) {
+        pixelDone = false;
+        setTimeout(pixelSettled, 600); // hard cap, whatever Meta does
+        try {
+          (function (f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function () {
+              n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = [];
+            t = b.createElement(e); t.async = !0; t.src = v;
+            t.onload = function () { setTimeout(pixelSettled, 50); };
+            t.onerror = function () { pixelSettled(); };
+            s = b.getElementsByTagName(e)[0];
+            if (s && s.parentNode) { s.parentNode.insertBefore(t, s); }
+            else { b.head.appendChild(t); }
+          })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+          window.fbq('init', META_PIXEL_ID);
+          window.fbq('track', 'PageView');
+        } catch (e) { pixelSettled(); } // a throw must never strand anyone
+      }
+
       var ua = navigator.userAgent;
       var android = /android/i.test(ua);
       var ios = /iphone|ipad|ipod/i.test(ua);
@@ -141,11 +187,11 @@
         status.textContent = 'Opening Google Play…';
         btn.textContent = 'Get Antics on Android';
         btn.href = PLAY;
-        setTimeout(function () { window.location.replace(PLAY); }, 900);
+        setTimeout(function () { afterPixel(function () { window.location.replace(PLAY); }); }, 900);
         return;
       }
       if (ios) {
-        setTimeout(function () { window.location.replace(APPLE); }, 900);
+        setTimeout(function () { afterPixel(function () { window.location.replace(APPLE); }); }, 900);
         return;
       }
       // Desktop or unknown device: no redirect (auto-bouncing a desktop
