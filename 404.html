@@ -2,6 +2,12 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <!-- /j/K7QM is an Imposter room link. GitHub Pages has no rewrites, so an
+       unknown /j/<code> lands here and is sent on to the join page. One line,
+       and `node --check` must pass on it before any push (AGENTS.md law of
+       7 Sep 2026). Anything that is not exactly /j/ plus four characters
+       falls through to the normal 404 below. -->
+  <script>(function(){var m=/^\/j\/([A-Za-z0-9]{4})\/?$/.exec(location.pathname);if(m)location.replace('/j/?room='+m[1].toUpperCase()+location.search.replace(/^\?/,'&'));})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Page not found | Antics</title>
