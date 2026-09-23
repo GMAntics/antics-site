@@ -140,7 +140,10 @@
       // The printed QRs carry the old spelling forever; from 1 Nov 2026 this
       // page hands Apple the replacement instead. Date-gated so a scan before
       // then still redeems the original, which is what the ledger expects.
-      var EXTENDED = ['AMANZ','BELLE1','BELLE2','BOURN1','BOURN2','CHLOE1','CHLOE2','ERIN1','ERIN2','GEORGIA1','GEORGIA2','IZZY','IZZY1','LEEDS1','LEEDS2','NEWC1','NEWC2','NOTTS1','NOTTS2','PIPPA1','PIPPA2'];
+      // CHLOE1/CHLOE2 and IZZY/IZZY1 are NOT here: their X replacements were
+      // reassigned permanently to Emma and Ryan on 23 Sep 2026, so those two
+      // links must never be rewritten onto someone else's codes.
+      var EXTENDED = ['AMANZ','BELLE1','BELLE2','BOURN1','BOURN2','ERIN1','ERIN2','GEORGIA1','GEORGIA2','LEEDS1','LEEDS2','NEWC1','NEWC2','NOTTS1','NOTTS2','PIPPA1','PIPPA2'];
       if (offer && EXTENDED.indexOf(offer) !== -1 && new Date() >= new Date('2026-11-01T00:00:00Z')) {
         offer = offer + 'X';
       }
