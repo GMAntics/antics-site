@@ -32,7 +32,7 @@
 
 Each generator runs in the browser with no sign-up and no ads, and has two decks:
 a Party deck and a Clean deck (forfeits only, no drinking, no innuendo, no
-swearing) suitable for workplaces, classrooms, weddings and family events.
+swearing) suitable for workplaces, weddings and family events.
 Switch with the on-page toggle or by adding `?mode=clean` to the URL.
 All five are free to embed as an iframe; add `?embed=1&mode=clean` for a
 locked clean version.
@@ -46,7 +46,7 @@ locked clean version.
 ## Guides for occasions
 
 - [Games to play with friends](https://anticsapp.com/games-to-play-with-friends/)
-- [Games for pre-drinks](https://anticsapp.com/drinking-games/)
+- [The classic party games](https://anticsapp.com/drinking-games/)
 - [Hen do games](https://anticsapp.com/hen-do-games/)
 - [Stag do games](https://anticsapp.com/stag-do-games/)
 

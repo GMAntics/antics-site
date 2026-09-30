@@ -3,7 +3,7 @@
    /js/questions.js, /js/questions-clean.js then this file.
 
    Modes: "party" (default) and "clean" (forfeit only, no drinking,
-   safe for workplaces, classrooms, weddings and family events).
+   safe for workplaces, weddings and family events).
    Pick one with ?mode=clean, data-mode="clean", or the on-page toggle.
    Honours ?embed=1 for iframe use. In an iframe with an explicit ?mode=
    the toggle is hidden, so an embedding site keeps the deck it chose. */

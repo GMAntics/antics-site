@@ -1,5 +1,5 @@
 // Antics clean question pools for the web generators.
-// Forfeit-only, alcohol-free, safe for workplaces, classrooms, weddings
+// Forfeit-only, alcohol-free, safe for workplaces, weddings
 // and family events. Selected with ?mode=clean or the on-page toggle.
 // The app holds thousands of cards; these free pools funnel to it.
 window.ANTICS_QUESTIONS_CLEAN = {
