@@ -28,6 +28,9 @@
     }
     .small { margin-top: 22px; font-size: 13px; color: var(--dim); }
     .small a { color: var(--dim); }
+    .qr { margin-top: 26px; }
+    .qr img { width: 148px; height: 148px; border-radius: 12px; background: var(--white); padding: 8px; display: block; margin: 0 auto; }
+    .qr p { margin-top: 10px; font-size: 14px; color: var(--dim); }
   </style>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
@@ -47,6 +50,13 @@
        the offer-code free week ONLY: it never renews. Never shown without an
        offer code, because the in-app free week does renew. -->
   <p class="small" id="reassure" hidden>Your free week ends by itself. Nothing renews and there&rsquo;s nothing to cancel.</p>
+  <!-- Laptop visitors only (30 Sep 2026): the two store buttons open web
+       store pages that install nothing, so a phone camera is the real route.
+       The QR carries its own tag so a scan is counted apart from the visit. -->
+  <div class="qr" id="qr" hidden>
+    <img src="/qr-get-desktop.png" width="148" height="148" alt="QR code: scan with your phone to get Antics" loading="lazy">
+    <p id="qr-text">Point your phone camera here.</p>
+  </div>
 
   <p class="small">Not working? <a href="/">anticsapp.com</a></p>
 
@@ -208,6 +218,17 @@
       // browser to Apple stranded Android owners reading on laptops).
       // Offer both stores and let them choose.
       status.textContent = 'Free on iPhone and Android.';
+      var qr = document.getElementById('qr');
+      if (qr) {
+        qr.hidden = false;
+        if (offer) {
+          // A flyer link opened on a laptop: the free week only applies
+          // through Apple's sheet on the phone, so say that rather than
+          // hand over a QR that would drop the offer.
+          qr.querySelector('img').hidden = true;
+          document.getElementById('qr-text').textContent = 'Open this link on your iPhone to claim the free week.';
+        }
+      }
       btn.textContent = 'App Store';
       var play = btn.cloneNode(false);
       play.id = 'store-play';

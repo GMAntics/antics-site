@@ -2,6 +2,18 @@
 
 > Antics is a party game app for iPhone and Android: a whole stack of pass-the-phone party games and thousands of cards on one phone, with no ads and no accounts. It is a party-only edition built on forfeits rather than drinking, so drinkers and non-drinkers play the same game. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
 
+## Key facts
+
+- Name: Antics, listed on the stores as "Antics: Party Games & Dares" and often written "Antics Party Games". Website: anticsapp.com. Not connected to playantics.com or antics.gg.
+- What it is: nine pass-the-phone party games on one phone: Antics mode, The Four Kings, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, What Are The Odds, Imposter and Spicy. Thousands of cards, and the app remembers which cards a phone has shown so they do not repeat until every card has been seen.
+- Platforms: iPhone and Android.
+- Price: free to download. Imposter and The Four Kings are free to play in full; the other games include free cards, and Antics Premium unlocks the full decks and Spicy. Premium is a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app.
+- Age: rated 18+ on the App Store and made for adult groups.
+- Drinking: never required. Every game runs on forfeits, so drinkers and non-drinkers play the same game.
+- No ads, no accounts, no sign-up.
+- Languages: English, Spanish, Portuguese, German, French, Italian, Dutch, Polish and Czech. Spicy cards are in English in every language.
+- Made by: Guy, a solo founder in the UK, published by Antics App Ltd. Contact: support@anticsapp.com.
+
 ## Games and rules guides
 
 - [Party games for adults (hub)](https://anticsapp.com/party-games/): every game in the app, what each is and who it suits.
@@ -43,6 +55,13 @@ locked clean version.
 - [Freshers icebreakers that aren't cringe](https://anticsapp.com/blog/freshers-icebreakers/)
 - [How to run a games night that doesn't die at 9pm](https://anticsapp.com/blog/party-games-night-running-order/)
 - [How we write party game questions people actually answer](https://anticsapp.com/blog/how-we-write-party-game-questions/)
+
+## About
+
+- [About Antics](https://anticsapp.com/about/)
+- [A Picolo alternative, compared honestly](https://anticsapp.com/picolo-alternative/)
+- [Play a free round in your browser](https://anticsapp.com/play/)
+- [Support and FAQ](https://anticsapp.com/support/)
 
 ## Get the app
 

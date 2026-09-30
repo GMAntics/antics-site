@@ -89,21 +89,36 @@
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (data && typeof data.url === 'string') {
-            btn.href = data.url;
+            var ua = navigator.userAgent;
+            var ios = /iphone|ipad|ipod/i.test(ua);
+            var android = /android/i.test(ua);
+            var isRedeem = data.url.indexOf('apps.apple.com/redeem') !== -1;
+            var dest;
             // Phase 1 (21 Aug 2026): when the resolver returns Apple's
             // redemption page, the free-week promise is TRUE - say it.
-            // Any other URL (e.g. the /get fallback) keeps the plain copy.
-            if (data.url.indexOf('apps.apple.com/redeem') !== -1) {
+            // Apple's page only works on an iPhone, though (30 Sep 2026):
+            // an Android phone or a laptop goes to /get with its own tag,
+            // and the resolver's plain /get fallback is tagged too, so
+            // neither lands in the sink as code "none".
+            if (isRedeem && ios) {
+              dest = data.url;
               beacon('apple');
               document.querySelector('.tag').textContent = 'A mate sent you a free week of Premium 🎁';
               btn.textContent = 'Claim in the App Store';
               status.textContent = 'Getting your free week ready…';
+            } else if (isRedeem) {
+              dest = '/get/?c=' + (android ? 'referral-android' : 'referral-desktop');
+              beacon(android ? 'apple-android' : 'apple-desktop');
+              status.textContent = android ? 'Opening Google Play…' : 'Nearly there. Tap below:';
             } else {
+              dest = '/get/?c=site-referral-fallback';
               beacon('fallback');
-              status.textContent = 'Opening the App Store…';
+              status.textContent = android ? 'Opening Google Play…' : 'Opening the App Store…';
             }
-            // Give the beacon a beat, then hand over to Apple.
-            setTimeout(function () { window.location.replace(data.url); }, 900);
+            btn.href = dest;
+            if (isRedeem && !ios && !android) return; // a laptop gets the button, no bounce
+            // Give the beacon a beat, then hand over.
+            setTimeout(function () { window.location.replace(dest); }, 900);
           } else {
             beacon('fallback');
             status.textContent = 'Nearly there. Tap below:';

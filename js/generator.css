@@ -45,6 +45,7 @@
   border: 1px solid rgba(255,255,255,0.10);
 }
 .agen-btn:hover { border-color: var(--agen-pink); }
+.agen-btn-get { background: var(--agen-action); border-color: transparent; }
 /* Deck toggle: Party vs Clean */
 .agen-modes {
   display: inline-flex; gap: 4px; margin: 0 auto 16px;

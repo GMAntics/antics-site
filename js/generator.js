@@ -76,6 +76,15 @@
     // Embedded copies get their own prefix: an install from somebody else's
     // page is a different story from one off our own generator page.
     var ctaTag = (embed ? 'embed-generator-' : 'site-generator-') + game;
+    // A page that hosts the widget can name its own tag (data-cta), so an
+    // install from the generator INSIDE a question guide is counted against
+    // that guide and not against the standalone generator page (30 Sep 2026).
+    // Same character rule as /get's ?c=; anything else is ignored.
+    var hostTag = (root.getAttribute('data-cta') || '').toLowerCase();
+    if (!embed && /^[a-z0-9-]{1,32}$/.test(hostTag)) ctaTag = hostTag;
+    // The demo round lives on our own site only; from an embed it is still
+    // absolute so it resolves off somebody else's origin.
+    var PLAY = 'https://anticsapp.com/play/?c=' + ctaTag + '-play';
 
     var pool, order, total, idx, current = '';
 
@@ -107,8 +116,10 @@
       '<p class="agen-count"></p>' +
       '<div class="agen-cta">' +
         '<p class="agen-cta-h"></p>' +
-        '<a class="agen-btn" href="' + getUrl(ctaTag) + '" rel="nofollow">App Store</a>' +
-        '<a class="agen-btn" href="' + getUrl(ctaTag) + '" rel="nofollow">Google Play</a>' +
+        // One store button: /get picks the right store per phone, so two
+        // buttons with the same address only mislabelled one of them.
+        '<a class="agen-btn agen-btn-get" href="' + getUrl(ctaTag) + '" rel="nofollow">Get Antics free</a>' +
+        '<a class="agen-btn agen-btn-alt" href="' + PLAY + '" rel="nofollow">Play a free round</a>' +
       '</div>';
 
     var qEl = root.querySelector('.agen-q');
