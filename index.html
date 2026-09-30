@@ -219,6 +219,8 @@
 
     /* ---------- the nine game tiles ---------- */
     .lead { color: var(--dim); margin-top: -8px; }
+    .tiles-wrap { position: relative; }
+    .swipe { display: none; color: var(--dim); font-size: 13px; margin-top: 2px; text-align: left; }
     .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; text-align: left; }
     .tile {
       position: relative; background: var(--surface); border-radius: 26px; padding: 8px;
@@ -255,10 +257,18 @@
       .t3 { width: 52px; height: 52px; font-size: 24px; bottom: 10%; left: 2%; }
       .t4 { width: 42px; height: 42px; font-size: 20px; bottom: 5%; right: 8%; }
       .ctas .cta { flex: 1 1 100%; text-align: center; }
+      /* Three cues that the row scrolls: the next tile peeks in at the edge, a fade on the
+         right edge, and one line of text. (Guy, 30 Sep: is it clear they can swipe?) */
+      .tiles-wrap { margin-inline: -20px; }
+      .tiles-wrap::after {
+        content: ""; position: absolute; top: 0; right: 0; bottom: 16px; width: 56px;
+        background: linear-gradient(90deg, rgba(14, 10, 31, 0), var(--bg) 85%); pointer-events: none;
+      }
       .tiles {
         display: flex; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
-        margin-inline: -20px; padding-inline: 20px; padding-bottom: 16px; scrollbar-width: none;
+        padding-inline: 20px 56px; padding-bottom: 16px; scrollbar-width: none;
       }
+      .swipe { display: block; }
       .tiles::-webkit-scrollbar { display: none; }
       .tile { flex: 0 0 200px; scroll-snap-align: start; }
     }
@@ -317,6 +327,7 @@
 
     <h2>A WHOLE STACK OF GAMES. ONE APP.</h2>
     <p class="lead">Thousands of cards. Tap a game to see how it plays.</p>
+    <div class="tiles-wrap">
     <div class="tiles">
       <a class="tile" href="/antics-mode/" style="--a:#7A3CFF;--b:#FF2E7E"><span class="go" aria-hidden="true">&#8599;</span><div class="txt"><h3 class="display">Antics</h3><p>A bit of everything, one card at a time</p></div><div class="art">🎲</div></a>
       <a class="tile" href="/spicy/" style="--a:#8A1242;--b:#FF4E2E"><span class="go" aria-hidden="true">&#8599;</span><div class="txt"><h3 class="display">Spicy</h3><p>The after dark deck. Strictly 18+</p></div><div class="art">🌶️</div></a>
@@ -328,6 +339,8 @@
       <a class="tile" href="/the-four-kings/" style="--a:#FF2E7E;--b:#FFB02E"><span class="go" aria-hidden="true">&#8599;</span><div class="txt"><h3 class="display">The Four Kings</h3><p>The classic circle game, 52 cards of chaos</p></div><div class="art">🔥</div></a>
       <a class="tile" href="/what-are-the-odds/" style="--a:#FFB627;--b:#FF5C5C"><span class="go" aria-hidden="true">&#8599;</span><div class="txt"><h3 class="display">What Are The Odds</h3><p>Shout the same number, do the thing</p></div><div class="art">🎯</div></a>
     </div>
+    </div>
+    <p class="swipe">Swipe for all nine &rarr;</p>
 
     <h2>WHY ANTICS</h2>
     <div class="facts">
