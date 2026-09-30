@@ -149,6 +149,7 @@
 
     function render() {
       ctaH.textContent = ctaLine();
+      qEl.classList.toggle('agen-q-empty', idx < 0);
       if (idx < 0) {
         qEl.textContent = 'Tap below to draw your first ' + cfg.label + ' card.';
         copyBtn.style.visibility = 'hidden';
