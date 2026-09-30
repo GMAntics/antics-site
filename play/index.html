@@ -164,12 +164,13 @@
     <section id="screen-intro">
       <h1>Play a free round of Antics</h1>
       <p class="lead">One phone, pass it round. Pick a game and get ten free cards, right here, no download and no sign-up.</p>
+      <p class="lead">This is a taste of the Antics app: the same games and the same cards, dealt in your browser. The app has thousands more, remembers what your phone has already shown, and adds Imposter and The Four Kings, which are free to play in full.</p>
       <div class="picker" id="picker" role="group" aria-label="Choose a game"></div>
     </section>
 
     <!-- Screen 2: optional player names -->
     <section id="screen-players" hidden>
-      <h1>Add players</h1>
+      <h2>Add players</h2>
       <p class="lead">Playing <span id="chosen-emoji" aria-hidden="true"></span> <strong id="chosen-game-name"></strong>. Optional: names make the cards more personal.</p>
       <p class="step-label">Player names</p>
       <textarea id="players-input" placeholder="One name per line, or comma separated (2 to 8 players)" aria-label="Player names"></textarea>
@@ -199,7 +200,7 @@
     <section id="screen-wall" hidden>
       <div class="wall">
         <h2>That's your free round</h2>
-        <p>Thousands more cards in the app, and it never runs out.</p>
+        <p>Thousands more cards in the app, and it never runs out. Free to download, and Imposter and The Four Kings are free to play in full.</p>
         <a class="btn-primary" id="wall-get" href="/get/?c=web-play">Get Antics</a>
         <p class="hint" id="wall-offer" hidden>Your free week of Premium from the flyer is attached to that button.</p>
         <div class="qr-box" id="qr-box">
@@ -431,7 +432,7 @@
     }
 
     function endIfDone() {
-      if (state.count >= ROUND_LEN) { beacon('play_wall_reached', { game: state.gameKey, cards: state.count, code: promo.code || 'none' }); show('wall'); return true; }
+      if (state.count >= ROUND_LEN) { beacon('play_wall_reached', { game: state.gameKey, cards: state.count, code: promo.code || 'none', reason: 'complete' }); show('wall'); return true; }
       return false;
     }
 
@@ -515,7 +516,13 @@
       controls.appendChild(mkBtn('Next card', 'btn-primary', showChoice));
     }
 
-    document.getElementById('end-early-btn').addEventListener('click', function () { show('wall'); });
+    // Ending early shows the same wall, so it is counted too (30 Sep 2026,
+    // delta A-54): before this, 'End round early' reached the wall unseen and
+    // wall_reached / started undercounted every round that stopped short.
+    document.getElementById('end-early-btn').addEventListener('click', function () {
+      beacon('play_wall_reached', { game: state.gameKey, cards: state.count, code: promo.code || 'none', reason: 'early' });
+      show('wall');
+    });
 
     // --- screen 4: wall -----------------------------------------------
     document.getElementById('play-again-btn').addEventListener('click', function () { show('intro'); });
