@@ -238,9 +238,21 @@
     @media (max-width: 820px) {
       .hero { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-block: 0; }
       .brand { margin-bottom: 20px; }
-      .stage { min-height: 500px; }
-      .phone { width: 244px; transform: rotate(5deg); }
-      .prompt { font-size: 18px; }
+      /* Guy, 30 Sep: the phone was too big on a phone. About 40% of the screen height now. */
+      .stage { min-height: 400px; }
+      .phone { width: 188px; transform: rotate(4deg); }
+      .screen { padding: 12px 14px 16px; border-radius: 28px; }
+      .phone { border-radius: 36px; padding: 8px; }
+      .island { width: 60px; height: 18px; }
+      .apphead { margin-top: 10px; font-size: 12px; }
+      .prompt { font-size: 15px; }
+      .forfeit { font-size: 10px; padding: 7px 10px; }
+      .rulechip { font-size: 10px; padding: 5px 10px; }
+      .tap { font-size: 9px; }
+      .t1 { width: 60px; height: 60px; font-size: 28px; top: 4%; left: 4%; }
+      .t2 { width: 46px; height: 46px; font-size: 22px; top: 12%; right: 4%; }
+      .t3 { width: 52px; height: 52px; font-size: 24px; bottom: 10%; left: 2%; }
+      .t4 { width: 42px; height: 42px; font-size: 20px; bottom: 5%; right: 8%; }
       .ctas .cta { flex: 1 1 100%; text-align: center; }
       .tiles {
         display: flex; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
