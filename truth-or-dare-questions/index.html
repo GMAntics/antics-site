@@ -16,62 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .truth { color: var(--cyan); } h2 .dare { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    ul { margin: 0 0 14px 22px; }
-    li { margin-bottom: 8px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    ol.qs { margin: 0 0 8px 0; padding: 0; list-style: none; counter-reset: q; }
-    ol.qs li {
-      counter-increment: q; background: var(--surface); border-radius: 12px;
-      padding: 12px 16px 12px 52px; margin-bottom: 8px; position: relative;
-      color: var(--white); font-weight: 600; font-size: 15.5px;
-    }
-    ol.qs li::before {
-      content: counter(q); position: absolute; left: 16px; top: 12px;
-      color: var(--dim); font-weight: 900; font-size: 14px;
-    }
-    ol.qs.dares li::before { color: var(--pink); }
-    ol.qs.truths li::before { color: var(--cyan); }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .midcta { background: var(--surface); border-radius: 14px; padding: 14px 18px; font-size: 15px; margin: 22px 0 6px; }
-    .midcta a { color: var(--cyan); font-weight: 700; }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -133,279 +77,340 @@
   }
   </script>
   <link rel="stylesheet" href="/js/generator.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> › Truth or Dare</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> Truth or Dare</nav>
 
-  <h1>Truth or Dare: 160 questions that actually get used</h1>
-  <p class="standfirst">Everyone knows how to play. Nobody can think of a good dare on the spot. Here are 20 truths and 20 dares with actual teeth: phone-based, group callouts, performances: written for a room of mates, 18+ energy throughout.</p>
-  <div style="margin:0 0 32px;">
-    <div id="antics-gen" data-game="tod" data-cta="site-tod-questions-gen">Loading the generator&hellip;</div>
-    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/truth-or-dare-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>Truth or Dare: 160 questions that actually get used</h1>
+      <p class="standfirst">Everyone knows how to play. Nobody can think of a good dare on the spot. Here are 20 truths and 20 dares with actual teeth: phone-based, group callouts, performances: written for a room of mates, 18+ energy throughout.</p>
+    </header>
+    <div class="tool">
+      <div id="antics-gen" data-game="tod" data-cta="site-tod-questions-gen">Loading the generator&hellip;</div>
+      <p class="tool-note">Free, no sign-up. <a href="/truth-or-dare-generator/">Open the full generator</a></p>
+    </div>
   </div>
 
-  <p>This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-cyan"><a href="#truths">Truths</a></li>
+        <li class="tone-pink"><a href="#dares">Dares</a></li>
+        <li class="tone-lime"><a href="#truths-mates">Truths for mates</a></li>
+        <li class="tone-purple"><a href="#truths-couples">Truths for couples</a></li>
+        <li class="tone-orange"><a href="#truths-uni">Truths for uni</a></li>
+        <li class="tone-pink"><a href="#living-room-dares">Living room dares</a></li>
+        <li class="tone-cyan"><a href="#pub-dares">Pub safe dares</a></li>
+        <li class="tone-lime"><a href="#quick-dares">Quick dares</a></li>
+        <li class="tone-orange"><a href="#refusals">Refusals</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
 
-  <div class="tldr">
-    <p><strong>How to play:</strong> ask someone "truth or dare?" They pick. Truth = answer honestly, dare = do the thing. Then it's their turn to ask someone. Refusing costs a forfeit, agreed before the game.</p>
-    <p><strong>The two house rules that fix the game:</strong> no picking truth more than twice in a row (ends the coward problem), and the asker can't repeat a question someone else already used.</p>
+    <div class="prose count-run">
+      <p class="note">This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
+
+      <div class="rules tone-cyan" id="how-to-play">
+        <p><strong>How to play:</strong> ask someone "truth or dare?" They pick. Truth = answer honestly, dare = do the thing. Then it's their turn to ask someone. Refusing costs a forfeit, agreed before the game.</p>
+        <p><strong>The two house rules that fix the game:</strong> no picking truth more than twice in a row (ends the coward problem), and the asker can't repeat a question someone else already used.</p>
+      </div>
+
+      <section class="tier-card tone-cyan" id="truths" aria-labelledby="truths-h">
+        <h2 id="truths-h"><span class="tier truth">20 TRUTHS</span> Ask them like you mean it</h2>
+        <ol class="qs stack">
+          <li>Who in this room would you most want to kiss, if you had to pick?</li>
+          <li>Read out the last text you sent.</li>
+          <li>What's the biggest red flag you've ignored because they were hot?</li>
+          <li>Who did your last risky text go to?</li>
+          <li>Have you ever kissed anyone in this room?</li>
+          <li>What's your toxic trait, according to your exes?</li>
+          <li>What's the most embarrassing thing in your camera roll right now? Describe it.</li>
+          <li>Whose profile did you last look at on social media?</li>
+          <li>What's the worst thing you've done on a night out?</li>
+          <li>If you HAD to date one person in this room, who?</li>
+          <li>What's the biggest ick someone's ever given you?</li>
+          <li>What was your honest first impression of the player on your left?</li>
+          <li>Which two people in this room would make the best couple?</li>
+          <li>What's the biggest lie you've told a parent?</li>
+          <li>Have you ever ghosted someone? What's your excuse?</li>
+          <li>Who in this room would you trust least with your phone unlocked?</li>
+          <li>Who in this room has the best chat on a night out, and the worst?</li>
+          <li>If you had to swap lives with someone in this room, who and why?</li>
+          <li>What's the most trouble you ever got in at school?</li>
+          <li>What's the cringiest thing you've ever posted online?</li>
+        </ol>
+      </section>
+
+      <p class="midcta tone-pink">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-tod-questions-mid">Get Antics free</a>.</p>
+
+      <div>
+      <section class="tier-card count-run tone-pink" id="dares" aria-labelledby="dares-h">
+        <h2 id="dares-h"><span class="tier dare">20 DARES</span> No lame filler</h2>
+        <p>A good dare has a cost the room can watch. Phones are the modern truth serum: half of these use one.</p>
+        <ol class="qs stack">
+          <li>Let the group scroll your camera roll for 20 seconds. You may veto ONE album.</li>
+          <li>Show the group your screen-time report. No explanations allowed.</li>
+          <li>Text your most recent match "you crossed my mind today x".</li>
+          <li>Kiss someone in this room (cheek counts, cowards).</li>
+          <li>Read out the last thing you typed in your notes app.</li>
+          <li>Do your best impression of the player on your left until they laugh.</li>
+          <li>Let the player on your right send one emoji from your phone to anyone they choose.</li>
+          <li>Perform your go-to flirty dance move on the count of three.</li>
+          <li>Swap phones with the player on your left until your next turn.</li>
+          <li>Demonstrate your best chat-up line on the player on your left with full commitment.</li>
+          <li>Moan the alphabet until someone laughs.</li>
+          <li>Show the last five photos in your camera roll, no skips (one veto).</li>
+          <li>Twerk for 15 seconds.</li>
+          <li>Tell the group your honest first impression of everyone here, one by one.</li>
+          <li>Sit on the lap of the player on your left until your next turn.</li>
+          <li>Make up a 30-second rap about the person on your left.</li>
+          <li>Impersonate another player until someone guesses who it is.</li>
+          <li>Narrate everyone's movements like a nature documentary for the next two rounds.</li>
+          <li>Sing everything you say for the next two rounds.</li>
+          <li>Do your best catwalk across the room and back. Commit to it.</li>
+        </ol>
+      </section>
+      </div>
+
+      <p class="divider-intro">More truths, sorted by who is asking. All of them are dealt in the Antics app.</p>
+
+      <section class="tier-card tone-lime" id="truths-mates" aria-labelledby="truths-mates-h">
+        <h2 id="truths-mates-h"><span class="tier truth">FOR MATES</span> Truths</h2>
+        <ol class="qs stack" start="21">
+          <li>Who in this room survives longest in a horror film, and who goes first?</li>
+          <li>If you got cancelled tomorrow, what would it most likely be for?</li>
+          <li>What’s the most embarrassing thing in your camera roll right now? Describe it.</li>
+          <li>What’s something you’ve done that your parents can NEVER find out about?</li>
+          <li>What’s the most embarrassed you’ve ever been, on a scale of one to the ER?</li>
+          <li>What’s the worst thing in your search history this week?</li>
+          <li>Whose number in your phone should you definitely delete?</li>
+          <li>What text would ruin you if it was read out right now? Vague answers accepted. Barely.</li>
+          <li>Have you ever been caught talking about someone… by that someone?</li>
+          <li>What’s your villain origin story, the exact moment you became petty?</li>
+          <li>What’s the strangest thing you do when you’re home alone?</li>
+          <li>Have you ever pretended to love a gift? What was it?</li>
+          <li>Have you ever blamed something on a sibling or a pet that was 100% you?</li>
+          <li>What’s the most embarrassing thing you know off by heart?</li>
+          <li>Who in your phone has the most unhinged contact name, and what is it?</li>
+          <li>What talent do you claim that you have never once demonstrated?</li>
+          <li>What’s your most catastrophic autocorrect that actually sent?</li>
+          <li>What’s the dumbest thing you believed until embarrassingly recently?</li>
+          <li>What’s the worst thing you’ve eaten out of politeness?</li>
+          <li>What did you last watch that you’d deny watching?</li>
+          <li>What’s your most embarrassing recurring dream?</li>
+          <li>What’s the one question you were hoping nobody would ask tonight?</li>
+          <li>What’s a rumour about you that’s actually true?</li>
+          <li>What’s the most embarrassing thing a family member has done in front of your friends?</li>
+          <li>Who in this room have you had a full argument with in your head, but never out loud?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-purple" id="truths-couples" aria-labelledby="truths-couples-h">
+        <h2 id="truths-couples-h"><span class="tier truth">FOR COUPLES</span> Truths</h2>
+        <ol class="qs stack" start="46">
+          <li>What’s the biggest red flag you’ve ignored because they were hot?</li>
+          <li>What’s the biggest ick someone’s ever given you?</li>
+          <li>Have you ever ghosted someone? What’s your excuse?</li>
+          <li>If everyone in this room had to kiss someone else in the room, who kisses who? You’re assigning the pairs.</li>
+          <li>What’s the riskiest place you’ve done it?</li>
+          <li>What’s your toxic trait, according to your exes?</li>
+          <li>What’s the thirstiest message you’ve ever sent? Quote it as closely as you dare.</li>
+          <li>Who was your worst kiss ever, and what made it so bad?</li>
+          <li>What’s the pettiest thing you’ve done after a breakup?</li>
+          <li>What made YOU the bad date, on the worst date you’ve ever been on?</li>
+          <li>What would your brutally honest dating-app bio say?</li>
+          <li>What’s the most awkward run-in you’ve had with an ex?</li>
+          <li>What’s the weirdest attempt at flirting you’ve ever had to endure?</li>
+          <li>What’s the longest you’ve stayed somewhere terrible because someone fit was there?</li>
+          <li>What’s your most shameful celebrity crush, the one you don’t say out loud?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-orange" id="truths-uni" aria-labelledby="truths-uni-h">
+        <h2 id="truths-uni-h"><span class="tier truth">FOR UNI AND FRESHERS</span> Truths</h2>
+        <ol class="qs stack" start="61">
+          <li>What’s the worst thing you’ve done on a night out?</li>
+          <li>What’s the longest you’ve gone without washing your bedsheets?</li>
+          <li>What’s your worst habit that the people you live with have to put up with?</li>
+          <li>What’s the fastest you’ve ever left a party, and why?</li>
+          <li>What’s the most desperate thing you’ve done for Wi-Fi?</li>
+          <li>What’s the most embarrassing or expired thing sitting in your fridge right now?</li>
+          <li>What basic adult task are you still completely useless at?</li>
+          <li>What’s the strangest thing you’ve done to avoid paying full price?</li>
+          <li>What’s the most embarrassing real reason you’ve cancelled plans?</li>
+          <li>What’s the most you’ve ever exaggerated on a CV or application?</li>
+          <li>What’s the most expensive mistake you’ve ever made, in money or time?</li>
+          <li>What purchase are you still justifying to yourself?</li>
+          <li>What are you weirdly cheap about despite spending big elsewhere?</li>
+          <li>What’s your honest review of the last party this group threw?</li>
+          <li>Who in this room do you think has the messiest room at home?</li>
+          <li>Who in this room would you want on your pub quiz team, no contest?</li>
+          <li>What have you said to a barber or taxi driver purely to fill silence?</li>
+          <li>What’s the most illegal thing you’ve ever done?</li>
+          <li>Who in this room do you think is the worst texter?</li>
+          <li>Who in this room would you never lend money to?</li>
+        </ol>
+      </section>
+
+      <p class="divider-intro">More dares, sorted by where you are. All of them are dealt in the Antics app.</p>
+
+      <div class="count-run">
+
+      <section class="tier-card tone-pink" id="living-room-dares" aria-labelledby="living-room-dares-h">
+        <h2 id="living-room-dares-h"><span class="tier dare">LIVING ROOM DARES</span> Dares</h2>
+        <ol class="qs stack">
+          <li>Wink at every player in turn. If they wink back you have to do a forfeit.</li>
+          <li>Perform the “lost my phone” panic arc, ending with it in your hand.</li>
+          <li>Perform your walk of shame. The full silent performance.</li>
+          <li>Narrate everyone’s movements like a nature documentary for the next two rounds.</li>
+          <li>Perform your morning routine as a dramatic slow-motion action scene.</li>
+          <li>Dance with no music for 30 seconds while everyone watches in silence.</li>
+          <li>Act like a cat until your next turn. Full commitment.</li>
+          <li>Hold eye contact with the player across from you for 60 seconds without laughing.</li>
+          <li>Do 20 star jumps while reciting your favourite film quote.</li>
+          <li>Hold a wall-sit for the next full round.</li>
+          <li>Let the player opposite you restyle your hair however they want.</li>
+          <li>Wear your socks on your hands for the next three rounds.</li>
+          <li>Freeze! Hold whatever pose you’re in for the next full round.</li>
+          <li>Re-enact the last goal, point or win you ever scored, in slow motion.</li>
+          <li>Start a wave. It must go around the room twice.</li>
+          <li>Invent a dance move, teach it, everyone performs it.</li>
+          <li>Redesign the seating plan and make everyone move, with reasons.</li>
+          <li>Perform the last five minutes of this game as one-person theatre.</li>
+          <li>Sit like a Victorian portrait until your next turn.</li>
+          <li>Deliver a disappointed-parent lecture to a cushion.</li>
+          <li>Perform CPR on a cushion with medical-drama-finale intensity.</li>
+          <li>Patrol as a security guard who suspects this group of something.</li>
+          <li>Act out the five stages of grief about the snacks running out.</li>
+          <li>Do the airline safety demonstration for this room, pointing at real exits.</li>
+          <li>Act your morning alarm negotiation, playing both yourself and the alarm.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-cyan" id="pub-dares" aria-labelledby="pub-dares-h">
+        <h2 id="pub-dares-h"><span class="tier dare">PUB SAFE DARES</span> Dares</h2>
+        <ol class="qs stack" start="26">
+          <li>The group picks one word you can’t say for the rest of the game.</li>
+          <li>Speak in an accent chosen by the group until your next turn.</li>
+          <li>Talk about yourself in the third person for the next three rounds.</li>
+          <li>Speak in a whisper for the next three rounds.</li>
+          <li>Let the group rename you for the rest of the game. Respond only to that name.</li>
+          <li>Do your most convincing impression of a teacher everyone knows.</li>
+          <li>Give a heartfelt acceptance speech for an award you invent on the spot.</li>
+          <li>Deliver an infomercial-style pitch for the nearest object to you.</li>
+          <li>Become a waiter and take everyone’s order, fully in character.</li>
+          <li>Give the next player a movie-trailer voice introduction.</li>
+          <li>Compliment every player while maintaining intense, unbroken eye contact.</li>
+          <li>The group gives you one word each; deliver them all as a motivational speech.</li>
+          <li>Do your best impression of the group chat as a single person.</li>
+          <li>Invent a national holiday, announce it, and demonstrate its traditions.</li>
+          <li>Reenact the worst date you’ve ever been on, using the nearest object as your date.</li>
+          <li>Name every player’s phone case from memory, eyes closed.</li>
+          <li>Name everyone’s hot drink order from memory. The room corrects you loudly.</li>
+          <li>Do your best impression of someone else in this room. The room guesses who.</li>
+          <li>Act out getting terrible news over the phone, no words, just face and body.</li>
+          <li>Lead ten seconds of aggressive gratitude: everyone thanks someone for something tiny.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-lime" id="quick-dares" aria-labelledby="quick-dares-h">
+        <h2 id="quick-dares-h"><span class="tier dare">QUICK DARES, NO PROPS</span> Dares</h2>
+        <ol class="qs stack" start="46">
+          <li>Reproduce the sound of dial-up internet from memory.</li>
+          <li>Owl impression: head as far round as it goes, hold, one hoot.</li>
+          <li>Count down from ten like it’s the tensest moment in live television history.</li>
+          <li>Perform “waiting for a microwave” in real time. Ten seconds, rising tension.</li>
+          <li>Say the months of the year in alphabetical order, under thirty seconds.</li>
+          <li>Shadow-box an invisible opponent for fifteen seconds. The room decides who won.</li>
+          <li>Say “good morning” to each player in a different mood: furious, flirty, terrified, royal, betrayed.</li>
+          <li>Demonstrate your kiss face. Hold it while the room rates it out of ten.</li>
+          <li>Perform “slipping on ice” without actually falling. Commit.</li>
+          <li>Be a robot malfunctioning, ending in a full reboot.</li>
+          <li>Stretch like you’ve woken from a hundred-year sleep. Full performance.</li>
+          <li>Both hands on your head, explain calmly why you are not panicking.</li>
+          <li>Describe your last kiss like a football commentator.</li>
+          <li>Do your best red-carpet arrival, complete with fake photographers, for ten seconds.</li>
+          <li>Give the room a one-sentence horoscope for how tonight ends, delivered like a fortune teller.</li>
+        </ol>
+      </section>
+
+      </div>
+
+      <section class="section tone-orange" id="refusals">
+        <h2>Refusals, penalties, and keeping it fun</h2>
+        <p>Offline, Truth or Dare is often played with drinks. Set the refusal forfeit before the game instead (10 press-ups, speak in an accent for two rounds). Everyone gets one hard veto per game for anything they're genuinely not doing: the game's better when the pressure is theatrical, not real.</p>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>Truth or Dare FAQ</h2>
+        <h3>What are the rules of Truth or Dare?</h3>
+        <p>One player asks another "truth or dare?" If they pick truth, they must answer a question honestly; if they pick dare, they must do the challenge. Then they become the asker. Refusing either costs an agreed forfeit.</p>
+        <h3>What happens if someone refuses a dare?</h3>
+        <p>They take the forfeit agreed before the game, and a second refusal earns a bigger one. Give everyone one no-questions-asked veto per game so nobody gets genuinely cornered.</p>
+        <h3>Can you always pick truth?</h3>
+        <p>House rule it: no more than two truths in a row is the standard fix. Without it, one coward can turn the game into an interview.</p>
+        <h3>Is Truth or Dare OK to play without drinking?</h3>
+        <p>Yes: it barely changes. A refusal costs a forfeit and everything else stays the same. It's the questions that carry the game.</p>
+      </section>
+
+      <div class="safety">
+        <strong>Play it right:</strong> 18+ energy needs 18+ consent: the veto rule exists so dares stay funny instead of mean. Nothing here should end friendships, relationships, or employment. Look after your mates.
+      </div>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Plenty more where these came from</h2>
+        <p>These 40 are from Antics: the party games app. The full Truth or Dare deck calls players out <strong>by name</strong> and never repeats a prompt until you've seen them all. Plus a whole stack more games, a party-only edition built on forfeits, no ads, no sign-up.</p>
+        <a class="cta" href="/get/?c=site-tod-questions">Get Antics free</a>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/drinking-games/">The classic party games, explained</a></li>
+          <li><a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a></li>
+          <li><a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <h2><span class="tier truth">20 TRUTHS</span>Ask them like you mean it</h2>
-  <ol class="qs truths">
-    <li>Who in this room would you most want to kiss, if you had to pick?</li>
-    <li>Read out the last text you sent.</li>
-    <li>What's the biggest red flag you've ignored because they were hot?</li>
-    <li>Who did your last risky text go to?</li>
-    <li>Have you ever kissed anyone in this room?</li>
-    <li>What's your toxic trait, according to your exes?</li>
-    <li>What's the most embarrassing thing in your camera roll right now? Describe it.</li>
-    <li>Whose profile did you last look at on social media?</li>
-    <li>What's the worst thing you've done on a night out?</li>
-    <li>If you HAD to date one person in this room, who?</li>
-    <li>What's the biggest ick someone's ever given you?</li>
-    <li>What was your honest first impression of the player on your left?</li>
-    <li>Which two people in this room would make the best couple?</li>
-    <li>What's the biggest lie you've told a parent?</li>
-    <li>Have you ever ghosted someone? What's your excuse?</li>
-    <li>Who in this room would you trust least with your phone unlocked?</li>
-    <li>Who in this room has the best chat on a night out, and the worst?</li>
-    <li>If you had to swap lives with someone in this room, who and why?</li>
-    <li>What's the most trouble you ever got in at school?</li>
-    <li>What's the cringiest thing you've ever posted online?</li>
-  </ol>
-
-  <p class="midcta">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-tod-questions-mid">Get Antics free</a>.</p>
-
-  <h2><span class="tier dare">20 DARES</span>No lame filler</h2>
-  <p>A good dare has a cost the room can watch. Phones are the modern truth serum: half of these use one.</p>
-  <ol class="qs dares">
-    <li>Let the group scroll your camera roll for 20 seconds. You may veto ONE album.</li>
-    <li>Show the group your screen-time report. No explanations allowed.</li>
-    <li>Text your most recent match "you crossed my mind today x".</li>
-    <li>Kiss someone in this room (cheek counts, cowards).</li>
-    <li>Read out the last thing you typed in your notes app.</li>
-    <li>Do your best impression of the player on your left until they laugh.</li>
-    <li>Let the player on your right send one emoji from your phone to anyone they choose.</li>
-    <li>Perform your go-to flirty dance move on the count of three.</li>
-    <li>Swap phones with the player on your left until your next turn.</li>
-    <li>Demonstrate your best chat-up line on the player on your left with full commitment.</li>
-    <li>Moan the alphabet until someone laughs.</li>
-    <li>Show the last five photos in your camera roll, no skips (one veto).</li>
-    <li>Twerk for 15 seconds.</li>
-    <li>Tell the group your honest first impression of everyone here, one by one.</li>
-    <li>Sit on the lap of the player on your left until your next turn.</li>
-    <li>Make up a 30-second rap about the person on your left.</li>
-    <li>Impersonate another player until someone guesses who it is.</li>
-    <li>Narrate everyone's movements like a nature documentary for the next two rounds.</li>
-    <li>Sing everything you say for the next two rounds.</li>
-    <li>Do your best catwalk across the room and back. Commit to it.</li>
-  </ol>
-
-  <p>More truths, sorted by who is asking. All of them are dealt in the Antics app.</p>
-
-  <h2><span class="tier truth">FOR MATES</span>Truths</h2>
-  <ol class="qs" style="counter-reset: q 20">
-    <li>Who in this room survives longest in a horror film, and who goes first?</li>
-    <li>If you got cancelled tomorrow, what would it most likely be for?</li>
-    <li>What’s the most embarrassing thing in your camera roll right now? Describe it.</li>
-    <li>What’s something you’ve done that your parents can NEVER find out about?</li>
-    <li>What’s the most embarrassed you’ve ever been, on a scale of one to the ER?</li>
-    <li>What’s the worst thing in your search history this week?</li>
-    <li>Whose number in your phone should you definitely delete?</li>
-    <li>What text would ruin you if it was read out right now? Vague answers accepted. Barely.</li>
-    <li>Have you ever been caught talking about someone… by that someone?</li>
-    <li>What’s your villain origin story, the exact moment you became petty?</li>
-    <li>What’s the strangest thing you do when you’re home alone?</li>
-    <li>Have you ever pretended to love a gift? What was it?</li>
-    <li>Have you ever blamed something on a sibling or a pet that was 100% you?</li>
-    <li>What’s the most embarrassing thing you know off by heart?</li>
-    <li>Who in your phone has the most unhinged contact name, and what is it?</li>
-    <li>What talent do you claim that you have never once demonstrated?</li>
-    <li>What’s your most catastrophic autocorrect that actually sent?</li>
-    <li>What’s the dumbest thing you believed until embarrassingly recently?</li>
-    <li>What’s the worst thing you’ve eaten out of politeness?</li>
-    <li>What did you last watch that you’d deny watching?</li>
-    <li>What’s your most embarrassing recurring dream?</li>
-    <li>What’s the one question you were hoping nobody would ask tonight?</li>
-    <li>What’s a rumour about you that’s actually true?</li>
-    <li>What’s the most embarrassing thing a family member has done in front of your friends?</li>
-    <li>Who in this room have you had a full argument with in your head, but never out loud?</li>
-  </ol>
-
-  <h2><span class="tier truth">FOR COUPLES</span>Truths</h2>
-  <ol class="qs" style="counter-reset: q 45">
-    <li>What’s the biggest red flag you’ve ignored because they were hot?</li>
-    <li>What’s the biggest ick someone’s ever given you?</li>
-    <li>Have you ever ghosted someone? What’s your excuse?</li>
-    <li>If everyone in this room had to kiss someone else in the room, who kisses who? You’re assigning the pairs.</li>
-    <li>What’s the riskiest place you’ve done it?</li>
-    <li>What’s your toxic trait, according to your exes?</li>
-    <li>What’s the thirstiest message you’ve ever sent? Quote it as closely as you dare.</li>
-    <li>Who was your worst kiss ever, and what made it so bad?</li>
-    <li>What’s the pettiest thing you’ve done after a breakup?</li>
-    <li>What made YOU the bad date, on the worst date you’ve ever been on?</li>
-    <li>What would your brutally honest dating-app bio say?</li>
-    <li>What’s the most awkward run-in you’ve had with an ex?</li>
-    <li>What’s the weirdest attempt at flirting you’ve ever had to endure?</li>
-    <li>What’s the longest you’ve stayed somewhere terrible because someone fit was there?</li>
-    <li>What’s your most shameful celebrity crush, the one you don’t say out loud?</li>
-  </ol>
-
-  <h2><span class="tier truth">FOR UNI AND FRESHERS</span>Truths</h2>
-  <ol class="qs" style="counter-reset: q 60">
-    <li>What’s the worst thing you’ve done on a night out?</li>
-    <li>What’s the longest you’ve gone without washing your bedsheets?</li>
-    <li>What’s your worst habit that the people you live with have to put up with?</li>
-    <li>What’s the fastest you’ve ever left a party, and why?</li>
-    <li>What’s the most desperate thing you’ve done for Wi-Fi?</li>
-    <li>What’s the most embarrassing or expired thing sitting in your fridge right now?</li>
-    <li>What basic adult task are you still completely useless at?</li>
-    <li>What’s the strangest thing you’ve done to avoid paying full price?</li>
-    <li>What’s the most embarrassing real reason you’ve cancelled plans?</li>
-    <li>What’s the most you’ve ever exaggerated on a CV or application?</li>
-    <li>What’s the most expensive mistake you’ve ever made, in money or time?</li>
-    <li>What purchase are you still justifying to yourself?</li>
-    <li>What are you weirdly cheap about despite spending big elsewhere?</li>
-    <li>What’s your honest review of the last party this group threw?</li>
-    <li>Who in this room do you think has the messiest room at home?</li>
-    <li>Who in this room would you want on your pub quiz team, no contest?</li>
-    <li>What have you said to a barber or taxi driver purely to fill silence?</li>
-    <li>What’s the most illegal thing you’ve ever done?</li>
-    <li>Who in this room do you think is the worst texter?</li>
-    <li>Who in this room would you never lend money to?</li>
-  </ol>
-
-  <p>More dares, sorted by where you are. All of them are dealt in the Antics app.</p>
-
-  <h2><span class="tier dare">LIVING ROOM DARES</span>Dares</h2>
-  <ol class="qs" style="counter-reset: q 20">
-    <li>Wink at every player in turn. If they wink back you have to do a forfeit.</li>
-    <li>Perform the “lost my phone” panic arc, ending with it in your hand.</li>
-    <li>Perform your walk of shame. The full silent performance.</li>
-    <li>Narrate everyone’s movements like a nature documentary for the next two rounds.</li>
-    <li>Perform your morning routine as a dramatic slow-motion action scene.</li>
-    <li>Dance with no music for 30 seconds while everyone watches in silence.</li>
-    <li>Act like a cat until your next turn. Full commitment.</li>
-    <li>Hold eye contact with the player across from you for 60 seconds without laughing.</li>
-    <li>Do 20 star jumps while reciting your favourite film quote.</li>
-    <li>Hold a wall-sit for the next full round.</li>
-    <li>Let the player opposite you restyle your hair however they want.</li>
-    <li>Wear your socks on your hands for the next three rounds.</li>
-    <li>Freeze! Hold whatever pose you’re in for the next full round.</li>
-    <li>Re-enact the last goal, point or win you ever scored, in slow motion.</li>
-    <li>Start a wave. It must go around the room twice.</li>
-    <li>Invent a dance move, teach it, everyone performs it.</li>
-    <li>Redesign the seating plan and make everyone move, with reasons.</li>
-    <li>Perform the last five minutes of this game as one-person theatre.</li>
-    <li>Sit like a Victorian portrait until your next turn.</li>
-    <li>Deliver a disappointed-parent lecture to a cushion.</li>
-    <li>Perform CPR on a cushion with medical-drama-finale intensity.</li>
-    <li>Patrol as a security guard who suspects this group of something.</li>
-    <li>Act out the five stages of grief about the snacks running out.</li>
-    <li>Do the airline safety demonstration for this room, pointing at real exits.</li>
-    <li>Act your morning alarm negotiation, playing both yourself and the alarm.</li>
-  </ol>
-
-  <h2><span class="tier dare">PUB SAFE DARES</span>Dares</h2>
-  <ol class="qs" style="counter-reset: q 45">
-    <li>The group picks one word you can’t say for the rest of the game.</li>
-    <li>Speak in an accent chosen by the group until your next turn.</li>
-    <li>Talk about yourself in the third person for the next three rounds.</li>
-    <li>Speak in a whisper for the next three rounds.</li>
-    <li>Let the group rename you for the rest of the game. Respond only to that name.</li>
-    <li>Do your most convincing impression of a teacher everyone knows.</li>
-    <li>Give a heartfelt acceptance speech for an award you invent on the spot.</li>
-    <li>Deliver an infomercial-style pitch for the nearest object to you.</li>
-    <li>Become a waiter and take everyone’s order, fully in character.</li>
-    <li>Give the next player a movie-trailer voice introduction.</li>
-    <li>Compliment every player while maintaining intense, unbroken eye contact.</li>
-    <li>The group gives you one word each; deliver them all as a motivational speech.</li>
-    <li>Do your best impression of the group chat as a single person.</li>
-    <li>Invent a national holiday, announce it, and demonstrate its traditions.</li>
-    <li>Reenact the worst date you’ve ever been on, using the nearest object as your date.</li>
-    <li>Name every player’s phone case from memory, eyes closed.</li>
-    <li>Name everyone’s hot drink order from memory. The room corrects you loudly.</li>
-    <li>Do your best impression of someone else in this room. The room guesses who.</li>
-    <li>Act out getting terrible news over the phone, no words, just face and body.</li>
-    <li>Lead ten seconds of aggressive gratitude: everyone thanks someone for something tiny.</li>
-  </ol>
-
-  <h2><span class="tier dare">QUICK DARES, NO PROPS</span>Dares</h2>
-  <ol class="qs" style="counter-reset: q 65">
-    <li>Reproduce the sound of dial-up internet from memory.</li>
-    <li>Owl impression: head as far round as it goes, hold, one hoot.</li>
-    <li>Count down from ten like it’s the tensest moment in live television history.</li>
-    <li>Perform “waiting for a microwave” in real time. Ten seconds, rising tension.</li>
-    <li>Say the months of the year in alphabetical order, under thirty seconds.</li>
-    <li>Shadow-box an invisible opponent for fifteen seconds. The room decides who won.</li>
-    <li>Say “good morning” to each player in a different mood: furious, flirty, terrified, royal, betrayed.</li>
-    <li>Demonstrate your kiss face. Hold it while the room rates it out of ten.</li>
-    <li>Perform “slipping on ice” without actually falling. Commit.</li>
-    <li>Be a robot malfunctioning, ending in a full reboot.</li>
-    <li>Stretch like you’ve woken from a hundred-year sleep. Full performance.</li>
-    <li>Both hands on your head, explain calmly why you are not panicking.</li>
-    <li>Describe your last kiss like a football commentator.</li>
-    <li>Do your best red-carpet arrival, complete with fake photographers, for ten seconds.</li>
-    <li>Give the room a one-sentence horoscope for how tonight ends, delivered like a fortune teller.</li>
-  </ol>
-
-  <h2>Refusals, penalties, and keeping it fun</h2>
-  <p>Offline, Truth or Dare is often played with drinks. Set the refusal forfeit before the game instead (10 press-ups, speak in an accent for two rounds). Everyone gets one hard veto per game for anything they're genuinely not doing: the game's better when the pressure is theatrical, not real.</p>
-
-  <section class="faq">
-    <h2>Truth or Dare FAQ</h2>
-
-    <h3>What are the rules of Truth or Dare?</h3>
-    <p>One player asks another "truth or dare?" If they pick truth, they must answer a question honestly; if they pick dare, they must do the challenge. Then they become the asker. Refusing either costs an agreed forfeit.</p>
-
-    <h3>What happens if someone refuses a dare?</h3>
-    <p>They take the forfeit agreed before the game, and a second refusal earns a bigger one. Give everyone one no-questions-asked veto per game so nobody gets genuinely cornered.</p>
-
-    <h3>Can you always pick truth?</h3>
-    <p>House rule it: no more than two truths in a row is the standard fix. Without it, one coward can turn the game into an interview.</p>
-
-    <h3>Is Truth or Dare OK to play without drinking?</h3>
-    <p>Yes: it barely changes. A refusal costs a forfeit and everything else stays the same. It's the questions that carry the game.</p>
-  </section>
-
-  <div class="safety">
-    <strong>Play it right:</strong> 18+ energy needs 18+ consent: the veto rule exists so dares stay funny instead of mean. Nothing here should end friendships, relationships, or employment. Look after your mates.
-  </div>
-
-  <div class="cta-block">
-    <h2>Plenty more where these came from</h2>
-    <p>These 40 are from Antics: the party games app. The full Truth or Dare deck calls players out <strong>by name</strong> and never repeats a prompt until you've seen them all. Plus a whole stack more games, a party-only edition built on forfeits, no ads, no sign-up.</p>
-    <a class="cta" href="/get/?c=site-tod-questions">Get Antics free</a>
-  </div>
-
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/drinking-games/">The classic party games, explained</a>
-    <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
-    <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-      <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
-  </div>
-
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-tod-questions-bar">Get Antics free</a>
+</aside>
+
 
 <script type="application/ld+json">
 {

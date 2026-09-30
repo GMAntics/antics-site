@@ -42,52 +42,53 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
-  <style>
-    :root { --bg:#0E0A1F; --surface:#1C1535; --pink:#FF2E7E; --cyan:#25E5FF; --white:#FFFFFF; --dim:#9C92C7; --body:#D8D3EE; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { background:var(--bg); color:var(--body); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; line-height:1.65; padding:40px 20px 64px; }
-    article { max-width:720px; margin:0 auto; }
-    .crumb { font-size:14px; margin-bottom:28px; } .crumb a { color:var(--dim); text-decoration:none; } .crumb a:hover { color:var(--white); }
-    h1 { color:var(--white); font-size:40px; font-weight:900; line-height:1.15; margin-bottom:10px; }
-    .standfirst { font-size:19px; color:var(--dim); margin-bottom:34px; }
-    .post { background:var(--surface); border-radius:16px; padding:22px 24px; margin-bottom:16px; display:block; text-decoration:none; border:1px solid rgba(255,255,255,0.06); }
-    .post:hover { border-color:var(--pink); }
-    .post h2 { color:var(--white); font-size:21px; font-weight:800; margin-bottom:6px; }
-    .post p { color:var(--dim); font-size:15px; margin:0; }
-    .post .date { color:var(--pink); font-size:12px; font-weight:800; letter-spacing:1px; text-transform:uppercase; display:block; margin-bottom:8px; }
-    footer { text-align:center; margin-top:48px; font-size:13px; color:var(--dim); } footer a { color:var(--dim); }
-    @media (max-width:480px) { h1 { font-size:30px; } }
-  </style>
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> &rsaquo; Blog</nav>
-  <h1>The Antics blog</h1>
-  <p class="standfirst">Ideas, running orders and honest notes on the one thing we care about: making a group of people laugh in the same room.</p>
-  <p>Antics is a pass-the-phone party game app for iPhone and Android, and this is where we write about the games themselves: how to run a night, which games suit which group, and how the cards get written. Every post links to the free guides and generators on this site.</p>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">&rsaquo;</span> Blog</nav>
 
-  <a class="post" href="/blog/freshers-icebreakers/">
-    <span class="date">27 August 2026</span>
-    <h2>Freshers icebreakers that aren't cringe</h2>
-    <p>The name-and-fun-fact circle is dead. Here are the games that actually get a corridor of strangers talking in week one, no props required.</p>
-  </a>
+  <div class="hero">
+    <header class="page-head">
+      <h1>The Antics blog</h1>
+      <p class="standfirst">Ideas, running orders and honest notes on the one thing we care about: making a group of people laugh in the same room.</p>
+    </header>
+  </div>
 
-  <a class="post" href="/blog/party-games-night-running-order/">
-    <span class="date">27 August 2026</span>
-    <h2>How to run a games night that doesn't die at 9pm</h2>
-    <p>Which game to open with, when to raise the stakes, and how to read the room. The running order matters more than the games.</p>
-  </a>
+  <div class="prose">
+    <p>Antics is a pass-the-phone party game app for iPhone and Android, and this is where we write about the games themselves: how to run a night, which games suit which group, and how the cards get written. Every post links to the free guides and generators on this site.</p>
 
-  <a class="post" href="/blog/how-we-write-party-game-questions/">
-    <span class="date">27 August 2026</span>
-    <h2>How we write party game questions people actually answer</h2>
-    <p>Thousands of cards in, here is what separates a question that gets a gasp from one that gets a shrug.</p>
-  </a>
+    <article class="tier-card tone-lime">
+      <h2><span class="tier">27 August 2026</span> <a href="/blog/freshers-icebreakers/">Freshers icebreakers that aren't cringe</a></h2>
+      <p>The name-and-fun-fact circle is dead. Here are the games that actually get a corridor of strangers talking in week one, no props required.</p>
+    </article>
 
-  <footer>
+    <article class="tier-card tone-cyan">
+      <h2><span class="tier">27 August 2026</span> <a href="/blog/party-games-night-running-order/">How to run a games night that doesn't die at 9pm</a></h2>
+      <p>Which game to open with, when to raise the stakes, and how to read the room. The running order matters more than the games.</p>
+    </article>
+
+    <article class="tier-card tone-pink">
+      <h2><span class="tier">27 August 2026</span> <a href="/blog/how-we-write-party-game-questions/">How we write party game questions people actually answer</a></h2>
+      <p>Thousands of cards in, here is what separates a question that gets a gasp from one that gets a shrug.</p>
+    </article>
+  </div>
+
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> &middot; <a href="/party-games/">Party games</a> &middot; <a href="/get/?c=site-blog">Get the app</a>
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-blog-bar">Get Antics free</a>
+</aside>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

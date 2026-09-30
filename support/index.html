@@ -7,42 +7,6 @@
   <title>Support | Antics</title>
   <meta name="description" content="Get help with Antics, the party games app: contact support, restore purchases, referral codes, and how to play each game.">
   <link rel="canonical" href="https://anticsapp.com/support/">
-  <style>
-    :root {
-      --bg: #0E0A1F;
-      --surface: #1C1535;
-      --pink: #FF2E7E;
-      --cyan: #25E5FF;
-      --white: #FFFFFF;
-      --dim: #9C92C7;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-      padding: 48px 20px 80px;
-    }
-    main { max-width: 680px; margin: 0 auto; }
-    .logo {
-      font-size: 28px; font-weight: 900; letter-spacing: 4px;
-      color: var(--white); text-decoration: none;
-    }
-    h1 { font-size: 34px; font-weight: 900; margin: 28px 0 6px; }
-    .updated { color: var(--dim); font-size: 14px; margin-bottom: 32px; }
-    .tldr {
-      background: var(--surface); border-left: 4px solid var(--cyan);
-      border-radius: 12px; padding: 18px 20px; margin-bottom: 36px;
-      font-size: 17px; font-weight: 600;
-    }
-    h2 { font-size: 21px; font-weight: 800; margin: 34px 0 10px; color: var(--cyan); }
-    p, li { color: #D8D3EE; font-size: 16px; }
-    ul { padding-left: 22px; margin: 10px 0; }
-    li { margin-bottom: 8px; }
-    a { color: var(--pink); }
-    .footer { margin-top: 56px; color: var(--dim); font-size: 13px; }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -97,80 +61,119 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
 <body>
-  <main>
-    <a class="logo" href="/">ANTICS</a>
+<div class="page">
+<main>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">ANTICS</a> <span aria-hidden="true">&rsaquo;</span> Support</nav>
+
+  <header class="page-head">
     <h1>Support</h1>
-    <p class="updated">Antics: the party games app for iPhone and Android</p>
+    <p class="standfirst">Antics: the party games app for iPhone and Android</p>
+  </header>
 
-    <div class="tldr">
-      Fastest route: email
-      <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>.
-      A human reads everything: usually the person who built the app.
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#contact">Contact</a></li>
+        <li class="tone-lime"><a href="#restore">Restore your purchase</a></li>
+        <li class="tone-pink"><a href="#referral-codes">Referral codes</a></li>
+        <li class="tone-orange"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-purple"><a href="#privacy">Privacy</a></li>
+        <li class="tone-cyan"><a href="#bugs">Found a bug?</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <div class="rules tone-cyan">
+        <p>Fastest route: email
+        <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>.
+        A human reads everything: usually the person who built the app.</p>
+      </div>
+
+      <section class="section tone-cyan" id="contact">
+        <h2>Contact</h2>
+        <p>
+          For any problem, question, refund query or idea, email
+          <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>.
+          Replies normally come within a day or two.
+        </p>
+      </section>
+
+      <section class="section tone-lime" id="restore">
+        <h2>Restore your purchase</h2>
+        <p>
+          Premium is tied to your Apple&nbsp;Account, not your phone. If you've
+          reinstalled the app or switched devices:
+        </p>
+        <ul>
+          <li>Make sure the device is signed into the Apple&nbsp;Account you bought with</li>
+          <li>Open the premium screen in Antics and tap <strong>Restore Purchases</strong></li>
+          <li>Still locked? Email us and we'll sort it</li>
+        </ul>
+        <p>
+          Refunds are handled by Apple: go to
+          <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>
+          and sign in with your Apple&nbsp;Account.
+        </p>
+      </section>
+
+      <section class="section tone-pink" id="referral-codes">
+        <h2>Referral codes</h2>
+        <p>A few rules that catch people out:</p>
+        <ul>
+          <li>Each iPhone can redeem <strong>one</strong> referral code, ever</li>
+          <li>You can't redeem your own code</li>
+        </ul>
+        <p>If a code still won't go through, email us with the code and we'll look it up.</p>
+      </section>
+
+      <section class="section tone-orange" id="how-to-play">
+        <h2>How to play</h2>
+        <p>Full free rules guides for the games:</p>
+        <ul class="link-list">
+          <li><a href="/drinking-games/">Party &amp; drinking games: the hub</a></li>
+          <li><a href="/ring-of-fire-rules/">Ring of Fire rules</a></li>
+          <li><a href="/kings-cup-rules/">Kings Cup rules</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever questions</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare questions</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather questions</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To questions</a></li>
+          <li><a href="/forfeit-ideas/">Forfeit ideas</a></li>
+        </ul>
+      </section>
+
+      <section class="section tone-purple" id="privacy">
+        <h2>Privacy</h2>
+        <p>
+          Antics has no accounts, no ads and no sign-up: the short version is
+          that we never know who you are. The full detail lives in the
+          <a href="/privacy.html">privacy policy</a>.
+        </p>
+      </section>
+
+      <section class="section tone-cyan" id="bugs">
+        <h2>Found a bug?</h2>
+        <p>
+          Tell us what happened, what you expected, and your iPhone model +
+          iOS version. Screenshots help loads. Straight to
+          <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>: 
+          bug reports get read first.
+        </p>
+      </section>
     </div>
+  </div>
 
-    <h2>Contact</h2>
-    <p>
-      For any problem, question, refund query or idea, email
-      <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>.
-      Replies normally come within a day or two.
-    </p>
-
-    <h2>Restore your purchase</h2>
-    <p>
-      Premium is tied to your Apple&nbsp;Account, not your phone. If you've
-      reinstalled the app or switched devices:
-    </p>
-    <ul>
-      <li>Make sure the device is signed into the Apple&nbsp;Account you bought with</li>
-      <li>Open the premium screen in Antics and tap <strong>Restore Purchases</strong></li>
-      <li>Still locked? Email us and we'll sort it</li>
-    </ul>
-    <p>
-      Refunds are handled by Apple: go to
-      <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>
-      and sign in with your Apple&nbsp;Account.
-    </p>
-
-    <h2>Referral codes</h2>
-    <p>A few rules that catch people out:</p>
-    <ul>
-      <li>Each iPhone can redeem <strong>one</strong> referral code, ever</li>
-      <li>You can't redeem your own code</li>
-    </ul>
-    <p>If a code still won't go through, email us with the code and we'll look it up.</p>
-
-    <h2>How to play</h2>
-    <p>Full free rules guides for the games:</p>
-    <ul>
-      <li><a href="/drinking-games/">Party &amp; drinking games: the hub</a></li>
-      <li><a href="/ring-of-fire-rules/">Ring of Fire rules</a></li>
-      <li><a href="/kings-cup-rules/">Kings Cup rules</a></li>
-      <li><a href="/never-have-i-ever-questions/">Never Have I Ever questions</a></li>
-      <li><a href="/truth-or-dare-questions/">Truth or Dare questions</a></li>
-      <li><a href="/would-you-rather-questions/">Would You Rather questions</a></li>
-      <li><a href="/most-likely-to-questions/">Most Likely To questions</a></li>
-      <li><a href="/forfeit-ideas/">Forfeit ideas</a></li>
-    </ul>
-
-    <h2>Privacy</h2>
-    <p>
-      Antics has no accounts, no ads and no sign-up: the short version is
-      that we never know who you are. The full detail lives in the
-      <a href="/privacy.html">privacy policy</a>.
-    </p>
-
-    <h2>Found a bug?</h2>
-    <p>
-      Tell us what happened, what you expected, and your iPhone model +
-      iOS version. Screenshots help loads. Straight to
-      <a href="mailto:support@anticsapp.com">support@anticsapp.com</a>: 
-      bug reports get read first.
-    </p>
-
-    <p class="footer">Antics: pass-the-phone party games. Made in the UK. 🎉</p>
-  </main>
+  <footer class="site-foot">
+    <p>Antics: pass-the-phone party games. Made in the UK. 🎉</p>
+  </footer>
+</main>
+</div>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

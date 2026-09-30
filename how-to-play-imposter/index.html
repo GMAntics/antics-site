@@ -16,56 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .t1 { color: var(--lime); } h2 .t2 { color: var(--cyan); } h2 .t3 { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    ul { margin: 0 0 14px 22px; }
-    ol.steps { margin: 0 0 14px 22px; }
-    ol.steps li { margin-bottom: 8px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    .round { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .round p { margin-bottom: 8px; }
-    .round .say { color: var(--white); }
-    .words { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .words p { margin-bottom: 8px; }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; margin: 4px 5px; }
-    .cta.secondary { background: transparent; border: 1px solid var(--dim); }
-    .cta-alt { margin-top: 12px; font-size: 14px; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -92,168 +42,220 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> › How to play Imposter</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> How to play Imposter</nav>
 
-  <h1>How to play Imposter: rules, example rounds and how to actually win</h1>
-  <p class="standfirst">One player doesn't know the secret word. Everyone else does. Questions fly, somebody panics, the vote is never unanimous. If your group is sitting there right now waiting to start, you'll be playing in two minutes.</p>
-
-  <div class="tldr">
-    <p><strong>The game in 30 seconds:</strong> everyone is secretly given the same word, except one player. That's the <strong>imposter</strong>, and they get nothing. Go round the circle giving clues about the word (or asking each other questions about it). The imposter has to bluff their way through without knowing what anyone is talking about.</p>
-    <p><strong>The vote:</strong> after a round or two of clues, count down from three and everyone points at who they think the imposter is. Most fingers is accused.</p>
-    <p><strong>The twist:</strong> a caught imposter gets one guess at the word. Guess right and they steal the win anyway. Losers take a <a href="/forfeit-ideas/">forfeit</a>.</p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>How to play Imposter: rules, example rounds and how to actually win</h1>
+      <p class="standfirst">One player doesn't know the secret word. Everyone else does. Questions fly, somebody panics, the vote is never unanimous. If your group is sitting there right now waiting to start, you'll be playing in two minutes.</p>
+    </header>
   </div>
 
-  <h2>What Imposter actually is</h2>
-  <p>Imposter is the living-room version of social deduction: same species as Among Us and Spyfall, no screens required once the round starts. One person in your group is missing one piece of information, and the whole game is watching them pretend they aren't. The clues aren't really the game. The faces people make while giving them are the game.</p>
-  <p>It works because both sides are playing on a knife edge. The players who know the word can't be too obvious with their clues, or the imposter learns the word and skates. The imposter can't be too vague, or everyone smells it. The best rounds end with the room split, two people shouting, and at least one wrong accusation delivered with total confidence.</p>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#how-to-play">In 30 seconds</a></li>
+        <li class="tone-lime"><a href="#what-it-is">What it is</a></li>
+        <li class="tone-orange"><a href="#setup">Setup</a></li>
+        <li class="tone-pink"><a href="#rules">Full rules</a></li>
+        <li class="tone-cyan"><a href="#examples">Example rounds</a></li>
+        <li class="tone-purple"><a href="#imposter-tips">Winning as imposter</a></li>
+        <li class="tone-lime"><a href="#detective-tips">Catching the imposter</a></li>
+        <li class="tone-orange"><a href="#words">Words</a></li>
+        <li class="tone-pink"><a href="#variations">Variations</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
 
-  <h2>Setup: one phone, two minutes</h2>
-  <p>You need <strong>4+ players</strong> (5 to 8 is the sweet spot) and a way to deal the secret. Two ways to do it:</p>
-  <h3>The app way (fastest)</h3>
-  <ol class="steps">
-    <li>Open Imposter in <a href="/get/?c=site-imposter-inline">Antics</a>. It's one of the free games.</li>
-    <li>Add everyone's names.</li>
-    <li>Pass the phone round the circle. Each player peeks at their screen: everyone sees the word, one player sees that they're the imposter. Nobody deals, so nobody's compromised.</li>
-    <li>Phone goes down. Start the clues.</li>
-  </ol>
-  <h3>The napkin way (no downloads, more admin)</h3>
-  <ol class="steps">
-    <li>Tear paper into one strip per player.</li>
-    <li>One volunteer writes the word on every strip except one, and "IMPOSTER" on the last. (The writer knows the word but not who gets which strip, so they can still play.)</li>
-    <li>Fold, shuffle in a bowl or a hat, everyone draws.</li>
-    <li>Read yours in secret, poker face on, strips back in the bowl.</li>
-  </ol>
+    <div class="prose">
+      <div class="rules tone-cyan" id="how-to-play">
+        <p><strong>The game in 30 seconds:</strong> everyone is secretly given the same word, except one player. That's the <strong>imposter</strong>, and they get nothing. Go round the circle giving clues about the word (or asking each other questions about it). The imposter has to bluff their way through without knowing what anyone is talking about.</p>
+        <p><strong>The vote:</strong> after a round or two of clues, count down from three and everyone points at who they think the imposter is. Most fingers is accused.</p>
+        <p><strong>The twist:</strong> a caught imposter gets one guess at the word. Guess right and they steal the win anyway. Losers take a <a href="/forfeit-ideas/">forfeit</a>.</p>
+      </div>
 
-  <p>Need words? The <a href="/imposter-game-words/">Imposter game words</a> pages list every deck in the app, with the hints. Bored of the classic? Try the <a href="/imposter-game-variations/">variations</a>: Undercover, Mr White, two imposters and more.</p>
+      <section class="section tone-lime" id="what-it-is">
+        <h2>What Imposter actually is</h2>
+        <p>Imposter is the living-room version of social deduction: same species as Among Us and Spyfall, no screens required once the round starts. One person in your group is missing one piece of information, and the whole game is watching them pretend they aren't. The clues aren't really the game. The faces people make while giving them are the game.</p>
+        <p>It works because both sides are playing on a knife edge. The players who know the word can't be too obvious with their clues, or the imposter learns the word and skates. The imposter can't be too vague, or everyone smells it. The best rounds end with the room split, two people shouting, and at least one wrong accusation delivered with total confidence.</p>
+      </section>
 
-  <h2>The full rules</h2>
-  <h3>1. The clue round</h3>
-  <p>Going round the circle, each player says <strong>one word or short phrase</strong> connected to the secret word. No pointing at objects, no miming, no saying the word itself or any part of it. The imposter has to say something too, based entirely on what they've heard so far.</p>
-  <p>Prefer a chattier game? Play <strong>question mode</strong> instead: each player asks any other player one question about the word ("Would you take your nan?", "How much does it cost?"). Answers can be short, but they can't be refused.</p>
-  <h3>2. The accusation</h3>
-  <p>After one full circuit (two for bigger groups), anyone can call the vote. Count down from three and everyone points at their suspect at the same time. Most fingers is formally accused. On a tie, run one more clue each from the tied players, then re-vote.</p>
-  <h3>3. The imposter's last stand</h3>
-  <p>If the accused player really is the imposter, they get <strong>one guess at the word</strong>. Right guess: the imposter steals the win and the group takes the forfeit. Wrong guess: the imposter takes it. If the group accuses an innocent player, the imposter wins on the spot, no guess needed.</p>
-  <h3>4. Stakes</h3>
-  <p>Losing side takes a forfeit: the group picks it, the loser does it. Keep a few ready from our <a href="/forfeit-ideas/">forfeit list</a>, or play for points across five rounds and give the overall loser one big one.</p>
+      <section class="section tone-orange" id="setup">
+        <h2>Setup: one phone, two minutes</h2>
+        <p>You need <strong>4+ players</strong> (5 to 8 is the sweet spot) and a way to deal the secret. Two ways to do it:</p>
+        <h3>The app way (fastest)</h3>
+        <ol>
+          <li>Open Imposter in <a href="/get/?c=site-imposter-inline">Antics</a>. It's one of the free games.</li>
+          <li>Add everyone's names.</li>
+          <li>Pass the phone round the circle. Each player peeks at their screen: everyone sees the word, one player sees that they're the imposter. Nobody deals, so nobody's compromised.</li>
+          <li>Phone goes down. Start the clues.</li>
+        </ol>
+        <h3>The napkin way (no downloads, more admin)</h3>
+        <ol>
+          <li>Tear paper into one strip per player.</li>
+          <li>One volunteer writes the word on every strip except one, and "IMPOSTER" on the last. (The writer knows the word but not who gets which strip, so they can still play.)</li>
+          <li>Fold, shuffle in a bowl or a hat, everyone draws.</li>
+          <li>Read yours in secret, poker face on, strips back in the bowl.</li>
+        </ol>
+        <p>Need words? The <a href="/imposter-game-words/">Imposter game words</a> pages list every deck in the app, with the hints. Bored of the classic? Try the <a href="/imposter-game-variations/">variations</a>: Undercover, Mr White, two imposters and more.</p>
+      </section>
 
-  <h2>Example rounds (so you can hear how it sounds)</h2>
+      <section class="section tone-pink" id="rules">
+        <h2>The full rules</h2>
+        <h3>1. The clue round</h3>
+        <p>Going round the circle, each player says <strong>one word or short phrase</strong> connected to the secret word. No pointing at objects, no miming, no saying the word itself or any part of it. The imposter has to say something too, based entirely on what they've heard so far.</p>
+        <p>Prefer a chattier game? Play <strong>question mode</strong> instead: each player asks any other player one question about the word ("Would you take your nan?", "How much does it cost?"). Answers can be short, but they can't be refused.</p>
+        <h3>2. The accusation</h3>
+        <p>After one full circuit (two for bigger groups), anyone can call the vote. Count down from three and everyone points at their suspect at the same time. Most fingers is formally accused. On a tie, run one more clue each from the tied players, then re-vote.</p>
+        <h3>3. The imposter's last stand</h3>
+        <p>If the accused player really is the imposter, they get <strong>one guess at the word</strong>. Right guess: the imposter steals the win and the group takes the forfeit. Wrong guess: the imposter takes it. If the group accuses an innocent player, the imposter wins on the spot, no guess needed.</p>
+        <h3>4. Stakes</h3>
+        <p>Losing side takes a forfeit: the group picks it, the loser does it. Keep a few ready from our <a href="/forfeit-ideas/">forfeit list</a>, or play for points across five rounds and give the overall loser one big one.</p>
+      </section>
 
-  <div class="round">
-    <p><strong>Round 1: the word is AEROPLANE.</strong> Five players. Dan is the imposter.</p>
-    <p class="say">Amy: "Tray tables." · Priya: "Ears popping." · Dan: "...Queueing." · Sam: "Duty free." · Jess: "Legroom."</p>
-    <p>"Queueing" survives round one because you queue for everything. Round two: Amy says "Window seat" and Dan, cornered, says "Tickets". Too generic, twice in a row. The vote lands on him, 3 to 2. Last stand: he's heard tray tables and window seat, so he guesses "Train". Forfeit for Dan, and he still claims he'd have got it with one more clue.</p>
+      <section class="section tone-cyan" id="examples">
+        <h2>Example rounds (so you can hear how it sounds)</h2>
+        <div class="rules">
+          <p><strong>Round 1: the word is AEROPLANE.</strong> Five players. Dan is the imposter.</p>
+          <p>Amy: "Tray tables." · Priya: "Ears popping." · Dan: "...Queueing." · Sam: "Duty free." · Jess: "Legroom."</p>
+          <p>"Queueing" survives round one because you queue for everything. Round two: Amy says "Window seat" and Dan, cornered, says "Tickets". Too generic, twice in a row. The vote lands on him, 3 to 2. Last stand: he's heard tray tables and window seat, so he guesses "Train". Forfeit for Dan, and he still claims he'd have got it with one more clue.</p>
+        </div>
+        <div class="rules">
+          <p><strong>Round 2: the word is SHREK.</strong> Question mode. Leah is the imposter.</p>
+          <p>Sam asks Amy: "Would your mum like it?" Amy: "She'd love it." · Priya asks Leah: "What's the best bit?"</p>
+          <p>Leah, who has heard exactly one clue, tries "The ending". Priya follows up: "Which ending?" and Leah says "The wedding", which is a lucky guess that happens to be true. She survives the vote. The group accuses Sam, whose questions were "weirdly confident". Leah wins and reveals nothing until the forfeit is fully complete. Cold.</p>
+        </div>
+        <div class="rules">
+          <p><strong>Round 3: the word is GYM.</strong> Six players. Marcus is the imposter.</p>
+          <p>Clues, in order: "January." · "Mirrors." · "Grunting." · Marcus: "Membership." · "Protein." · "Lycra."</p>
+          <p>"Membership" is a perfect imposter clue: it fits gyms, clubs, cinemas and about forty other things. The vote goes to poor Tom, whose "Protein" was judged "too obvious, like he was showing off he knew". Innocent. Marcus wins. This is the game's signature outcome: the imposter walks free while the group turns on its most enthusiastic member.</p>
+        </div>
+      </section>
+
+      <section class="section tone-purple" id="imposter-tips">
+        <h2>How to win as the imposter</h2>
+        <ul>
+          <li><strong>Never invent, always echo.</strong> Your clue should be one step sideways from someone else's. If they said "Tray tables", you live near "Snacks", not out at "Engines".</li>
+          <li><strong>Beg to go late.</strong> Position is everything. Fake a sneeze, ask for the rules again, do anything to hear two clues before you speak.</li>
+          <li><strong>Accuse early and loudly.</strong> The imposter who points first rarely gets pointed at. Pick whoever gave the vaguest legitimate clue and prosecute them.</li>
+          <li><strong>Build your guess as you go.</strong> Keep a running shortlist in your head. Even if you're caught, the last-stand guess wins you the round.</li>
+          <li><strong>Match the room's energy.</strong> Overexplaining is how imposters die. If everyone's giving two words, you give two words.</li>
+        </ul>
+      </section>
+
+      <section class="section tone-lime" id="detective-tips">
+        <h2>How to catch the imposter</h2>
+        <ul>
+          <li><strong>Calibrate your clue.</strong> The perfect clue proves you know the word without teaching it. "Ears popping" for aeroplane is elite. "Wings" is a gift to the imposter.</li>
+          <li><strong>Watch for the echo.</strong> Imposters recycle. A clue that only connects to a previous clue, and not to anything new, is the tell.</li>
+          <li><strong>Ask the follow-up.</strong> In question mode, "which bit?" and "why?" are lethal. Vague answers survive one question, never two.</li>
+          <li><strong>Beware the confident accuser.</strong> The loudest prosecutor in the room is the imposter often enough that it should cost them your benefit of the doubt.</li>
+          <li><strong>Don't punish good clues.</strong> Convicting someone for knowing the word too well (see: Tom, protein, gym) is how imposters win. Obvious is not the same as guilty.</li>
+        </ul>
+      </section>
+
+      <section class="section tone-orange" id="words">
+        <h2>Words that work (steal these)</h2>
+        <div class="rules">
+          <p><strong>Places:</strong> aeroplane, gym, wedding, tent, casino, school assembly, hot tub, lift, campsite, A&amp;E.</p>
+          <p><strong>Things:</strong> toothbrush, air fryer, trampoline, karaoke machine, hot water bottle, self-checkout, sunbed.</p>
+          <p><strong>People and characters:</strong> Shrek, James Bond, your PE teacher, Santa, a wedding DJ.</p>
+          <p><strong>Events:</strong> New Year's Eve, jury duty, a driving test, a job interview, moving house.</p>
+        </div>
+        <p>The pattern: <strong>specific enough to have texture, universal enough that everyone's got material.</strong> "Toothpaste" runs for days. "Existentialism" dies in one circuit.</p>
+      </section>
+
+      <section class="section tone-pink" id="variations">
+        <h2>Common variations</h2>
+        <h3>Undercover (the decoy word)</h3>
+        <p>Instead of getting nothing, the imposter gets a <em>similar</em> word: everyone has "beach", the imposter has "swimming pool". Now the imposter doesn't know they're the imposter, and their clues are almost right. Slower burn, bigger payoff.</p>
+        <h3>Two imposters</h3>
+        <p>For 8+ players, deal two imposters (they don't know each other). The vote runs twice. Chaos scales beautifully.</p>
+        <h3>Lightning round</h3>
+        <p>One circuit of clues, then straight to the vote, no debate. Rounds take 90 seconds. Good for warming a room up or settling a score.</p>
+        <h3>Locations mode</h3>
+        <p>Spyfall-style: the word is always a place and every non-imposter also gets a role there (at the airport: pilot, customs officer, toddler having a meltdown). Questions get answered in character. More setup, more theatre.</p>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>Imposter FAQ</h2>
+
+        <h3>How many players do you need for Imposter?</h3>
+        <p>Four minimum, and 5 to 8 is the sweet spot. With three, the imposter gets found by pure elimination. Past ten, split into two circles and compare casualties after.</p>
+
+        <h3>What happens if the imposter guesses the word?</h3>
+        <p>They steal the win, even after being caught. That last-stand guess is what keeps the game tense to the final second, so never skip it.</p>
+
+        <h3>What if someone accidentally says the secret word?</h3>
+        <p>Instant forfeit for the blurter, dead round, redeal with a new word. It happens roughly once a night and it is always the same person.</p>
+
+        <h3>Can the imposter accuse other players?</h3>
+        <p>Yes, and they should. There's no rule protecting innocent players from an imposter running the prosecution. That's most of the fun.</p>
+
+        <h3>Is Imposter the same as Among Us or Spyfall?</h3>
+        <p>Same family. Among Us is the video game that made "imposter" a household word; Spyfall is the locations version with roles. This is the pass-the-phone party version: no screens mid-round, no tasks, just clues, lies and a vote.</p>
+
+        <h3>Do you need an app to play Imposter?</h3>
+        <p>No, the napkin method above works fine. An app is just faster and means nobody has to sit out as dealer or squint at handwriting. Antics deals the word, keeps the imposter secret and tracks the score.</p>
+      </section>
+
+      <div class="safety">
+        <strong>Make it land:</strong> the game lives or dies on clue calibration, so agree the level before round one. First-clue-too-obvious is the only real way to break Imposter. And go easy on the quiet ones: "they're not saying much" is not evidence, it's just Tuesday.
+      </div>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Retire the napkins</h2>
+        <p>Imposter is one of the free games in Antics: the party games app. Pass the phone, everyone peeks, the app keeps the secret and deals the words, so nobody knows anything they shouldn't. One phone. Everyone's problem. And when the vote goes wrong, blame the app.</p>
+        <a class="cta" href="/get/?c=site-imposter">Download on the App Store</a>
+        <a class="cta btn--ghost" href="/get/?c=site-imposter">Get it on Google Play</a>
+        <p class="note">On a laptop? <a href="/get/?c=site-imposter-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <div class="round">
-    <p><strong>Round 2: the word is SHREK.</strong> Question mode. Leah is the imposter.</p>
-    <p class="say">Sam asks Amy: "Would your mum like it?" Amy: "She'd love it." · Priya asks Leah: "What's the best bit?"</p>
-    <p>Leah, who has heard exactly one clue, tries "The ending". Priya follows up: "Which ending?" and Leah says "The wedding", which is a lucky guess that happens to be true. She survives the vote. The group accuses Sam, whose questions were "weirdly confident". Leah wins and reveals nothing until the forfeit is fully complete. Cold.</p>
-  </div>
-
-  <div class="round">
-    <p><strong>Round 3: the word is GYM.</strong> Six players. Marcus is the imposter.</p>
-    <p class="say">Clues, in order: "January." · "Mirrors." · "Grunting." · Marcus: "Membership." · "Protein." · "Lycra."</p>
-    <p>"Membership" is a perfect imposter clue: it fits gyms, clubs, cinemas and about forty other things. The vote goes to poor Tom, whose "Protein" was judged "too obvious, like he was showing off he knew". Innocent. Marcus wins. This is the game's signature outcome: the imposter walks free while the group turns on its most enthusiastic member.</p>
-  </div>
-
-  <h2>How to win as the imposter</h2>
-  <ul>
-    <li><strong>Never invent, always echo.</strong> Your clue should be one step sideways from someone else's. If they said "Tray tables", you live near "Snacks", not out at "Engines".</li>
-    <li><strong>Beg to go late.</strong> Position is everything. Fake a sneeze, ask for the rules again, do anything to hear two clues before you speak.</li>
-    <li><strong>Accuse early and loudly.</strong> The imposter who points first rarely gets pointed at. Pick whoever gave the vaguest legitimate clue and prosecute them.</li>
-    <li><strong>Build your guess as you go.</strong> Keep a running shortlist in your head. Even if you're caught, the last-stand guess wins you the round.</li>
-    <li><strong>Match the room's energy.</strong> Overexplaining is how imposters die. If everyone's giving two words, you give two words.</li>
-  </ul>
-
-  <h2>How to catch the imposter</h2>
-  <ul>
-    <li><strong>Calibrate your clue.</strong> The perfect clue proves you know the word without teaching it. "Ears popping" for aeroplane is elite. "Wings" is a gift to the imposter.</li>
-    <li><strong>Watch for the echo.</strong> Imposters recycle. A clue that only connects to a previous clue, and not to anything new, is the tell.</li>
-    <li><strong>Ask the follow-up.</strong> In question mode, "which bit?" and "why?" are lethal. Vague answers survive one question, never two.</li>
-    <li><strong>Beware the confident accuser.</strong> The loudest prosecutor in the room is the imposter often enough that it should cost them your benefit of the doubt.</li>
-    <li><strong>Don't punish good clues.</strong> Convicting someone for knowing the word too well (see: Tom, protein, gym) is how imposters win. Obvious is not the same as guilty.</li>
-  </ul>
-
-  <h2>Words that work (steal these)</h2>
-  <div class="words">
-    <p><strong>Places:</strong> aeroplane, gym, wedding, tent, casino, school assembly, hot tub, lift, campsite, A&amp;E.</p>
-    <p><strong>Things:</strong> toothbrush, air fryer, trampoline, karaoke machine, hot water bottle, self-checkout, sunbed.</p>
-    <p><strong>People and characters:</strong> Shrek, James Bond, your PE teacher, Santa, a wedding DJ.</p>
-    <p><strong>Events:</strong> New Year's Eve, jury duty, a driving test, a job interview, moving house.</p>
-    <p>The pattern: <strong>specific enough to have texture, universal enough that everyone's got material.</strong> "Toothpaste" runs for days. "Existentialism" dies in one circuit.</p>
-  </div>
-
-  <h2>Common variations</h2>
-  <h3>Undercover (the decoy word)</h3>
-  <p>Instead of getting nothing, the imposter gets a <em>similar</em> word: everyone has "beach", the imposter has "swimming pool". Now the imposter doesn't know they're the imposter, and their clues are almost right. Slower burn, bigger payoff.</p>
-  <h3>Two imposters</h3>
-  <p>For 8+ players, deal two imposters (they don't know each other). The vote runs twice. Chaos scales beautifully.</p>
-  <h3>Lightning round</h3>
-  <p>One circuit of clues, then straight to the vote, no debate. Rounds take 90 seconds. Good for warming a room up or settling a score.</p>
-  <h3>Locations mode</h3>
-  <p>Spyfall-style: the word is always a place and every non-imposter also gets a role there (at the airport: pilot, customs officer, toddler having a meltdown). Questions get answered in character. More setup, more theatre.</p>
-
-  <section class="faq">
-    <h2>Imposter FAQ</h2>
-
-    <h3>How many players do you need for Imposter?</h3>
-    <p>Four minimum, and 5 to 8 is the sweet spot. With three, the imposter gets found by pure elimination. Past ten, split into two circles and compare casualties after.</p>
-
-    <h3>What happens if the imposter guesses the word?</h3>
-    <p>They steal the win, even after being caught. That last-stand guess is what keeps the game tense to the final second, so never skip it.</p>
-
-    <h3>What if someone accidentally says the secret word?</h3>
-    <p>Instant forfeit for the blurter, dead round, redeal with a new word. It happens roughly once a night and it is always the same person.</p>
-
-    <h3>Can the imposter accuse other players?</h3>
-    <p>Yes, and they should. There's no rule protecting innocent players from an imposter running the prosecution. That's most of the fun.</p>
-
-    <h3>Is Imposter the same as Among Us or Spyfall?</h3>
-    <p>Same family. Among Us is the video game that made "imposter" a household word; Spyfall is the locations version with roles. This is the pass-the-phone party version: no screens mid-round, no tasks, just clues, lies and a vote.</p>
-
-    <h3>Do you need an app to play Imposter?</h3>
-    <p>No, the napkin method above works fine. An app is just faster and means nobody has to sit out as dealer or squint at handwriting. Antics deals the word, keeps the imposter secret and tracks the score.</p>
-  </section>
-
-  <div class="safety">
-    <strong>Make it land:</strong> the game lives or dies on clue calibration, so agree the level before round one. First-clue-too-obvious is the only real way to break Imposter. And go easy on the quiet ones: "they're not saying much" is not evidence, it's just Tuesday.
-  </div>
-
-  <div class="cta-block">
-    <h2>Retire the napkins</h2>
-    <p>Imposter is one of the free games in Antics: the party games app. Pass the phone, everyone peeks, the app keeps the secret and deals the words, so nobody knows anything they shouldn't. One phone. Everyone's problem. And when the vote goes wrong, blame the app.</p>
-    <a class="cta" href="/get/?c=site-imposter">Download on the App Store</a>
-    <a class="cta secondary" href="/get/?c=site-imposter">Get it on Google Play</a>
-    <p class="cta-alt">On a laptop? <a href="/get/?c=site-imposter-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
-  </div>
-
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-    <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
-  </div>
-
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-imposter-bar">Get Antics free</a>
+</aside>
+
 
 <script type="application/ld+json">
 {

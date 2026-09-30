@@ -16,64 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .t1 { color: var(--lime); } h2 .t2 { color: var(--cyan); } h2 .t3 { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    ul { margin: 0 0 14px 22px; }
-    ol.steps { margin: 0 0 14px 22px; }
-    ol.steps li { margin-bottom: 8px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    .round { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .round p { margin-bottom: 8px; }
-    .round .say { color: var(--white); }
-    .words { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .words p { margin-bottom: 8px; }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; margin: 4px 5px; }
-    .cta.secondary { background: transparent; border: 1px solid var(--dim); }
-    .cta-alt { margin-top: 12px; font-size: 14px; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .wt { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 15px; }
-    .wt th { text-align: left; color: var(--dim); font-weight: 700; padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 13px; letter-spacing: 1px; }
-    .wt td { padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
-    .wt td:first-child { color: var(--white); font-weight: 700; }
-    .cats { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 8px; }
-    .cats a { background: var(--surface); border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 700; color: var(--white); text-decoration: none; border: 1px solid rgba(255,255,255,0.08); }
-    .cats a:hover { border-color: var(--pink); }
-    @media (max-width: 480px) { .wt { font-size: 14px; } .wt th, .wt td { padding: 7px 5px; } }
-  </style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -106,68 +48,170 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> &rsaquo; <a href="/how-to-play-imposter/">Imposter</a> &rsaquo; Sports words for Imposter</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">&rsaquo;</span> <a href="/how-to-play-imposter/">Imposter</a> <span aria-hidden="true">&rsaquo;</span> Sports words for Imposter</nav>
 
-  <h1>Sports words for Imposter</h1>
-  <p class="standfirst">It is not a football deck, and the football lads find that out quickly. The list runs from darts to synchronised swimming, with a Mexican wave somewhere in the middle.</p>
-
-  <p>The joy of this deck is that nobody is an expert in all of it. The mate who can explain offside has nothing to say about Curling beyond the fact that the whole country watches it for one fortnight every four years and then forgets it exists. It is not only sports, either: Sports Day, the Mexican Wave and the Mascot are in here too, and they make some of the best rounds because everyone has a memory attached. Egg and spoon, anyone?</p>
-  <h2>The full sports word list, with the hints the app gives the imposter</h2>
-  <p>Every word below is dealt in the Antics app. The easy hint is what the imposter sees on the default setting; the hard hint is the harder tier. Playing from this page with paper? Give the imposter one hint or none, your call.</p>
-  <table class="wt"><tr><th>WORD</th><th>EASY HINT</th><th>HARD HINT</th></tr><tr><td>Darts</td><td>Pub</td><td>Maths</td></tr><tr><td>Sumo</td><td>Japan</td><td>Ritual</td></tr><tr><td>Snooker</td><td>Cue</td><td>Silence</td></tr><tr><td>Golf</td><td>Holes</td><td>Slow</td></tr><tr><td>Boxing</td><td>Gloves</td><td>Bruises</td></tr><tr><td>Curling</td><td>Winter</td><td>Shouting</td></tr><tr><td>Trampolining</td><td>Garden</td><td>Dizzy</td></tr><tr><td>Dodgeball</td><td>Ducking</td><td>Chaos</td></tr><tr><td>Table Tennis</td><td>Spin</td><td>Reflexes</td></tr><tr><td>Synchronised Swimming</td><td>Sequins</td><td>Breath</td></tr><tr><td>Surfing</td><td>Waves</td><td>Balance</td></tr><tr><td>Fencing</td><td>Swords</td><td>Posh</td></tr><tr><td>Archery</td><td>Target</td><td>Steady</td></tr><tr><td>Bowling</td><td>Pins</td><td>Birthday</td></tr><tr><td>Cheerleading</td><td>Pompoms</td><td>Cringe</td></tr><tr><td>Rowing</td><td>Oars</td><td>Blisters</td></tr><tr><td>Cricket</td><td>Whites</td><td>Polite</td></tr><tr><td>Basketball</td><td>Hoops</td><td>Squeaky</td></tr><tr><td>Gymnastics</td><td>Flexible</td><td>Judges</td></tr><tr><td>Skateboarding</td><td>Ramps</td><td>Teenagers</td></tr><tr><td>Formula 1</td><td>Laps</td><td>Loud</td></tr><tr><td>Horse Racing</td><td>Saddle</td><td>Glamour</td></tr><tr><td>Karate</td><td>Belts</td><td>Discipline</td></tr><tr><td>Marathon</td><td>Miles</td><td>Charity</td></tr><tr><td>Javelin</td><td>Runway</td><td>Shoulder</td></tr><tr><td>Cycling</td><td>Pedals</td><td>Legs</td></tr><tr><td>Water Polo</td><td>Caps</td><td>Rough</td></tr><tr><td>Skiing</td><td>Slopes</td><td>Holiday</td></tr><tr><td>Rock Climbing</td><td>Chalk</td><td>Fear</td></tr><tr><td>Wrestling</td><td>Headlocks</td><td>Pantomime</td></tr><tr><td>Penalty Shootout</td><td>Keeper</td><td>Nerves</td></tr><tr><td>Hat Trick</td><td>Goals</td><td>Rare</td></tr><tr><td>Judo</td><td>Grappling</td><td>Respect</td></tr><tr><td>Mexican Wave</td><td>Crowd</td><td>Timing</td></tr><tr><td>Photo Finish</td><td>Line</td><td>Close</td></tr><tr><td>Olympics</td><td>Medals</td><td>Nations</td></tr><tr><td>World Cup</td><td>Trophy</td><td>Sweepstake</td></tr><tr><td>Mascot</td><td>Costume</td><td>Sidelines</td></tr><tr><td>Badminton</td><td>Feathers</td><td>Wrists</td></tr><tr><td>Wimbledon</td><td>Strawberries</td><td>Rain</td></tr><tr><td>Netball</td><td>Bibs</td><td>Marking</td></tr><tr><td>Sports Day</td><td>School</td><td>Summer</td></tr><tr><td>Tug of War</td><td>Rope</td><td>Deadlock</td></tr><tr><td>Squash</td><td>Walls</td><td>Sweaty</td></tr><tr><td>Tour de France</td><td>Bikes</td><td>Gruelling</td></tr></table>
-  <h2>How to run a sports round</h2>
-  <ol class="steps">
-    <li>Unlock Sports by following Antics on TikTok or Instagram from the Imposter lobby. It costs nothing.</li>
-    <li>Select it, pass the phone, everyone peeks.</li>
-    <li>Clue round. No famous players and no teams: name a sportsperson and the round becomes a quiz the imposter can win by guessing.</li>
-    <li>Miming is banned, and that goes double for the Mexican Wave.</li>
-    <li>Vote, then give a caught imposter one guess. "Something with a ball" does not count.</li>
-  </ol>
-  <h2>The hardest sports to bluff</h2>
-  <p>The trickiest words look alike from the sofa. Judo and Karate are both in the deck, and to most of the room they are two people in white pyjamas; add Wrestling and the imposter has three ways to be wrong with one guess. The events are sneaky too. A Hat Trick is not a sport, it is something that happens in one, and an imposter who spends the round describing a whole match gets caught by one precise clue. The app deals the imposter a hint each round, Easy by default. Easy then hard: Hat Trick: Goals / Rare. Judo: Grappling / Respect. Mascot: Costume / Sidelines.</p>
-  <h2>Who the Sports deck suits</h2>
-  <p>Football lads, obviously, and it is good for them. They walk in confident and leave having been out-clued on Synchronised Swimming by the one mate who has never watched Match of the Day. It is a strong pick for a sunny afternoon in someone's garden, and a decent one for a sporty family, since the Olympics and Wimbledon are common ground for most generations.</p>
-  <h3>Do I need to know a lot about sport?</h3>
-  <p>No, and knowing a lot can hurt you. Experts give technical clues that the rest of the room reads as suspicious. The best sports clue is something your gran would say.</p>
-  <h3>How do I get the Sports deck?</h3>
-  <p>Open Imposter in Antics, tap Sports in the lobby and follow us on TikTok or Instagram. That opens it for free, together with Brands and Logos.</p>
-  <h3>Wimbledon and the World Cup are not sports. Why are they here?</h3>
-  <p>On purpose. Some words are events, moments and characters from sport rather than the games themselves, which gives the imposter more to guess between and keeps the crew's clues from being obvious.</p>
-
-  <div class="cta-block">
-    <h2>Pick a side. One of you is faking it.</h2>
-    <p>The Sports deck unlocks free in Antics when you follow us. Pass one phone and find out who has never actually watched the cricket.</p>
-    <a class="cta" href="/get/?c=site-imposter-sports">Download on the App Store</a>
-    <a class="cta secondary" href="/get/?c=site-imposter-sports">Get it on Google Play</a>
-    <p class="cta-alt">On a laptop? <a href="/get/?c=site-imposter-sports-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>Sports words for Imposter</h1>
+      <p class="standfirst">It is not a football deck, and the football lads find that out quickly. The list runs from darts to synchronised swimming, with a Mexican wave somewhere in the middle.</p>
+    </header>
   </div>
 
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-    <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-lime"><a href="#word-list">Word list</a></li>
+        <li class="tone-cyan"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-pink"><a href="#hardest">Hardest words</a></li>
+        <li class="tone-orange"><a href="#who">Who it suits</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <p>The joy of this deck is that nobody is an expert in all of it. The mate who can explain offside has nothing to say about Curling beyond the fact that the whole country watches it for one fortnight every four years and then forgets it exists. It is not only sports, either: Sports Day, the Mexican Wave and the Mascot are in here too, and they make some of the best rounds because everyone has a memory attached. Egg and spoon, anyone?</p>
+
+      <section class="section tone-lime" id="word-list">
+        <h2>The full sports word list, with the hints the app gives the imposter</h2>
+        <p>Every word below is dealt in the Antics app. The easy hint is what the imposter sees on the default setting; the hard hint is the harder tier. Playing from this page with paper? Give the imposter one hint or none, your call.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>WORD</th><th>EASY HINT</th><th>HARD HINT</th></tr></thead>
+            <tbody>
+              <tr><td>Darts</td><td>Pub</td><td>Maths</td></tr>
+              <tr><td>Sumo</td><td>Japan</td><td>Ritual</td></tr>
+              <tr><td>Snooker</td><td>Cue</td><td>Silence</td></tr>
+              <tr><td>Golf</td><td>Holes</td><td>Slow</td></tr>
+              <tr><td>Boxing</td><td>Gloves</td><td>Bruises</td></tr>
+              <tr><td>Curling</td><td>Winter</td><td>Shouting</td></tr>
+              <tr><td>Trampolining</td><td>Garden</td><td>Dizzy</td></tr>
+              <tr><td>Dodgeball</td><td>Ducking</td><td>Chaos</td></tr>
+              <tr><td>Table Tennis</td><td>Spin</td><td>Reflexes</td></tr>
+              <tr><td>Synchronised Swimming</td><td>Sequins</td><td>Breath</td></tr>
+              <tr><td>Surfing</td><td>Waves</td><td>Balance</td></tr>
+              <tr><td>Fencing</td><td>Swords</td><td>Posh</td></tr>
+              <tr><td>Archery</td><td>Target</td><td>Steady</td></tr>
+              <tr><td>Bowling</td><td>Pins</td><td>Birthday</td></tr>
+              <tr><td>Cheerleading</td><td>Pompoms</td><td>Cringe</td></tr>
+              <tr><td>Rowing</td><td>Oars</td><td>Blisters</td></tr>
+              <tr><td>Cricket</td><td>Whites</td><td>Polite</td></tr>
+              <tr><td>Basketball</td><td>Hoops</td><td>Squeaky</td></tr>
+              <tr><td>Gymnastics</td><td>Flexible</td><td>Judges</td></tr>
+              <tr><td>Skateboarding</td><td>Ramps</td><td>Teenagers</td></tr>
+              <tr><td>Formula 1</td><td>Laps</td><td>Loud</td></tr>
+              <tr><td>Horse Racing</td><td>Saddle</td><td>Glamour</td></tr>
+              <tr><td>Karate</td><td>Belts</td><td>Discipline</td></tr>
+              <tr><td>Marathon</td><td>Miles</td><td>Charity</td></tr>
+              <tr><td>Javelin</td><td>Runway</td><td>Shoulder</td></tr>
+              <tr><td>Cycling</td><td>Pedals</td><td>Legs</td></tr>
+              <tr><td>Water Polo</td><td>Caps</td><td>Rough</td></tr>
+              <tr><td>Skiing</td><td>Slopes</td><td>Holiday</td></tr>
+              <tr><td>Rock Climbing</td><td>Chalk</td><td>Fear</td></tr>
+              <tr><td>Wrestling</td><td>Headlocks</td><td>Pantomime</td></tr>
+              <tr><td>Penalty Shootout</td><td>Keeper</td><td>Nerves</td></tr>
+              <tr><td>Hat Trick</td><td>Goals</td><td>Rare</td></tr>
+              <tr><td>Judo</td><td>Grappling</td><td>Respect</td></tr>
+              <tr><td>Mexican Wave</td><td>Crowd</td><td>Timing</td></tr>
+              <tr><td>Photo Finish</td><td>Line</td><td>Close</td></tr>
+              <tr><td>Olympics</td><td>Medals</td><td>Nations</td></tr>
+              <tr><td>World Cup</td><td>Trophy</td><td>Sweepstake</td></tr>
+              <tr><td>Mascot</td><td>Costume</td><td>Sidelines</td></tr>
+              <tr><td>Badminton</td><td>Feathers</td><td>Wrists</td></tr>
+              <tr><td>Wimbledon</td><td>Strawberries</td><td>Rain</td></tr>
+              <tr><td>Netball</td><td>Bibs</td><td>Marking</td></tr>
+              <tr><td>Sports Day</td><td>School</td><td>Summer</td></tr>
+              <tr><td>Tug of War</td><td>Rope</td><td>Deadlock</td></tr>
+              <tr><td>Squash</td><td>Walls</td><td>Sweaty</td></tr>
+              <tr><td>Tour de France</td><td>Bikes</td><td>Gruelling</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tone-cyan" id="how-to-play">
+        <h2>How to run a sports round</h2>
+        <ol>
+          <li>Unlock Sports by following Antics on TikTok or Instagram from the Imposter lobby. It costs nothing.</li>
+          <li>Select it, pass the phone, everyone peeks.</li>
+          <li>Clue round. No famous players and no teams: name a sportsperson and the round becomes a quiz the imposter can win by guessing.</li>
+          <li>Miming is banned, and that goes double for the Mexican Wave.</li>
+          <li>Vote, then give a caught imposter one guess. "Something with a ball" does not count.</li>
+        </ol>
+      </section>
+
+      <section class="section tone-pink" id="hardest">
+        <h2>The hardest sports to bluff</h2>
+        <p>The trickiest words look alike from the sofa. Judo and Karate are both in the deck, and to most of the room they are two people in white pyjamas; add Wrestling and the imposter has three ways to be wrong with one guess. The events are sneaky too. A Hat Trick is not a sport, it is something that happens in one, and an imposter who spends the round describing a whole match gets caught by one precise clue. The app deals the imposter a hint each round, Easy by default. Easy then hard: Hat Trick: Goals / Rare. Judo: Grappling / Respect. Mascot: Costume / Sidelines.</p>
+      </section>
+
+      <section class="section tone-orange" id="who">
+        <h2>Who the Sports deck suits</h2>
+        <p>Football lads, obviously, and it is good for them. They walk in confident and leave having been out-clued on Synchronised Swimming by the one mate who has never watched Match of the Day. It is a strong pick for a sunny afternoon in someone's garden, and a decent one for a sporty family, since the Olympics and Wimbledon are common ground for most generations.</p>
+      </section>
+
+      <section class="section faq tone-purple">
+        <h3 id="faq">Do I need to know a lot about sport?</h3>
+        <p>No, and knowing a lot can hurt you. Experts give technical clues that the rest of the room reads as suspicious. The best sports clue is something your gran would say.</p>
+
+        <h3>How do I get the Sports deck?</h3>
+        <p>Open Imposter in Antics, tap Sports in the lobby and follow us on TikTok or Instagram. That opens it for free, together with Brands and Logos.</p>
+
+        <h3>Wimbledon and the World Cup are not sports. Why are they here?</h3>
+        <p>On purpose. Some words are events, moments and characters from sport rather than the games themselves, which gives the imposter more to guess between and keeps the crew's clues from being obvious.</p>
+      </section>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Pick a side. One of you is faking it.</h2>
+        <p>The Sports deck unlocks free in Antics when you follow us. Pass one phone and find out who has never actually watched the cricket.</p>
+        <p><a class="cta" href="/get/?c=site-imposter-sports">Download on the App Store</a></p>
+        <p><a class="cta btn--ghost" href="/get/?c=site-imposter-sports">Get it on Google Play</a></p>
+        <p class="note">On a laptop? <a href="/get/?c=site-imposter-sports-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-imposter-sports-bar">Get Antics free</a>
+</aside>
 
 <script type="application/ld+json">
 {

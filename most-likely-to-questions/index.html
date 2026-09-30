@@ -16,59 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .t1 { color: var(--purple); } h2 .t2 { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    ol.qs { margin: 0 0 8px 0; padding: 0; list-style: none; counter-reset: q; }
-    ol.qs.s21 { counter-reset: q 20; }
-    ol.qs li {
-      counter-increment: q; background: var(--surface); border-radius: 12px;
-      padding: 12px 16px 12px 52px; margin-bottom: 8px; position: relative;
-      color: var(--white); font-weight: 600; font-size: 15.5px;
-    }
-    ol.qs li::before {
-      content: counter(q); position: absolute; left: 16px; top: 12px;
-      color: var(--dim); font-weight: 900; font-size: 14px;
-    }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .midcta { background: var(--surface); border-radius: 14px; padding: 14px 18px; font-size: 15px; margin: 22px 0 6px; }
-    .midcta a { color: var(--cyan); font-weight: 700; }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -130,298 +77,351 @@
   }
   </script>
   <link rel="stylesheet" href="/js/generator.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> › Most Likely To</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> Most Likely To</nav>
 
-  <h1>Most Likely To: 190 questions for maximum pointing</h1>
-  <p class="standfirst">The simplest party game there is, and the most personal. Here are the rules in one line and 40 questions written for groups who actually know each other's business.</p>
-  <div style="margin:0 0 32px;">
-    <div id="antics-gen" data-game="mlt" data-cta="site-mlt-questions-gen">Loading the generator&hellip;</div>
-    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/most-likely-to-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>Most Likely To: 190 questions for maximum pointing</h1>
+      <p class="standfirst">The simplest party game there is, and the most personal. Here are the rules in one line and 40 questions written for groups who actually know each other's business.</p>
+    </header>
+    <div class="tool">
+      <div id="antics-gen" data-game="mlt" data-cta="site-mlt-questions-gen">Loading the generator&hellip;</div>
+      <p class="tool-note">Free, no sign-up. <a href="/most-likely-to-generator/">Open the full generator</a></p>
+    </div>
   </div>
 
-  <div class="tldr">
-    <p><strong>How to play:</strong> read a "who's most likely to…" out loud. Count down from three, and everyone points at someone: no abstaining, self-votes allowed if you're honest. <strong>Whoever has the most fingers on them takes the forfeit.</strong> Split decision? Both take it, then the room debates it.</p>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-purple"><a href="#round-one">Round one</a></li>
+        <li class="tone-pink"><a href="#round-two">Round two</a></li>
+        <li class="tone-lime"><a href="#mates">Mates</a></li>
+        <li class="tone-orange"><a href="#uni">Uni</a></li>
+        <li class="tone-cyan"><a href="#work">Work social</a></li>
+        <li class="tone-pink"><a href="#couples">Couples</a></li>
+        <li class="tone-purple"><a href="#absurd">Absurd</a></li>
+        <li class="tone-orange"><a href="#why-it-works">Why it works</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose count-run">
+      <div class="rules tone-cyan" id="how-to-play">
+        <p><strong>How to play:</strong> read a "who's most likely to…" out loud. Count down from three, and everyone points at someone: no abstaining, self-votes allowed if you're honest. <strong>Whoever has the most fingers on them takes the forfeit.</strong> Split decision? Both take it, then the room debates it.</p>
+      </div>
+
+      <p class="note">This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
+
+      <section class="tier-card tone-purple" id="round-one" aria-labelledby="round-one-h">
+        <h2 id="round-one-h"><span class="tier t1">ROUND ONE: LOVE, LUST &amp; MESS</span> Who's most likely to…</h2>
+        <ol class="qs stack">
+          <li>Text an ex tonight.</li>
+          <li>Get with someone in this room.</li>
+          <li>Have the messiest situationship.</li>
+          <li>Stalk their ex online at 2am.</li>
+          <li>Have already texted their ex this week.</li>
+          <li>Send a risky text and blame it on the wine.</li>
+          <li>End up kissing someone in this room tonight.</li>
+          <li>Have kissed the most people in this room.</li>
+          <li>Get banned from a dating app.</li>
+          <li>Get engaged after three months.</li>
+          <li>Marry someone they met that same night.</li>
+          <li>Get married in Vegas.</li>
+          <li>Turn a one-night stand into a three-year relationship.</li>
+          <li>Be planning the wedding after one date.</li>
+          <li>Get a partner's name tattooed within a year of meeting.</li>
+          <li>Leave you on read but watch every story.</li>
+          <li>Become a stage-five clinger.</li>
+          <li>End up in a love triangle.</li>
+          <li>Fall in love with a stranger on holiday.</li>
+          <li>Triple-text someone without shame.</li>
+        </ol>
+      </section>
+
+      <p class="midcta tone-pink">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-mlt-questions-mid">Get Antics free</a>.</p>
+
+      <section class="tier-card tone-pink" id="round-two" aria-labelledby="round-two-h">
+        <h2 id="round-two-h"><span class="tier t2">ROUND TWO: CHAOS &amp; SECRETS</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="21">
+          <li>Start drama in the group chat.</li>
+          <li>Ghost someone in this room.</li>
+          <li>Get kicked out of a club.</li>
+          <li>Be lying in this game right now.</li>
+          <li>End up on Love Island.</li>
+          <li>Have the most chaotic camera roll.</li>
+          <li>Flirt their way out of trouble.</li>
+          <li>Flirt their way INTO trouble.</li>
+          <li>Get arrested on a night out.</li>
+          <li>Read everyone's messages if given one free chance.</li>
+          <li>End the night with a stranger's number and no memory of getting it.</li>
+          <li>Get with their boss.</li>
+          <li>Actually pull a celebrity.</li>
+          <li>End up with a sugar daddy or sugar mummy.</li>
+          <li>Marry rich and retire at 30.</li>
+          <li>Get catfished.</li>
+          <li>Have a secret account nobody knows about.</li>
+          <li>Have the most unhinged search history.</li>
+          <li>Ditch the group for someone they met an hour ago.</li>
+          <li>Have a whole second life nobody here knows about.</li>
+        </ol>
+      </section>
+
+      <p class="divider-intro">More Most Likely To questions, sorted by who is playing. All of them are dealt in the Antics app.</p>
+
+      <section class="tier-card tone-lime" id="mates" aria-labelledby="mates-h">
+        <h2 id="mates-h"><span class="tier t2">FOR MATES</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="41">
+          <li>Be someone’s villain origin story.</li>
+          <li>Get caught talking about someone… by that someone.</li>
+          <li>Start a fight and immediately hide behind the group.</li>
+          <li>Get removed from a group chat.</li>
+          <li>Accidentally give away a surprise party.</li>
+          <li>Cry mid-argument to win it.</li>
+          <li>Have a breakdown over the group holiday spreadsheet.</li>
+          <li>Become the group’s unpaid therapist.</li>
+          <li>Forget their best mate’s birthday.</li>
+          <li>Reply to a story with “haha” and nothing else, forever.</li>
+          <li>Adopt a pet on impulse and name it something unhinged.</li>
+          <li>Get a tattoo on holiday. Of the holiday.</li>
+          <li>Ghost their own birthday party.</li>
+          <li>Cheat at a board game against actual children.</li>
+          <li>Get stuck in a jumper in public.</li>
+          <li>Believe a horoscope over a doctor.</li>
+          <li>Die on a hill absolutely nobody asked them to defend.</li>
+          <li>Miss the group photo because they were in the toilet.</li>
+          <li>Get a standing ovation at karaoke from strangers.</li>
+          <li>Break a bone doing something that wasn’t worth it.</li>
+          <li>Get personally invested in a strangers’ argument in public.</li>
+          <li>Come back from one weekend away saying “it changed me”.</li>
+          <li>Be the reason the gathering has rules now.</li>
+          <li>Cry laughing at their own joke before the punchline.</li>
+          <li>Send you the exact same meme they sent you last month and laugh just as hard.</li>
+          <li>Apologise to furniture after walking into it.</li>
+          <li>Be the reason two people in this room stopped talking.</li>
+          <li>Never actually apologise, just go quiet for a bit.</li>
+          <li>Always somehow be the designated adult, despite acting like a menace.</li>
+          <li>Tell a restaurant it’s their birthday to get a free dessert.</li>
+          <li>Have a secret OnlyFans.</li>
+          <li>Have the wildest hidden past.</li>
+          <li>Know everyone’s gossip before anyone else.</li>
+          <li>Go viral for the wrong reasons.</li>
+          <li>Steal someone’s chips and deny it.</li>
+          <li>Text the group chat “big news” then go offline for six hours.</li>
+          <li>Keep a dead group chat alive single-handedly for years.</li>
+          <li>Say goodbye, then stay another hour.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-orange" id="uni" aria-labelledby="uni-h">
+        <h2 id="uni-h"><span class="tier t2">FOR UNI AND FRESHERS</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="79">
+          <li>Spend rent money on something stupid.</li>
+          <li>Lock themselves out twice in one day.</li>
+          <li>Lose their phone tonight.</li>
+          <li>Fall asleep at this party.</li>
+          <li>Befriend the bouncer by the end of the night.</li>
+          <li>Know the barman’s life story by last orders.</li>
+          <li>Get greeted by name at the takeaway.</li>
+          <li>Get stuck in a pub toilet because they couldn’t work the lock.</li>
+          <li>Be the last one dancing when the lights come on.</li>
+          <li>Ask the DJ for a song, get rejected, and ask again.</li>
+          <li>Kill the vibe with a single song choice.</li>
+          <li>Promise to only stay for one. Still be there at 3am.</li>
+          <li>Have their card declined buying a Freddo.</li>
+          <li>Dye their hair at 2am and call it a rebrand.</li>
+          <li>Get sentimental at 3am and text the entire contact list.</li>
+          <li>End up on the pub quiz leaderboard under a rude name.</li>
+          <li>Turn up to a fancy dress party in normal clothes and call it a costume.</li>
+          <li>Leave every party without saying goodbye.</li>
+          <li>Do a PhD.</li>
+          <li>Bring up their gap year unprompted.</li>
+          <li>Lie about having read the book. Any book.</li>
+          <li>Take a 45-minute shower and solve nothing in there.</li>
+          <li>Get a lifetime Uber ban.</li>
+          <li>Have beef with a neighbour about bins.</li>
+          <li>Send a risky text and blame autocorrect.</li>
+          <li>End the night with a stranger’s number and no memory of getting it.</li>
+          <li>Be the reason the group gets kicked out of somewhere.</li>
+          <li>Still be out when everyone else has gone home.</li>
+          <li>Show up to brunch in last night’s outfit and own it.</li>
+          <li>Start a small fire making instant noodles.</li>
+          <li>Get thrown out of a library for being too loud.</li>
+          <li>Only get a round in at the cheap bar.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-cyan" id="work" aria-labelledby="work-h">
+        <h2 id="work-h"><span class="tier t2">FOR THE WORK SOCIAL</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="111">
+          <li>Take credit for someone else’s idea in a meeting.</li>
+          <li>Get promoted by accident.</li>
+          <li>Turn every single get-together into a networking opportunity.</li>
+          <li>Pay for LinkedIn Premium unironically.</li>
+          <li>Have 40,000 unread emails on purpose.</li>
+          <li>Be a finance bro.</li>
+          <li>Become an entrepreneur.</li>
+          <li>Send a 20-minute voice note.</li>
+          <li>Turn a ten-minute story into forty.</li>
+          <li>Get halfway through a big story before realising nobody’s listening.</li>
+          <li>Win an argument with a completely made-up fact.</li>
+          <li>Do one good deed and mention it for a decade.</li>
+          <li>Handle an emergency brilliantly, then faint afterwards.</li>
+          <li>Have alphabetised something for fun.</li>
+          <li>Answer a question with a question.</li>
+          <li>Get the last word in every argument.</li>
+          <li>Let a mate down and blame the trains.</li>
+          <li>End up running the family business.</li>
+          <li>Send apology flowers for something nobody remembers.</li>
+          <li>Have googled themselves this week.</li>
+          <li>Be on their phone right now.</li>
+          <li>Sleep through their alarm and miss something huge.</li>
+          <li>Have a nemesis they’ve never actually spoken to.</li>
+          <li>Reply to a text three weeks later with “sorry just seeing this lol”.</li>
+          <li>Have a secret snack drawer they deny exists.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-pink" id="couples" aria-labelledby="couples-h">
+        <h2 id="couples-h"><span class="tier t2">FOR COUPLES</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="136">
+          <li>Get engaged to someone the group has never met.</li>
+          <li>Get with a mate’s parent.</li>
+          <li>Accidentally catfish someone with filters.</li>
+          <li>Like a three-year-old photo while deep-stalking someone.</li>
+          <li>Get married first.</li>
+          <li>Turn up late to their own wedding.</li>
+          <li>Get a fringe after a breakup.</li>
+          <li>Marry someone from the group chat.</li>
+          <li>Get married in secret and announce it by accident.</li>
+          <li>Bring up their ex within ten minutes of any conversation.</li>
+          <li>Charm the parents, terrify the friends.</li>
+          <li>Have kissed someone in this room and never told the room.</li>
+          <li>Get walked in on twice. In the same night.</li>
+          <li>Date two housemates. Sequentially. Or not.</li>
+          <li>Rate their exes in the Notes app, with categories.</li>
+          <li>Have already decided who they’re getting with tonight.</li>
+          <li>Have 47 unfinished draft texts to the same person.</li>
+          <li>Ask for help making their dating profile.</li>
+          <li>Be the friend who remembers everyone’s exes’ names better than their own family’s.</li>
+          <li>Send “we need to talk” then fall asleep.</li>
+          <li>Get a partner’s name tattooed within a year of meeting.</li>
+          <li>Get a matching tattoo with someone they’ve known a month.</li>
+          <li>Have somehow found out everyone in this room’s body count.</li>
+          <li>Move cities for someone they’ve known a fortnight.</li>
+          <li>Catch feelings for their friends-with-benefits. Again.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-purple" id="absurd" aria-labelledby="absurd-h">
+        <h2 id="absurd-h"><span class="tier t2">ABSURD AND HYPOTHETICAL</span> Who's most likely to…</h2>
+        <ol class="qs stack" start="161">
+          <li>Accidentally join a cult.</li>
+          <li>Read everyone’s messages if given one free chance.</li>
+          <li>Survive a zombie apocalypse.</li>
+          <li>Die first in a horror film.</li>
+          <li>Get voted off the island first.</li>
+          <li>Survive the island out of pure spite.</li>
+          <li>Become a wellness influencer overnight.</li>
+          <li>Rescue you if you were trapped in a South American jail.</li>
+          <li>Marry into the Mafia.</li>
+          <li>Go back into their burning house to get their phone.</li>
+          <li>Accidentally start a genuinely new religion.</li>
+          <li>Be the reason aliens decide not to make contact after all.</li>
+          <li>Get elected mayor of a town they don’t live in, somehow.</li>
+          <li>Win the lottery and lose the ticket.</li>
+          <li>Become famous, for something weird.</li>
+          <li>Trend online for exactly four minutes.</li>
+          <li>End up on reality TV.</li>
+          <li>Start a one-sided feud with a celebrity.</li>
+          <li>Get kicked off a plane.</li>
+          <li>Get quoted in the local paper for something daft.</li>
+          <li>End up in the family photos at a stranger’s wedding.</li>
+          <li>Accidentally smuggle fruit through customs and worry about it for years.</li>
+          <li>Become a conspiracy theorist off one YouTube video.</li>
+          <li>Fall for a pyramid scheme and recruit the group.</li>
+          <li>Get upgraded to first class by charm alone.</li>
+          <li>Fake their own death to get out of plans.</li>
+          <li>Get food poisoning from their own cooking.</li>
+          <li>Be the contestant the show regrets casting.</li>
+          <li>Be the background extra who looks at the camera.</li>
+          <li>Lose a fight with a seagull over chips.</li>
+        </ol>
+      </section>
+
+      <section class="section tone-orange" id="why-it-works">
+        <h2>Why this game works (and when it doesn't)</h2>
+        <p>Most Likely To runs on shared history: the pointing is the punchline, and the defence speeches are the content. It's the best game on this site for a group that's known each other for years, and the weakest for a room of strangers (they've got nothing to point with: give them <a href="/never-have-i-ever-questions/">Never Have I Ever</a> first and come back in an hour).</p>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>Most Likely To FAQ</h2>
+        <h3>What are the rules of Most Likely To?</h3>
+        <p>Someone reads a "who's most likely to…" question, everyone simultaneously points at a player on the count of three, and whoever collects the most fingers takes the forfeit. No abstaining: pointing is mandatory.</p>
+        <h3>What happens on a tie?</h3>
+        <p>Both take the forfeit. Then the room argues about who deserved it more, which is the game working as intended.</p>
+        <h3>Can you vote for yourself?</h3>
+        <p>Yes: a confident self-point is one of the great moves in the game. It counts like any other finger.</p>
+      </section>
+
+      <div class="safety">
+        <strong>Play it right:</strong> read the room: the questions are about affectionate exposure, not actual grievances. Look after your mates.
+      </div>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Questions for days. Names included.</h2>
+        <p>These 40 are from Antics: the party games app. The full Most Likely To deck deals questions with your mates' actual names and never repeats until you've seen them all. Plus a whole stack more games and thousands of cards, all built on forfeits.</p>
+        <a class="cta" href="/get/?c=site-mlt-questions">Get Antics free</a>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/drinking-games/">The classic party games, explained</a></li>
+          <li><a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a></li>
+          <li><a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <p>This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
-
-  <h2><span class="tier t1">ROUND ONE: LOVE, LUST &amp; MESS</span>Who's most likely to…</h2>
-  <ol class="qs">
-    <li>Text an ex tonight.</li>
-    <li>Get with someone in this room.</li>
-    <li>Have the messiest situationship.</li>
-    <li>Stalk their ex online at 2am.</li>
-    <li>Have already texted their ex this week.</li>
-    <li>Send a risky text and blame it on the wine.</li>
-    <li>End up kissing someone in this room tonight.</li>
-    <li>Have kissed the most people in this room.</li>
-    <li>Get banned from a dating app.</li>
-    <li>Get engaged after three months.</li>
-    <li>Marry someone they met that same night.</li>
-    <li>Get married in Vegas.</li>
-    <li>Turn a one-night stand into a three-year relationship.</li>
-    <li>Be planning the wedding after one date.</li>
-    <li>Get a partner's name tattooed within a year of meeting.</li>
-    <li>Leave you on read but watch every story.</li>
-    <li>Become a stage-five clinger.</li>
-    <li>End up in a love triangle.</li>
-    <li>Fall in love with a stranger on holiday.</li>
-    <li>Triple-text someone without shame.</li>
-  </ol>
-
-  <p class="midcta">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-mlt-questions-mid">Get Antics free</a>.</p>
-
-  <h2><span class="tier t2">ROUND TWO: CHAOS &amp; SECRETS</span>Who's most likely to…</h2>
-  <ol class="qs s21">
-    <li>Start drama in the group chat.</li>
-    <li>Ghost someone in this room.</li>
-    <li>Get kicked out of a club.</li>
-    <li>Be lying in this game right now.</li>
-    <li>End up on Love Island.</li>
-    <li>Have the most chaotic camera roll.</li>
-    <li>Flirt their way out of trouble.</li>
-    <li>Flirt their way INTO trouble.</li>
-    <li>Get arrested on a night out.</li>
-    <li>Read everyone's messages if given one free chance.</li>
-    <li>End the night with a stranger's number and no memory of getting it.</li>
-    <li>Get with their boss.</li>
-    <li>Actually pull a celebrity.</li>
-    <li>End up with a sugar daddy or sugar mummy.</li>
-    <li>Marry rich and retire at 30.</li>
-    <li>Get catfished.</li>
-    <li>Have a secret account nobody knows about.</li>
-    <li>Have the most unhinged search history.</li>
-    <li>Ditch the group for someone they met an hour ago.</li>
-    <li>Have a whole second life nobody here knows about.</li>
-  </ol>
-
-  <p>More Most Likely To questions, sorted by who is playing. All of them are dealt in the Antics app.</p>
-
-  <h2><span class="tier t2">FOR MATES</span>Who's most likely to…</h2>
-  <ol class="qs" style="counter-reset: q 40">
-    <li>Be someone’s villain origin story.</li>
-    <li>Get caught talking about someone… by that someone.</li>
-    <li>Start a fight and immediately hide behind the group.</li>
-    <li>Get removed from a group chat.</li>
-    <li>Accidentally give away a surprise party.</li>
-    <li>Cry mid-argument to win it.</li>
-    <li>Have a breakdown over the group holiday spreadsheet.</li>
-    <li>Become the group’s unpaid therapist.</li>
-    <li>Forget their best mate’s birthday.</li>
-    <li>Reply to a story with “haha” and nothing else, forever.</li>
-    <li>Adopt a pet on impulse and name it something unhinged.</li>
-    <li>Get a tattoo on holiday. Of the holiday.</li>
-    <li>Ghost their own birthday party.</li>
-    <li>Cheat at a board game against actual children.</li>
-    <li>Get stuck in a jumper in public.</li>
-    <li>Believe a horoscope over a doctor.</li>
-    <li>Die on a hill absolutely nobody asked them to defend.</li>
-    <li>Miss the group photo because they were in the toilet.</li>
-    <li>Get a standing ovation at karaoke from strangers.</li>
-    <li>Break a bone doing something that wasn’t worth it.</li>
-    <li>Get personally invested in a strangers’ argument in public.</li>
-    <li>Come back from one weekend away saying “it changed me”.</li>
-    <li>Be the reason the gathering has rules now.</li>
-    <li>Cry laughing at their own joke before the punchline.</li>
-    <li>Send you the exact same meme they sent you last month and laugh just as hard.</li>
-    <li>Apologise to furniture after walking into it.</li>
-    <li>Be the reason two people in this room stopped talking.</li>
-    <li>Never actually apologise, just go quiet for a bit.</li>
-    <li>Always somehow be the designated adult, despite acting like a menace.</li>
-    <li>Tell a restaurant it’s their birthday to get a free dessert.</li>
-    <li>Have a secret OnlyFans.</li>
-    <li>Have the wildest hidden past.</li>
-    <li>Know everyone’s gossip before anyone else.</li>
-    <li>Go viral for the wrong reasons.</li>
-    <li>Steal someone’s chips and deny it.</li>
-    <li>Text the group chat “big news” then go offline for six hours.</li>
-    <li>Keep a dead group chat alive single-handedly for years.</li>
-    <li>Say goodbye, then stay another hour.</li>
-  </ol>
-
-  <h2><span class="tier t2">FOR UNI AND FRESHERS</span>Who's most likely to…</h2>
-  <ol class="qs" style="counter-reset: q 78">
-    <li>Spend rent money on something stupid.</li>
-    <li>Lock themselves out twice in one day.</li>
-    <li>Lose their phone tonight.</li>
-    <li>Fall asleep at this party.</li>
-    <li>Befriend the bouncer by the end of the night.</li>
-    <li>Know the barman’s life story by last orders.</li>
-    <li>Get greeted by name at the takeaway.</li>
-    <li>Get stuck in a pub toilet because they couldn’t work the lock.</li>
-    <li>Be the last one dancing when the lights come on.</li>
-    <li>Ask the DJ for a song, get rejected, and ask again.</li>
-    <li>Kill the vibe with a single song choice.</li>
-    <li>Promise to only stay for one. Still be there at 3am.</li>
-    <li>Have their card declined buying a Freddo.</li>
-    <li>Dye their hair at 2am and call it a rebrand.</li>
-    <li>Get sentimental at 3am and text the entire contact list.</li>
-    <li>End up on the pub quiz leaderboard under a rude name.</li>
-    <li>Turn up to a fancy dress party in normal clothes and call it a costume.</li>
-    <li>Leave every party without saying goodbye.</li>
-    <li>Do a PhD.</li>
-    <li>Bring up their gap year unprompted.</li>
-    <li>Lie about having read the book. Any book.</li>
-    <li>Take a 45-minute shower and solve nothing in there.</li>
-    <li>Get a lifetime Uber ban.</li>
-    <li>Have beef with a neighbour about bins.</li>
-    <li>Send a risky text and blame autocorrect.</li>
-    <li>End the night with a stranger’s number and no memory of getting it.</li>
-    <li>Be the reason the group gets kicked out of somewhere.</li>
-    <li>Still be out when everyone else has gone home.</li>
-    <li>Show up to brunch in last night’s outfit and own it.</li>
-    <li>Start a small fire making instant noodles.</li>
-    <li>Get thrown out of a library for being too loud.</li>
-    <li>Only get a round in at the cheap bar.</li>
-  </ol>
-
-  <h2><span class="tier t2">FOR THE WORK SOCIAL</span>Who's most likely to…</h2>
-  <ol class="qs" style="counter-reset: q 110">
-    <li>Take credit for someone else’s idea in a meeting.</li>
-    <li>Get promoted by accident.</li>
-    <li>Turn every single get-together into a networking opportunity.</li>
-    <li>Pay for LinkedIn Premium unironically.</li>
-    <li>Have 40,000 unread emails on purpose.</li>
-    <li>Be a finance bro.</li>
-    <li>Become an entrepreneur.</li>
-    <li>Send a 20-minute voice note.</li>
-    <li>Turn a ten-minute story into forty.</li>
-    <li>Get halfway through a big story before realising nobody’s listening.</li>
-    <li>Win an argument with a completely made-up fact.</li>
-    <li>Do one good deed and mention it for a decade.</li>
-    <li>Handle an emergency brilliantly, then faint afterwards.</li>
-    <li>Have alphabetised something for fun.</li>
-    <li>Answer a question with a question.</li>
-    <li>Get the last word in every argument.</li>
-    <li>Let a mate down and blame the trains.</li>
-    <li>End up running the family business.</li>
-    <li>Send apology flowers for something nobody remembers.</li>
-    <li>Have googled themselves this week.</li>
-    <li>Be on their phone right now.</li>
-    <li>Sleep through their alarm and miss something huge.</li>
-    <li>Have a nemesis they’ve never actually spoken to.</li>
-    <li>Reply to a text three weeks later with “sorry just seeing this lol”.</li>
-    <li>Have a secret snack drawer they deny exists.</li>
-  </ol>
-
-  <h2><span class="tier t2">FOR COUPLES</span>Who's most likely to…</h2>
-  <ol class="qs" style="counter-reset: q 135">
-    <li>Get engaged to someone the group has never met.</li>
-    <li>Get with a mate’s parent.</li>
-    <li>Accidentally catfish someone with filters.</li>
-    <li>Like a three-year-old photo while deep-stalking someone.</li>
-    <li>Get married first.</li>
-    <li>Turn up late to their own wedding.</li>
-    <li>Get a fringe after a breakup.</li>
-    <li>Marry someone from the group chat.</li>
-    <li>Get married in secret and announce it by accident.</li>
-    <li>Bring up their ex within ten minutes of any conversation.</li>
-    <li>Charm the parents, terrify the friends.</li>
-    <li>Have kissed someone in this room and never told the room.</li>
-    <li>Get walked in on twice. In the same night.</li>
-    <li>Date two housemates. Sequentially. Or not.</li>
-    <li>Rate their exes in the Notes app, with categories.</li>
-    <li>Have already decided who they’re getting with tonight.</li>
-    <li>Have 47 unfinished draft texts to the same person.</li>
-    <li>Ask for help making their dating profile.</li>
-    <li>Be the friend who remembers everyone’s exes’ names better than their own family’s.</li>
-    <li>Send “we need to talk” then fall asleep.</li>
-    <li>Get a partner’s name tattooed within a year of meeting.</li>
-    <li>Get a matching tattoo with someone they’ve known a month.</li>
-    <li>Have somehow found out everyone in this room’s body count.</li>
-    <li>Move cities for someone they’ve known a fortnight.</li>
-    <li>Catch feelings for their friends-with-benefits. Again.</li>
-  </ol>
-
-  <h2><span class="tier t2">ABSURD AND HYPOTHETICAL</span>Who's most likely to…</h2>
-  <ol class="qs" style="counter-reset: q 160">
-    <li>Accidentally join a cult.</li>
-    <li>Read everyone’s messages if given one free chance.</li>
-    <li>Survive a zombie apocalypse.</li>
-    <li>Die first in a horror film.</li>
-    <li>Get voted off the island first.</li>
-    <li>Survive the island out of pure spite.</li>
-    <li>Become a wellness influencer overnight.</li>
-    <li>Rescue you if you were trapped in a South American jail.</li>
-    <li>Marry into the Mafia.</li>
-    <li>Go back into their burning house to get their phone.</li>
-    <li>Accidentally start a genuinely new religion.</li>
-    <li>Be the reason aliens decide not to make contact after all.</li>
-    <li>Get elected mayor of a town they don’t live in, somehow.</li>
-    <li>Win the lottery and lose the ticket.</li>
-    <li>Become famous, for something weird.</li>
-    <li>Trend online for exactly four minutes.</li>
-    <li>End up on reality TV.</li>
-    <li>Start a one-sided feud with a celebrity.</li>
-    <li>Get kicked off a plane.</li>
-    <li>Get quoted in the local paper for something daft.</li>
-    <li>End up in the family photos at a stranger’s wedding.</li>
-    <li>Accidentally smuggle fruit through customs and worry about it for years.</li>
-    <li>Become a conspiracy theorist off one YouTube video.</li>
-    <li>Fall for a pyramid scheme and recruit the group.</li>
-    <li>Get upgraded to first class by charm alone.</li>
-    <li>Fake their own death to get out of plans.</li>
-    <li>Get food poisoning from their own cooking.</li>
-    <li>Be the contestant the show regrets casting.</li>
-    <li>Be the background extra who looks at the camera.</li>
-    <li>Lose a fight with a seagull over chips.</li>
-  </ol>
-
-  <h2>Why this game works (and when it doesn't)</h2>
-  <p>Most Likely To runs on shared history: the pointing is the punchline, and the defence speeches are the content. It's the best game on this site for a group that's known each other for years, and the weakest for a room of strangers (they've got nothing to point with: give them <a href="/never-have-i-ever-questions/">Never Have I Ever</a> first and come back in an hour).</p>
-
-  <section class="faq">
-    <h2>Most Likely To FAQ</h2>
-
-    <h3>What are the rules of Most Likely To?</h3>
-    <p>Someone reads a "who's most likely to…" question, everyone simultaneously points at a player on the count of three, and whoever collects the most fingers takes the forfeit. No abstaining: pointing is mandatory.</p>
-
-    <h3>What happens on a tie?</h3>
-    <p>Both take the forfeit. Then the room argues about who deserved it more, which is the game working as intended.</p>
-
-    <h3>Can you vote for yourself?</h3>
-    <p>Yes: a confident self-point is one of the great moves in the game. It counts like any other finger.</p>
-  </section>
-
-  <div class="safety">
-    <strong>Play it right:</strong> read the room: the questions are about affectionate exposure, not actual grievances. Look after your mates.
-  </div>
-
-  <div class="cta-block">
-    <h2>Questions for days. Names included.</h2>
-    <p>These 40 are from Antics: the party games app. The full Most Likely To deck deals questions with your mates' actual names and never repeats until you've seen them all. Plus a whole stack more games and thousands of cards, all built on forfeits.</p>
-    <a class="cta" href="/get/?c=site-mlt-questions">Get Antics free</a>
-  </div>
-
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/drinking-games/">The classic party games, explained</a>
-    <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
-    <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-      <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
-  </div>
-
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-mlt-questions-bar">Get Antics free</a>
+</aside>
+
 
 <script type="application/ld+json">
 {

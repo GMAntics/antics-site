@@ -1,0 +1,1104 @@
+/* ==========================================================================
+   Antics site stylesheet: inner pages (guides, question lists, generators,
+   game pages, blog). Variant: app-native.
+
+   The idea: the site should feel like the app it sells. The card is the
+   unit, used with restraint: one card per job (the generator, a tier of
+   questions, the closing download box), never one card per line.
+
+   Load order on every page:
+     /js/generator.css   (the widget's own base styles, kept)
+     /css/site.css       (this file, which overrides the widget where needed)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand */
+  --bg: #0E0A1F;
+  --surface: #1C1535;
+  --pink: #FF2E7E;
+  --action: #EA0059;
+  --orange: #FFB02E;
+  --lime: #B8FF3D;
+  --cyan: #25E5FF;
+  --purple: #9D6BFF;
+
+  /* Derived surfaces: three steps up from the background, used by role */
+  --surface-1: #150F2B;          /* quiet containers: tier stacks, rules */
+  --surface-2: #1C1535;          /* raised: the generator panel, bars */
+  --surface-3: #261D47;          /* hover and pressed */
+  --well: #09061A;               /* sunken: code, embeds */
+  --row-alt: rgba(255, 255, 255, 0.035);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+
+  /* Text: every step passes WCAG AA on --bg and on --surface */
+  --text-0: #FFFFFF;             /* headings, prompts, questions */
+  --text-1: #D8D3EE;             /* running text, about 13:1 on --bg */
+  --text-2: #BDB6E0;             /* standfirsts, intros, notes, about 10:1 */
+  --text-3: #9C92C7;             /* small labels and metadata only */
+  --on-tone: #0E0A1F;            /* text sitting on a brand colour */
+
+  /* Section tone: each section sets one brand colour, default pink */
+  --tone: var(--pink);
+
+  /* Type */
+  --font-display: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Type scale: mobile values, lifted with clamp() towards 1280px */
+  --step--2: 0.75rem;                                    /* 12: labels */
+  --step--1: 0.875rem;                                   /* 14: meta, crumbs */
+  --step-0: 1.0625rem;                                   /* 17: body */
+  --step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);  /* 18 to 20: standfirst, h3 */
+  --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);        /* 24 to 32: h2 */
+  --step-3: clamp(2.125rem, 1.5rem + 3vw, 3.5rem);       /* 34 to 56: h1 */
+  --step-card: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem); /* 22 to 28: dealt card */
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.35;
+  --leading-body: 1.65;
+  --tracking-label: 0.16em;
+
+  /* Spacing scale (4px base) */
+  --space-3xs: 0.25rem;  /*  4 */
+  --space-2xs: 0.5rem;   /*  8 */
+  --space-xs: 0.75rem;   /* 12 */
+  --space-s: 1rem;       /* 16 */
+  --space-m: 1.5rem;     /* 24 */
+  --space-l: 2rem;       /* 32 */
+  --space-xl: 3rem;      /* 48 */
+  --space-2xl: 4.5rem;   /* 72 */
+  --space-3xl: 6rem;     /* 96 */
+
+  /* Layout */
+  --gutter: 20px;
+  --page-max: 1160px;
+  --measure: 68ch;
+  --rail: 420px;                 /* the tool column on wide screens */
+  --toc: 220px;
+
+  /* Shape: radius is spent by role, not sprinkled */
+  --r-card: 24px;                /* dealt cards and stacks */
+  --r-control: 16px;             /* buttons and inputs */
+  --r-chip: 999px;               /* toggles and chips */
+  --r-small: 8px;                /* inline code */
+
+  /* The deck: two card edges peeking out below a dealt card */
+  --deck-edge: 0 6px 0 -2px #1A1333, 0 12px 0 -5px #140E29;
+
+  --tap: 48px;                   /* minimum tap target */
+}
+
+@media (min-width: 768px) {
+  :root { --gutter: 32px; }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+
+strong { color: var(--text-0); font-weight: 700; }
+em { font-style: italic; }
+
+[id] { scroll-margin-top: var(--space-m); }
+
+/* Keyboard focus: one loud, consistent ring everywhere */
+:focus-visible {
+  outline: 3px solid var(--lime);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Running-text links: white text, underline in the section's tone */
+a {
+  color: var(--text-0);
+  text-decoration: underline;
+  text-decoration-color: var(--tone);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color 0.15s ease;
+}
+a:hover { color: var(--tone); }
+a.inline { font-weight: 700; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-small);
+  padding: 0.1em 0.4em;
+  color: var(--text-0);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Section tones: set once on a section, inherited by everything inside */
+.tone-pink   { --tone: var(--pink); }
+.tone-lime   { --tone: var(--lime); }
+.tone-cyan   { --tone: var(--cyan); }
+.tone-orange { --tone: var(--orange); }
+.tone-purple { --tone: var(--purple); }
+
+
+/* --------------------------------------------------------------------------
+   3. Page frame
+   -------------------------------------------------------------------------- */
+.page {
+  max-width: calc(var(--page-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: var(--space-m) var(--gutter) var(--space-2xl);
+}
+@media (min-width: 1024px) {
+  .page { padding-top: var(--space-l); }
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Breadcrumb
+   -------------------------------------------------------------------------- */
+.crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-size: var(--step--1);
+  line-height: var(--leading-snug);
+  color: var(--text-2);
+  margin-bottom: var(--space-l);
+}
+.crumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 40px;
+  color: var(--text-2);
+  text-decoration: none;
+  font-weight: 600;
+}
+.crumb a:hover { color: var(--text-0); }
+.crumb img {
+  width: 32px; height: 32px;
+  border-radius: 9px;
+  flex: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. Page header: h1 plus standfirst
+   -------------------------------------------------------------------------- */
+.page-head { max-width: 34em; }
+
+h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-3);
+  line-height: 1.02;
+  letter-spacing: -0.022em;
+  color: var(--text-0);
+  text-wrap: balance;
+  margin-bottom: var(--space-s);
+}
+
+.standfirst,
+.lead {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--text-2);
+  max-width: 36em;
+  text-wrap: pretty;
+}
+
+/* Hero with a tool: header and generator side by side on wide screens */
+.hero {
+  display: grid;
+  gap: var(--space-l);
+  margin-bottom: var(--space-xl);
+}
+@media (min-width: 1024px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr) var(--rail);
+    align-items: center;
+    column-gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   6. Section headings and running text
+   -------------------------------------------------------------------------- */
+h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--step-2);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  color: var(--text-0);
+  text-wrap: balance;
+  margin: var(--space-2xl) 0 var(--space-s);
+}
+
+h3 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  color: var(--text-0);
+  margin: var(--space-l) 0 var(--space-2xs);
+}
+
+/* Rhythm: tight inside a section, wide between sections */
+.section > h2:first-child { margin-top: var(--space-2xl); }
+.section + .section > h2:first-child { margin-top: var(--space-2xl); }
+
+.prose p,
+p.copy {
+  max-width: var(--measure);
+  margin-bottom: var(--space-s);
+  text-wrap: pretty;
+}
+.prose ul:not([class]),
+.prose ol:not([class]) {
+  max-width: var(--measure);
+  margin: 0 0 var(--space-s) 1.25em;
+}
+.prose li:not([class]) { margin-bottom: var(--space-3xs); }
+
+/* Small print that sits under a tool or above a section */
+.note {
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--text-2);
+  max-width: var(--measure);
+}
+
+/* Labels: the app's small-caps kicker */
+.label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--text-3);
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Buttons
+   -------------------------------------------------------------------------- */
+.btn,
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 52px;
+  padding: 0 var(--space-m);
+  border-radius: var(--r-control);
+  background: var(--action);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  transition: filter 0.15s ease, transform 0.15s ease;
+}
+.btn:hover, .cta:hover { color: #FFFFFF; filter: brightness(1.1); }
+.btn:active, .cta:active { transform: scale(0.98); }
+.btn--sm { min-height: var(--tap); padding: 0 var(--space-s); font-size: var(--step--1); }
+.btn--ghost {
+  background: transparent;
+  border: 1px solid var(--line-strong);
+}
+
+
+/* --------------------------------------------------------------------------
+   8. Section navigation ("On this page")
+   Mobile: a swipeable row of chips. Wide: a sticky rail beside the text.
+   -------------------------------------------------------------------------- */
+.toc { margin-bottom: var(--space-l); }
+.toc .label { margin-bottom: var(--space-xs); }
+.toc ol {
+  list-style: none;
+  display: flex;
+  gap: var(--space-2xs);
+  overflow-x: auto;
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 2px var(--gutter) 6px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.toc ol::-webkit-scrollbar { display: none; }
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 40px;
+  padding: 0 var(--space-s);
+  border-radius: var(--r-chip);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  color: var(--text-1);
+  font-size: var(--step--1);
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.toc a::before {
+  content: "";
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--tone);
+  flex: none;
+}
+.toc a:hover { color: var(--text-0); border-color: var(--line-strong); }
+
+@media (min-width: 1024px) {
+  .toc {
+    position: sticky;
+    top: var(--space-l);
+    align-self: start;
+    margin: 0;
+  }
+  .toc ol {
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border-left: 1px solid var(--line);
+  }
+  .toc a {
+    width: 100%;
+    min-height: 40px;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    padding: 0 var(--space-s);
+    color: var(--text-2);
+  }
+  .toc a:hover { color: var(--text-0); background: var(--row-alt); }
+}
+
+
+/* --------------------------------------------------------------------------
+   9. Two-column bodies
+   -------------------------------------------------------------------------- */
+/* Guide: text column plus the "On this page" rail */
+.guide-body { display: block; }
+.guide-body > .prose { min-width: 0; }
+@media (min-width: 1024px) {
+  .guide-body {
+    display: grid;
+    grid-template-columns: minmax(0, 760px) var(--toc);
+    justify-content: space-between;
+    column-gap: var(--space-2xl);
+  }
+  .guide-body > .prose { grid-column: 1; grid-row: 1; }
+  .guide-body > .toc { grid-column: 2; grid-row: 1; }
+}
+
+/* Tool page: text on the left, the generator stays in view on the right */
+.tool-layout { display: block; }
+.tool-layout > * { min-width: 0; }
+.tool-wrap { margin: var(--space-l) 0 var(--space-s); }
+@media (min-width: 1024px) {
+  .tool-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 720px) var(--rail);
+    justify-content: space-between;
+    column-gap: var(--space-2xl);
+  }
+  .tool-layout > .crumb { grid-column: 1 / -1; }
+  .tool-layout > .page-head { grid-column: 1; grid-row: 2; align-self: end; }
+  .tool-layout > .tool-wrap {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: start;
+    position: sticky;
+    top: var(--space-l);
+    margin: 0;
+  }
+  .tool-layout > .tool-body { grid-column: 1; grid-row: 3; }
+}
+
+
+/* --------------------------------------------------------------------------
+   10. How-to-play summary (the rules, in three lines)
+   -------------------------------------------------------------------------- */
+.rules {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: var(--space-2xs) var(--space-m);
+  margin: var(--space-l) 0 0;
+}
+.rules p {
+  padding: var(--space-s) 0;
+  margin: 0;
+  max-width: var(--measure);
+}
+.rules p + p { border-top: 1px solid var(--line); }
+.rules p > strong:first-child {
+  display: block;
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--tone);
+  margin-bottom: var(--space-3xs);
+}
+
+
+/* --------------------------------------------------------------------------
+   11. The stack: a list of questions dealt as one card you can scan.
+   Alternate row fills, no box per line. Works on <ol> (numbered) and <ul>.
+   -------------------------------------------------------------------------- */
+.stack {
+  list-style: none;
+  margin: var(--space-m) 0 0;
+  padding: 0;
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.stack > li {
+  position: relative;
+  min-height: 52px;
+  padding: 14px var(--space-m) 14px var(--space-m);
+  color: var(--text-0);
+  font-weight: 600;
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+.stack > li:nth-child(even) { background: var(--row-alt); }
+
+/* A numbered stack counts from 1. Inside .count-run every stack carries
+   on from the one before, so a guide numbers all its questions in one run
+   (the start="" attribute says the same thing without CSS). */
+ol.stack { counter-reset: q; }
+.count-run { counter-reset: q; }
+.count-run ol.stack { counter-reset: none; }
+ol.stack > li {
+  counter-increment: q;
+  padding-left: 56px;
+}
+ol.stack > li::before {
+  content: counter(q);
+  position: absolute;
+  left: 8px;
+  top: 14px;
+  width: 36px;
+  text-align: right;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9em;
+  font-variant-numeric: tabular-nums;
+  color: var(--tone);
+}
+
+.stack > li { padding-inline: 20px; }
+ol.stack > li { padding-left: 56px; }
+
+@media (min-width: 768px) {
+  .stack > li { padding: 16px var(--space-m); }
+  ol.stack > li { padding-left: 68px; }
+  ol.stack > li::before { top: 16px; left: var(--space-s); width: 36px; }
+}
+
+
+/* Text that follows a stack inside the same section */
+.stack + p { margin-top: var(--space-m); }
+
+
+/* --------------------------------------------------------------------------
+   12. Tier cards: a heading, an intro and its stack, as one dealt card.
+   The tier name sits in the card's top-left corner like the app's label.
+   -------------------------------------------------------------------------- */
+.tier-card {
+  position: relative;
+  margin-top: var(--space-2xl);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  overflow: hidden;
+}
+.tier-card > h2 {
+  margin: 0;
+  padding: 56px 20px 0;
+}
+.tier-card > h2 .tier {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding: 10px var(--space-s) 10px var(--space-m);
+  background: var(--tone);
+  color: var(--on-tone);
+  border-bottom-right-radius: var(--r-control);
+  font-family: var(--font-body);
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  line-height: 1.2;
+}
+.tier-card > p {
+  padding: var(--space-2xs) 20px var(--space-m);
+  margin: 0;
+  color: var(--text-2);
+  max-width: var(--measure);
+}
+.tier-card > .stack {
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
+@media (min-width: 768px) {
+  .tier-card > h2 { padding-inline: var(--space-m); }
+  .tier-card > p { padding-inline: var(--space-m); }
+}
+
+/* A tier card with no intro goes straight from heading to stack */
+.tier-card > h2 + .stack { margin-top: var(--space-m); }
+
+/* The corner label takes its colour from the card's tone-* class */
+
+
+/* --------------------------------------------------------------------------
+   12b. Divider intro: the sentence that opens a new run of tier cards
+   -------------------------------------------------------------------------- */
+.divider-intro {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line-strong);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  color: var(--text-1);
+  max-width: 40em;
+}
+.divider-intro + .tier-card { margin-top: var(--space-l); }
+
+
+/* --------------------------------------------------------------------------
+   13. Mid-page nudge: a quiet row between tiers, not another box
+   -------------------------------------------------------------------------- */
+.midcta {
+  margin: var(--space-xl) 0 0;
+  padding: var(--space-s) 0;
+  border-block: 1px solid var(--line);
+  color: var(--text-2);
+  max-width: var(--measure);
+}
+.midcta a { font-weight: 700; white-space: nowrap; }
+
+
+/* --------------------------------------------------------------------------
+   14. FAQ: hairlines between questions, no boxes
+   -------------------------------------------------------------------------- */
+.faq h3 {
+  margin: 0;
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line);
+}
+.faq h2 + h3 { margin-top: var(--space-m); }
+.faq h3 + p {
+  margin-top: var(--space-2xs);
+  padding-bottom: var(--space-2xs);
+}
+
+
+/* --------------------------------------------------------------------------
+   15. Safety line
+   -------------------------------------------------------------------------- */
+.safety {
+  margin: var(--space-xl) 0 0;
+  padding: var(--space-s) var(--space-m);
+  border: 1px solid rgba(255, 176, 46, 0.35);
+  border-radius: var(--r-control);
+  font-size: var(--step--1);
+  line-height: 1.55;
+  color: var(--text-1);
+  max-width: var(--measure);
+}
+.safety strong { color: var(--orange); }
+
+
+/* --------------------------------------------------------------------------
+   16. Closing download box: the page's one loud card
+   -------------------------------------------------------------------------- */
+.cta-block {
+  margin-top: var(--space-2xl);
+  padding: var(--space-l) var(--space-m) var(--space-m);
+  background: var(--surface-2);
+  border: 1px solid rgba(255, 46, 126, 0.35);
+  border-radius: var(--r-card);
+  box-shadow: var(--deck-edge);
+}
+.cta-block .cta-icon {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  margin-bottom: var(--space-m);
+}
+.cta-block h2 { margin: 0 0 var(--space-xs); color: var(--text-0); }
+.cta-block p {
+  color: var(--text-1);
+  max-width: 44ch;
+  margin-bottom: var(--space-m);
+}
+.cta-block .cta { width: 100%; }
+@media (min-width: 560px) {
+  .cta-block { padding: var(--space-xl); }
+  .cta-block .cta { width: auto; min-width: 240px; }
+}
+
+
+/* --------------------------------------------------------------------------
+   17. Link lists: "More party game guides", "More free generators"
+   -------------------------------------------------------------------------- */
+.guides { margin-top: var(--space-2xl); }
+.section.guides { margin-top: 0; }
+.guides > .label,
+.guides > strong { display: block; margin-bottom: var(--space-xs); }
+.guides > strong {
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.link-list {
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.link-list li { border-bottom: 1px solid var(--line); }
+.link-list a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  min-height: 52px;
+  padding: var(--space-xs) var(--space-2xs) var(--space-xs) 0;
+  color: var(--text-1);
+  font-size: var(--step-0);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+  text-decoration: none;
+}
+.link-list a::after {
+  content: "\2197";
+  content: "\2197" / "";
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-0);
+  font-size: 14px;
+  font-weight: 800;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.link-list a:hover { color: var(--text-0); }
+.link-list a:hover::after { background: var(--tone); color: var(--on-tone); }
+
+@media (min-width: 768px) {
+  .link-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-l);
+    border-top: 0;
+  }
+  .link-list li:nth-child(-n + 2) { border-top: 1px solid var(--line); }
+}
+
+
+/* --------------------------------------------------------------------------
+   18. Code blocks (embed snippets)
+   -------------------------------------------------------------------------- */
+.embed-box {
+  background: var(--well);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+  padding: var(--space-s) var(--space-m);
+  margin: 0 0 var(--space-m);
+  overflow-x: auto;
+  max-width: 100%;
+}
+.embed-box code {
+  display: block;
+  background: none;
+  border: 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-1);
+  white-space: pre;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. Tables (game rules, card meanings, comparisons)
+   -------------------------------------------------------------------------- */
+.table-wrap {
+  margin: var(--space-m) 0;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+caption {
+  caption-side: top;
+  text-align: left;
+  padding: var(--space-xs) var(--space-s);
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+th {
+  text-align: left;
+  vertical-align: bottom;
+  padding: var(--space-xs) var(--space-s);
+  background: var(--surface-1);
+  color: var(--text-2);
+  font-weight: 800;
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+td {
+  padding: var(--space-xs) var(--space-s);
+  border-top: 1px solid var(--line);
+  color: var(--text-1);
+  vertical-align: top;
+}
+td:first-child { color: var(--text-0); font-weight: 700; }
+tbody tr:nth-child(even) td { background: var(--row-alt); }
+
+
+/* --------------------------------------------------------------------------
+   20. Footer
+   -------------------------------------------------------------------------- */
+.site-foot,
+.foot {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+.site-foot a,
+.foot a { color: var(--text-1); }
+.site-foot a:hover,
+.foot a:hover { color: var(--text-0); }
+
+
+/* --------------------------------------------------------------------------
+   21. Install bar: phones only, pinned to the bottom like an app tab bar
+   -------------------------------------------------------------------------- */
+.installbar {
+  position: fixed;
+  z-index: 20;
+  left: 12px;
+  right: 12px;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 8px 8px 8px 10px;
+  background: rgba(28, 21, 53, 0.94);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .installbar {
+    background: rgba(28, 21, 53, 0.82);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}
+.installbar img { width: 40px; height: 40px; border-radius: 10px; flex: none; }
+.installbar p {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  font-size: var(--step--1);
+  color: var(--text-2);
+}
+.installbar p strong { font-family: var(--font-display); font-weight: 800; font-size: 16px; }
+.installbar p span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.installbar .btn { flex: none; }
+
+/* Room for the bar so it never covers the footer */
+body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+
+@media (min-width: 768px) {
+  .installbar { display: none; }
+  body.has-installbar { padding-bottom: 0; }
+}
+
+
+/* --------------------------------------------------------------------------
+   22. Generator widget overrides (/js/generator.js markup)
+   The widget becomes a small app screen: a raised panel, a segmented deck
+   switch, one dealt card with the app's lime label, big thumb buttons.
+   -------------------------------------------------------------------------- */
+.agen {
+  max-width: none;
+  margin: 0;
+  padding: var(--space-s);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  text-align: center;
+  font-family: var(--font-body);
+}
+
+/* Deck switch: a full-width segmented control */
+.agen .agen-modes {
+  display: flex;
+  width: 100%;
+  margin: 0 0 var(--space-s);
+  padding: 4px;
+  gap: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-chip);
+}
+.agen .agen-mode {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 var(--space-s);
+  border-radius: var(--r-chip);
+  color: var(--text-2);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.agen .agen-mode:hover { color: var(--text-0); }
+.agen .agen-mode.is-on { background: var(--action); color: #FFFFFF; }
+.agen .agen-mode:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+
+/* The dealt card, as the app draws it */
+.agen .agen-card {
+  position: relative;
+  flex-direction: column;
+  gap: var(--space-s);
+  min-height: 250px;
+  margin-bottom: 12px;           /* room for the deck edges */
+  padding: var(--space-xl) var(--space-m) var(--space-l);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--deck-edge);
+}
+/* The app's card kicker. Decorative only: hidden from screen readers. */
+.agen .agen-card::before {
+  content: "Everyone";
+  content: "Everyone" / "";
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+.agen[data-game="mlt"] .agen-card::before  { content: "Vote";      content: "Vote" / ""; }
+.agen[data-game="tod"] .agen-card::before,
+.agen[data-game="odds"] .agen-card::before { content: "Challenge"; content: "Challenge" / ""; }
+
+.agen .agen-q {
+  font-family: var(--font-display);
+  font-size: var(--step-card);
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
+  text-wrap: balance;
+}
+.agen .agen-q.agen-q-empty {
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+/* Thumb-sized controls */
+.agen .agen-controls {
+  flex-wrap: nowrap;
+  gap: var(--space-2xs);
+  margin: var(--space-s) 0 var(--space-2xs);
+}
+.agen .agen-next {
+  flex: 1;
+  min-height: 56px;
+  padding: 0 var(--space-m);
+  border-radius: var(--r-control);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 800;
+}
+.agen .agen-copy {
+  min-height: 56px;
+  padding: 0 var(--space-m);
+  border-radius: var(--r-control);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+.agen .agen-copy:hover { background: var(--surface-3); }
+/* Before the first draw the script hides Copy; let Draw take the full row */
+.agen .agen-copy[style*="hidden"] { display: none; }
+.agen .agen-next:focus-visible,
+.agen .agen-copy:focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; }
+
+.agen .agen-count {
+  color: var(--text-3);
+  font-size: var(--step--2);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The widget's own install nudge: two equal buttons under a hairline */
+.agen .agen-cta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--line);
+}
+.agen .agen-cta-h {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--space-3xs);
+  color: var(--text-2);
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.45;
+}
+.agen .agen-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  margin: 0;
+  padding: 0 var(--space-xs);
+  border-radius: 14px;
+  font-size: var(--step--1);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.agen .agen-btn:first-of-type,
+.agen .agen-btn-get { background: var(--action); border-color: transparent; }
+.agen .agen-btn-alt,
+.agen .agen-btn:last-of-type:not(.agen-btn-get) { background: transparent; border: 1px solid var(--line-strong); }
+.agen .agen-btn:hover { color: #FFFFFF; filter: brightness(1.1); }
+
+/* Small print under the widget */
+.tool-note {
+  margin-top: var(--space-s);
+  text-align: center;
+  font-size: var(--step--1);
+  color: var(--text-2);
+}
+
+/* Iframe embeds: tighter, and a steady height (iframes cannot resize) */
+.agen.agen-embed { padding: var(--space-xs); border-radius: 22px; }
+.agen.agen-embed .agen-modes { margin-bottom: var(--space-xs); }
+.agen.agen-embed .agen-card {
+  min-height: 190px;
+  padding: var(--space-l) var(--space-s) var(--space-m);
+}
+.agen.agen-embed .agen-q { font-size: 1.25rem; }
+.agen.agen-embed .agen-q.agen-q-empty { font-size: var(--step--1); }
+
+
+/* --------------------------------------------------------------------------
+   23. Embed mode: the generator page inside somebody else's iframe
+   -------------------------------------------------------------------------- */
+body.embed,
+body.embed.has-installbar { padding: 12px; }
+body.embed .page { padding: 0; max-width: 600px; }
+body.embed .site-chrome { display: none; }
+body.embed .tool-layout { display: block; }
+body.embed .tool-wrap { position: static; margin: 0; }
+
+
+/* --------------------------------------------------------------------------
+   24. Motion and print
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .installbar, .toc, .agen-controls, .agen-cta, .agen-modes { display: none !important; }
+  body { background: #FFFFFF; color: #000000; }
+}

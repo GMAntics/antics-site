@@ -16,64 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .t1 { color: var(--lime); } h2 .t2 { color: var(--cyan); } h2 .t3 { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    ul { margin: 0 0 14px 22px; }
-    ol.steps { margin: 0 0 14px 22px; }
-    ol.steps li { margin-bottom: 8px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    .round { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .round p { margin-bottom: 8px; }
-    .round .say { color: var(--white); }
-    .words { background: var(--surface); border-radius: 16px; padding: 18px 22px; margin-bottom: 12px; }
-    .words p { margin-bottom: 8px; }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; margin: 4px 5px; }
-    .cta.secondary { background: transparent; border: 1px solid var(--dim); }
-    .cta-alt { margin-top: 12px; font-size: 14px; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .wt { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 15px; }
-    .wt th { text-align: left; color: var(--dim); font-weight: 700; padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 13px; letter-spacing: 1px; }
-    .wt td { padding: 8px 8px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; }
-    .wt td:first-child { color: var(--white); font-weight: 700; }
-    .cats { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 8px; }
-    .cats a { background: var(--surface); border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 700; color: var(--white); text-decoration: none; border: 1px solid rgba(255,255,255,0.08); }
-    .cats a:hover { border-color: var(--pink); }
-    @media (max-width: 480px) { .wt { font-size: 14px; } .wt th, .wt td { padding: 7px 5px; } }
-  </style>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -106,69 +48,182 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> &rsaquo; <a href="/how-to-play-imposter/">Imposter</a> &rsaquo; Imposter places: the Locations deck</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">&rsaquo;</span> <a href="/how-to-play-imposter/">Imposter</a> <span aria-hidden="true">&rsaquo;</span> Imposter places: the Locations deck</nav>
 
-  <h1>Imposter places: the Locations deck</h1>
-  <p class="standfirst">Locations was the first Imposter deck in Antics, and it is still the natural place to start. Everyone is somewhere together except one person, who has to act like they know where they are.</p>
-
-  <p>Places work because you can describe a place by how it feels rather than what it is. "I'm slightly damp" is a legitimate clue. So is "someone is crying and it isn't me". IKEA is a favourite because every clue is an emotion: lost, arguing, inexplicably hungry. A laundrette is the opposite, a place half the room has never set foot in, so the crew's clues go vague and the imposter blends right in. And the office Christmas party is barely a location at all. It is a mood, and everyone has one.</p>
-  <h2>The full places word list, with the hints the app gives the imposter</h2>
-  <p>Every word below is dealt in the Antics app. The easy hint is what the imposter sees on the default setting; the hard hint is the harder tier. Playing from this page with paper? Give the imposter one hint or none, your call.</p>
-  <table class="wt"><tr><th>WORD</th><th>EASY HINT</th><th>HARD HINT</th></tr><tr><td>A smoking area</td><td>Outside</td><td>Break</td></tr><tr><td>The library</td><td>Quiet</td><td>Focus</td></tr><tr><td>A university lecture</td><td>Notes</td><td>Bored</td></tr><tr><td>A careers fair</td><td>Stalls</td><td>Future</td></tr><tr><td>A house party</td><td>Crowded</td><td>Neighbours</td></tr><tr><td>A festival campsite</td><td>Muddy</td><td>Summer</td></tr><tr><td>A kebab shop</td><td>Chilli</td><td>Hungry</td></tr><tr><td>The gym</td><td>Sweaty</td><td>Excuses</td></tr><tr><td>A swimming pool</td><td>Wet</td><td>Childhood</td></tr><tr><td>A hospital waiting room</td><td>Magazines</td><td>Nervous</td></tr><tr><td>An aeroplane</td><td>Cramped</td><td>Abroad</td></tr><tr><td>Airport security</td><td>Queue</td><td>Uniform</td></tr><tr><td>A ski slope</td><td>Cold</td><td>Beginners</td></tr><tr><td>A casino</td><td>Luck</td><td>Midnight</td></tr><tr><td>A wedding reception</td><td>Speeches</td><td>Relatives</td></tr><tr><td>A hen do</td><td>Cocktails</td><td>Embarrassing</td></tr><tr><td>A date</td><td>Romantic</td><td>Effort</td></tr><tr><td>The zoo</td><td>Families</td><td></td></tr><tr><td>An aquarium</td><td>Glass</td><td>Mesmerising</td></tr><tr><td>The cinema</td><td>Dark</td><td>Adverts</td></tr><tr><td>An escape room</td><td>Puzzles</td><td>Pressure</td></tr><tr><td>A bowling alley</td><td>Scores</td><td>Competitive</td></tr><tr><td>IKEA</td><td>Furniture</td><td>Argument</td></tr><tr><td>A laundrette</td><td>Washing</td><td>Chores</td></tr><tr><td>A hair salon</td><td>Mirrors</td><td>Gossip</td></tr><tr><td>The barbers</td><td>Scissors</td><td>Blokes</td></tr><tr><td>A tattoo parlour</td><td>Needles</td><td>Regret</td></tr><tr><td>A karaoke booth</td><td>Singing</td><td>Confidence</td></tr><tr><td>A spa</td><td>Robes</td><td>Relaxing</td></tr><tr><td>The dentist</td><td>Drill</td><td>Appointment</td></tr><tr><td>The bus</td><td>Passengers</td><td>Commute</td></tr><tr><td>A train station</td><td>Announcements</td><td>Delays</td></tr><tr><td>A taxi</td><td>Driver</td><td>Tipping</td></tr><tr><td>A McDonald's</td><td>Greasy</td><td>Hangover</td></tr><tr><td>A drive-through</td><td>Car</td><td>Lazy</td></tr><tr><td>A theme park</td><td>Rides</td><td>Expensive</td></tr><tr><td>A haunted house</td><td>Screaming</td><td></td></tr><tr><td>A museum</td><td>History</td><td>Tourists</td></tr><tr><td>A job interview</td><td>Questions</td><td>Formal</td></tr><tr><td>A driving test</td><td>Clipboard</td><td>Judged</td></tr><tr><td>Graduation day</td><td>Photos</td><td>Milestone</td></tr><tr><td>A school reunion</td><td>Buffet</td><td>Nostalgia</td></tr><tr><td>The office Christmas party</td><td>Colleagues</td><td>Awkward</td></tr><tr><td>A speed-dating night</td><td>Bell</td><td>Strangers</td></tr><tr><td>A student kitchen</td><td>Kettle</td><td>Shared</td></tr><tr><td>A rooftop bar</td><td>Views</td><td>Windy</td></tr><tr><td>A silent disco</td><td>Headphones</td><td>Novelty</td></tr><tr><td>A pub quiz</td><td>Teams</td><td>Prize</td></tr><tr><td>A golf course</td><td>Grass</td><td>Walking</td></tr><tr><td>The races</td><td>Betting</td><td>Spectators</td></tr><tr><td>Sunday league football</td><td>Shouting</td><td>Amateur</td></tr><tr><td>A camping trip</td><td>Fire</td><td>Weather</td></tr><tr><td>A flea market</td><td>Bargains</td><td>Dusty</td></tr><tr><td>An open-mic night</td><td>Stage</td><td>Polite</td></tr><tr><td>A yoga class</td><td>Stretching</td><td>Balance</td></tr><tr><td>A cruise ship</td><td>Sea</td><td>Pensioners</td></tr><tr><td>A hostel dorm</td><td>Snoring</td><td>Cheap</td></tr><tr><td>A resort pool</td><td>Inflatable</td><td>Holiday</td></tr></table>
-  <h2>Running a round in the Locations deck</h2>
-  <ol class="steps">
-    <li>Open Imposter in Antics and choose Locations. It is free, and it is the deck the game was built around.</li>
-    <li>Pass the phone. Everyone learns where you all are, apart from the imposter, who gets a hint.</li>
-    <li>Take turns asking one person one question. "What are you wearing?", "Who did you come with?" and "How long have you been here?" work for nearly every place on the list, and they are brutal on a bluffer.</li>
-    <li>Answer in character. If you are at the dentist, you are not having a nice time.</li>
-    <li>Vote on three. A caught imposter has to name the place. "A shop" does not count, even though IKEA technically is one.</li>
-  </ol>
-  <h2>The places that fool everyone</h2>
-  <p>Some places come in pairs, and pairs are where rounds fall apart. A hair salon and the barbers are both in the deck, so when the imposter hears "chair", "mirror" and "small talk" they are genuinely stuck between two answers, and so is anyone who was in the loo for the first lap. Places you only visit once are tough too: a driving test is vivid to the mate who failed three of them and a blank to everyone else. Every round the app deals the imposter a one-word hint, Easy by default and Hard if you want them to sweat. From the deck: A hair salon: Mirrors / Gossip. The barbers: Scissors / Blokes. A driving test: Clipboard / Judged.</p>
-  <h2>Who Locations works for</h2>
-  <p>It is the best first deck for a group that has never played, because nobody needs to know a single fact, only places they have been. Uni flats love it for obvious reasons: a student kitchen and a university lecture are both on the list, and the answers get personal fast. And yes, a hen do is one of the locations, which is a wonderful thing to be dealt while you are actually on one.</p>
-  <h3>How is Locations different from the word decks?</h3>
-  <p>In a word deck you describe a thing. In Locations you describe somewhere you are, so clues can be noises, smells, people and feelings. A caught imposter's last stand is naming the place rather than a word.</p>
-  <h3>What is Mischief mode?</h3>
-  <p>An optional twist in the lobby. Some rounds, nobody gets the secret: everyone is the imposter and everyone bluffs at everyone. It never strikes on the round you switch it on, so nobody sees it coming. On a places round it is glorious, because six people confidently describe six different buildings.</p>
-  <h3>Do I have to pay for Locations?</h3>
-  <p>No. Locations is free, like the rest of Imposter in Antics.</p>
-
-  <div class="cta-block">
-    <h2>Everyone's here. One of you isn't.</h2>
-    <p>Locations is free in Antics. Pass the phone, take a peek, and start asking awkward questions about where you all are.</p>
-    <a class="cta" href="/get/?c=site-imposter-places">Download on the App Store</a>
-    <a class="cta secondary" href="/get/?c=site-imposter-places">Get it on Google Play</a>
-    <p class="cta-alt">On a laptop? <a href="/get/?c=site-imposter-places-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>Imposter places: the Locations deck</h1>
+      <p class="standfirst">Locations was the first Imposter deck in Antics, and it is still the natural place to start. Everyone is somewhere together except one person, who has to act like they know where they are.</p>
+    </header>
   </div>
 
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-    <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-lime"><a href="#word-list">Word list</a></li>
+        <li class="tone-cyan"><a href="#run-a-round">Run a round</a></li>
+        <li class="tone-pink"><a href="#tricky-places">Tricky places</a></li>
+        <li class="tone-orange"><a href="#who-it-suits">Who it suits</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <p>Places work because you can describe a place by how it feels rather than what it is. "I'm slightly damp" is a legitimate clue. So is "someone is crying and it isn't me". IKEA is a favourite because every clue is an emotion: lost, arguing, inexplicably hungry. A laundrette is the opposite, a place half the room has never set foot in, so the crew's clues go vague and the imposter blends right in. And the office Christmas party is barely a location at all. It is a mood, and everyone has one.</p>
+
+      <section class="section tone-lime" id="word-list">
+        <h2>The full places word list, with the hints the app gives the imposter</h2>
+        <p>Every word below is dealt in the Antics app. The easy hint is what the imposter sees on the default setting; the hard hint is the harder tier. Playing from this page with paper? Give the imposter one hint or none, your call.</p>
+        <div class="table-wrap">
+          <table class="wt">
+            <thead>
+              <tr><th>WORD</th><th>EASY HINT</th><th>HARD HINT</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>A smoking area</td><td>Outside</td><td>Break</td></tr>
+              <tr><td>The library</td><td>Quiet</td><td>Focus</td></tr>
+              <tr><td>A university lecture</td><td>Notes</td><td>Bored</td></tr>
+              <tr><td>A careers fair</td><td>Stalls</td><td>Future</td></tr>
+              <tr><td>A house party</td><td>Crowded</td><td>Neighbours</td></tr>
+              <tr><td>A festival campsite</td><td>Muddy</td><td>Summer</td></tr>
+              <tr><td>A kebab shop</td><td>Chilli</td><td>Hungry</td></tr>
+              <tr><td>The gym</td><td>Sweaty</td><td>Excuses</td></tr>
+              <tr><td>A swimming pool</td><td>Wet</td><td>Childhood</td></tr>
+              <tr><td>A hospital waiting room</td><td>Magazines</td><td>Nervous</td></tr>
+              <tr><td>An aeroplane</td><td>Cramped</td><td>Abroad</td></tr>
+              <tr><td>Airport security</td><td>Queue</td><td>Uniform</td></tr>
+              <tr><td>A ski slope</td><td>Cold</td><td>Beginners</td></tr>
+              <tr><td>A casino</td><td>Luck</td><td>Midnight</td></tr>
+              <tr><td>A wedding reception</td><td>Speeches</td><td>Relatives</td></tr>
+              <tr><td>A hen do</td><td>Cocktails</td><td>Embarrassing</td></tr>
+              <tr><td>A date</td><td>Romantic</td><td>Effort</td></tr>
+              <tr><td>The zoo</td><td>Families</td><td></td></tr>
+              <tr><td>An aquarium</td><td>Glass</td><td>Mesmerising</td></tr>
+              <tr><td>The cinema</td><td>Dark</td><td>Adverts</td></tr>
+              <tr><td>An escape room</td><td>Puzzles</td><td>Pressure</td></tr>
+              <tr><td>A bowling alley</td><td>Scores</td><td>Competitive</td></tr>
+              <tr><td>IKEA</td><td>Furniture</td><td>Argument</td></tr>
+              <tr><td>A laundrette</td><td>Washing</td><td>Chores</td></tr>
+              <tr><td>A hair salon</td><td>Mirrors</td><td>Gossip</td></tr>
+              <tr><td>The barbers</td><td>Scissors</td><td>Blokes</td></tr>
+              <tr><td>A tattoo parlour</td><td>Needles</td><td>Regret</td></tr>
+              <tr><td>A karaoke booth</td><td>Singing</td><td>Confidence</td></tr>
+              <tr><td>A spa</td><td>Robes</td><td>Relaxing</td></tr>
+              <tr><td>The dentist</td><td>Drill</td><td>Appointment</td></tr>
+              <tr><td>The bus</td><td>Passengers</td><td>Commute</td></tr>
+              <tr><td>A train station</td><td>Announcements</td><td>Delays</td></tr>
+              <tr><td>A taxi</td><td>Driver</td><td>Tipping</td></tr>
+              <tr><td>A McDonald's</td><td>Greasy</td><td>Hangover</td></tr>
+              <tr><td>A drive-through</td><td>Car</td><td>Lazy</td></tr>
+              <tr><td>A theme park</td><td>Rides</td><td>Expensive</td></tr>
+              <tr><td>A haunted house</td><td>Screaming</td><td></td></tr>
+              <tr><td>A museum</td><td>History</td><td>Tourists</td></tr>
+              <tr><td>A job interview</td><td>Questions</td><td>Formal</td></tr>
+              <tr><td>A driving test</td><td>Clipboard</td><td>Judged</td></tr>
+              <tr><td>Graduation day</td><td>Photos</td><td>Milestone</td></tr>
+              <tr><td>A school reunion</td><td>Buffet</td><td>Nostalgia</td></tr>
+              <tr><td>The office Christmas party</td><td>Colleagues</td><td>Awkward</td></tr>
+              <tr><td>A speed-dating night</td><td>Bell</td><td>Strangers</td></tr>
+              <tr><td>A student kitchen</td><td>Kettle</td><td>Shared</td></tr>
+              <tr><td>A rooftop bar</td><td>Views</td><td>Windy</td></tr>
+              <tr><td>A silent disco</td><td>Headphones</td><td>Novelty</td></tr>
+              <tr><td>A pub quiz</td><td>Teams</td><td>Prize</td></tr>
+              <tr><td>A golf course</td><td>Grass</td><td>Walking</td></tr>
+              <tr><td>The races</td><td>Betting</td><td>Spectators</td></tr>
+              <tr><td>Sunday league football</td><td>Shouting</td><td>Amateur</td></tr>
+              <tr><td>A camping trip</td><td>Fire</td><td>Weather</td></tr>
+              <tr><td>A flea market</td><td>Bargains</td><td>Dusty</td></tr>
+              <tr><td>An open-mic night</td><td>Stage</td><td>Polite</td></tr>
+              <tr><td>A yoga class</td><td>Stretching</td><td>Balance</td></tr>
+              <tr><td>A cruise ship</td><td>Sea</td><td>Pensioners</td></tr>
+              <tr><td>A hostel dorm</td><td>Snoring</td><td>Cheap</td></tr>
+              <tr><td>A resort pool</td><td>Inflatable</td><td>Holiday</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tone-cyan" id="run-a-round">
+        <h2>Running a round in the Locations deck</h2>
+        <ol class="stack steps">
+          <li>Open Imposter in Antics and choose Locations. It is free, and it is the deck the game was built around.</li>
+          <li>Pass the phone. Everyone learns where you all are, apart from the imposter, who gets a hint.</li>
+          <li>Take turns asking one person one question. "What are you wearing?", "Who did you come with?" and "How long have you been here?" work for nearly every place on the list, and they are brutal on a bluffer.</li>
+          <li>Answer in character. If you are at the dentist, you are not having a nice time.</li>
+          <li>Vote on three. A caught imposter has to name the place. "A shop" does not count, even though IKEA technically is one.</li>
+        </ol>
+      </section>
+
+      <section class="section tone-pink" id="tricky-places">
+        <h2>The places that fool everyone</h2>
+        <p>Some places come in pairs, and pairs are where rounds fall apart. A hair salon and the barbers are both in the deck, so when the imposter hears "chair", "mirror" and "small talk" they are genuinely stuck between two answers, and so is anyone who was in the loo for the first lap. Places you only visit once are tough too: a driving test is vivid to the mate who failed three of them and a blank to everyone else. Every round the app deals the imposter a one-word hint, Easy by default and Hard if you want them to sweat. From the deck: A hair salon: Mirrors / Gossip. The barbers: Scissors / Blokes. A driving test: Clipboard / Judged.</p>
+      </section>
+
+      <section class="section tone-orange" id="who-it-suits">
+        <h2>Who Locations works for</h2>
+        <p>It is the best first deck for a group that has never played, because nobody needs to know a single fact, only places they have been. Uni flats love it for obvious reasons: a student kitchen and a university lecture are both on the list, and the answers get personal fast. And yes, a hen do is one of the locations, which is a wonderful thing to be dealt while you are actually on one.</p>
+        <div class="faq tone-purple" id="faq">
+          <h3>How is Locations different from the word decks?</h3>
+          <p>In a word deck you describe a thing. In Locations you describe somewhere you are, so clues can be noises, smells, people and feelings. A caught imposter's last stand is naming the place rather than a word.</p>
+          <h3>What is Mischief mode?</h3>
+          <p>An optional twist in the lobby. Some rounds, nobody gets the secret: everyone is the imposter and everyone bluffs at everyone. It never strikes on the round you switch it on, so nobody sees it coming. On a places round it is glorious, because six people confidently describe six different buildings.</p>
+          <h3>Do I have to pay for Locations?</h3>
+          <p>No. Locations is free, like the rest of Imposter in Antics.</p>
+        </div>
+      </section>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Everyone's here. One of you isn't.</h2>
+        <p>Locations is free in Antics. Pass the phone, take a peek, and start asking awkward questions about where you all are.</p>
+        <p><a class="cta" href="/get/?c=site-imposter-places">Download on the App Store</a></p>
+        <p><a class="cta btn--ghost" href="/get/?c=site-imposter-places">Get it on Google Play</a></p>
+        <p class="cta-alt note">On a laptop? <a href="/get/?c=site-imposter-places-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
 
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-imposter-places-bar">Get Antics free</a>
+</aside>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",

@@ -16,61 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .t1 { color: var(--cyan); } h2 .t2 { color: var(--pink); } h2 .t3 { color: var(--lime); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    ol.qs { margin: 0 0 8px 0; padding: 0; list-style: none; counter-reset: q; }
-    ol.qs.s11 { counter-reset: q 10; }
-    ol.qs.s26 { counter-reset: q 25; }
-    ol.qs li {
-      counter-increment: q; background: var(--surface); border-radius: 12px;
-      padding: 12px 16px 12px 52px; margin-bottom: 8px; position: relative;
-      color: var(--white); font-weight: 600; font-size: 15.5px;
-    }
-    ol.qs li::before {
-      content: counter(q); position: absolute; left: 16px; top: 12px;
-      color: var(--dim); font-weight: 900; font-size: 14px;
-    }
-    ol.qs li em { color: var(--pink); font-style: normal; font-weight: 800; }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .midcta { background: var(--surface); border-radius: 14px; padding: 14px 18px; font-size: 15px; margin: 22px 0 6px; }
-    .midcta a { color: var(--cyan); font-weight: 700; }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -132,244 +77,300 @@
   }
   </script>
   <link rel="stylesheet" href="/js/generator.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> › Would You Rather</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> Would You Rather</nav>
 
-  <h1>Would You Rather: 131 questions that start arguments</h1>
-  <p class="standfirst">The party rules (minority takes the forfeit) and 32 dilemmas built to split a room down the middle: phones and shame, love and dating, and some pure nonsense for when the room needs it.</p>
-  <div style="margin:0 0 32px;">
-    <div id="antics-gen" data-game="wyr" data-cta="site-wyr-questions-gen">Loading the generator&hellip;</div>
-    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/would-you-rather-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>Would You Rather: 131 questions that start arguments</h1>
+      <p class="standfirst">The party rules (minority takes the forfeit) and 32 dilemmas built to split a room down the middle: phones and shame, love and dating, and some pure nonsense for when the room needs it.</p>
+    </header>
+    <div class="tool">
+      <div id="antics-gen" data-game="wyr" data-cta="site-wyr-questions-gen">Loading the generator&hellip;</div>
+      <p class="tool-note">Free, no sign-up. <a href="/would-you-rather-generator/">Open the full generator</a></p>
+    </div>
   </div>
 
-  <div class="tldr">
-    <p><strong>Party rules:</strong> read a dilemma out loud. On three, everyone points left or right (or shouts A or B). <strong>The minority takes the forfeit.</strong> Ties mean everyone takes it, obviously.</p>
-    <p><strong>The real rule:</strong> you must choose. "Neither" costs a double. The follow-up interrogation of whoever voted weird is the actual game.</p>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-cyan"><a href="#phones-and-shame">Phones and shame</a></li>
+        <li class="tone-pink"><a href="#love-and-dating">Love and dating</a></li>
+        <li class="tone-lime"><a href="#big-questions">Big questions</a></li>
+        <li class="tone-orange"><a href="#funny">Funny</a></li>
+        <li class="tone-purple"><a href="#everyday">Everyday</a></li>
+        <li class="tone-pink"><a href="#deep">Deep</a></li>
+        <li class="tone-lime"><a href="#uni">Uni</a></li>
+        <li class="tone-cyan"><a href="#couples">Couples</a></li>
+        <li class="tone-orange"><a href="#forfeits">Forfeits</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose count-run">
+      <div class="rules tone-cyan" id="how-to-play">
+        <p><strong>Party rules:</strong> read a dilemma out loud. On three, everyone points left or right (or shouts A or B). <strong>The minority takes the forfeit.</strong> Ties mean everyone takes it, obviously.</p>
+        <p><strong>The real rule:</strong> you must choose. "Neither" costs a double. The follow-up interrogation of whoever voted weird is the actual game.</p>
+      </div>
+
+      <p class="note">This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
+
+      <section class="tier-card tone-cyan" id="phones-and-shame" aria-labelledby="phones-and-shame-h">
+        <h2 id="phones-and-shame-h"><span class="tier t1">TIER 1: PHONES &amp; SHAME</span> Would you rather…</h2>
+        <ol class="qs stack">
+          <li>Have your search history projected at your next party, <em>or</em> have your DMs printed and handed to your parents?</li>
+          <li>Your group chat leaks, <em>or</em> your camera roll leaks?</li>
+          <li>Everyone sees your screen time, <em>or</em> everyone sees your bank balance?</li>
+          <li>Kiss the person on your left, <em>or</em> read out your last five searches?</li>
+          <li>Your body count is public knowledge, <em>or</em> your bank balance is public knowledge?</li>
+          <li>Get caught deep-stalking their profile, <em>or</em> get caught rehearsing a conversation with them?</li>
+          <li>Accidentally like your crush's photo from 2019, <em>or</em> accidentally send your crush a screenshot of their own profile?</li>
+          <li>All your exes have your live location, <em>or</em> all your exes are in one group chat?</li>
+          <li>Swap exes with the person on your left, <em>or</em> swap phones with them for a week?</li>
+          <li>Hear this room rate your kissing out of ten, <em>or</em> never find out?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-pink" id="love-and-dating" aria-labelledby="love-and-dating-h">
+        <h2 id="love-and-dating-h"><span class="tier t2">TIER 2: LOVE &amp; DATING</span> Would you rather…</h2>
+        <ol class="qs stack" start="11">
+          <li>Everyone knows who you fancy, <em>or</em> the person you fancy reads everything you've said about them?</li>
+          <li>Text your crush how you feel right now, <em>or</em> never be able to message them again?</li>
+          <li>Date your boss, <em>or</em> get back with your ex?</li>
+          <li>Every person you've ever kissed walks in right now, <em>or</em> your last month of DMs is read out loud?</li>
+          <li>Kiss your best mate's sibling, <em>or</em> kiss your sibling's best mate?</li>
+          <li>Marry the best sex you've ever had, <em>or</em> marry the best chat you've ever had?</li>
+          <li>Date someone who still lives with their ex, <em>or</em> date someone who tells their mum everything. Everything.</li>
+          <li>Only date people your exes approve of, <em>or</em> only date people your parents pick?</li>
+          <li>Snog an ex every New Year's Eve forever, <em>or</em> never kiss anyone at midnight again?</li>
+          <li>One-night stands only, forever, <em>or</em> your group chat arranges your marriage?</li>
+          <li>Your ex writes your dating bio, <em>or</em> your mum picks your profile photos?</li>
+          <li>Your ex plans your wedding, <em>or</em> your boss plans your last night of freedom?</li>
+          <li>Your last relationship becomes a documentary, <em>or</em> your next one is a live reality show?</li>
+          <li>Only first dates for the rest of your life, <em>or</em> married by Monday to someone in this room?</li>
+          <li>Relive your first ever kiss weekly, <em>or</em> watch your first ever kiss on video with this group?</li>
+        </ol>
+      </section>
+
+      <p class="midcta tone-pink">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-wyr-questions-mid">Get Antics free</a>.</p>
+
+      <section class="tier-card tone-lime" id="big-questions" aria-labelledby="big-questions-h">
+        <h2 id="big-questions-h"><span class="tier t3">TIER 3: BIG QUESTIONS &amp; NONSENSE</span> Would you rather…</h2>
+        <ol class="qs stack" start="26">
+          <li>Know exactly how you die, <em>or</em> know exactly when you die?</li>
+          <li>Be famous but broke, <em>or</em> be rich but completely unknown?</li>
+          <li>Give up sex for a year, <em>or</em> give up your phone for a year?</li>
+          <li>Only ever whisper, <em>or</em> only ever shout?</li>
+          <li>Have to sing everything you say, <em>or</em> have to dance everywhere you walk?</li>
+          <li>Everyone reads your mind for a day, <em>or</em> you read everyone's minds for an hour?</li>
+          <li>Only speak in questions, <em>or</em> only speak in rhyme?</li>
+        </ol>
+      </section>
+
+      <p class="divider-intro">More Would You Rather dilemmas, sorted by the mood of the room. All of them are dealt in the Antics app.</p>
+
+      <section class="tier-card tone-orange" id="funny" aria-labelledby="funny-h">
+        <h2 id="funny-h"><span class="tier t2">FUNNY</span> Would you rather…</h2>
+        <ol class="qs stack" start="33">
+          <li>Lick a bus pole, <em>or</em> eat a crisp off the club floor?</li>
+          <li>Get a tattoo chosen by this group right now, <em>or</em> delete one app chosen by this group forever?</li>
+          <li>Spend the rest of your life in a cage with horizontal bars, <em>or</em> the same cage, with vertical bars?</li>
+          <li>Hiccup through every date, <em>or</em> sneeze at every moment of eye contact?</li>
+          <li>Fart audibly on every first date, <em>or</em> cry at every work meeting?</li>
+          <li>Get caught serenading the mirror, <em>or</em> get caught narrating your own life?</li>
+          <li>Your Spotify Wrapped gets projected at your birthday, <em>or</em> your Netflix history does?</li>
+          <li>A personal walk-on song you don’t get to choose, <em>or</em> A laugh track that follows you around?</li>
+          <li>Your shadow waves at people you fancy, <em>or</em> your reflection winks at your mates?</li>
+          <li>Swap voices with the person opposite for a week, <em>or</em> swap camera rolls?</li>
+          <li>Everyone here reads the transcript of your last argument, <em>or</em> hears a recording of your shower singing?</li>
+          <li>Give a TED talk on your search history, <em>or</em> on your camera roll?</li>
+          <li>Your alarm is your own snoring, recorded, <em>or</em> your last drunk voice note?</li>
+          <li>Only wear clothes your nan picks, <em>or</em> clothes from your 14-year-old wardrobe?</li>
+          <li>Have to dance to every song you hear in public, <em>or</em> hum along audibly to all of them?</li>
+          <li>Your pet can talk but only roasts you, <em>or</em> stays silent but judges visibly?</li>
+          <li>Your year 11 school photo is your driving licence forever, <em>or</em> your worst hangover selfie is?</li>
+          <li>Text like a boomer forever (“Ok. Dad.”), <em>or</em> like a corporate LinkedIn post?</li>
+          <li>Every group photo, you blink, <em>or</em> every solo photo, someone photobombs?</li>
+          <li>Every joke you tell needs a five-second run-up, <em>or</em> every laugh you do sounds fake, even the real ones?</li>
+          <li>Your funeral is a roast, <em>or</em> A musical?</li>
+          <li>Everyone claps when you enter a room, <em>or</em> one person boos, and you never know who?</li>
+          <li>Your phone announces your battery percentage, loudly, on the hour, <em>or</em> it reads out who you’re texting?</li>
+          <li>Only text using voice-to-text, no corrections, <em>or</em> only text in formal letters (“Dear Liam, I hope this finds you well”)?</li>
+          <li>Your saved memes are the first thing every date sees, <em>or</em> your Amazon order history is?</li>
+          <li>Cry every time you win anything, <em>or</em> laugh uncontrollably at every serious moment?</li>
+          <li>Speak only in your hometown’s strongest accent, <em>or</em> in received pronunciation, permanently?</li>
+          <li>Never be able to whisper again, <em>or</em> never be able to shout, including at football?</li>
+          <li>Spend a month in prison, no criminal record, <em>or</em> never eat dairy again?</li>
+          <li>Every typo you send gets screenshotted to the group chat, <em>or</em> every voice note gets transcribed and pinned?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-purple" id="everyday" aria-labelledby="everyday-h">
+        <h2 id="everyday-h"><span class="tier t2">EVERYDAY</span> Would you rather…</h2>
+        <ol class="qs stack" start="63">
+          <li>Ten grand right now, <em>or</em> A hundred a week for life?</li>
+          <li>Free taxis for life, <em>or</em> free takeaways for life?</li>
+          <li>Always be 10 minutes late, <em>or</em> always be 40 minutes early?</li>
+          <li>Lose your phone for a month, <em>or</em> lose your wallet every week for a year?</li>
+          <li>Only cold showers, <em>or</em> only five hours of sleep?</li>
+          <li>Take fifty guaranteed, <em>or</em> flip a coin for five hundred?</li>
+          <li>A year without apps, <em>or</em> A year without takeaways?</li>
+          <li>Deep life-chat with every taxi driver, <em>or</em> total silence, every ride, forever?</li>
+          <li>Give up cheese, <em>or</em> give up sauce. All sauce.?</li>
+          <li>Only communicate in voice notes, <em>or</em> have voice notes banned forever?</li>
+          <li>Every meal out, you order for the whole table, <em>or</em> the table orders for you?</li>
+          <li>Every round you buy arrives warm, <em>or</em> every chip you eat is soggy?</li>
+          <li>Your phone dies at 20% forever, <em>or</em> charges only to 60%?</li>
+          <li>Never wait for a delivery again, <em>or</em> never wait for a mate who’s “five minutes away”?</li>
+          <li>Your house is always five degrees too warm, <em>or</em> your bed is always slightly damp on one side?</li>
+          <li>Free haircuts for life from a student, <em>or</em> pay triple for the best barber alive?</li>
+          <li>Every takeaway costs £1 but takes two hours to arrive, <em>or</em> £8, instantly?</li>
+          <li>Every parcel you order arrives a day early, and you’re never in, <em>or</em> every parcel you order arrives a day late, and you always are?</li>
+          <li>Every film you start, you fall asleep halfway through, <em>or</em> every box set you start, someone spoils it before you finish?</li>
+          <li>One free flight anywhere every year, middle seat, <em>or</em> first class, but only to places you’ve been?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-pink" id="deep" aria-labelledby="deep-h">
+        <h2 id="deep-h"><span class="tier t2">DEEP CONFESSIONS</span> Would you rather…</h2>
+        <ol class="qs stack" start="83">
+          <li>Marry for mad love, always broke, <em>or</em> marry for money, always bored?</li>
+          <li>Always know when you’re being lied to, <em>or</em> get away with every lie you tell?</li>
+          <li>Know everyone’s true opinion of you, <em>or</em> never find out what anyone thinks, ever?</li>
+          <li>Go viral for something mortifying, <em>or</em> never go viral your whole life?</li>
+          <li>Live with your parents until 40, <em>or</em> see your friends in person once a year?</li>
+          <li>Never taste food again, <em>or</em> never hear music again?</li>
+          <li>A job you love on minimum wage, <em>or</em> one you hate on £100k a year?</li>
+          <li>Pause life for ten minutes a day, <em>or</em> rewind ten seconds once a day?</li>
+          <li>Your internal monologue is broadcast for one minute a day, <em>or</em> you hear everyone else’s for an hour?</li>
+          <li>Be famous in your home town only, <em>or</em> everywhere except your home town?</li>
+          <li>Tell your boss what you actually think, once, no comeback, <em>or</em> read what they actually think of you?</li>
+          <li>Every stranger thinks they know you, <em>or</em> every mate occasionally forgets your name?</li>
+          <li>Live one day on loop for a year, your choice of day, <em>or</em> skip a year and remember none of it?</li>
+          <li>Know the exact number of Sundays you have left, <em>or</em> absolutely not?</li>
+          <li>Free festival tickets for life, but always alone, <em>or</em> pay double, bring everyone?</li>
+          <li>Five-star holidays with your family only, <em>or</em> camping with your mates?</li>
+          <li>Wi-Fi in your brain, with ads, <em>or</em> no phone ever, but photographic memory?</li>
+          <li>Everyone remembers your embarrassing moments, <em>or</em> you remember everyone else’s, and they know you do?</li>
+          <li>Your best friend knows every secret, <em>or</em> A stranger online knows every secret?</li>
+          <li>Lose every photo from the last year, <em>or</em> lose every chat from the last year?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-lime" id="uni" aria-labelledby="uni-h">
+        <h2 id="uni-h"><span class="tier t2">FOR UNI AND FRESHERS</span> Would you rather…</h2>
+        <ol class="qs stack" start="103">
+          <li>Six-hour pre-drinks, no night out, <em>or</em> night out, zero pre-drinks?</li>
+          <li>Relive freshers week on loop, <em>or</em> skip straight to retirement?</li>
+          <li>Hangover every Monday, <em>or</em> no sleep every Sunday?</li>
+          <li>Never queue again, <em>or</em> never be hungover again?</li>
+          <li>Be the loudest at every party, <em>or</em> be the first to leave every party?</li>
+          <li>Every night out must end at the kebab shop, <em>or</em> never eat after 9pm again?</li>
+          <li>Mandatory karaoke song at every party, <em>or</em> banned from singing forever, including happy birthday?</li>
+          <li>Relive your worst night out once a month, <em>or</em> never remember your best one?</li>
+          <li>The bouncer greets you by name and last month’s story, <em>or</em> the taxi driver knows your address and your gossip?</li>
+          <li>Never pay for a round again but everyone calls you tight, <em>or</em> always pay and everyone assumes you’re loaded?</li>
+          <li>Always get the aux and the pressure, <em>or</em> never touch the aux again?</li>
+          <li>Plan the entire group holiday alone, <em>or</em> control nothing on it, including your own suitcase?</li>
+          <li>Roommates forever, <em>or</em> live alone forever?</li>
+          <li>Every time you say “I’m on my way” a horn sounds if you’re lying, <em>or</em> your live location auto-shares?</li>
+          <li>Your housemates hear everything, forever, <em>or</em> you hear them, forever, in HD?</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-cyan" id="couples" aria-labelledby="couples-h">
+        <h2 id="couples-h"><span class="tier t2">FOR COUPLES</span> Would you rather…</h2>
+        <ol class="qs stack" start="118">
+          <li>Every person you’ve ever kissed walks in right now, <em>or</em> your last month of DMs is read out loud?</li>
+          <li>Kiss your best mate’s sibling, <em>or</em> kiss your sibling’s best mate?</li>
+          <li>Marry the best sex you’ve ever had, <em>or</em> marry the best chat you’ve ever had?</li>
+          <li>Accidentally like your crush’s photo from 2019, <em>or</em> accidentally send your crush a screenshot of their own profile?</li>
+          <li>Date someone 15 years older, <em>or</em> date someone your age who acts 15?</li>
+          <li>Sext using predictive text only, <em>or</em> flirt using only quotes from your mum?</li>
+          <li>Date someone your mates hate, <em>or</em> watch your best mate date someone you hate?</li>
+          <li>Re-date all your exes in order, <em>or</em> no dating for the next ten years?</li>
+          <li>Bring your mum on every first date, <em>or</em> let your dad write your dating profile?</li>
+          <li>Date someone who replies “k”, <em>or</em> someone who answers everything with a 5-minute voice note?</li>
+          <li>Date someone who claps when the plane lands, <em>or</em> someone who talks through films?</li>
+          <li>Your entire search history goes to your situationship, <em>or</em> your situationship history goes to your parents?</li>
+          <li>Only ever sleep with people funnier than you, <em>or</em> fitter than you?</li>
+          <li>An ex writes your performance review, <em>or</em> A one-night stand writes your eulogy?</li>
+        </ol>
+      </section>
+
+      <section class="section tone-orange" id="forfeits">
+        <h2>Making it a forfeit game</h2>
+        <p>The voting mechanic is what turns a car-journey game into a party game: everyone commits publicly, the minority pays, and the room immediately demands justifications. Offline it is often played with drinks; the better stake is a forfeit, and we keep <a href="/forfeit-ideas/">40+ forfeit ideas</a> for exactly this. Same arguments, no hangover.</p>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>Would You Rather FAQ</h2>
+        <h3>How do you play Would You Rather as a party game?</h3>
+        <p>Read a dilemma, count down from three, and everyone votes at once: point, shout, or hands up for option A. Whichever side has fewer votes takes the forfeit. Refusing to choose costs a double.</p>
+        <h3>What if the vote is a tie?</h3>
+        <p>Everyone takes the forfeit. It's the only fair outcome and the game gets better if ties feel dangerous.</p>
+        <h3>Can you play Would You Rather sober?</h3>
+        <p>Completely: the minority takes a forfeit. The game is the choices and the arguments.</p>
+      </section>
+
+      <div class="safety">
+        <strong>Play it right:</strong> keep the forfeits silly, give everyone a veto, and look after your mates.
+      </div>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Endless dilemmas. Zero reading off a webpage.</h2>
+        <p>These 32 are from Antics: the party games app. The full Would You Rather deck comes with built-in voting flow, forfeits for the losing side, and no repeats until you've seen the lot. Plus a whole stack more games.</p>
+        <a class="cta" href="/get/?c=site-wyr-questions">Get Antics free</a>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a></li>
+          <li><a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/drinking-games/">The classic party games, explained</a></li>
+          <li><a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a></li>
+          <li><a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <p>This guide explains the traditional game as it is played offline. Antics for iOS is a party-only app built on forfeits and contains no drinking instructions.</p>
-
-  <h2><span class="tier t1">TIER 1: PHONES &amp; SHAME</span>Would you rather…</h2>
-  <ol class="qs">
-    <li>Have your search history projected at your next party, <em>or</em> have your DMs printed and handed to your parents?</li>
-    <li>Your group chat leaks, <em>or</em> your camera roll leaks?</li>
-    <li>Everyone sees your screen time, <em>or</em> everyone sees your bank balance?</li>
-    <li>Kiss the person on your left, <em>or</em> read out your last five searches?</li>
-    <li>Your body count is public knowledge, <em>or</em> your bank balance is public knowledge?</li>
-    <li>Get caught deep-stalking their profile, <em>or</em> get caught rehearsing a conversation with them?</li>
-    <li>Accidentally like your crush's photo from 2019, <em>or</em> accidentally send your crush a screenshot of their own profile?</li>
-    <li>All your exes have your live location, <em>or</em> all your exes are in one group chat?</li>
-    <li>Swap exes with the person on your left, <em>or</em> swap phones with them for a week?</li>
-    <li>Hear this room rate your kissing out of ten, <em>or</em> never find out?</li>
-  </ol>
-
-  <h2><span class="tier t2">TIER 2: LOVE &amp; DATING</span>Would you rather…</h2>
-  <ol class="qs s11">
-    <li>Everyone knows who you fancy, <em>or</em> the person you fancy reads everything you've said about them?</li>
-    <li>Text your crush how you feel right now, <em>or</em> never be able to message them again?</li>
-    <li>Date your boss, <em>or</em> get back with your ex?</li>
-    <li>Every person you've ever kissed walks in right now, <em>or</em> your last month of DMs is read out loud?</li>
-    <li>Kiss your best mate's sibling, <em>or</em> kiss your sibling's best mate?</li>
-    <li>Marry the best sex you've ever had, <em>or</em> marry the best chat you've ever had?</li>
-    <li>Date someone who still lives with their ex, <em>or</em> date someone who tells their mum everything. Everything.</li>
-    <li>Only date people your exes approve of, <em>or</em> only date people your parents pick?</li>
-    <li>Snog an ex every New Year's Eve forever, <em>or</em> never kiss anyone at midnight again?</li>
-    <li>One-night stands only, forever, <em>or</em> your group chat arranges your marriage?</li>
-    <li>Your ex writes your dating bio, <em>or</em> your mum picks your profile photos?</li>
-    <li>Your ex plans your wedding, <em>or</em> your boss plans your last night of freedom?</li>
-    <li>Your last relationship becomes a documentary, <em>or</em> your next one is a live reality show?</li>
-    <li>Only first dates for the rest of your life, <em>or</em> married by Monday to someone in this room?</li>
-    <li>Relive your first ever kiss weekly, <em>or</em> watch your first ever kiss on video with this group?</li>
-  </ol>
-
-  <p class="midcta">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-wyr-questions-mid">Get Antics free</a>.</p>
-
-  <h2><span class="tier t3">TIER 3: BIG QUESTIONS &amp; NONSENSE</span>Would you rather…</h2>
-  <ol class="qs s26">
-    <li>Know exactly how you die, <em>or</em> know exactly when you die?</li>
-    <li>Be famous but broke, <em>or</em> be rich but completely unknown?</li>
-    <li>Give up sex for a year, <em>or</em> give up your phone for a year?</li>
-    <li>Only ever whisper, <em>or</em> only ever shout?</li>
-    <li>Have to sing everything you say, <em>or</em> have to dance everywhere you walk?</li>
-    <li>Everyone reads your mind for a day, <em>or</em> you read everyone's minds for an hour?</li>
-    <li>Only speak in questions, <em>or</em> only speak in rhyme?</li>
-  </ol>
-
-  <p>More Would You Rather dilemmas, sorted by the mood of the room. All of them are dealt in the Antics app.</p>
-
-  <h2><span class="tier t2">FUNNY</span>Would you rather…</h2>
-  <ol class="qs" style="counter-reset: q 32">
-    <li>Lick a bus pole, <em>or</em> eat a crisp off the club floor?</li>
-    <li>Get a tattoo chosen by this group right now, <em>or</em> delete one app chosen by this group forever?</li>
-    <li>Spend the rest of your life in a cage with horizontal bars, <em>or</em> the same cage, with vertical bars?</li>
-    <li>Hiccup through every date, <em>or</em> sneeze at every moment of eye contact?</li>
-    <li>Fart audibly on every first date, <em>or</em> cry at every work meeting?</li>
-    <li>Get caught serenading the mirror, <em>or</em> get caught narrating your own life?</li>
-    <li>Your Spotify Wrapped gets projected at your birthday, <em>or</em> your Netflix history does?</li>
-    <li>A personal walk-on song you don’t get to choose, <em>or</em> A laugh track that follows you around?</li>
-    <li>Your shadow waves at people you fancy, <em>or</em> your reflection winks at your mates?</li>
-    <li>Swap voices with the person opposite for a week, <em>or</em> swap camera rolls?</li>
-    <li>Everyone here reads the transcript of your last argument, <em>or</em> hears a recording of your shower singing?</li>
-    <li>Give a TED talk on your search history, <em>or</em> on your camera roll?</li>
-    <li>Your alarm is your own snoring, recorded, <em>or</em> your last drunk voice note?</li>
-    <li>Only wear clothes your nan picks, <em>or</em> clothes from your 14-year-old wardrobe?</li>
-    <li>Have to dance to every song you hear in public, <em>or</em> hum along audibly to all of them?</li>
-    <li>Your pet can talk but only roasts you, <em>or</em> stays silent but judges visibly?</li>
-    <li>Your year 11 school photo is your driving licence forever, <em>or</em> your worst hangover selfie is?</li>
-    <li>Text like a boomer forever (“Ok. Dad.”), <em>or</em> like a corporate LinkedIn post?</li>
-    <li>Every group photo, you blink, <em>or</em> every solo photo, someone photobombs?</li>
-    <li>Every joke you tell needs a five-second run-up, <em>or</em> every laugh you do sounds fake, even the real ones?</li>
-    <li>Your funeral is a roast, <em>or</em> A musical?</li>
-    <li>Everyone claps when you enter a room, <em>or</em> one person boos, and you never know who?</li>
-    <li>Your phone announces your battery percentage, loudly, on the hour, <em>or</em> it reads out who you’re texting?</li>
-    <li>Only text using voice-to-text, no corrections, <em>or</em> only text in formal letters (“Dear Liam, I hope this finds you well”)?</li>
-    <li>Your saved memes are the first thing every date sees, <em>or</em> your Amazon order history is?</li>
-    <li>Cry every time you win anything, <em>or</em> laugh uncontrollably at every serious moment?</li>
-    <li>Speak only in your hometown’s strongest accent, <em>or</em> in received pronunciation, permanently?</li>
-    <li>Never be able to whisper again, <em>or</em> never be able to shout, including at football?</li>
-    <li>Spend a month in prison, no criminal record, <em>or</em> never eat dairy again?</li>
-    <li>Every typo you send gets screenshotted to the group chat, <em>or</em> every voice note gets transcribed and pinned?</li>
-  </ol>
-
-  <h2><span class="tier t2">EVERYDAY</span>Would you rather…</h2>
-  <ol class="qs" style="counter-reset: q 62">
-    <li>Ten grand right now, <em>or</em> A hundred a week for life?</li>
-    <li>Free taxis for life, <em>or</em> free takeaways for life?</li>
-    <li>Always be 10 minutes late, <em>or</em> always be 40 minutes early?</li>
-    <li>Lose your phone for a month, <em>or</em> lose your wallet every week for a year?</li>
-    <li>Only cold showers, <em>or</em> only five hours of sleep?</li>
-    <li>Take fifty guaranteed, <em>or</em> flip a coin for five hundred?</li>
-    <li>A year without apps, <em>or</em> A year without takeaways?</li>
-    <li>Deep life-chat with every taxi driver, <em>or</em> total silence, every ride, forever?</li>
-    <li>Give up cheese, <em>or</em> give up sauce. All sauce.?</li>
-    <li>Only communicate in voice notes, <em>or</em> have voice notes banned forever?</li>
-    <li>Every meal out, you order for the whole table, <em>or</em> the table orders for you?</li>
-    <li>Every round you buy arrives warm, <em>or</em> every chip you eat is soggy?</li>
-    <li>Your phone dies at 20% forever, <em>or</em> charges only to 60%?</li>
-    <li>Never wait for a delivery again, <em>or</em> never wait for a mate who’s “five minutes away”?</li>
-    <li>Your house is always five degrees too warm, <em>or</em> your bed is always slightly damp on one side?</li>
-    <li>Free haircuts for life from a student, <em>or</em> pay triple for the best barber alive?</li>
-    <li>Every takeaway costs £1 but takes two hours to arrive, <em>or</em> £8, instantly?</li>
-    <li>Every parcel you order arrives a day early, and you’re never in, <em>or</em> every parcel you order arrives a day late, and you always are?</li>
-    <li>Every film you start, you fall asleep halfway through, <em>or</em> every box set you start, someone spoils it before you finish?</li>
-    <li>One free flight anywhere every year, middle seat, <em>or</em> first class, but only to places you’ve been?</li>
-  </ol>
-
-  <h2><span class="tier t2">DEEP CONFESSIONS</span>Would you rather…</h2>
-  <ol class="qs" style="counter-reset: q 82">
-    <li>Marry for mad love, always broke, <em>or</em> marry for money, always bored?</li>
-    <li>Always know when you’re being lied to, <em>or</em> get away with every lie you tell?</li>
-    <li>Know everyone’s true opinion of you, <em>or</em> never find out what anyone thinks, ever?</li>
-    <li>Go viral for something mortifying, <em>or</em> never go viral your whole life?</li>
-    <li>Live with your parents until 40, <em>or</em> see your friends in person once a year?</li>
-    <li>Never taste food again, <em>or</em> never hear music again?</li>
-    <li>A job you love on minimum wage, <em>or</em> one you hate on £100k a year?</li>
-    <li>Pause life for ten minutes a day, <em>or</em> rewind ten seconds once a day?</li>
-    <li>Your internal monologue is broadcast for one minute a day, <em>or</em> you hear everyone else’s for an hour?</li>
-    <li>Be famous in your home town only, <em>or</em> everywhere except your home town?</li>
-    <li>Tell your boss what you actually think, once, no comeback, <em>or</em> read what they actually think of you?</li>
-    <li>Every stranger thinks they know you, <em>or</em> every mate occasionally forgets your name?</li>
-    <li>Live one day on loop for a year, your choice of day, <em>or</em> skip a year and remember none of it?</li>
-    <li>Know the exact number of Sundays you have left, <em>or</em> absolutely not?</li>
-    <li>Free festival tickets for life, but always alone, <em>or</em> pay double, bring everyone?</li>
-    <li>Five-star holidays with your family only, <em>or</em> camping with your mates?</li>
-    <li>Wi-Fi in your brain, with ads, <em>or</em> no phone ever, but photographic memory?</li>
-    <li>Everyone remembers your embarrassing moments, <em>or</em> you remember everyone else’s, and they know you do?</li>
-    <li>Your best friend knows every secret, <em>or</em> A stranger online knows every secret?</li>
-    <li>Lose every photo from the last year, <em>or</em> lose every chat from the last year?</li>
-  </ol>
-
-  <h2><span class="tier t2">FOR UNI AND FRESHERS</span>Would you rather…</h2>
-  <ol class="qs" style="counter-reset: q 102">
-    <li>Six-hour pre-drinks, no night out, <em>or</em> night out, zero pre-drinks?</li>
-    <li>Relive freshers week on loop, <em>or</em> skip straight to retirement?</li>
-    <li>Hangover every Monday, <em>or</em> no sleep every Sunday?</li>
-    <li>Never queue again, <em>or</em> never be hungover again?</li>
-    <li>Be the loudest at every party, <em>or</em> be the first to leave every party?</li>
-    <li>Every night out must end at the kebab shop, <em>or</em> never eat after 9pm again?</li>
-    <li>Mandatory karaoke song at every party, <em>or</em> banned from singing forever, including happy birthday?</li>
-    <li>Relive your worst night out once a month, <em>or</em> never remember your best one?</li>
-    <li>The bouncer greets you by name and last month’s story, <em>or</em> the taxi driver knows your address and your gossip?</li>
-    <li>Never pay for a round again but everyone calls you tight, <em>or</em> always pay and everyone assumes you’re loaded?</li>
-    <li>Always get the aux and the pressure, <em>or</em> never touch the aux again?</li>
-    <li>Plan the entire group holiday alone, <em>or</em> control nothing on it, including your own suitcase?</li>
-    <li>Roommates forever, <em>or</em> live alone forever?</li>
-    <li>Every time you say “I’m on my way” a horn sounds if you’re lying, <em>or</em> your live location auto-shares?</li>
-    <li>Your housemates hear everything, forever, <em>or</em> you hear them, forever, in HD?</li>
-  </ol>
-
-  <h2><span class="tier t2">FOR COUPLES</span>Would you rather…</h2>
-  <ol class="qs" style="counter-reset: q 117">
-    <li>Every person you’ve ever kissed walks in right now, <em>or</em> your last month of DMs is read out loud?</li>
-    <li>Kiss your best mate’s sibling, <em>or</em> kiss your sibling’s best mate?</li>
-    <li>Marry the best sex you’ve ever had, <em>or</em> marry the best chat you’ve ever had?</li>
-    <li>Accidentally like your crush’s photo from 2019, <em>or</em> accidentally send your crush a screenshot of their own profile?</li>
-    <li>Date someone 15 years older, <em>or</em> date someone your age who acts 15?</li>
-    <li>Sext using predictive text only, <em>or</em> flirt using only quotes from your mum?</li>
-    <li>Date someone your mates hate, <em>or</em> watch your best mate date someone you hate?</li>
-    <li>Re-date all your exes in order, <em>or</em> no dating for the next ten years?</li>
-    <li>Bring your mum on every first date, <em>or</em> let your dad write your dating profile?</li>
-    <li>Date someone who replies “k”, <em>or</em> someone who answers everything with a 5-minute voice note?</li>
-    <li>Date someone who claps when the plane lands, <em>or</em> someone who talks through films?</li>
-    <li>Your entire search history goes to your situationship, <em>or</em> your situationship history goes to your parents?</li>
-    <li>Only ever sleep with people funnier than you, <em>or</em> fitter than you?</li>
-    <li>An ex writes your performance review, <em>or</em> A one-night stand writes your eulogy?</li>
-  </ol>
-
-  <h2>Making it a forfeit game</h2>
-  <p>The voting mechanic is what turns a car-journey game into a party game: everyone commits publicly, the minority pays, and the room immediately demands justifications. Offline it is often played with drinks; the better stake is a forfeit, and we keep <a href="/forfeit-ideas/">40+ forfeit ideas</a> for exactly this. Same arguments, no hangover.</p>
-
-  <section class="faq">
-    <h2>Would You Rather FAQ</h2>
-
-    <h3>How do you play Would You Rather as a party game?</h3>
-    <p>Read a dilemma, count down from three, and everyone votes at once: point, shout, or hands up for option A. Whichever side has fewer votes takes the forfeit. Refusing to choose costs a double.</p>
-
-    <h3>What if the vote is a tie?</h3>
-    <p>Everyone takes the forfeit. It's the only fair outcome and the game gets better if ties feel dangerous.</p>
-
-    <h3>Can you play Would You Rather sober?</h3>
-    <p>Completely: the minority takes a forfeit. The game is the choices and the arguments.</p>
-  </section>
-
-  <div class="safety">
-    <strong>Play it right:</strong> keep the forfeits silly, give everyone a veto, and look after your mates.
-  </div>
-
-  <div class="cta-block">
-    <h2>Endless dilemmas. Zero reading off a webpage.</h2>
-    <p>These 32 are from Antics: the party games app. The full Would You Rather deck comes with built-in voting flow, forfeits for the losing side, and no repeats until you've seen the lot. Plus a whole stack more games.</p>
-    <a class="cta" href="/get/?c=site-wyr-questions">Get Antics free</a>
-  </div>
-
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a>
-    <a href="/what-are-the-odds/">What Are The Odds: rules + 150 prompts worth the risk</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/drinking-games/">The classic party games, explained</a>
-    <a href="/ring-of-fire-rules/">Ring of Fire rules: every card explained (UK)</a>
-    <a href="/kings-cup-rules/">Kings Cup card meanings: US and UK versions</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-      <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
-  </div>
-
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-wyr-questions-bar">Get Antics free</a>
+</aside>
+
 
 <script type="application/ld+json">
 {

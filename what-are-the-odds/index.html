@@ -16,63 +16,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
-  <style>
-    :root {
-      --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --cta-pink: #EA0059; --orange: #FFB02E;
-      --cyan: #25E5FF; --lime: #B8FF3D; --purple: #9D6BFF; --white: #FFFFFF;
-      --dim: #9C92C7; --body: #D8D3EE;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg); color: var(--body);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.65; padding: 40px 20px 64px;
-    }
-    article { max-width: 720px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 28px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 40px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    .standfirst { font-size: 19px; color: var(--dim); margin-bottom: 30px; }
-    h2 { color: var(--white); font-size: 26px; font-weight: 900; margin: 44px 0 14px; }
-    h2 .tier { font-size: 13px; letter-spacing: 2px; display: block; margin-bottom: 2px; }
-    h2 .warm { color: var(--lime); } h2 .std { color: var(--cyan); } h2 .end { color: var(--pink); }
-    h3 { color: var(--white); font-size: 19px; font-weight: 800; margin: 30px 0 8px; }
-    p { margin-bottom: 14px; }
-    ul { margin: 0 0 14px 22px; }
-    strong { color: var(--white); }
-    a { color: var(--cyan); }
-    .tldr { background: var(--surface); border-radius: 16px; padding: 20px 24px; margin-bottom: 8px; }
-    .tldr p { margin-bottom: 6px; }
-    ol.qs { margin: 0 0 8px 0; padding: 0; list-style: none; counter-reset: q; }
-    ol.qs.s16 { counter-reset: q 15; }
-    ol.qs.s36 { counter-reset: q 35; }
-    ol.qs li {
-      counter-increment: q; background: var(--surface); border-radius: 12px;
-      padding: 12px 16px 12px 52px; margin-bottom: 8px; position: relative;
-      color: var(--white); font-weight: 600; font-size: 15.5px;
-    }
-    ol.qs li::before {
-      content: counter(q); position: absolute; left: 16px; top: 12px;
-      color: var(--dim); font-weight: 900; font-size: 14px;
-    }
-    .faq h3 { margin-top: 22px; }
-    .safety { border: 1px solid rgba(255,176,46,0.35); border-radius: 16px; padding: 16px 22px; margin: 40px 0 0; font-size: 14.5px; color: var(--dim); }
-    .cta-block { background: var(--surface); border-radius: 20px; text-align: center; padding: 34px 26px; margin-top: 48px; }
-    .cta-block h2 { margin: 0 0 10px; }
-    .cta-block p { color: var(--dim); max-width: 480px; margin: 0 auto 20px; }
-    .cta { display: inline-block; background: var(--cta-pink); color: var(--white); font-weight: 800; border-radius: 14px; padding: 15px 28px; font-size: 16px; letter-spacing: 0.5px; text-decoration: none; margin: 4px 5px; }
-    .cta.secondary { background: transparent; border: 1px solid var(--dim); }
-    .cta-alt { margin-top: 12px; font-size: 14px; }
-    .guides { margin-top: 44px; background: var(--surface); border-radius: 16px; padding: 18px 22px; font-size: 15px; }
-    .guides strong { display: block; margin-bottom: 8px; }
-    .guides a { display: block; margin-bottom: 6px; }
-    footer { text-align: center; margin-top: 56px; font-size: 13px; color: var(--dim); }
-    footer a { color: var(--dim); }
-    @media (max-width: 480px) { h1 { font-size: 30px; } }
-    .midcta { background: var(--surface); border-radius: 14px; padding: 14px 18px; font-size: 15px; margin: 22px 0 6px; }
-    .midcta a { color: var(--cyan); font-weight: 700; }
-  </style>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -100,287 +43,332 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/js/generator.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body>
+<body class="has-installbar">
+<div class="page">
 <article>
-  <nav class="crumb"><a href="/">Antics: the party games app</a> › What Are The Odds</nav>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> What Are The Odds</nav>
 
-  <h1>What Are The Odds: rules + 150 prompts worth the risk</h1>
-  <p class="standfirst">The purest dare mechanic ever invented: one question, one countdown, two numbers. Nobody makes you do anything. You set your own odds, and then the universe decides. Rules in 30 seconds, then 50 prompts, all forfeit-based, none of them filler.</p>
-  <div style="margin:0 0 32px;">
-    <div id="antics-gen" data-game="odds" data-cta="site-odds-gen">Loading the generator&hellip;</div>
-    <p style="text-align:center;font-size:13px;color:#9C92C7;margin-top:10px;">Free, no sign-up. <a href="/what-are-the-odds-generator/" style="color:#FF2E7E;">Open the full generator</a></p>
+  <div class="hero">
+    <header class="page-head">
+      <h1>What Are The Odds: rules + 150 prompts worth the risk</h1>
+      <p class="standfirst">The purest dare mechanic ever invented: one question, one countdown, two numbers. Nobody makes you do anything. You set your own odds, and then the universe decides. Rules in 30 seconds, then 50 prompts, all forfeit-based, none of them filler.</p>
+    </header>
+    <div class="tool">
+      <div id="antics-gen" data-game="odds" data-cta="site-odds-gen">Loading the generator&hellip;</div>
+      <p class="tool-note">Free, no sign-up. <a href="/what-are-the-odds-generator/">Open the full generator</a></p>
+    </div>
   </div>
 
-  <div class="tldr">
-    <p><strong>How to play:</strong> anyone asks anyone "What are the odds you [do the thing]?" The target sets a range based on pure dread: "1 in 15." Count down together, "three, two, one", and both of you say a number from 1 to 15 <strong>at the same time</strong>.</p>
-    <p><strong>Same number: they do it.</strong> The prompt is the forfeit. Different numbers: nothing happens, and someone else picks a new victim.</p>
-    <p><strong>The whole psychology:</strong> "1 in 2" is a coin flip, which means you basically fancy it. "1 in 100" means absolutely not. Everything in between is negotiation.</p>
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-cyan"><a href="#how-to-play">How to play</a></li>
+        <li class="tone-purple"><a href="#rules">The rules</a></li>
+        <li class="tone-orange"><a href="#variations">Variations</a></li>
+        <li class="tone-lime"><a href="#warm-up">Warm-up</a></li>
+        <li class="tone-cyan"><a href="#standard">Standard</a></li>
+        <li class="tone-pink"><a href="#endgame">Endgame</a></li>
+        <li class="tone-lime"><a href="#mild">Mild</a></li>
+        <li class="tone-orange"><a href="#medium">Medium</a></li>
+        <li class="tone-pink"><a href="#bold">Bold</a></li>
+        <li class="tone-purple"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose count-run">
+      <div class="rules tone-cyan" id="how-to-play">
+        <p><strong>How to play:</strong> anyone asks anyone "What are the odds you [do the thing]?" The target sets a range based on pure dread: "1 in 15." Count down together, "three, two, one", and both of you say a number from 1 to 15 <strong>at the same time</strong>.</p>
+        <p><strong>Same number: they do it.</strong> The prompt is the forfeit. Different numbers: nothing happens, and someone else picks a new victim.</p>
+        <p><strong>The whole psychology:</strong> "1 in 2" is a coin flip, which means you basically fancy it. "1 in 100" means absolutely not. Everything in between is negotiation.</p>
+      </div>
+
+      <section class="section tone-purple" id="rules">
+        <h2>The rules, properly</h2>
+        <h3>Setting the odds</h3>
+        <p>The target picks any range from <strong>1 in 2</strong> up to <strong>1 in 100</strong>. The number is a dread-o-meter and everyone can read it: 1 in 2 means "honestly, fine", 1 in 5 means "persuadable", 1 in 20 means "I'd rather not", 1 in 100 means "no, and stop asking". House rule worth adopting: cap it at 20, or the night stalls while cowards hide behind big numbers.</p>
+        <h3>The countdown</h3>
+        <p>Both players count "three, two, one" out loud and say their number <strong>simultaneously</strong>. That word is doing all the work. Hesitating gets a redo. Waiting a beat to hear the other number first counts as an automatic match, no appeal, everyone saw it.</p>
+        <h3>The match</h3>
+        <p>Same number and the target does the thing, right now, not "later" and not "next time we're out" (unless the prompt says so). No match and the round simply evaporates. That's the beauty of it: most rounds are free, which is exactly what makes the hits so devastating.</p>
+        <h3>Refusing</h3>
+        <p>You can refuse a matched dare. It costs you: the group picks a replacement <a href="/forfeit-ideas/">forfeit</a> instead, and group-picked is never gentler than the original. Refusing the replacement too means you've stopped playing the game, which the group will remember for years.</p>
+        <h3>The comeback</h3>
+        <p>Optional but recommended: anyone who completes a dare earns a free "what are the odds" at their asker before play moves on. It keeps the askers honest. Nobody fires a 1-in-3 at you if they know one's coming straight back.</p>
+      </section>
+
+      <section class="section tone-orange" id="variations">
+        <h2>Variations</h2>
+        <h3>Group odds</h3>
+        <p>For big rooms: one person asks the whole group, everyone sets a shared range, everyone counts down and says a number against the asker. All matchers do the dare together. Excellent for prompt 29.</p>
+        <h3>The rebound</h3>
+        <p>If the target survives, they can immediately fire the <em>exact same dare and odds</em> back at the asker before anyone else speaks. Ask questions you could survive yourself.</p>
+        <h3>Sudden death</h3>
+        <p>Any argument during the night (whose round it is, whose turn to make tea, who started it) can be settled by 1 in 2, winner's version of events becomes official history.</p>
+      </section>
+
+      <section class="tier-card tone-lime" id="warm-up" aria-labelledby="warm-up-h">
+        <h2 id="warm-up-h"><span class="tier warm">TIER 1 · WARM-UP</span> What are the odds you…</h2>
+        <p>Low stakes, quick payoffs. These get the countdown rhythm going and cost nobody their dignity. Well, not much of it.</p>
+        <ol class="qs stack">
+          <li>Speak in a whisper until your next turn.</li>
+          <li>Do your best impression of someone in this room until we guess who it is.</li>
+          <li>Eat a teaspoon of the weirdest thing in the fridge door.</li>
+          <li>Let the group choose your ringtone and keep it, loud, for a week.</li>
+          <li>Show everyone the last photo in your camera roll, no context allowed.</li>
+          <li>Show the group your screen time report, worst app first.</li>
+          <li>Sing everything you say for the next ten minutes.</li>
+          <li>Talk in an accent until someone breaks and mentions it.</li>
+          <li>Do ten press-ups right now while the group provides commentary.</li>
+          <li>Answer to a new name for the rest of the night, chosen by the group.</li>
+          <li>Keep a straight face for one minute while everyone tries to break you.</li>
+          <li>Let the person opposite restyle your hair, no mirror until it's done.</li>
+          <li>Give a wedding-speech-style toast about the person on your left.</li>
+          <li>Swap one item of clothing with the person opposite.</li>
+          <li>Text your mum "I've got news" and leave it there for an hour.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-cyan" id="standard" aria-labelledby="standard-h">
+        <h2 id="standard-h"><span class="tier std">TIER 2 · STANDARD</span> What are the odds you…</h2>
+        <p>The engine room of the night. Phone-based menace, public performance and light social sabotage.</p>
+        <ol class="qs stack" start="16">
+          <li>Let the group send one text from your phone, no edits, no deleting.</li>
+          <li>Call the third contact in your phone, say "you know what you did", and hang up.</li>
+          <li>Let the person on your right scroll your camera roll for 30 seconds.</li>
+          <li>Reply "ok x" to the last person who messaged you, then put the phone face down.</li>
+          <li>Wear your clothes backwards until the game ends.</li>
+          <li>Let the group set your phone wallpaper and keep it for a week.</li>
+          <li>Eat whatever sandwich the group builds from what's in the kitchen.</li>
+          <li>Voice-note the group chat singing happy birthday to nobody in particular.</li>
+          <li>Ask your family group chat what time your curfew is tonight.</li>
+          <li>Speak only in questions until your next turn.</li>
+          <li>Hold an ice cube in your fist until it has fully melted.</li>
+          <li>Let the group dress you from the host's wardrobe for the next hour.</li>
+          <li>Call a mate who isn't here and explain the plot of Shrek with total sincerity.</li>
+          <li>Do your most committed catwalk to the kitchen and back, twice.</li>
+          <li>Let the group rewrite your dating app bio, no veto.</li>
+          <li>Name your actual celebrity crush, top three, ranked, with reasons.</li>
+          <li>Re-enact the last thing that made you cry, interpretive dance only.</li>
+          <li>Send your sibling "don't tell mum" and nothing else.</li>
+          <li>Tell your worst hangover story in 30 seconds flat.</li>
+          <li>Let the group choose your entire order at the next takeaway, no substitutions.</li>
+        </ol>
+      </section>
+
+      <p class="midcta tone-pink">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-odds-mid">Get Antics free</a>.</p>
+
+      <section class="tier-card tone-pink" id="endgame" aria-labelledby="endgame-h">
+        <h2 id="endgame-h"><span class="tier end">TIER 3 · ENDGAME</span> What are the odds you…</h2>
+        <p>Reputation-altering. Expect ranges of 1 in 20 and above, and respect them when you hear them.</p>
+        <ol class="qs stack" start="36">
+          <li>Read out your last text thread, both sides, with feeling.</li>
+          <li>Let the group read your Notes app for one full minute.</li>
+          <li>Text your most recent ex "you up?" and show the room.</li>
+          <li>Show the room your search history, ten seconds, no scrolling past anything.</li>
+          <li>Take one bite of a raw onion like it's an apple.</li>
+          <li>Swap phones, unlocked, with the person opposite for ten minutes.</li>
+          <li>Attempt the splits, right now, no warm-up.</li>
+          <li>Tell the story of your worst ever date, names redacted, nothing else redacted.</li>
+          <li>Call whoever the group picks from your contacts and sing to them until they hang up.</li>
+          <li>Let the group order one thing to your house on your account, under a tenner.</li>
+          <li>Give a dramatic reading of your last five sent messages, out of context.</li>
+          <li>Tell us the last lie you told and who you told it to.</li>
+          <li>Hand your phone over, open on your DMs, for 20 seconds.</li>
+          <li>Admit who in this room you'd call first for bail money, and who you'd never tell.</li>
+          <li>Let the person you trust least in this room send one voice note from your phone.</li>
+        </ol>
+      </section>
+
+      <p class="divider-intro">More What Are The Odds prompts, from the ones anyone will do to the ones people set 1 in 100 for. All of them are dealt in the Antics app.</p>
+
+      <section class="tier-card tone-lime" id="mild" aria-labelledby="mild-h">
+        <h2 id="mild-h"><span class="tier std">MILD</span> What are the odds you…</h2>
+        <ol class="qs stack" start="51">
+          <li>You talk to a wall for one minute. Sincerely.</li>
+          <li>You crawl a full lap of the room, commentating like a nature documentary.</li>
+          <li>You wear the player opposite’s shoes until your next turn.</li>
+          <li>You do your best worm on the floor.</li>
+          <li>You invent a handshake with the player opposite and perform it twice at full speed.</li>
+          <li>You hold a cold drink against your neck for one full minute.</li>
+          <li>You do twenty star jumps narrating them like a fitness influencer.</li>
+          <li>You eat a raw slice of lemon, smiling throughout.</li>
+          <li>You balance the TV remote on your head for the next three cards.</li>
+          <li>You blow a kiss after every sentence until your next go.</li>
+          <li>You mime your morning routine until someone guesses three steps.</li>
+          <li>You gasp dramatically at everything said until your next turn.</li>
+          <li>You laugh as convincingly as possible for fifteen straight seconds.</li>
+          <li>You announce the next three cards like a boxing MC.</li>
+          <li>You wear a sock as a glove and shake everyone’s hand. Formally.</li>
+          <li>You address everyone as “champ” until your next go.</li>
+          <li>You eat dry cereal from a bowl, no hands, like it’s a competition.</li>
+          <li>You attempt to fold a fitted sheet, to applause.</li>
+          <li>You end the round with a dramatic mic-drop of a cushion.</li>
+          <li>You deliver tonight’s events so far as tomorrow’s news headlines.</li>
+          <li>You audition for a toothpaste advert. Full smile.</li>
+          <li>You beatbox for ten seconds. Confidence mandatory.</li>
+          <li>You slow-dance with a cushion for 15 seconds. Sincerely.</li>
+          <li>You explain the rules of this game to an imaginary five-year-old, patiently.</li>
+          <li>You invent and perform the official national anthem of this sofa.</li>
+          <li>You hold a superhero landing pose for 15 seconds.</li>
+          <li>You give the ceiling a motivational speech from flat on your back.</li>
+          <li>You do the next two cards in sunglasses, indoors, acting like it’s normal.</li>
+          <li>You improvise a 20-second jingle for the host’s Wi-Fi network name.</li>
+          <li>You read the ingredients of the nearest packet like a bedtime story.</li>
+          <li>You applaud yourself, alone, for a solid ten seconds. No explanation.</li>
+          <li>You attempt to lick your elbow. Publicly. Full effort.</li>
+          <li>You end every sentence with “in this economy” until your next turn.</li>
+          <li>You have a staring contest with your own front camera. 15 seconds, no smiling.</li>
+          <li>You do the walking-downstairs-behind-the-sofa illusion. Commit.</li>
+          <li>You give a museum-guide tour of three objects in this room, with invented histories.</li>
+          <li>You perform the invisible-box mime until the room applauds.</li>
+          <li>You re-enter the room and greet everyone like it’s a surprise party for you.</li>
+          <li>You inspect the host’s fridge and deliver a five-star review, out loud.</li>
+          <li>You freestyle a poem about the last thing you ate.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-orange" id="medium" aria-labelledby="medium-h">
+        <h2 id="medium-h"><span class="tier std">MEDIUM</span> What are the odds you…</h2>
+        <ol class="qs stack" start="91">
+          <li>You call your mum and tell her you love her. Right now.</li>
+          <li>You show everyone your camera roll from exactly one year ago today.</li>
+          <li>You let the group set three alarms on your phone for tomorrow morning. Labels included.</li>
+          <li>You type “I want” and read your keyboard’s next ten suggested words as a sentence.</li>
+          <li>You show the group the last thing you added to a basket and didn’t buy.</li>
+          <li>You read out the names of your last five screenshots. No explanations.</li>
+          <li>You speak without saying “like” or “literally” until your next turn.</li>
+          <li>You reveal your most-played song this year and defend it.</li>
+          <li>You apologise to the player on your right for something you’ve never done. Tearfully.</li>
+          <li>You make eye contact with each player in turn and say “I know”. Once each.</li>
+          <li>You freestyle rap about the player opposite for twenty seconds.</li>
+          <li>You give a TED talk on the last item you bought. One minute.</li>
+          <li>You describe your dream wedding in full detail, with unprompted passion.</li>
+          <li>You demonstrate exactly how you dance when nobody’s watching.</li>
+          <li>You show us your greeting-someone-you-hate face and hold it for ten seconds.</li>
+          <li>You voice-note your best mate tomorrow’s full weather forecast, in character.</li>
+          <li>You rank everyone’s shoes, out loud, worst to best.</li>
+          <li>You guess everyone’s daily screen time out loud. They fact-check you.</li>
+          <li>You confess your most-used excuse and officially retire it, forever.</li>
+          <li>You reveal the most niche thing you’ve ever been genuinely angry about.</li>
+          <li>You demonstrate your airport-security walk. The guilty-for-no-reason one.</li>
+          <li>You demonstrate how you check yourself out in shop windows.</li>
+          <li>You demonstrate your “just woken up, definitely wasn’t asleep” voice on a pretend call.</li>
+          <li>You sell your own phone to the room, secondhand, flaws included, honestly.</li>
+          <li>You hold a one-sided call with an imaginary agent, negotiating your appearance fee for tonight.</li>
+          <li>You hold a plank while the group asks you three personal questions.</li>
+          <li>You prank-knock your own front door and hide.</li>
+          <li>You give every player a firm, formal handshake and one word of feedback.</li>
+          <li>You bow to each player individually, in silence, holding eye contact.</li>
+          <li>You invent a conspiracy theory about why tonight was really organised.</li>
+          <li>You deliver a villain monologue about tonight’s game for thirty seconds.</li>
+          <li>You read the room like a fortune teller, one prediction per player.</li>
+          <li>You show the room the total number of unread emails on your phone.</li>
+          <li>You assign everyone their role in a bank heist. Cast yourself last.</li>
+          <li>You whisper a secret to the host’s nearest plant. Convincing intimacy required.</li>
+        </ol>
+      </section>
+
+      <section class="tier-card tone-pink" id="bold" aria-labelledby="bold-h">
+        <h2 id="bold-h"><span class="tier std">BOLD</span> What are the odds you…</h2>
+        <ol class="qs stack" start="126">
+          <li>You describe your ideal first date while holding unbroken eye contact with the player opposite.</li>
+          <li>You describe your type using only features from this room: “the eyes of X, the chaos of Y.”</li>
+          <li>You rate the room’s flirting ability, individually, from what you’ve seen tonight.</li>
+          <li>You let the room see your recently-deleted photos folder. Ten seconds.</li>
+          <li>You show the room your open browser tabs. All of them.</li>
+          <li>You send the group chat your most recent selfie. No retakes, no filter.</li>
+          <li>You FaceTime an absent mate and just slowly zoom in on your own face.</li>
+          <li>You reveal the last five people you searched on Instagram.</li>
+          <li>You lick the back of your own shoe.</li>
+          <li>You eat a crisp off the floor. The floor chooses the crisp.</li>
+          <li>You yell “I love this song” out the window.</li>
+          <li>You text your best mate just: “I’ve decided to become an entrepreneur.”</li>
+          <li>You change your messaging profile picture to one the group picks. 24 hours.</li>
+          <li>You let the room rename your most active group chat. It stays until morning.</li>
+          <li>You let the player on your right take one photo of you, their choice of pose, kept forever.</li>
+          <li>You give a brutally honest 30-second review of the player opposite’s performance tonight.</li>
+          <li>You do your most honest impression of yourself when drunk.</li>
+          <li>You sniff the player on your left and describe the notes like a sommelier.</li>
+          <li>You admit the pettiest grudge you’re still holding.</li>
+          <li>You reveal your most embarrassing recent purchase.</li>
+          <li>You show the room your typing-a-risky-message face, hold it, then whisper “send”.</li>
+          <li>You call the seventh contact in your phone and compliment them.</li>
+          <li>You do 30 seconds of stand-up about the person who invited you here.</li>
+          <li>You smell everyone’s perfume or aftershave and rank the top three.</li>
+          <li>You reenact the group’s last argument, playing all sides.</li>
+        </ol>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>What Are The Odds FAQ</h2>
+        <h3>What are the rules of What Are The Odds?</h3>
+        <p>One player asks another "what are the odds you do X?" The target sets a range, for example 1 in 10. Both count down from three and simultaneously say a number in that range. If the numbers match, the target does the dare. If not, nothing happens and play moves on.</p>
+        <h3>What happens if you say 1 in 2?</h3>
+        <p>It's a coin flip, so saying it is basically consent with a drum roll. Seasoned players use it as a flex: "1 in 2" on a scary dare tells the room you were always going to do it.</p>
+        <h3>Can you refuse a dare after the numbers match?</h3>
+        <p>You can, but the group picks a replacement forfeit instead, and the group has never once picked something gentler. Matching and then doing the thing immediately is always the better story.</p>
+        <h3>What if someone says a number outside the range?</h3>
+        <p>Counts as an instant match. Same for changing your number after hearing theirs. Both are cowardice taxes, and both are enforced with enormous enthusiasm.</p>
+        <h3>Is What Are The Odds a drinking game?</h3>
+        <p>It gets played a hundred ways. This version runs on forfeits: the dare is the whole point, everyone can play, and the prompts stay the star. It also means the game works at a family barbecue, a hen do or a six-hour airport delay.</p>
+        <h3>Whose turn is it?</h3>
+        <p>There are no turns. Anyone can fire at anyone, whenever. The only rule is one live challenge at a time, because two simultaneous countdowns is how living rooms descend into chaos. Beautiful, beautiful chaos, but still.</p>
+      </section>
+
+      <div class="safety">
+        <strong>Play it right:</strong> the odds ARE the consent. The target sets the number, and 1 in 100 is a polite no. Respect the hundred, keep dares in the room or in the group chat, and never aim one at something you know is actually raw. Look after your mates.
+      </div>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>A deck that keeps going. Zero mercy.</h2>
+        <p>These 50 are from Antics: the party games app. The full What Are The Odds deck never repeats a prompt until you've seen the lot, plus a whole stack more games and thousands of cards, all forfeit-based. No ads, no sign-up. Pass the phone. Start scandals.</p>
+        <a class="cta" href="/get/?c=site-odds">Download on the App Store</a>
+        <a class="cta btn--ghost" href="/get/?c=site-odds">Get it on Google Play</a>
+        <p class="note">On a laptop? <a href="/get/?c=site-odds-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/blog/">The Antics blog: party game ideas and how-tos</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/spicy/">Spicy: the after dark deck (18+)</a></li>
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a></li>
+          <li><a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a></li>
+          <li><a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a></li>
+          <li><a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a></li>
+          <li><a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a></li>
+          <li><a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
-  <h2>The rules, properly</h2>
-
-  <h3>Setting the odds</h3>
-  <p>The target picks any range from <strong>1 in 2</strong> up to <strong>1 in 100</strong>. The number is a dread-o-meter and everyone can read it: 1 in 2 means "honestly, fine", 1 in 5 means "persuadable", 1 in 20 means "I'd rather not", 1 in 100 means "no, and stop asking". House rule worth adopting: cap it at 20, or the night stalls while cowards hide behind big numbers.</p>
-
-  <h3>The countdown</h3>
-  <p>Both players count "three, two, one" out loud and say their number <strong>simultaneously</strong>. That word is doing all the work. Hesitating gets a redo. Waiting a beat to hear the other number first counts as an automatic match, no appeal, everyone saw it.</p>
-
-  <h3>The match</h3>
-  <p>Same number and the target does the thing, right now, not "later" and not "next time we're out" (unless the prompt says so). No match and the round simply evaporates. That's the beauty of it: most rounds are free, which is exactly what makes the hits so devastating.</p>
-
-  <h3>Refusing</h3>
-  <p>You can refuse a matched dare. It costs you: the group picks a replacement <a href="/forfeit-ideas/">forfeit</a> instead, and group-picked is never gentler than the original. Refusing the replacement too means you've stopped playing the game, which the group will remember for years.</p>
-
-  <h3>The comeback</h3>
-  <p>Optional but recommended: anyone who completes a dare earns a free "what are the odds" at their asker before play moves on. It keeps the askers honest. Nobody fires a 1-in-3 at you if they know one's coming straight back.</p>
-
-  <h2>Variations</h2>
-  <h3>Group odds</h3>
-  <p>For big rooms: one person asks the whole group, everyone sets a shared range, everyone counts down and says a number against the asker. All matchers do the dare together. Excellent for prompt 29.</p>
-  <h3>The rebound</h3>
-  <p>If the target survives, they can immediately fire the <em>exact same dare and odds</em> back at the asker before anyone else speaks. Ask questions you could survive yourself.</p>
-  <h3>Sudden death</h3>
-  <p>Any argument during the night (whose round it is, whose turn to make tea, who started it) can be settled by 1 in 2, winner's version of events becomes official history.</p>
-
-  <h2><span class="tier warm">TIER 1 · WARM-UP</span>What are the odds you…</h2>
-  <p>Low stakes, quick payoffs. These get the countdown rhythm going and cost nobody their dignity. Well, not much of it.</p>
-  <ol class="qs">
-    <li>Speak in a whisper until your next turn.</li>
-    <li>Do your best impression of someone in this room until we guess who it is.</li>
-    <li>Eat a teaspoon of the weirdest thing in the fridge door.</li>
-    <li>Let the group choose your ringtone and keep it, loud, for a week.</li>
-    <li>Show everyone the last photo in your camera roll, no context allowed.</li>
-    <li>Show the group your screen time report, worst app first.</li>
-    <li>Sing everything you say for the next ten minutes.</li>
-    <li>Talk in an accent until someone breaks and mentions it.</li>
-    <li>Do ten press-ups right now while the group provides commentary.</li>
-    <li>Answer to a new name for the rest of the night, chosen by the group.</li>
-    <li>Keep a straight face for one minute while everyone tries to break you.</li>
-    <li>Let the person opposite restyle your hair, no mirror until it's done.</li>
-    <li>Give a wedding-speech-style toast about the person on your left.</li>
-    <li>Swap one item of clothing with the person opposite.</li>
-    <li>Text your mum "I've got news" and leave it there for an hour.</li>
-  </ol>
-
-  <h2><span class="tier std">TIER 2 · STANDARD</span>What are the odds you…</h2>
-  <p>The engine room of the night. Phone-based menace, public performance and light social sabotage.</p>
-  <ol class="qs s16">
-    <li>Let the group send one text from your phone, no edits, no deleting.</li>
-    <li>Call the third contact in your phone, say "you know what you did", and hang up.</li>
-    <li>Let the person on your right scroll your camera roll for 30 seconds.</li>
-    <li>Reply "ok x" to the last person who messaged you, then put the phone face down.</li>
-    <li>Wear your clothes backwards until the game ends.</li>
-    <li>Let the group set your phone wallpaper and keep it for a week.</li>
-    <li>Eat whatever sandwich the group builds from what's in the kitchen.</li>
-    <li>Voice-note the group chat singing happy birthday to nobody in particular.</li>
-    <li>Ask your family group chat what time your curfew is tonight.</li>
-    <li>Speak only in questions until your next turn.</li>
-    <li>Hold an ice cube in your fist until it has fully melted.</li>
-    <li>Let the group dress you from the host's wardrobe for the next hour.</li>
-    <li>Call a mate who isn't here and explain the plot of Shrek with total sincerity.</li>
-    <li>Do your most committed catwalk to the kitchen and back, twice.</li>
-    <li>Let the group rewrite your dating app bio, no veto.</li>
-    <li>Name your actual celebrity crush, top three, ranked, with reasons.</li>
-    <li>Re-enact the last thing that made you cry, interpretive dance only.</li>
-    <li>Send your sibling "don't tell mum" and nothing else.</li>
-    <li>Tell your worst hangover story in 30 seconds flat.</li>
-    <li>Let the group choose your entire order at the next takeaway, no substitutions.</li>
-  </ol>
-
-  <p class="midcta">Run out? The app deals the rest of the deck and never repeats a card until you have seen them all. <a href="/get/?c=site-odds-mid">Get Antics free</a>.</p>
-
-  <h2><span class="tier end">TIER 3 · ENDGAME</span>What are the odds you…</h2>
-  <p>Reputation-altering. Expect ranges of 1 in 20 and above, and respect them when you hear them.</p>
-  <ol class="qs s36">
-    <li>Read out your last text thread, both sides, with feeling.</li>
-    <li>Let the group read your Notes app for one full minute.</li>
-    <li>Text your most recent ex "you up?" and show the room.</li>
-    <li>Show the room your search history, ten seconds, no scrolling past anything.</li>
-    <li>Take one bite of a raw onion like it's an apple.</li>
-    <li>Swap phones, unlocked, with the person opposite for ten minutes.</li>
-    <li>Attempt the splits, right now, no warm-up.</li>
-    <li>Tell the story of your worst ever date, names redacted, nothing else redacted.</li>
-    <li>Call whoever the group picks from your contacts and sing to them until they hang up.</li>
-    <li>Let the group order one thing to your house on your account, under a tenner.</li>
-    <li>Give a dramatic reading of your last five sent messages, out of context.</li>
-    <li>Tell us the last lie you told and who you told it to.</li>
-    <li>Hand your phone over, open on your DMs, for 20 seconds.</li>
-    <li>Admit who in this room you'd call first for bail money, and who you'd never tell.</li>
-    <li>Let the person you trust least in this room send one voice note from your phone.</li>
-  </ol>
-
-  <p>More What Are The Odds prompts, from the ones anyone will do to the ones people set 1 in 100 for. All of them are dealt in the Antics app.</p>
-
-  <h2><span class="tier std">MILD</span>What are the odds you…</h2>
-  <ol class="qs" style="counter-reset: q 50">
-    <li>You talk to a wall for one minute. Sincerely.</li>
-    <li>You crawl a full lap of the room, commentating like a nature documentary.</li>
-    <li>You wear the player opposite’s shoes until your next turn.</li>
-    <li>You do your best worm on the floor.</li>
-    <li>You invent a handshake with the player opposite and perform it twice at full speed.</li>
-    <li>You hold a cold drink against your neck for one full minute.</li>
-    <li>You do twenty star jumps narrating them like a fitness influencer.</li>
-    <li>You eat a raw slice of lemon, smiling throughout.</li>
-    <li>You balance the TV remote on your head for the next three cards.</li>
-    <li>You blow a kiss after every sentence until your next go.</li>
-    <li>You mime your morning routine until someone guesses three steps.</li>
-    <li>You gasp dramatically at everything said until your next turn.</li>
-    <li>You laugh as convincingly as possible for fifteen straight seconds.</li>
-    <li>You announce the next three cards like a boxing MC.</li>
-    <li>You wear a sock as a glove and shake everyone’s hand. Formally.</li>
-    <li>You address everyone as “champ” until your next go.</li>
-    <li>You eat dry cereal from a bowl, no hands, like it’s a competition.</li>
-    <li>You attempt to fold a fitted sheet, to applause.</li>
-    <li>You end the round with a dramatic mic-drop of a cushion.</li>
-    <li>You deliver tonight’s events so far as tomorrow’s news headlines.</li>
-    <li>You audition for a toothpaste advert. Full smile.</li>
-    <li>You beatbox for ten seconds. Confidence mandatory.</li>
-    <li>You slow-dance with a cushion for 15 seconds. Sincerely.</li>
-    <li>You explain the rules of this game to an imaginary five-year-old, patiently.</li>
-    <li>You invent and perform the official national anthem of this sofa.</li>
-    <li>You hold a superhero landing pose for 15 seconds.</li>
-    <li>You give the ceiling a motivational speech from flat on your back.</li>
-    <li>You do the next two cards in sunglasses, indoors, acting like it’s normal.</li>
-    <li>You improvise a 20-second jingle for the host’s Wi-Fi network name.</li>
-    <li>You read the ingredients of the nearest packet like a bedtime story.</li>
-    <li>You applaud yourself, alone, for a solid ten seconds. No explanation.</li>
-    <li>You attempt to lick your elbow. Publicly. Full effort.</li>
-    <li>You end every sentence with “in this economy” until your next turn.</li>
-    <li>You have a staring contest with your own front camera. 15 seconds, no smiling.</li>
-    <li>You do the walking-downstairs-behind-the-sofa illusion. Commit.</li>
-    <li>You give a museum-guide tour of three objects in this room, with invented histories.</li>
-    <li>You perform the invisible-box mime until the room applauds.</li>
-    <li>You re-enter the room and greet everyone like it’s a surprise party for you.</li>
-    <li>You inspect the host’s fridge and deliver a five-star review, out loud.</li>
-    <li>You freestyle a poem about the last thing you ate.</li>
-  </ol>
-
-  <h2><span class="tier std">MEDIUM</span>What are the odds you…</h2>
-  <ol class="qs" style="counter-reset: q 90">
-    <li>You call your mum and tell her you love her. Right now.</li>
-    <li>You show everyone your camera roll from exactly one year ago today.</li>
-    <li>You let the group set three alarms on your phone for tomorrow morning. Labels included.</li>
-    <li>You type “I want” and read your keyboard’s next ten suggested words as a sentence.</li>
-    <li>You show the group the last thing you added to a basket and didn’t buy.</li>
-    <li>You read out the names of your last five screenshots. No explanations.</li>
-    <li>You speak without saying “like” or “literally” until your next turn.</li>
-    <li>You reveal your most-played song this year and defend it.</li>
-    <li>You apologise to the player on your right for something you’ve never done. Tearfully.</li>
-    <li>You make eye contact with each player in turn and say “I know”. Once each.</li>
-    <li>You freestyle rap about the player opposite for twenty seconds.</li>
-    <li>You give a TED talk on the last item you bought. One minute.</li>
-    <li>You describe your dream wedding in full detail, with unprompted passion.</li>
-    <li>You demonstrate exactly how you dance when nobody’s watching.</li>
-    <li>You show us your greeting-someone-you-hate face and hold it for ten seconds.</li>
-    <li>You voice-note your best mate tomorrow’s full weather forecast, in character.</li>
-    <li>You rank everyone’s shoes, out loud, worst to best.</li>
-    <li>You guess everyone’s daily screen time out loud. They fact-check you.</li>
-    <li>You confess your most-used excuse and officially retire it, forever.</li>
-    <li>You reveal the most niche thing you’ve ever been genuinely angry about.</li>
-    <li>You demonstrate your airport-security walk. The guilty-for-no-reason one.</li>
-    <li>You demonstrate how you check yourself out in shop windows.</li>
-    <li>You demonstrate your “just woken up, definitely wasn’t asleep” voice on a pretend call.</li>
-    <li>You sell your own phone to the room, secondhand, flaws included, honestly.</li>
-    <li>You hold a one-sided call with an imaginary agent, negotiating your appearance fee for tonight.</li>
-    <li>You hold a plank while the group asks you three personal questions.</li>
-    <li>You prank-knock your own front door and hide.</li>
-    <li>You give every player a firm, formal handshake and one word of feedback.</li>
-    <li>You bow to each player individually, in silence, holding eye contact.</li>
-    <li>You invent a conspiracy theory about why tonight was really organised.</li>
-    <li>You deliver a villain monologue about tonight’s game for thirty seconds.</li>
-    <li>You read the room like a fortune teller, one prediction per player.</li>
-    <li>You show the room the total number of unread emails on your phone.</li>
-    <li>You assign everyone their role in a bank heist. Cast yourself last.</li>
-    <li>You whisper a secret to the host’s nearest plant. Convincing intimacy required.</li>
-  </ol>
-
-  <h2><span class="tier std">BOLD</span>What are the odds you…</h2>
-  <ol class="qs" style="counter-reset: q 125">
-    <li>You describe your ideal first date while holding unbroken eye contact with the player opposite.</li>
-    <li>You describe your type using only features from this room: “the eyes of X, the chaos of Y.”</li>
-    <li>You rate the room’s flirting ability, individually, from what you’ve seen tonight.</li>
-    <li>You let the room see your recently-deleted photos folder. Ten seconds.</li>
-    <li>You show the room your open browser tabs. All of them.</li>
-    <li>You send the group chat your most recent selfie. No retakes, no filter.</li>
-    <li>You FaceTime an absent mate and just slowly zoom in on your own face.</li>
-    <li>You reveal the last five people you searched on Instagram.</li>
-    <li>You lick the back of your own shoe.</li>
-    <li>You eat a crisp off the floor. The floor chooses the crisp.</li>
-    <li>You yell “I love this song” out the window.</li>
-    <li>You text your best mate just: “I’ve decided to become an entrepreneur.”</li>
-    <li>You change your messaging profile picture to one the group picks. 24 hours.</li>
-    <li>You let the room rename your most active group chat. It stays until morning.</li>
-    <li>You let the player on your right take one photo of you, their choice of pose, kept forever.</li>
-    <li>You give a brutally honest 30-second review of the player opposite’s performance tonight.</li>
-    <li>You do your most honest impression of yourself when drunk.</li>
-    <li>You sniff the player on your left and describe the notes like a sommelier.</li>
-    <li>You admit the pettiest grudge you’re still holding.</li>
-    <li>You reveal your most embarrassing recent purchase.</li>
-    <li>You show the room your typing-a-risky-message face, hold it, then whisper “send”.</li>
-    <li>You call the seventh contact in your phone and compliment them.</li>
-    <li>You do 30 seconds of stand-up about the person who invited you here.</li>
-    <li>You smell everyone’s perfume or aftershave and rank the top three.</li>
-    <li>You reenact the group’s last argument, playing all sides.</li>
-  </ol>
-
-  <section class="faq">
-    <h2>What Are The Odds FAQ</h2>
-
-    <h3>What are the rules of What Are The Odds?</h3>
-    <p>One player asks another "what are the odds you do X?" The target sets a range, for example 1 in 10. Both count down from three and simultaneously say a number in that range. If the numbers match, the target does the dare. If not, nothing happens and play moves on.</p>
-
-    <h3>What happens if you say 1 in 2?</h3>
-    <p>It's a coin flip, so saying it is basically consent with a drum roll. Seasoned players use it as a flex: "1 in 2" on a scary dare tells the room you were always going to do it.</p>
-
-    <h3>Can you refuse a dare after the numbers match?</h3>
-    <p>You can, but the group picks a replacement forfeit instead, and the group has never once picked something gentler. Matching and then doing the thing immediately is always the better story.</p>
-
-    <h3>What if someone says a number outside the range?</h3>
-    <p>Counts as an instant match. Same for changing your number after hearing theirs. Both are cowardice taxes, and both are enforced with enormous enthusiasm.</p>
-
-    <h3>Is What Are The Odds a drinking game?</h3>
-    <p>It gets played a hundred ways. This version runs on forfeits: the dare is the whole point, everyone can play, and the prompts stay the star. It also means the game works at a family barbecue, a hen do or a six-hour airport delay.</p>
-
-    <h3>Whose turn is it?</h3>
-    <p>There are no turns. Anyone can fire at anyone, whenever. The only rule is one live challenge at a time, because two simultaneous countdowns is how living rooms descend into chaos. Beautiful, beautiful chaos, but still.</p>
-  </section>
-
-  <div class="safety">
-    <strong>Play it right:</strong> the odds ARE the consent. The target sets the number, and 1 in 100 is a polite no. Respect the hundred, keep dares in the room or in the group chat, and never aim one at something you know is actually raw. Look after your mates.
-  </div>
-
-  <div class="cta-block">
-    <h2>A deck that keeps going. Zero mercy.</h2>
-    <p>These 50 are from Antics: the party games app. The full What Are The Odds deck never repeats a prompt until you've seen the lot, plus a whole stack more games and thousands of cards, all forfeit-based. No ads, no sign-up. Pass the phone. Start scandals.</p>
-    <a class="cta" href="/get/?c=site-odds">Download on the App Store</a>
-    <a class="cta secondary" href="/get/?c=site-odds">Get it on Google Play</a>
-    <p class="cta-alt">On a laptop? <a href="/get/?c=site-odds-laptop">anticsapp.com/get</a> sends the right store to your phone.</p>
-  </div>
-
-  <div class="guides">
-    <strong>More party game guides</strong>
-    <a href="/blog/">The Antics blog: party game ideas and how-tos</a>
-    <a href="/party-games/">Party games for adults: every game in one app</a>
-    <a href="/antics-mode/">Antics mode: the game that does it all</a>
-    <a href="/spicy/">Spicy: the after dark deck (18+)</a>
-    <a href="/the-four-kings/">The Four Kings: a rule for every card</a>
-    <a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a>
-    <a href="/how-to-play-imposter/">How to play Imposter: rules, examples and strategy</a>
-    <a href="/never-have-i-ever-questions/">Never Have I Ever: rules + 236 questions</a>
-    <a href="/most-likely-to-questions/">Most Likely To: 190 questions for maximum pointing</a>
-    <a href="/truth-or-dare-questions/">Truth or Dare: 160 questions that actually get used</a>
-    <a href="/would-you-rather-questions/">Would You Rather: 131 questions that start arguments</a>
-    <a href="/forfeit-ideas/">40+ forfeit ideas for any party game</a>
-    <a href="/hen-do-games/">Hen do games: no props, no printing</a>
-    <a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a>
-  </div>
-
-  <footer>
+  <footer class="site-foot">
     <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
     18+ · Look after your mates.
   </footer>
 </article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-odds-bar">Get Antics free</a>
+</aside>
+
 
 <script type="application/ld+json">
 {
