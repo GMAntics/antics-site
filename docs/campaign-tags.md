@@ -45,6 +45,9 @@ left on a content page.
 | `site-imposter` | `/how-to-play-imposter/` | the two store buttons |
 | `site-imposter-inline` | `/how-to-play-imposter/` | "Open Imposter in Antics" in the steps |
 | `site-imposter-laptop` | `/how-to-play-imposter/` | the "On a laptop?" line |
+| `site-imposter-play` | `/imposter-game/` | the wall's "Get Antics free" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
+| `site-imposter-play-qr` | `/imposter-game/` | the wall's QR, shown on wide screens only (`/qr-imposter-play.png`) |
+| `site-imposter-play-bar` | `/imposter-game/` | the phone install bar |
 | `site-odds` | `/what-are-the-odds/` | the two store buttons |
 | `site-odds-laptop` | `/what-are-the-odds/` | the "On a laptop?" line |
 | `site-hen` | `/hen-do-games/` | end CTA |
