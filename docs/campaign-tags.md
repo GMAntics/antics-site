@@ -85,6 +85,8 @@ left on a content page.
 | `site-blog-halloween-bar` | `/blog/halloween-party-games-for-adults/` | the phone install bar |
 | `site-blog-imposter-3` | `/blog/how-to-play-imposter-with-3-people/` | end CTA |
 | `site-blog-imposter-3-bar` | `/blog/how-to-play-imposter-with-3-people/` | the phone install bar |
+| `site-blog-reset` | `/blog/after-party-15-minute-reset/` | end CTA |
+| `site-blog-reset-bar` | `/blog/after-party-15-minute-reset/` | the phone install bar |
 | `site-llms` | `llms.txt` | the "Get Antics free" line |
 | `site-referral-fallback` | `/r/` | the no-JS button, used only when a share token does not resolve |
 

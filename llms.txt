@@ -82,6 +82,7 @@ cards from the app's own translations and a generator on each page.
 - [How we write party game questions people actually answer](https://anticsapp.com/blog/how-we-write-party-game-questions/)
 - [Halloween party games for adults: seven that work in costume](https://anticsapp.com/blog/halloween-party-games-for-adults/)
 - [How to play Imposter with 3 people (and still have a game)](https://anticsapp.com/blog/how-to-play-imposter-with-3-people/)
+- [After the party: the 15-minute reset](https://anticsapp.com/blog/after-party-15-minute-reset/)
 
 ## About
 
