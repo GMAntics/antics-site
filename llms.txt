@@ -80,11 +80,17 @@ cards from the app's own translations and a generator on each page.
 - [Freshers icebreakers that aren't cringe](https://anticsapp.com/blog/freshers-icebreakers/)
 - [How to run a games night that doesn't die at 9pm](https://anticsapp.com/blog/party-games-night-running-order/)
 - [How we write party game questions people actually answer](https://anticsapp.com/blog/how-we-write-party-game-questions/)
+- [Halloween party games for adults: seven that work in costume](https://anticsapp.com/blog/halloween-party-games-for-adults/)
+- [How to play Imposter with 3 people (and still have a game)](https://anticsapp.com/blog/how-to-play-imposter-with-3-people/)
+- [After the party: the 15-minute reset](https://anticsapp.com/blog/after-party-15-minute-reset/)
+- [Christmas party games for adults that everyone actually plays](https://anticsapp.com/blog/christmas-party-games-for-adults/)
 
 ## About
 
 - [About Antics](https://anticsapp.com/about/)
 - [A Picolo alternative, compared honestly](https://anticsapp.com/picolo-alternative/)
+- [Best party game apps (2026), compared by the makers of Antics](https://anticsapp.com/best-party-game-apps/): ten party game apps on price, platforms and how you play, from the UK App Store and Google Play listings on 5 October 2026. Written by Antics, and says so.
+- [Best Imposter game apps, compared by the makers of Antics](https://anticsapp.com/best-imposter-game-apps/): eight Imposter apps on players, price and platforms, from the UK store listings on 5 October 2026. Written by Antics, and says so.
 - [Play a free round in your browser](https://anticsapp.com/play/)
 - [Support and FAQ](https://anticsapp.com/support/)
 

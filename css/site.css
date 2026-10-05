@@ -1731,3 +1731,70 @@ body.embed .tool-wrap { position: static; margin: 0; }
 @media (min-width: 560px) {
   .cta-block .cta + .cta { margin-top: 0; margin-left: var(--space-2xs); }
 }
+
+
+/* --------------------------------------------------------------------------
+   29. Comparison table: several apps side by side (/best-party-game-apps/,
+   /best-imposter-game-apps/). A normal table from 560px. On phones each app
+   becomes its own block and every value is labelled from its cell's
+   data-label, so nothing scrolls sideways. The row marked .is-ours is ours.
+   -------------------------------------------------------------------------- */
+.compare th[scope="row"] {
+  vertical-align: top;
+  white-space: normal;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-0);
+  font-size: var(--step--1);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.compare th[scope="row"] a { color: var(--text-0); }
+.compare td { color: var(--text-1); }
+.compare tbody tr:nth-child(even) th[scope="row"] { background: var(--row-alt); }
+.compare tbody tr.is-ours th[scope="row"],
+.compare tbody tr.is-ours td { background: rgba(255, 46, 126, 0.07); }
+.compare th[scope="row"] .label { margin-top: var(--space-3xs); color: var(--pink); }
+
+@media (max-width: 559px) {
+  .compare thead {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .compare table,
+  .compare tbody,
+  .compare tr,
+  .compare th[scope="row"],
+  .compare td {
+    display: block;
+    width: auto;
+  }
+  .compare caption { display: block; }
+  .compare tr {
+    padding: var(--space-xs) var(--space-s);
+    border-top: 1px solid var(--line);
+  }
+  .compare th[scope="row"] {
+    padding: 0 0 var(--space-3xs);
+    border-top: 0;
+    font-size: var(--step-0);
+  }
+  .compare td { padding: var(--space-3xs) 0; border-top: 0; }
+  .compare td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: var(--step--2);
+    font-weight: 800;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .compare tbody tr:nth-child(even) { background: var(--row-alt); }
+  .compare tbody tr:nth-child(even) td,
+  .compare tbody tr:nth-child(even) th[scope="row"] { background: transparent; }
+  .compare tbody tr.is-ours { background: rgba(255, 46, 126, 0.07); }
+  .compare tbody tr.is-ours th[scope="row"],
+  .compare tbody tr.is-ours td { background: transparent; }
+}
