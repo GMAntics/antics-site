@@ -29,6 +29,10 @@
 - [Kings Cup card meanings](https://anticsapp.com/kings-cup-rules/)
 - [Forfeit ideas](https://anticsapp.com/forfeit-ideas/)
 
+## Original data
+
+- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link; CSV at https://anticsapp.com/party-data/antics-party-data-2026-10.csv. Press: support@anticsapp.com.
+
 ## Free browser generators
 
 Each generator runs in the browser with no sign-up and no ads, and has two decks:

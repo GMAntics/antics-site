@@ -23,7 +23,7 @@ Rules for a tag:
 | `out-` | outreach and press placements (`/unifresher`, `/pocketgamer`) |
 | `ig-`, `tt-` | social bio links |
 | `web-`, `app-` | the browser demo (`/play`) and the in-app wall (`/room`) |
-| `pitch-` | emailed pitches to independent "best apps" pages (`ops/ai-search-pitches-2026-10-05.md` in the app repo): `pitch-feelgood`, `pitch-igeeks`, `pitch-techlog` |
+| `pitch-` | emailed pitches to independent "best apps" pages (`ops/ai-search-pitches-2026-10-05.md` in the app repo): `pitch-feelgood`, `pitch-igeeks`, `pitch-techlog`; and the nine data pitches `pitch-data-sts`, `pitch-data-tab`, `pitch-data-unifresher`, `pitch-data-varsity`, `pitch-data-cherwell`, `pitch-data-boar`, `pitch-data-metro`, `pitch-data-timeout`, `pitch-data-olive` (`/party-data/?c=...`, carried onto every `/get/` link by `/party-data/tag.js`; `ops/data-page-pitches-2026-10-05.md`) |
 
 ## Site tags
 
@@ -47,6 +47,10 @@ left on a content page.
 | `site-uni-footer` | `/party-games-for-uni/` | footer "Get the app" |
 | `site-uni-bar` | `/party-games-for-uni/` | the phone install bar |
 | `site-uni-qr` | `/party-games-for-uni/` | the closing box's QR, laptops and tablets only (`/party-games-for-uni/qr.png`) |
+| `site-data` | `/party-data/` | the two store buttons in the closing box |
+| `site-data-qr` | `/party-data/` | the closing box QR, laptops and tablets only (`/party-data/qr.png`) |
+| `site-data-footer` | `/party-data/` | footer "Get the app" |
+| `site-data-bar` | `/party-data/` | the phone install bar |
 | `site-drinking-games` | `/drinking-games/` | the two store buttons |
 | `site-kings-cup` | `/kings-cup-rules/` | the two store buttons |
 | `site-ring-of-fire` | `/ring-of-fire-rules/` | the two store buttons |
