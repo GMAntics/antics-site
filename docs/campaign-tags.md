@@ -94,6 +94,22 @@ the static markup matches it.
 | Would You Rather | `site-generator-wyr` | `site-generator-wyr-copy` | `site-generator-wyr-foot` | `embed-generator-wyr` |
 | What Are The Odds | `site-generator-odds` | `site-generator-odds-copy` | `site-generator-odds-foot` | `embed-generator-odds` |
 
+## Spanish and Portuguese pages
+
+Set 5 October 2026. Each question page carries five tags; each language home three.
+`<g>` is `nhie`, `tod`, `wyr` or `mlt`.
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-es-<g>` | `/es/preguntas-.../` | the download box's "Descarga Antics gratis" button |
+| `site-es-<g>-qr` | same | the download box's QR, laptops and tablets only (`qr.png` in the page's folder) |
+| `site-es-<g>-bar` | same | the phone install bar |
+| `site-es-<g>-gen` | same | the generator's "Descarga Antics gratis" button (from `js/generator.js`, via `data-cta`) |
+| `site-es-<g>-gen-imp` | same | the generator's "Juega al impostor gratis" button: it opens `/es/juego-del-impostor/?c=site-es-<g>-gen-imp`, whose wall then carries this tag (as `-play` does for `/play/`) |
+| `site-es-hub` / `-hub-qr` / `-hub-bar` | `/es/` | button, QR, install bar |
+| `site-pt-<g>` ... `site-pt-<g>-gen-imp` | `/pt/perguntas-.../` | the same five, Portuguese ("Baixe o Antics grátis", "Jogue o impostor grátis") |
+| `site-pt-hub` / `-hub-qr` / `-hub-bar` | `/pt/` | button, QR, install bar |
+
 ## Deliberately left alone
 
 - Every link that already carried a tag: the 19 promoter and bio redirect

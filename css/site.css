@@ -278,10 +278,17 @@ h1 {
   gap: var(--space-l);
   margin-bottom: var(--space-xl);
 }
+/* Phones: the tool's first button belongs on the first screen */
+@media (max-width: 559px) {
+  .hero { gap: var(--space-m); }
+}
 @media (min-width: 1024px) {
+  /* Top-aligned (was centred until 5 Oct 2026): a centred header jumped
+     down every time a long card made the generator beside it taller, and
+     sat in a gap under the breadcrumb; this matches the Imposter pages */
   .hero {
     grid-template-columns: minmax(0, 1fr) var(--rail);
-    align-items: center;
+    align-items: start;
     column-gap: var(--space-2xl);
     margin-bottom: var(--space-2xl);
   }
@@ -581,6 +588,10 @@ ol.stack > li { padding-left: 56px; }
 /* Text that follows a stack inside the same section */
 .stack + p { margin-top: var(--space-m); }
 
+/* A Would You Rather line: the "or" ("o", "ou") between the two options is
+   the app's divider, set in the section's tone so the choice reads in one go */
+.stack em { font-style: normal; font-weight: 800; color: var(--tone); }
+
 
 /* --------------------------------------------------------------------------
    12. Tier cards: a heading, an intro and its stack, as one dealt card.
@@ -599,6 +610,7 @@ ol.stack > li { padding-left: 56px; }
   padding: 56px 20px 0;
 }
 .tier-card > h2 .tier {
+  max-width: calc(100% - var(--space-m));
   position: absolute;
   top: 0;
   left: 0;
@@ -720,7 +732,12 @@ ol.stack > li { padding-left: 56px; }
   max-width: 44ch;
   margin-bottom: var(--space-m);
 }
-.cta-block .cta { width: 100%; }
+.cta-block .cta {
+  width: 100%;
+  padding-block: var(--space-3xs);   /* a long label takes two clean lines */
+  line-height: 1.25;
+  text-align: center;
+}
 @media (min-width: 560px) {
   .cta-block { padding: var(--space-xl); }
   .cta-block .cta { width: auto; min-width: 240px; }
@@ -1113,6 +1130,59 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
   color: var(--text-2);
 }
 
+/* Phones: a shorter empty card, so "Draw a card" ("Sacar una carta",
+   "Tirar uma carta") sits on the first screen above the install bar */
+@media (max-width: 559px) {
+  .agen .agen-card {
+    min-height: 196px;
+    padding: var(--space-l) var(--space-s) var(--space-m);
+  }
+}
+
+/* 22b. The generator in Spanish and Portuguese (/js/generator.js with
+   data-lang; the /es/ and /pt/ question pages). The English kicker is CSS
+   content ("Everyone", "Vote"); here it is a real element holding the app's
+   own label, so it is translated and a screen reader hears the frame the
+   card is written to sit under. */
+.agen[data-lang] .agen-card::before { content: none; }
+.agen[data-lang] .agen-k {
+  margin: 0;
+  max-width: 100%;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--lime);
+}
+/* A "¿Qué prefieres?" card: the two options with the app's "· o ·" divider
+   on its own line between them */
+.agen[data-lang] .agen-or {
+  display: block;
+  margin: 0.35em 0;
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--lime);
+}
+.agen[data-lang] .agen-or::before,
+.agen[data-lang] .agen-or::after { content: "\00B7"; margin: 0 0.5em; }
+.agen[data-lang] .agen-next { line-height: 1.25; }
+.agen[data-lang] .agen-btn {
+  padding-block: var(--space-3xs);
+  text-align: center;
+  text-wrap: balance;
+}
+/* "Descarga Antics gratis" and "Juega al impostor gratis" do not fit side
+   by side on a phone or in the laptop rail: there they stack, one line each,
+   rather than squeeze into two uneven two-line buttons */
+@media (max-width: 559px), (min-width: 1024px) {
+  .agen[data-lang] .agen-cta { grid-template-columns: minmax(0, 1fr); }
+}
+
 /* Iframe embeds: tighter, and a steady height (iframes cannot resize) */
 .agen.agen-embed { padding: var(--space-xs); border-radius: 22px; }
 .agen.agen-embed .agen-modes { margin-bottom: var(--space-xs); }
@@ -1154,7 +1224,8 @@ body.embed .tool-wrap { position: static; margin: 0; }
 
 /* --------------------------------------------------------------------------
    25. Imposter dealer (/imposter-game/, /es/juego-del-impostor/ and
-   /pt/jogo-do-impostor/, all three driven by /imposter-game/dealer.js)
+   /pt/jogo-do-impostor/, all three driven by /imposter-game/dealer.js),
+   then the language switcher every bilingual page shares
    One phone, passed round: the app's pass screen, role card, talk screen
    and reveal, drawn as one raised panel like the generator widget.
    Phones (5 Oct 2026 design pass): the setup is denser (players on one row,
@@ -1471,7 +1542,8 @@ body.embed .tool-wrap { position: static; margin: 0; }
   .idl-imp { font-size: 1.5rem; }
 }
 
-/* Language switcher, under the dealer on all three Imposter pages */
+/* Language switcher: under the dealer or the generator on every page with
+   a Spanish and Portuguese version, and under the header on /es/ and /pt/ */
 .ilang {
   display: flex;
   flex-wrap: wrap;
@@ -1497,6 +1569,11 @@ body.embed .tool-wrap { position: static; margin: 0; }
   background: var(--surface-2);
   border-color: transparent;
   color: var(--text-0);
+}
+/* Under a page header (the /es/ and /pt/ homes) it lines up with the text */
+.page-head + .ilang {
+  justify-content: flex-start;
+  margin: var(--space-m) 0 0;
 }
 
 /* Example words by category (es/pt pages): hairlines like the link lists */

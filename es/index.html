@@ -51,12 +51,11 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
-  <link rel="stylesheet" href="/css/intl-pages.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
 </head>
-<body class="has-installbar ip-page">
+<body class="has-installbar">
 <div class="page">
 <article>
   <nav class="crumb" aria-label="Ruta de navegación"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics</a> <span aria-hidden="true">&rsaquo;</span> Español</nav>
@@ -72,15 +71,15 @@
       </nav>
 
   <div class="prose">
-      <section class="section guides tone-cyan" id="juega">
+      <section class="section tone-cyan" id="juega">
         <h2>Juega gratis aquí</h2>
         <p>Un juego para jugar ya y cuatro con generador de cartas:</p>
-        <ul class="link-list">
-          <li><a href="/es/juego-del-impostor/">Juego del impostor online, en un solo celular</a></li>
-          <li><a href="/es/preguntas-yo-nunca-nunca/">Yo nunca nunca: preguntas y cómo se juega</a></li>
-          <li><a href="/es/preguntas-verdad-o-reto/">Verdad o reto: preguntas y retos</a></li>
-          <li><a href="/es/preguntas-que-prefieres/">¿Qué prefieres? Preguntas para dividir al grupo</a></li>
-          <li><a href="/es/preguntas-quien-es-mas-probable/">¿Quién es más probable que…? Preguntas para señalar</a></li>
+        <ul class="game-tiles">
+          <li><a class="tile-imposter" href="/es/juego-del-impostor/"><span class="game-tile-art" aria-hidden="true">🕵️</span><span class="game-tile-text"><strong>Juego del impostor online, en un solo celular</strong></span></a></li>
+          <li><a class="tile-nhie" href="/es/preguntas-yo-nunca-nunca/"><span class="game-tile-art" aria-hidden="true">🙊</span><span class="game-tile-text"><strong>Yo nunca nunca: preguntas y cómo se juega</strong></span></a></li>
+          <li><a class="tile-tod" href="/es/preguntas-verdad-o-reto/"><span class="game-tile-art" aria-hidden="true">😈</span><span class="game-tile-text"><strong>Verdad o reto: preguntas y retos</strong></span></a></li>
+          <li><a class="tile-wyr" href="/es/preguntas-que-prefieres/"><span class="game-tile-art" aria-hidden="true">🤔</span><span class="game-tile-text"><strong>¿Qué prefieres? Preguntas para dividir al grupo</strong></span></a></li>
+          <li><a class="tile-mlt" href="/es/preguntas-quien-es-mas-probable/"><span class="game-tile-art" aria-hidden="true">👉</span><span class="game-tile-text"><strong>¿Quién es más probable que…? Preguntas para señalar</strong></span></a></li>
         </ul>
       </section>
 
@@ -96,7 +95,7 @@
         <h2>Nueve juegos. Un celular.</h2>
         <p>Sin anuncios, sin registro, y todos juegan.</p>
         <a class="cta" href="/get/?c=site-es-hub">Descarga Antics gratis</a>
-        <div class="ip-qr">
+        <div class="cta-qr">
           <img src="/es/qr.png" width="120" height="120" alt="Código QR que abre Antics en tu celular" loading="lazy">
           <p>¿Estás en la computadora? Apunta aquí la cámara de tu celular.</p>
         </div>
