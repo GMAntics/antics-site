@@ -55,6 +55,14 @@ left on a content page.
 | `site-kings-cup` | `/kings-cup-rules/` | the two store buttons |
 | `site-ring-of-fire` | `/ring-of-fire-rules/` | the two store buttons |
 | `site-picolo` | `/picolo-alternative/` | the two store buttons |
+| `site-best-apps` | `/best-party-game-apps/` | the two store buttons in the closing box |
+| `site-best-apps-qr` | `/best-party-game-apps/` | the closing box QR, laptops and tablets only (`/best-party-game-apps/qr.png`) |
+| `site-best-apps-footer` | `/best-party-game-apps/` | footer "Get the app" |
+| `site-best-apps-bar` | `/best-party-game-apps/` | the phone install bar |
+| `site-best-imposter` | `/best-imposter-game-apps/` | the two store buttons in the closing box |
+| `site-best-imposter-qr` | `/best-imposter-game-apps/` | the closing box QR, laptops and tablets only (`/best-imposter-game-apps/qr.png`) |
+| `site-best-imposter-footer` | `/best-imposter-game-apps/` | footer "Get the app" |
+| `site-best-imposter-bar` | `/best-imposter-game-apps/` | the phone install bar |
 | `site-imposter` | `/how-to-play-imposter/` | the two store buttons |
 | `site-imposter-inline` | `/how-to-play-imposter/` | "Open Imposter in Antics" in the steps |
 | `site-imposter-laptop` | `/how-to-play-imposter/` | the "On a laptop?" line |

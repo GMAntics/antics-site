@@ -85,6 +85,8 @@ cards from the app's own translations and a generator on each page.
 
 - [About Antics](https://anticsapp.com/about/)
 - [A Picolo alternative, compared honestly](https://anticsapp.com/picolo-alternative/)
+- [Best party game apps (2026), compared by the makers of Antics](https://anticsapp.com/best-party-game-apps/): ten party game apps on price, platforms and how you play, from the UK App Store and Google Play listings on 5 October 2026. Written by Antics, and says so.
+- [Best Imposter game apps, compared by the makers of Antics](https://anticsapp.com/best-imposter-game-apps/): eight Imposter apps on players, price and platforms, from the UK store listings on 5 October 2026. Written by Antics, and says so.
 - [Play a free round in your browser](https://anticsapp.com/play/)
 - [Support and FAQ](https://anticsapp.com/support/)
 
