@@ -1,0 +1,173 @@
+/* ==========================================================================
+   Answer pages: /party-games-without-drinking/ and /party-games-for-uni/
+   (5 Oct 2026). Loaded AFTER /css/site.css and only by those two pages.
+   Uses site.css tokens only. New components live in the .ap-* namespace;
+   a shared component is only adjusted under body.ap-page (section 5).
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. Facts table: a key and value table. Wide screens get two columns;
+      phones stack each row so nothing scrolls sideways.
+   -------------------------------------------------------------------------- */
+.ap-facts { margin-top: 0; }
+.ap-facts table { font-size: var(--step--1); }
+.ap-facts th[scope="row"] {
+  width: 9rem;
+  vertical-align: top;
+  white-space: normal;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  padding-top: calc(var(--space-xs) + 3px);   /* sits on the value's first line */
+}
+.ap-facts td { color: var(--text-1); }
+.ap-facts td strong { color: var(--text-0); }
+
+@media (max-width: 559px) {
+  .ap-facts table,
+  .ap-facts tbody,
+  .ap-facts tr,
+  .ap-facts th[scope="row"],
+  .ap-facts td {
+    display: block;
+    width: auto;
+  }
+  .ap-facts tr { border-top: 1px solid var(--line); }
+  .ap-facts th[scope="row"] {
+    padding: var(--space-xs) var(--space-s) 0;
+    border-top: 0;
+    background: transparent;
+  }
+  .ap-facts caption { display: block; }
+  .ap-facts td { padding: var(--space-3xs) var(--space-s) var(--space-xs); border-top: 0; }
+  .ap-facts tbody tr:nth-child(even) { background: var(--row-alt); }
+  .ap-facts tbody tr:nth-child(even) td { background: transparent; }
+}
+
+
+/* --------------------------------------------------------------------------
+   2. The nine games as app tiles: the app's own gradient on the icon,
+      readable text on the card. One column on phones, two from 560px.
+   -------------------------------------------------------------------------- */
+.ap-games {
+  list-style: none;
+  display: grid;
+  gap: var(--space-2xs);
+  margin: var(--space-m) 0 var(--space-s);
+}
+@media (min-width: 560px) {
+  .ap-games { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+}
+.ap-games li { display: flex; min-width: 0; }
+.ap-games a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  min-height: 80px;
+  padding: var(--space-xs) var(--space-s) var(--space-xs) var(--space-xs);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--text-1);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.ap-games a:hover { background: var(--surface-3); border-color: var(--line-strong); color: var(--text-1); }
+.ap-art {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  font-size: 28px;
+  line-height: 1;
+  background: linear-gradient(140deg, var(--a), var(--b));
+}
+.ap-txt { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ap-txt strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
+}
+.ap-txt span { font-size: var(--step--1); line-height: 1.4; color: var(--text-2); }
+
+/* The app's tile gradients (src/gamesConfig.ts in the app repo) */
+.ap-g-antics   { --a: #7A3CFF; --b: #FF2E7E; }
+.ap-g-spicy    { --a: #8A1242; --b: #FF4E2E; }
+.ap-g-imposter { --a: #FF5C5C; --b: #C13BFF; }
+.ap-g-nhie     { --a: #37B6FF; --b: #9D6BFF; }
+.ap-g-tod      { --a: #B8FF3D; --b: #2EE6A8; }
+.ap-g-mlt      { --a: #FF5AC8; --b: #9D6BFF; }
+.ap-g-wyr      { --a: #2E8CFF; --b: #25E5FF; }
+.ap-g-kings    { --a: #FF2E7E; --b: #FFB02E; }
+.ap-g-odds     { --a: #FFB627; --b: #FF5C5C; }
+
+
+/* --------------------------------------------------------------------------
+   3. Closing download box: a QR for laptops and tablets. A phone already
+      has the buttons and the install bar, so the QR stays hidden there.
+   -------------------------------------------------------------------------- */
+.ap-qr { display: none; }
+@media (min-width: 768px) {
+  .ap-qr {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  .ap-qr img {
+    flex: none;
+    width: 120px;
+    height: 120px;
+    padding: 6px;
+    border-radius: 12px;
+    background: #FFFFFF;
+  }
+  .cta-block .ap-qr p { margin: 0; max-width: 30ch; color: var(--text-2); font-size: var(--step--1); }
+}
+.cta-block .cta + .cta { margin-top: var(--space-2xs); }
+@media (min-width: 560px) {
+  .cta-block .cta + .cta { margin-top: 0; margin-left: var(--space-2xs); }
+}
+
+
+/* --------------------------------------------------------------------------
+   4. Small rhythm fixes inside these pages
+   -------------------------------------------------------------------------- */
+/* About 75 characters a line on laptops (the shared 68ch measure runs to
+   about 90 in the system font at 17px) */
+.ap-page { --measure: 58ch; }
+.ap-page .page-head { margin-bottom: var(--space-l); }
+.ap-games + p { margin-top: var(--space-m); }
+.section > .midcta { margin-top: var(--space-m); }
+
+
+/* --------------------------------------------------------------------------
+   5. Tap targets: 44px minimum on these pages (body.ap-page). The shared
+      crumb and contents chips are 40px in site.css; inline links get a
+      taller hit area through vertical padding, which does not move text.
+   -------------------------------------------------------------------------- */
+.ap-page .crumb a,
+.ap-page .toc a { min-height: 44px; }
+.ap-page .prose p a,
+.ap-page .midcta a { padding-block: 0.75em; }
+.ap-page .prose p > a.inline:only-child {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-block: 0;
+}
+.ap-page .site-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 8px;            /* every link at least 44px wide, even gaps */
+}
+.ap-page .site-foot a:first-child { margin-left: -8px; }
