@@ -78,7 +78,10 @@
   /* Layout */
   --gutter: 20px;
   --page-max: 1160px;
-  --measure: 68ch;
+  /* About 75 characters a line in the system font at any size. This was
+     68ch until 5 Oct 2026, which ran to about 100 characters a line at 17px
+     (a "0" in SF Pro is 0.63em wide, so ch is generous). */
+  --measure: 34em;
   --rail: 420px;                 /* the tool column on wide screens */
   --toc: 220px;
 
@@ -91,7 +94,8 @@
   /* The deck: two card edges peeking out below a dealt card */
   --deck-edge: 0 6px 0 -2px #1A1333, 0 12px 0 -5px #140E29;
 
-  --tap: 48px;                   /* minimum tap target */
+  --tap: 48px;                   /* comfortable tap target */
+  --tap-min: 44px;               /* the floor: nothing tappable is smaller */
 }
 
 @media (min-width: 768px) {
@@ -150,6 +154,19 @@ a {
 a:hover { color: var(--tone); }
 a.inline { font-weight: 700; }
 
+/* Links inside running text: a hit area at least 44px tall, made of vertical
+   padding on the inline box, so not one line of text moves. */
+.prose p a,
+p.copy a,
+.prose ol:not([class]) li a,
+.prose ul:not([class]) li a,
+.stack li a,
+.midcta a,
+.tool-note a,
+.note a {
+  padding-block: max(0.75em, calc(23px - 0.6em));
+}
+
 code {
   font-family: var(--font-mono);
   font-size: 0.88em;
@@ -205,7 +222,7 @@ code {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  min-height: 40px;
+  min-height: var(--tap-min);
   color: var(--text-2);
   text-decoration: none;
   font-weight: 600;
@@ -215,6 +232,18 @@ code {
   width: 32px; height: 32px;
   border-radius: 9px;
   flex: none;
+}
+/* Phones: the trail fits one line. The home link keeps its name for screen
+   readers and search, but shows only the app icon (the install bar already
+   says "Antics" at the bottom of the screen). */
+@media (max-width: 559px) {
+  .crumb { margin-bottom: var(--space-m); }
+  .crumb a:first-child {
+    min-width: var(--tap-min);
+    justify-content: center;
+    gap: 0;
+    font-size: 0;
+  }
 }
 
 
@@ -373,7 +402,7 @@ p.copy {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  min-height: 40px;
+  min-height: var(--tap-min);
   padding: 0 var(--space-s);
   border-radius: var(--r-chip);
   background: var(--surface-1);
@@ -410,7 +439,7 @@ p.copy {
   }
   .toc a {
     width: 100%;
-    min-height: 40px;
+    min-height: var(--tap-min);
     border: 0;
     border-radius: 0;
     background: none;
@@ -635,6 +664,7 @@ ol.stack > li { padding-left: 56px; }
   max-width: var(--measure);
 }
 .midcta a { font-weight: 700; white-space: nowrap; }
+.section > .midcta { margin-top: var(--space-m); }
 
 
 /* --------------------------------------------------------------------------
@@ -843,6 +873,15 @@ tbody tr:nth-child(even) td { background: var(--row-alt); }
 }
 .site-foot a,
 .foot a { color: var(--text-1); }
+/* Every footer link is a 44px target. The side padding keeps the gaps even
+   and pulls the first link back to the text edge. */
+.site-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-2xs);
+}
+.site-foot a:first-child { margin-left: calc(-1 * var(--space-2xs)); }
 .site-foot a:hover,
 .foot a:hover { color: var(--text-0); }
 
@@ -885,6 +924,15 @@ tbody tr:nth-child(even) td { background: var(--row-alt); }
 .installbar p strong { font-family: var(--font-display); font-weight: 800; font-size: 16px; }
 .installbar p span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .installbar .btn { flex: none; }
+/* "The party games app" was clipped to "The party games ..." at 375px */
+@media (max-width: 400px) {
+  .installbar { gap: 10px; }
+  .installbar p span { font-size: 13px; }
+  .installbar .btn--sm { padding-inline: 14px; }
+}
+@media (max-width: 359px) {
+  .installbar p span { display: none; }
+}
 
 /* Room for the bar so it never covers the footer */
 body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
@@ -924,7 +972,7 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
 }
 .agen .agen-mode {
   flex: 1;
-  min-height: 40px;
+  min-height: var(--tap-min);
   padding: 0 var(--space-s);
   border-radius: var(--r-chip);
   color: var(--text-2);
@@ -1099,15 +1147,20 @@ body.embed .tool-wrap { position: static; margin: 0; }
 }
 
 @media print {
-  .installbar, .toc, .agen-controls, .agen-cta, .agen-modes { display: none !important; }
+  .installbar, .toc, .agen-controls, .agen-cta, .agen-modes, .idl, .ilang { display: none !important; }
   body { background: #FFFFFF; color: #000000; }
 }
 
 
 /* --------------------------------------------------------------------------
-   25. Imposter dealer (/imposter-game/, /imposter-game/dealer.js)
+   25. Imposter dealer (/imposter-game/, /es/juego-del-impostor/ and
+   /pt/jogo-do-impostor/, all three driven by /imposter-game/dealer.js)
    One phone, passed round: the app's pass screen, role card, talk screen
    and reveal, drawn as one raised panel like the generator widget.
+   Phones (5 Oct 2026 design pass): the setup is denser (players on one row,
+   the categories in one swipeable row) so Deal sits on the first screen,
+   and once a round starts dealer.js brings the panel to the top of the
+   screen so every turn plays without scrolling.
    -------------------------------------------------------------------------- */
 .page-head .note { margin-top: var(--space-s); }
 .link-list + .copy { margin-top: var(--space-m); }
@@ -1155,8 +1208,10 @@ body.embed .tool-wrap { position: static; margin: 0; }
   font-weight: 800;
   line-height: 1;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
 }
 .idl-step:hover { background: var(--surface-3); }
+.idl-step:active:not(:disabled) { background: var(--surface-3); transform: scale(0.94); }
 .idl-step:disabled { opacity: 0.35; cursor: default; background: var(--bg); }
 .idl-count {
   min-width: 2ch;
@@ -1185,7 +1240,8 @@ body.embed .tool-wrap { position: static; margin: 0; }
 .idl-chip span {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  justify-content: center;
+  min-height: var(--tap-min);
   padding: 0 var(--space-s);
   border-radius: var(--r-chip);
   background: var(--bg);
@@ -1193,9 +1249,13 @@ body.embed .tool-wrap { position: static; margin: 0; }
   color: var(--text-1);
   font-size: var(--step--1);
   font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
   cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
 }
-.idl-chip span:hover { color: var(--text-0); }
+.idl-chip span:hover { color: var(--text-0); border-color: rgba(255, 255, 255, 0.3); }
+.idl-chip:active input:not(:checked) + span { background: var(--surface-3); }
 .idl-chip input:checked + span { background: var(--action); border-color: transparent; color: #FFFFFF; }
 .idl-chip input:focus-visible + span { outline: 3px solid var(--lime); outline-offset: 2px; }
 
@@ -1211,6 +1271,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
   text-align: left;
   cursor: pointer;
 }
+.idl-switch:hover { border-color: var(--line-strong); }
 .idl-track {
   position: relative;
   flex: none;
@@ -1241,8 +1302,19 @@ body.embed .tool-wrap { position: static; margin: 0; }
   color: var(--text-2);
 }
 .idl-switch-text strong { font-size: var(--step-0); }
+.idl-switch-text span { text-wrap: pretty; }
 
-.idl .btn { width: 100%; }
+/* Buttons fill the panel; a long label (Spanish "Repartir la ronda
+   (12 jugadores)") takes two balanced lines rather than overflowing */
+.idl .btn {
+  width: 100%;
+  padding-block: var(--space-2xs);
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+}
+.idl .btn:disabled { opacity: 0.6; cursor: progress; }
+.idl .btn--ghost:hover { background: var(--surface-3); filter: none; }
 .idl-err { margin: 0 auto; color: var(--orange); }
 
 /* Pass screen, talk screen and reveal */
@@ -1259,6 +1331,11 @@ body.embed .tool-wrap { position: static; margin: 0; }
 .idl-name { font-size: var(--step-3); }
 .idl-title { font-size: var(--step-2); }
 .idl-body { color: var(--text-1); line-height: 1.5; text-wrap: pretty; }
+.idl .note { text-wrap: pretty; }
+/* On a wide single-column panel (iPad portrait) running text keeps a
+   readable line instead of spanning the whole card */
+.idl-body,
+.idl .note { max-width: 32em; margin-inline: auto; }
 .idl-starter { color: var(--lime); font-size: var(--step-1); font-weight: 800; }
 
 /* The role card */
@@ -1292,6 +1369,11 @@ body.embed .tool-wrap { position: static; margin: 0; }
   line-height: 1.1;
   color: var(--pink);
 }
+/* A long word wraps inside the card, never pushes it wider */
+.idl-word,
+.idl-name,
+.idl-title,
+.idl-imp { overflow-wrap: break-word; min-width: 0; max-width: 100%; }
 .idl-emoji { font-size: 2.75rem; line-height: 1; }
 .idl-card .label + .label { margin-top: var(--space-2xs); }
 
@@ -1304,7 +1386,271 @@ body.embed .tool-wrap { position: static; margin: 0; }
   border-radius: 12px;
   background: #FFFFFF;
 }
-.idl-qr p { margin-top: var(--space-2xs); font-size: var(--step--1); color: var(--text-2); }
+.idl-qr p {
+  margin-top: var(--space-2xs);
+  font-size: var(--step--1);
+  color: var(--text-2);
+  text-wrap: balance;
+}
 @media (min-width: 768px) {
   .idl-qr { display: block; }
+}
+
+/* Phones: everything to Deal on the first screen */
+@media (max-width: 559px) {
+  .idl { padding: var(--space-s) var(--space-s) var(--space-m); }
+  .idl-screen { gap: var(--space-xs); }
+
+  /* Players: the label and the stepper share one row (the label takes two
+     lines in Spanish and Portuguese) */
+  .idl-players {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+  }
+  .idl-players > .label {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    text-align: left;
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+  .idl-players .idl-stepper { flex: none; gap: var(--space-2xs); }
+  .idl-players .idl-step { width: 48px; height: 48px; font-size: 1.5rem; }
+  .idl-players .idl-count { font-size: 2rem; }
+
+  /* Categories: one swipeable row that runs to the panel's edges, the
+     way the "On this page" chips do; the fade says there is more */
+  /* A floated legend leaves the fieldset's own centring and sits left,
+     in line with the players label */
+  .idl-field > legend {
+    float: left;
+    width: 100%;
+    margin: 0 0 var(--space-3xs);
+    text-align: left;
+  }
+  .idl-field > legend + .idl-chips { clear: both; }
+  .idl-chips {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    margin-inline: calc(-1 * var(--space-s));
+    padding: 6px var(--space-s);          /* room for the focus ring */
+    scroll-padding-inline: var(--space-s);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8px, #000 calc(100% - 28px), transparent);
+            mask-image: linear-gradient(to right, transparent, #000 8px, #000 calc(100% - 28px), transparent);
+  }
+  .idl-chips::-webkit-scrollbar { display: none; }
+  .idl-chip { flex: none; }
+  .idl-chip span { white-space: nowrap; }
+
+  .idl-switch { padding: var(--space-2xs) var(--space-xs); gap: var(--space-xs); }
+
+  .idl-card {
+    min-height: 220px;
+    padding: var(--space-m) var(--space-s);
+  }
+}
+/* The narrowest phones (320px): the stepper goes back under its label */
+@media (max-width: 359px) {
+  .idl-players { display: block; padding-left: 0; }
+  .idl-players > .label { margin: 0 auto var(--space-2xs); text-align: center; }
+}
+/* Short phones (an iPhone SE): the role card and the reveal still fit
+   above the install bar */
+@media (max-width: 559px) and (max-height: 700px) {
+  .idl-screen { gap: var(--space-2xs); }
+  .idl-card { min-height: 0; gap: var(--space-2xs); padding: var(--space-s); }
+  .idl-emoji { font-size: 2.25rem; }
+  .idl-name { font-size: 2rem; }
+  .idl-word { font-size: 1.625rem; }
+  .idl-imp { font-size: 1.5rem; }
+}
+
+/* Language switcher, under the dealer on all three Imposter pages */
+.ilang {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
+}
+.ilang a,
+.ilang span {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-s);
+  border-radius: var(--r-chip);
+  border: 1px solid var(--line-strong);
+  color: var(--text-1);
+  font-size: var(--step--1);
+  font-weight: 700;
+  text-decoration: none;
+}
+.ilang a:hover { color: var(--text-0); background: var(--surface-3); }
+.ilang [aria-current] {
+  background: var(--surface-2);
+  border-color: transparent;
+  color: var(--text-0);
+}
+
+/* Example words by category (es/pt pages): hairlines like the link lists */
+.iwords {
+  list-style: none;
+  max-width: var(--measure);
+  border-top: 1px solid var(--line);
+}
+.iwords li {
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-1);
+  line-height: var(--leading-snug);
+}
+.iwords strong {
+  display: block;
+  margin-bottom: var(--space-3xs);
+  color: var(--text-0);
+}
+.iwords + h3 { margin-top: var(--space-xl); }
+/* The word-and-hint table under it: headers may wrap on a small phone */
+.iwords ~ .table-wrap th { white-space: normal; }
+
+
+/* --------------------------------------------------------------------------
+   26. Facts table: a key and value table ("Antics at a glance"). Two columns
+   from 560px; on phones each row stacks so nothing scrolls sideways.
+   -------------------------------------------------------------------------- */
+.page-head + .guide-body { margin-top: var(--space-l); }
+
+.facts { margin-top: 0; }
+.facts th[scope="row"] {
+  width: 9rem;
+  vertical-align: top;
+  white-space: normal;
+  border-top: 1px solid var(--line);
+  color: var(--text-3);
+  padding-top: calc(var(--space-xs) + 3px);   /* sits on the value's first line */
+}
+.facts td { color: var(--text-1); }
+.facts td strong { color: var(--text-0); }
+
+@media (max-width: 559px) {
+  .facts table,
+  .facts tbody,
+  .facts tr,
+  .facts th[scope="row"],
+  .facts td {
+    display: block;
+    width: auto;
+  }
+  .facts tr { border-top: 1px solid var(--line); }
+  .facts th[scope="row"] {
+    padding: var(--space-xs) var(--space-s) 0;
+    border-top: 0;
+    background: transparent;
+  }
+  .facts caption { display: block; }
+  .facts td { padding: var(--space-3xs) var(--space-s) var(--space-xs); border-top: 0; }
+  .facts tbody tr:nth-child(even) { background: var(--row-alt); }
+  .facts tbody tr:nth-child(even) td { background: transparent; }
+}
+
+
+/* --------------------------------------------------------------------------
+   27. Game tiles: the nine games as the app draws them, the app's own
+   gradient on the icon (src/gamesConfig.ts in the app repo) and readable
+   text on the card. One column on phones, two from 560px.
+   -------------------------------------------------------------------------- */
+.game-tiles {
+  list-style: none;
+  display: grid;
+  gap: var(--space-2xs);
+  margin: var(--space-m) 0 var(--space-s);
+}
+@media (min-width: 560px) {
+  .game-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+}
+.game-tiles li { display: flex; min-width: 0; }
+.game-tiles a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  min-height: 80px;
+  padding: var(--space-xs) var(--space-s) var(--space-xs) var(--space-xs);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--text-1);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+.game-tiles a:hover { background: var(--surface-3); border-color: var(--line-strong); color: var(--text-1); }
+.game-tiles a:active { transform: scale(0.985); }
+.game-tile-art {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  font-size: 28px;
+  line-height: 1;
+  background: linear-gradient(140deg, var(--a), var(--b));
+}
+.game-tile-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.game-tile-text strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.125rem;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
+}
+.game-tile-text span { font-size: var(--step--1); line-height: 1.4; color: var(--text-2); }
+.game-tiles + p { margin-top: var(--space-m); }
+
+.tile-antics   { --a: #7A3CFF; --b: #FF2E7E; }
+.tile-spicy    { --a: #8A1242; --b: #FF4E2E; }
+.tile-imposter { --a: #FF5C5C; --b: #C13BFF; }
+.tile-nhie     { --a: #37B6FF; --b: #9D6BFF; }
+.tile-tod      { --a: #B8FF3D; --b: #2EE6A8; }
+.tile-mlt      { --a: #FF5AC8; --b: #9D6BFF; }
+.tile-wyr      { --a: #2E8CFF; --b: #25E5FF; }
+.tile-kings    { --a: #FF2E7E; --b: #FFB02E; }
+.tile-odds     { --a: #FFB627; --b: #FF5C5C; }
+
+
+/* --------------------------------------------------------------------------
+   28. The closing download box's QR, laptops and tablets only (a phone
+   already has the buttons and the install bar), and two buttons side by side
+   -------------------------------------------------------------------------- */
+.cta-qr { display: none; }
+@media (min-width: 768px) {
+  .cta-qr {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  .cta-qr img {
+    flex: none;
+    width: 120px;
+    height: 120px;
+    padding: 6px;
+    border-radius: 12px;
+    background: #FFFFFF;
+  }
+  .cta-block .cta-qr p { margin: 0; max-width: 30ch; color: var(--text-2); font-size: var(--step--1); }
+}
+.cta-block .cta + .cta { margin-top: var(--space-2xs); }
+@media (min-width: 560px) {
+  .cta-block .cta + .cta { margin-top: 0; margin-left: var(--space-2xs); }
 }

@@ -244,11 +244,25 @@
   var shownAt = 0;
   var SETTLE_MS = 450;
   function settled() { return Date.now() - shownAt >= SETTLE_MS; }
+  // LAYOUT ONLY (design pass, 5 Oct 2026): where the dealer sits on screen.
+  // The visible area ends above the phone install bar when it shows. Once a
+  // round is under way the panel is brought to the top of the screen if it
+  // starts low or runs past the bottom, so every turn (the role card, the
+  // reveal) plays without scrolling. On wide screens the panel is pinned in
+  // the right rail and never moves. Back on setup only the old rule applies.
+  function visibleBottom() {
+    var bar = document.querySelector('.installbar');
+    if (bar && bar.getBoundingClientRect().height > 0) return bar.getBoundingClientRect().top - 8;
+    return window.innerHeight;
+  }
   function show(name, focusId) {
     shownAt = Date.now();
     screens.forEach(function (s) { $('idl-' + s).hidden = (s !== name); });
-    var top = root.getBoundingClientRect().top;
-    if (top < 0 || top > window.innerHeight * 0.6) {
+    var r = root.getBoundingClientRect();
+    var bottom = visibleBottom();
+    var off = r.top < 0 || r.top > window.innerHeight * 0.6;
+    if (name !== 'setup') off = off || r.top > bottom * 0.25 || r.bottom > bottom;
+    if (off) {
       try { root.scrollIntoView({ block: 'start' }); } catch (e) { root.scrollIntoView(true); }
     }
     if (focusId) { try { $(focusId).focus({ preventScroll: true }); } catch (e) {} }
