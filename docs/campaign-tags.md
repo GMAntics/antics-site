@@ -102,6 +102,35 @@ left on a content page.
 | `site-llms` | `llms.txt` | the "Get Antics free" line |
 | `site-referral-fallback` | `/r/` | the no-JS button, used only when a share token does not resolve |
 
+## Imposter word pages
+
+Each category page under `/imposter-game-words/` carries three tags:
+`site-imposter-<category>` on the two store buttons, `site-imposter-<category>-laptop`
+on the "On a laptop?" line and `site-imposter-<category>-bar` on the phone install bar.
+The hub `/imposter-game-words/` carries the same three as `site-imposter-words`.
+Categories in use: `food`, `celebrities`, `places`, `everyday-objects`, `brands`,
+`sports` and `halloween`.
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-imposter-halloween` | `/imposter-game-words/halloween/` | the two store buttons (added 5 Oct 2026, when the page replaced Football) |
+| `site-imposter-halloween-laptop` | `/imposter-game-words/halloween/` | the "On a laptop?" line |
+| `site-imposter-halloween-bar` | `/imposter-game-words/halloween/` | the phone install bar |
+
+### Retired
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-imposter-football` | the Football words page (removed) | the two store buttons |
+| `site-imposter-football-laptop` | the Football words page (removed) | the "On a laptop?" line |
+| `site-imposter-football-bar` | the Football words page (removed) | the phone install bar |
+
+Retired 5 October 2026, when the Football words page was taken off the site
+(Guy: "actually remove the football one, use a different category on web"; the
+Football Imposter deck is parked and is not in the app). Nothing on the site
+links to these any more, so a visit carrying one came from an old shared link
+or a cached page. Never reuse the spellings.
+
 ## Generator tags
 
 Each generator page carries the tag three times: the widget's own CTA button,
