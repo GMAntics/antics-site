@@ -16,6 +16,13 @@
 // exactly the beacon /play/ sends. players, deck and hint ride play_started
 // as extra props; see the contract delta drafted in the app repo's
 // ops/site-imposter-game-2026-10-04.md.
+//
+// LANGUAGES (5 Oct 2026). /es/juego-del-impostor/ and /pt/jogo-do-impostor/
+// load this same file. Each says what it is on the dealer element itself:
+// data-lang ('es' or 'pt') picks COPY_INTL below, data-words its word file,
+// data-code its default install tag. The English page sets none of them and
+// deals exactly as before. Every page now adds `lang` ('en', 'es', 'pt') to
+// both beacons, so a read can split the three (ops/site-imposter-es-pt-2026-10-05.md).
 (function () {
   'use strict';
 
@@ -50,15 +57,76 @@
     loadFail: 'Couldn’t load the words. Check your signal and refresh the page.'
   };
 
+  // Spanish (es-419) and Brazilian Portuguese, the app's `es` and `pt`
+  // dictionaries. Lines marked APP are strings.es.ts / strings.pt.ts,
+  // imposter.*, word for word; the rest are new site copy.
+  var COPY_INTL = {
+    es: {
+      deal: function (n) { return 'Repartir la ronda (' + n + ' jugadores)'; },    // APP deal
+      player: function (n) { return 'Jugador ' + n; },                             // APP playerN
+      round: function (n) { return 'Ronda ' + n; },
+      category: function (name) { return 'Categoría: ' + name; },                 // APP categoryOnCard
+      yourWord: 'Tu palabra secreta',                                              // APP yourWordIs
+      youreAt: 'Estás en',                                                         // APP youreAt
+      wordBody: 'Habla alrededor de la palabra sin decirla nunca. El impostor está escuchando.', // APP wordBody
+      placeBody: 'Descríbelo sin delatarlo. El impostor está escuchando.',         // APP locationBody
+      impTitle: 'Eres el IMPOSTOR',                                                // APP imposterTitle
+      impBodyWord: 'Todos los demás la saben. Camúflate y que no te atrapen.',     // APP imposterBodyWord
+      impBodyPlace: 'Todos los demás saben dónde están. Camúflate y que no te atrapen.', // APP imposterBody
+      hintTitle: 'Tu pista',                                                       // APP hintTitle
+      next: 'Pásale al siguiente jugador',                                         // APP nextPlayer
+      allSeen: 'Ya todos vieron el suyo',                                          // APP everyoneSeen
+      talkWord: 'En círculo, cada quien describe la palabra, ¡sin decirla! Cuando hayan oído suficiente: a las tres, todos señalan a su sospechoso.', // APP discussBodyWord
+      talkPlace: 'En círculo, cada quien describe dónde está, ¡sin nombrarlo! Cuando hayan oído suficiente: a las tres, todos señalan a su sospechoso.', // APP discussBody
+      starts: function (p) { return 'Empieza ' + p; },                             // APP discussStarter
+      wasWord: 'La palabra era',
+      wasPlace: 'El lugar era',
+      hintWas: function (h) { return 'El impostor solo tenía una pista: "' + h + '".'; }, // APP hintWas
+      loadFail: 'No se pudieron cargar las palabras. Revisa tu conexión y recarga la página.'
+    },
+    pt: {
+      deal: function (n) { return 'Distribuir a rodada (' + n + ' jogadores)'; },  // APP deal
+      player: function (n) { return 'Jogador ' + n; },                             // APP playerN
+      round: function (n) { return 'Rodada ' + n; },
+      category: function (name) { return 'Categoria: ' + name; },                 // APP categoryOnCard
+      yourWord: 'Sua palavra secreta',                                             // APP yourWordIs
+      youreAt: 'Você está em',                                                     // APP youreAt
+      wordBody: 'Fale em volta da palavra sem nunca dizê-la. O impostor está ouvindo.', // APP wordBody
+      placeBody: 'Descreva sem entregar. O impostor está ouvindo.',                // APP locationBody
+      impTitle: 'Você é o IMPOSTOR',                                               // APP imposterTitle
+      impBodyWord: 'Todo mundo sabe qual é, menos você. Disfarce e não seja pego.', // APP imposterBodyWord
+      impBodyPlace: 'Todo mundo sabe onde está, menos você. Disfarce e não seja pego.', // APP imposterBody
+      hintTitle: 'Sua dica',                                                       // APP hintTitle
+      next: 'Passe para o próximo jogador',                                        // APP nextPlayer
+      allSeen: 'Todo mundo já viu o seu',                                          // APP everyoneSeen
+      talkWord: 'Em círculo, cada um descreve a palavra, sem dizer ela! Quando já ouviram o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBodyWord
+      talkPlace: 'Em círculo, cada um descreve onde está, sem dizer o nome! Quando já ouviram o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBody
+      starts: function (p) { return p + ' começa'; },                             // APP discussStarter
+      wasWord: 'A palavra era',
+      wasPlace: 'O lugar era',
+      hintWas: function (h) { return 'O impostor tinha só uma pista: "' + h + '".'; }, // APP hintWas
+      loadFail: 'Não deu para carregar as palavras. Confira sua conexão e recarregue a página.'
+    }
+  };
+
   function $(id) { return document.getElementById(id); }
   var root = $('idl');
   if (!root) return;
+
+  var LANG = root.getAttribute('data-lang');
+  if (!COPY_INTL.hasOwnProperty(LANG)) LANG = 'en';
+  else COPY = COPY_INTL[LANG];
+  var wordsAttr = root.getAttribute('data-words') || '';
+  if (/^\/[a-z0-9\/-]+\.json$/.test(wordsAttr)) WORDS_URL = wordsAttr;
+  var codeAttr = root.getAttribute('data-code') || '';
+  var DEFAULT_CODE = /^[a-z0-9-]{1,32}$/.test(codeAttr) ? codeAttr : 'site-imposter-play';
 
   // --- promoter passthrough, exactly as /play/ does it ----------------------
   // /imposter-game/?c=<code>&o=<OFFER> carries a campaign code (and a flyer's
   // free week) onto the wall's install button. Same sanitising and the same
   // sessionStorage key as /play/, so a visitor who came in through a promoter
-  // link keeps their offer across both pages. No code: site-imposter-play.
+  // link keeps their offer across both pages. No code: site-imposter-play
+  // (site-imposter-es / site-imposter-pt on those pages, from data-code).
   var promo = { code: null, offer: null };
   try {
     var q = location.search.toLowerCase();
@@ -73,7 +141,7 @@
     var code = /^[a-z0-9-]{1,32}$/.test(promo.code || '') ? promo.code : null;
     var offer = /^[A-Z0-9]{1,20}$/.test(promo.offer || '') ? promo.offer : null;
     promo.code = code; promo.offer = offer;
-    $('idl-get').href = '/get/?c=' + (code || 'site-imposter-play') + (offer ? '&o=' + offer : '');
+    $('idl-get').href = '/get/?c=' + (code || DEFAULT_CODE) + (offer ? '&o=' + offer : '');
     if (offer && /iphone|ipad|ipod/i.test(navigator.userAgent)) $('idl-offer').hidden = false;
   })();
 
@@ -213,7 +281,7 @@
     state.blockRounds = 0;
     beacon('play_started', {
       game: 'imposter', names: 'no', code: promo.code || 'none',
-      players: state.players, deck: state.deckId, hint: state.hintOn ? 'on' : 'off'
+      players: state.players, deck: state.deckId, hint: state.hintOn ? 'on' : 'off', lang: LANG
     });
   }
 
@@ -328,7 +396,7 @@
     if (!settled()) return;
     if (state.blockOpen && state.blockRounds >= ROUNDS_PER_BLOCK) {
       state.blockOpen = false;
-      beacon('play_wall_reached', { game: 'imposter', cards: state.blockRounds, code: promo.code || 'none', reason: 'complete' });
+      beacon('play_wall_reached', { game: 'imposter', cards: state.blockRounds, code: promo.code || 'none', reason: 'complete', lang: LANG });
       show('wall', 'idl-wall-title');
       return;
     }

@@ -1,0 +1,73 @@
+/* --------------------------------------------------------------------------
+   Imposter in Spanish and Portuguese (5 Oct 2026)
+   /es/juego-del-impostor/ and /pt/jogo-do-impostor/ only, loaded after
+   site.css. The dealer itself is section 25 of site.css, unchanged; this file
+   adds the language switcher, the example word list, and a little give for
+   longer Spanish and Portuguese strings. Fold into site.css when the design
+   pass lands.
+   -------------------------------------------------------------------------- */
+
+/* Language switcher, under the dealer: kept out of the header so the dealer
+   sits as high on a phone as it does on the English page */
+.ilang {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
+}
+.ilang a,
+.ilang span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-s);
+  border-radius: var(--r-chip);
+  border: 1px solid var(--line-strong);
+  color: var(--text-1);
+  font-size: var(--step--1);
+  font-weight: 700;
+  text-decoration: none;
+}
+.ilang a:hover { color: var(--text-0); background: var(--surface-3); }
+.ilang [aria-current] {
+  background: var(--surface-2);
+  border-color: transparent;
+  color: var(--text-0);
+}
+
+/* Longer words and labels: wrap inside the card, never push it wider */
+.idl[data-lang] .idl-word,
+.idl[data-lang] .idl-name,
+.idl[data-lang] .idl-title,
+.idl[data-lang] .idl-imp { overflow-wrap: break-word; }
+/* "Repartir la ronda (12 jugadores)" can take two lines at phone width */
+.idl[data-lang] .btn {
+  padding-block: var(--space-2xs);
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+}
+.idl[data-lang] .idl-chip span { text-align: center; }
+
+/* Example words by category: hairlines like the link lists, no arrows */
+.iwords {
+  list-style: none;
+  max-width: var(--measure);
+  border-top: 1px solid var(--line);
+}
+.iwords li {
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--text-1);
+  line-height: var(--leading-snug);
+}
+.iwords strong {
+  display: block;
+  margin-bottom: var(--space-3xs);
+  color: var(--text-0);
+}
+.iwords + h3 { margin-top: var(--space-xl); }
+.idl[data-lang] .idl-qr p { text-wrap: balance; }
+/* The site-wide crumb link is 40px tall; 44 here (flagged for the design pass) */
+.crumb a { min-height: 44px; }
