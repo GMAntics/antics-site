@@ -23,6 +23,7 @@ Rules for a tag:
 | `out-` | outreach and press placements (`/unifresher`, `/pocketgamer`) |
 | `ig-`, `tt-` | social bio links |
 | `web-`, `app-` | the browser demo (`/play`) and the in-app wall (`/room`) |
+| `pitch-` | emailed pitches to independent "best apps" pages (`ops/ai-search-pitches-2026-10-05.md` in the app repo): `pitch-feelgood`, `pitch-igeeks`, `pitch-techlog`; and the nine data pitches `pitch-data-sts`, `pitch-data-tab`, `pitch-data-unifresher`, `pitch-data-varsity`, `pitch-data-cherwell`, `pitch-data-boar`, `pitch-data-metro`, `pitch-data-timeout`, `pitch-data-olive` (`/party-data/?c=...`, carried onto every `/get/` link by `/party-data/tag.js`; `ops/data-page-pitches-2026-10-05.md`) |
 
 ## Site tags
 
@@ -38,6 +39,18 @@ left on a content page.
 | `site-party-games-footer` | `/party-games/` | footer "Get the app" |
 | `site-friends-games` | `/games-to-play-with-friends/` | the two store buttons |
 | `site-friends-games-footer` | `/games-to-play-with-friends/` | footer "Get the app" |
+| `site-nondrink` | `/party-games-without-drinking/` | the two store buttons |
+| `site-nondrink-footer` | `/party-games-without-drinking/` | footer "Get the app" |
+| `site-nondrink-bar` | `/party-games-without-drinking/` | the phone install bar |
+| `site-nondrink-qr` | `/party-games-without-drinking/` | the closing box's QR, laptops and tablets only (`/party-games-without-drinking/qr.png`) |
+| `site-uni` | `/party-games-for-uni/` | the two store buttons |
+| `site-uni-footer` | `/party-games-for-uni/` | footer "Get the app" |
+| `site-uni-bar` | `/party-games-for-uni/` | the phone install bar |
+| `site-uni-qr` | `/party-games-for-uni/` | the closing box's QR, laptops and tablets only (`/party-games-for-uni/qr.png`) |
+| `site-data` | `/party-data/` | the two store buttons in the closing box |
+| `site-data-qr` | `/party-data/` | the closing box QR, laptops and tablets only (`/party-data/qr.png`) |
+| `site-data-footer` | `/party-data/` | footer "Get the app" |
+| `site-data-bar` | `/party-data/` | the phone install bar |
 | `site-drinking-games` | `/drinking-games/` | the two store buttons |
 | `site-kings-cup` | `/kings-cup-rules/` | the two store buttons |
 | `site-ring-of-fire` | `/ring-of-fire-rules/` | the two store buttons |
@@ -45,6 +58,15 @@ left on a content page.
 | `site-imposter` | `/how-to-play-imposter/` | the two store buttons |
 | `site-imposter-inline` | `/how-to-play-imposter/` | "Open Imposter in Antics" in the steps |
 | `site-imposter-laptop` | `/how-to-play-imposter/` | the "On a laptop?" line |
+| `site-imposter-play` | `/imposter-game/` | the wall's "Get Antics free" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
+| `site-imposter-play-qr` | `/imposter-game/` | the wall's QR, shown on wide screens only (`/qr-imposter-play.png`) |
+| `site-imposter-play-bar` | `/imposter-game/` | the phone install bar |
+| `site-imposter-es` | `/es/juego-del-impostor/` | the wall's "Descarga Antics gratis" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
+| `site-imposter-es-qr` | `/es/juego-del-impostor/` | the wall's QR, wide screens only (`/qr-imposter-es.png`) |
+| `site-imposter-es-bar` | `/es/juego-del-impostor/` | the phone install bar |
+| `site-imposter-pt` | `/pt/jogo-do-impostor/` | the wall's "Baixe o Antics grátis" button (after every third round); a `?c=` on the page URL replaces it |
+| `site-imposter-pt-qr` | `/pt/jogo-do-impostor/` | the wall's QR, wide screens only (`/qr-imposter-pt.png`) |
+| `site-imposter-pt-bar` | `/pt/jogo-do-impostor/` | the phone install bar |
 | `site-odds` | `/what-are-the-odds/` | the two store buttons |
 | `site-odds-laptop` | `/what-are-the-odds/` | the "On a laptop?" line |
 | `site-hen` | `/hen-do-games/` | end CTA |
@@ -75,6 +97,22 @@ the static markup matches it.
 | Truth or Dare | `site-generator-tod` | `site-generator-tod-copy` | `site-generator-tod-foot` | `embed-generator-tod` |
 | Would You Rather | `site-generator-wyr` | `site-generator-wyr-copy` | `site-generator-wyr-foot` | `embed-generator-wyr` |
 | What Are The Odds | `site-generator-odds` | `site-generator-odds-copy` | `site-generator-odds-foot` | `embed-generator-odds` |
+
+## Spanish and Portuguese pages
+
+Set 5 October 2026. Each question page carries five tags; each language home three.
+`<g>` is `nhie`, `tod`, `wyr` or `mlt`.
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-es-<g>` | `/es/preguntas-.../` | the download box's "Descarga Antics gratis" button |
+| `site-es-<g>-qr` | same | the download box's QR, laptops and tablets only (`qr.png` in the page's folder) |
+| `site-es-<g>-bar` | same | the phone install bar |
+| `site-es-<g>-gen` | same | the generator's "Descarga Antics gratis" button (from `js/generator.js`, via `data-cta`) |
+| `site-es-<g>-gen-imp` | same | the generator's "Juega al impostor gratis" button: it opens `/es/juego-del-impostor/?c=site-es-<g>-gen-imp`, whose wall then carries this tag (as `-play` does for `/play/`) |
+| `site-es-hub` / `-hub-qr` / `-hub-bar` | `/es/` | button, QR, install bar |
+| `site-pt-<g>` ... `site-pt-<g>-gen-imp` | `/pt/perguntas-.../` | the same five, Portuguese ("Baixe o Antics grátis", "Jogue o impostor grátis") |
+| `site-pt-hub` / `-hub-qr` / `-hub-bar` | `/pt/` | button, QR, install bar |
 
 ## Deliberately left alone
 

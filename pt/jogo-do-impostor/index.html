@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-itunes-app" content="app-id=6787743558">
+  <title>Jogo do impostor online grátis em um celular | Antics</title>
+  <meta name="description" content="O jogo do impostor online, em um celular só. Escolha uma categoria, passem o celular e todo mundo vê a palavra secreta, menos o impostor. Grátis.">
+  <link rel="canonical" href="https://anticsapp.com/pt/jogo-do-impostor/">
+  <link rel="alternate" hreflang="en" href="https://anticsapp.com/imposter-game/">
+  <link rel="alternate" hreflang="es" href="https://anticsapp.com/es/juego-del-impostor/">
+  <link rel="alternate" hreflang="pt" href="https://anticsapp.com/pt/jogo-do-impostor/">
+  <link rel="alternate" hreflang="x-default" href="https://anticsapp.com/imposter-game/">
+  <meta property="og:site_name" content="Antics">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="es_MX">
+  <meta property="og:title" content="Jogo do impostor online, em um celular só">
+  <meta property="og:description" content="Escolha uma categoria, passem o celular e descubram o impostor. Grátis, sem baixar nada e sem cadastro.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://anticsapp.com/pt/jogo-do-impostor/">
+  <meta property="og:image" content="https://anticsapp.com/img/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Jogo do impostor do Antics: distribui as palavras em um celular só",
+    "url": "https://anticsapp.com/pt/jogo-do-impostor/",
+    "inLanguage": "pt-BR",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requer JavaScript",
+    "isAccessibleForFree": true,
+    "featureList": [
+      "O impostor de passar o celular, de 3 a 12 jogadores",
+      "Quatro categorias de palavras do app Antics: Comida e bebida, Pessoas famosas, Lugares e Objetos do dia a dia",
+      "Uma dica opcional de uma palavra para o impostor",
+      "Sem cadastro, sem contas e sem anúncios"
+    ],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" },
+    "publisher": { "@type": "Organization", "name": "Antics", "url": "https://anticsapp.com/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Antics", "item": "https://anticsapp.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Jogo do impostor online", "item": "https://anticsapp.com/pt/jogo-do-impostor/" }
+    ]
+  }
+  </script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+</head>
+<body class="has-installbar">
+  <div class="page">
+  <main class="tool-layout">
+    <nav class="crumb" aria-label="Navegação estrutural"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: jogos de festa</a> <span aria-hidden="true">&rsaquo;</span> Jogo do impostor online</nav>
+    <header class="page-head">
+      <h1>Jogo do impostor online, em um celular só</h1>
+      <p class="lead">Escolha uma categoria e passem o celular. Todo mundo vê a palavra secreta, menos o impostor, que tem que disfarçar. Grátis, sem baixar nada e sem cadastro.</p>
+    </header>
+
+    <div class="tool-wrap">
+      <div class="idl" id="idl" aria-label="Distribuidor do impostor" data-lang="pt" data-words="/pt/jogo-do-impostor/words.json" data-code="site-imposter-pt">
+
+        <section class="idl-screen" id="idl-setup">
+          <div class="idl-field idl-players">
+            <span class="label" id="idl-players-label">Quantos jogadores?</span>
+            <div class="idl-stepper" role="group" aria-labelledby="idl-players-label">
+              <button type="button" class="idl-step" id="idl-minus" aria-label="Um jogador a menos">&minus;</button>
+              <output class="idl-count" id="idl-count" aria-live="polite">5</output>
+              <button type="button" class="idl-step" id="idl-plus" aria-label="Mais um jogador">+</button>
+            </div>
+          </div>
+          <fieldset class="idl-field">
+            <legend class="label">Categoria</legend>
+            <div class="idl-chips">
+              <label class="idl-chip"><input type="radio" name="idl-deck" value="mix" checked><span>Todas as categorias</span></label>
+              <label class="idl-chip"><input type="radio" name="idl-deck" value="food"><span>Comida e bebida</span></label>
+              <label class="idl-chip"><input type="radio" name="idl-deck" value="celebrities"><span>Pessoas famosas</span></label>
+              <label class="idl-chip"><input type="radio" name="idl-deck" value="places"><span>Lugares</span></label>
+              <label class="idl-chip"><input type="radio" name="idl-deck" value="everyday-objects"><span>Objetos do dia a dia</span></label>
+            </div>
+          </fieldset>
+          <label class="idl-switch">
+            <input type="checkbox" id="idl-hint" checked>
+            <span class="idl-track" aria-hidden="true"></span>
+            <span class="idl-switch-text"><strong>Dica do impostor</strong><span>O impostor recebe uma palavra para blefar.</span></span>
+          </label>
+          <button type="button" class="btn" id="idl-deal">Distribuir a rodada (5 jogadores)</button>
+          <p class="note idl-err" id="idl-err" role="alert" hidden></p>
+          <noscript><p class="note">Para jogar aqui, ative o JavaScript. Mais abaixo tem exemplos de palavras de cada categoria.</p></noscript>
+        </section>
+
+        <section class="idl-screen" id="idl-pass" hidden>
+          <p class="label" id="idl-round">Rodada 1</p>
+          <p class="idl-sub">Passe o celular para</p>
+          <p class="idl-name" id="idl-pass-name" tabindex="-1">Jogador 1</p>
+          <p class="note">O resto, sem espiar.</p>
+          <button type="button" class="btn" id="idl-peek">Toque para ver seu papel</button>
+        </section>
+
+        <section class="idl-screen" id="idl-secret" hidden>
+          <div class="idl-card" id="idl-card" tabindex="-1"></div>
+          <button type="button" class="btn" id="idl-next">Passe para o próximo jogador</button>
+        </section>
+
+        <section class="idl-screen" id="idl-talk" hidden>
+          <p class="idl-title" id="idl-talk-title" tabindex="-1">Se salve na lábia</p>
+          <p class="idl-body" id="idl-talk-body"></p>
+          <p class="idl-starter" id="idl-starter"></p>
+          <button type="button" class="btn" id="idl-reveal">Revelar o impostor</button>
+        </section>
+
+        <section class="idl-screen" id="idl-result" hidden>
+          <p class="label">O impostor era</p>
+          <p class="idl-name" id="idl-res-name" tabindex="-1"></p>
+          <p class="label" id="idl-res-label"></p>
+          <p class="idl-word" id="idl-res-word"></p>
+          <p class="idl-body" id="idl-res-hint" hidden></p>
+          <p class="note">Pegaram o impostor? Ele tem um chute para acertar a resposta. Se acertar, ganha mesmo assim.</p>
+          <button type="button" class="btn" id="idl-new">Nova rodada</button>
+          <button type="button" class="btn btn--ghost" id="idl-settings">Mudar configurações</button>
+        </section>
+
+        <section class="idl-screen" id="idl-wall" hidden>
+          <p class="idl-title" id="idl-wall-title" tabindex="-1">Já foram três rodadas</p>
+          <p class="idl-body">O Impostor é grátis no app Antics, com mais categorias e rodadas com dois impostores. E lá dentro tem mais oito jogos.</p>
+          <a class="btn" id="idl-get" href="/get/?c=site-imposter-pt">Baixe o Antics grátis</a>
+          <p class="note" id="idl-offer" hidden>Sua semana grátis de Premium do panfleto já vem nesse botão.</p>
+          <div class="idl-qr">
+            <img src="/qr-imposter-pt.png" width="160" height="160" alt="QR code que abre o Antics no seu celular" loading="lazy">
+            <p>Está no computador? Aponte a câmera do celular para cá.</p>
+          </div>
+          <button type="button" class="btn btn--ghost" id="idl-more">Jogar mais três rodadas</button>
+        </section>
+
+      </div>
+      <p class="tool-note">As palavras vêm do app Antics, em português.</p>
+      <nav class="ilang" aria-label="Idioma">
+        <a href="/imposter-game/" hreflang="en" lang="en">English</a>
+        <a href="/es/juego-del-impostor/" hreflang="es" lang="es-419">Español</a>
+        <span aria-current="page">Português</span>
+      </nav>
+    </div>
+
+    <div class="tool-body prose">
+      <section class="section tone-cyan" id="como-jogar">
+        <h2>Como jogar o jogo do impostor em um celular só</h2>
+        <ol class="stack steps">
+          <li>Marquem quantas pessoas vão jogar e escolham uma categoria. Deixem a dica ligada se o impostor precisar de uma ajudinha.</li>
+          <li>Passem o celular. Cada um toca para ver seu papel e passa para o próximo. Todo mundo recebe a mesma palavra secreta, menos o impostor.</li>
+          <li>Façam uma roda: cada um fala um detalhe da palavra, sem dizer qual é. O impostor finge que sabe.</li>
+          <li>No três, todo mundo aponta para o suspeito. Depois revelem o impostor. Se ele for pego, tem um chute para acertar a palavra, e se acertar, ganha mesmo assim.</li>
+        </ol>
+        <p class="copy">Lê em inglês? As regras completas, com desempate e rodadas de exemplo, estão em <a class="inline" href="/how-to-play-imposter/" hreflang="en" lang="en">How to play Imposter</a>.</p>
+      </section>
+
+      <section class="section tone-lime" id="palavras">
+        <h2>Palavras para o jogo do impostor: quatro categorias</h2>
+        <p class="copy">Cada palavra daqui também aparece no app Antics. Alguns exemplos:</p>
+        <ul class="iwords">
+          <li><strong>Comida e bebida</strong> Pizza, Feijoada, Requeijão, Farofa, Misto quente, Miojo</li>
+          <li><strong>Pessoas famosas</strong> Taylor Swift, Lionel Messi, Cleópatra, Henrique VIII, MrBeast, Gordon Ramsay</li>
+          <li><strong>Lugares</strong> uma festa em casa, um boliche, uma festa silenciosa, o dentista, a pelada de domingo</li>
+          <li><strong>Objetos do dia a dia</strong> Controle remoto, Patinho de borracha, Plástico bolha, Despertador, Pisca-pisca</li>
+        </ul>
+        <h3>A palavra secreta e a dica do impostor</h3>
+        <p class="copy">Com a dica ligada, o impostor não vê a palavra: só vê uma dica que chega perto. Alguns exemplos:</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Palavra secreta</th><th>Dica do impostor</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pizza</td><td>Queijo</td></tr>
+              <tr><td>Feijoada</td><td>Panela</td></tr>
+              <tr><td>Lionel Messi</td><td>Futebol</td></tr>
+              <tr><td>Cleópatra</td><td>Egito</td></tr>
+              <tr><td>Uma festa em casa</td><td>Lotado</td></tr>
+              <tr><td>O dentista</td><td>Broca</td></tr>
+              <tr><td>Controle remoto</td><td>Botões</td></tr>
+              <tr><td>Patinho de borracha</td><td>Flutuante</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="copy">Uma boa palavra é algo que todo mundo conhece e dá para descrever pelas beiradas: cada um solta um detalhe e ninguém entrega.</p>
+      </section>
+
+      <section class="section faq tone-purple" id="perguntas">
+        <h2>Jogo do impostor online: perguntas</h2>
+        <h3>Dá para jogar o jogo do impostor em um celular só?</h3>
+        <p>Dá, é para isso que esta página existe. Passem o celular, cada um toca para ver seu papel, depois deixem o celular na mesa e comecem a descrever.</p>
+        <h3>Quantas pessoas podem jogar?</h3>
+        <p>De três a doze. O ideal é de quatro a oito.</p>
+        <h3>Para que serve a dica do impostor?</h3>
+        <p>Ela dá ao impostor uma palavra ligada ao segredo, tipo Queijo para Pizza. Ajuda, mas pouco. Desligue para uma rodada mais difícil.</p>
+        <h3>Que palavras usar no jogo do impostor?</h3>
+        <p>Coisas que todo mundo conhece e dá para descrever sem dizer: comida, famosos, lugares e objetos de casa. Aqui elas vêm de quatro categorias do app Antics, como Feijoada, Lionel Messi, Uma festa em casa ou Controle remoto.</p>
+        <h3>É grátis?</h3>
+        <p>É. Sem baixar nada, sem cadastro e sem anúncios. O Impostor também é grátis no app Antics.</p>
+      </section>
+
+      <nav class="guides tone-cyan" aria-label="Mais jogos em português">
+        <strong>Mais jogos em português</strong>
+        <ul class="link-list">
+          <li><a href="/pt/perguntas-eu-nunca/">Eu nunca: perguntas e como jogar</a></li>
+          <li><a href="/pt/perguntas-verdade-ou-desafio/">Verdade ou desafio: perguntas e desafios</a></li>
+          <li><a href="/pt/perguntas-o-que-voce-prefere/">O que você prefere? Perguntas para dividir o grupo</a></li>
+          <li><a href="/pt/perguntas-quem-e-mais-provavel/">Quem é mais provável? Perguntas para apontar o dedo</a></li>
+          <li><a href="/pt/">Antics em português: todos os jogos</a></li>
+        </ul>
+      </nav>
+      <footer class="site-foot">
+        <a href="/">Antics: jogos de festa</a> · <a href="/privacy.html" hreflang="en">Privacidade (em inglês)</a><br>
+        18+ · Cuidem dos amigos.
+      </footer>
+    </div>
+  </main>
+  </div>
+
+  <aside class="installbar" aria-label="Baixe o app">
+    <img src="/img/icon-192.png" alt="" width="40" height="40">
+    <p><strong>Antics</strong><span>Jogos de festa</span></p>
+    <a class="btn btn--sm" href="/get/?c=site-imposter-pt-bar">Baixar grátis</a>
+  </aside>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "pt-BR",
+  "mainEntity": [
+    { "@type": "Question", "name": "Dá para jogar o jogo do impostor em um celular só?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Dá, é para isso que esta página existe. Passem o celular, cada um toca para ver seu papel, depois deixem o celular na mesa e comecem a descrever." } },
+    { "@type": "Question", "name": "Quantas pessoas podem jogar?",
+      "acceptedAnswer": { "@type": "Answer", "text": "De três a doze. O ideal é de quatro a oito." } },
+    { "@type": "Question", "name": "Para que serve a dica do impostor?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ela dá ao impostor uma palavra ligada ao segredo, tipo Queijo para Pizza. Ajuda, mas pouco. Desligue para uma rodada mais difícil." } },
+    { "@type": "Question", "name": "Que palavras usar no jogo do impostor?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Coisas que todo mundo conhece e dá para descrever sem dizer: comida, famosos, lugares e objetos de casa. Aqui elas vêm de quatro categorias do app Antics, como Feijoada, Lionel Messi, Uma festa em casa ou Controle remoto." } },
+    { "@type": "Question", "name": "É grátis?",
+      "acceptedAnswer": { "@type": "Answer", "text": "É. Sem baixar nada, sem cadastro e sem anúncios. O Impostor também é grátis no app Antics." } }
+  ]
+}
+</script>
+  <script src="/imposter-game/dealer.js"></script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

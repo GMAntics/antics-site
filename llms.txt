@@ -24,9 +24,14 @@
 - [Would You Rather: rules and 32 dilemmas](https://anticsapp.com/would-you-rather-questions/)
 - [What Are The Odds: rules and 50 dares](https://anticsapp.com/what-are-the-odds/)
 - [How to play Imposter](https://anticsapp.com/how-to-play-imposter/)
+- [Play Imposter online: a free word dealer for one phone](https://anticsapp.com/imposter-game/)
 - [Ring of Fire rules (the card game)](https://anticsapp.com/ring-of-fire-rules/)
 - [Kings Cup card meanings](https://anticsapp.com/kings-cup-rules/)
 - [Forfeit ideas](https://anticsapp.com/forfeit-ideas/)
+
+## Original data
+
+- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link; CSV at https://anticsapp.com/party-data/antics-party-data-2026-10.csv. Press: support@anticsapp.com.
 
 ## Free browser generators
 
@@ -43,12 +48,32 @@ locked clean version.
 - [Truth or Dare generator](https://anticsapp.com/truth-or-dare-generator/)
 - [What Are The Odds generator](https://anticsapp.com/what-are-the-odds-generator/)
 
+## In Spanish and Portuguese
+
+The same games in Spanish (Latin American) and Brazilian Portuguese, with the free
+cards from the app's own translations and a generator on each page.
+
+- [Antics en español: juegos de fiesta para pasar el celular](https://anticsapp.com/es/)
+- [Juego del impostor online, en español: el mismo juego en un solo celular](https://anticsapp.com/es/juego-del-impostor/)
+- [Yo nunca nunca: preguntas y cómo se juega](https://anticsapp.com/es/preguntas-yo-nunca-nunca/)
+- [Verdad o reto: preguntas y retos](https://anticsapp.com/es/preguntas-verdad-o-reto/)
+- [¿Qué prefieres? Preguntas para dividir al grupo](https://anticsapp.com/es/preguntas-que-prefieres/)
+- [¿Quién es más probable que…? Preguntas para señalar](https://anticsapp.com/es/preguntas-quien-es-mas-probable/)
+- [Antics em português: jogos de festa para passar o celular](https://anticsapp.com/pt/)
+- [Jogo do impostor online, em português: o mesmo jogo em um celular só](https://anticsapp.com/pt/jogo-do-impostor/)
+- [Eu nunca: perguntas e como jogar](https://anticsapp.com/pt/perguntas-eu-nunca/)
+- [Verdade ou desafio: perguntas e desafios](https://anticsapp.com/pt/perguntas-verdade-ou-desafio/)
+- [O que você prefere? Perguntas para dividir o grupo](https://anticsapp.com/pt/perguntas-o-que-voce-prefere/)
+- [Quem é mais provável? Perguntas para apontar o dedo](https://anticsapp.com/pt/perguntas-quem-e-mais-provavel/)
+
 ## Guides for occasions
 
 - [Games to play with friends](https://anticsapp.com/games-to-play-with-friends/)
 - [The classic party games](https://anticsapp.com/drinking-games/)
 - [Hen do games](https://anticsapp.com/hen-do-games/)
 - [Stag do games](https://anticsapp.com/stag-do-games/)
+- [Party games without drinking: one app for drinkers and non-drinkers](https://anticsapp.com/party-games-without-drinking/)
+- [Party games for uni: freshers, flat parties and pre-drinks](https://anticsapp.com/party-games-for-uni/)
 
 ## Blog
 

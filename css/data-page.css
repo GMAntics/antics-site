@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Party data page: /party-data/ (5 Oct 2026). Loaded AFTER /css/site.css and
+   only by that page. Uses site.css tokens; new components live in the .pd-*
+   namespace, and a shared component is only adjusted under body.pd-page.
+   Charts are plain tables with an inline SVG bar in each row, so every
+   chart is also its own data table (no chart library, no inline styles).
+   ========================================================================== */
+
+.pd-page {
+  --measure: 58ch;
+  /* Chart colours. One series per chart: the story bar in pink, the rest in
+     a muted violet (3.8:1 on --bg). Truth and dare use the app's own two
+     colours, the cyan stepped down to sit in the same lightness band as the
+     pink (validated: CVD and contrast pass on #0E0A1F). */
+  --pd-bar: #6F6799;
+  --pd-key: var(--pink);
+  --pd-truth: #1AA6C0;
+  --pd-dare: #FF2E7E;
+  --pd-panel: var(--surface-1);
+}
+
+
+/* --------------------------------------------------------------------------
+   1. Header and the short version (stat tiles)
+   -------------------------------------------------------------------------- */
+.pd-head { margin-bottom: var(--space-l); }
+.pd-kicker { margin-bottom: var(--space-xs); color: var(--pink); }
+
+.pd-stats { margin: 0 0 var(--space-xl); }
+.pd-stats ul {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2xs);
+}
+@media (min-width: 900px) {
+  .pd-stats ul { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xs); }
+}
+.pd-stats li { display: flex; min-width: 0; }
+.pd-stats a {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  min-height: 100%;
+  padding: var(--space-s) var(--space-s) var(--space-s);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--tone);
+  border-radius: var(--r-control);
+  color: var(--text-2);
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.pd-stats a:hover { background: var(--surface-3); color: var(--text-2); }
+.pd-stats strong {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-0);
+}
+.pd-stats span { font-size: var(--step--1); line-height: 1.4; }
+
+
+/* --------------------------------------------------------------------------
+   2. Charts: a table per chart. Row = label, bar, value.
+   -------------------------------------------------------------------------- */
+.pd-chart {
+  margin: var(--space-m) 0 var(--space-s);
+  padding: var(--space-s) var(--space-s) var(--space-xs);
+  background: var(--pd-panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+  min-width: 0;
+}
+@media (min-width: 560px) {
+  .pd-chart { padding: var(--space-m) var(--space-m) var(--space-s); }
+}
+.pd-bars {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: var(--step--1);
+  line-height: 1.35;
+}
+.pd-bars caption {
+  padding: 0 0 var(--space-xs);
+  font-size: var(--step-0);
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-0);
+}
+.pd-bars thead th {
+  padding: 0 0 var(--space-2xs);
+  background: none;
+  font-size: var(--step--2);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--line);
+}
+.pd-bars thead th:first-child { width: 42%; }
+.pd-bars thead th:last-child { width: 5.25rem; text-align: right; }
+.pd-bars.pd-wide-val thead th:last-child { width: 7rem; }
+.pd-bars tbody th,
+.pd-bars td {
+  padding: 7px 0;
+  border-top: 0;
+  background: none;
+  vertical-align: middle;
+}
+.pd-bars tbody tr:nth-child(even) td { background: none; }
+.pd-bars tbody th {
+  padding-right: var(--space-xs);
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  text-align: left;
+  color: var(--text-1);
+}
+.pd-bars td:first-child { font-weight: 600; }
+.pd-bars .pd-val {
+  padding-left: var(--space-xs);
+  text-align: right;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-0);
+  white-space: nowrap;
+}
+.pd-bar { display: block; width: 100%; height: 16px; overflow: visible; }
+.pd-bar-fill { fill: var(--pd-bar); transition: fill 0.15s ease; }
+.pd-bars tbody tr:hover .pd-bar-fill { fill: #8C84B8; }
+.pd-bars .is-key th,
+.pd-bars .is-key .pd-val { color: var(--text-0); }
+.pd-bars .is-key .pd-bar-fill,
+.pd-bars tbody tr.is-key:hover .pd-bar-fill { fill: var(--pd-key); }
+
+.pd-chart-note {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--step--2);
+  line-height: 1.5;
+  color: var(--text-3);
+}
+.prose .pd-chart-note { margin-bottom: 0; }
+
+/* Two charts side by side on wide screens */
+.pd-pair { display: grid; gap: 0; }
+@media (min-width: 760px) {
+  .pd-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-s); }
+  .pd-pair .pd-bars thead th:first-child { width: 48%; }
+}
+
+
+/* --------------------------------------------------------------------------
+   3. Truth or dare: 100% split bars. Labels sit inside the segments in dark
+      ink (both fills clear 6:1 against it); a visually hidden line in each
+      bar cell carries the same numbers for screen readers.
+   -------------------------------------------------------------------------- */
+.pd-splits thead th:first-child { width: 42%; }
+.pd-splits thead th:last-child { width: auto; text-align: left; }
+.pd-splits tbody th { padding-block: 10px; }
+.pd-split { display: block; width: 100%; height: 30px; }
+.pd-truth { fill: var(--pd-truth); }
+.pd-dare { fill: var(--pd-dare); }
+.pd-gap { fill: var(--pd-panel); }
+.pd-seg-label {
+  fill: var(--bg);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+}
+.pd-legend {
+  list-style: none;
+  display: flex;
+  gap: var(--space-m);
+  margin: var(--space-xs) 0 0;
+  font-size: var(--step--1);
+  color: var(--text-2);
+}
+.pd-legend li { display: inline-flex; align-items: center; gap: var(--space-2xs); }
+.pd-legend li::before {
+  content: "";
+  width: 14px; height: 14px;
+  border-radius: 4px;
+  background: var(--pd-truth);
+}
+.pd-legend .pd-key-dare::before { background: var(--pd-dare); }
+
+
+/* --------------------------------------------------------------------------
+   4. Two real cards, drawn like the app's dealt card
+   -------------------------------------------------------------------------- */
+.pd-cards {
+  display: grid;
+  gap: var(--space-xs);
+  margin: var(--space-m) 0 0;
+}
+@media (min-width: 560px) {
+  .pd-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.pd-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-m);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-card);
+  box-shadow: var(--deck-edge);
+}
+.pd-card blockquote p {
+  margin: 0;
+  max-width: none;
+  font-family: var(--font-body);
+  font-size: var(--step-1);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text-0);
+}
+.pd-or {
+  display: block;
+  margin: var(--space-3xs) 0;
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--tone);
+}
+.pd-cards + .pd-chart-note { margin-top: var(--space-s); }
+
+
+/* --------------------------------------------------------------------------
+   5. Methods box and the citation line
+   -------------------------------------------------------------------------- */
+.pd-methods dl {
+  margin: var(--space-m) 0 0;
+  padding: var(--space-s) var(--space-m);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+  max-width: var(--measure);
+}
+.pd-methods dt {
+  margin-top: var(--space-s);
+  font-size: var(--step--2);
+  font-weight: 800;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.pd-methods dt:first-child { margin-top: var(--space-2xs); }
+.pd-methods dd {
+  margin: var(--space-3xs) 0 0;
+  padding-bottom: var(--space-s);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+  line-height: 1.6;
+  color: var(--text-1);
+}
+.pd-methods dd:last-child { border-bottom: 0; padding-bottom: var(--space-2xs); }
+
+.pd-cite {
+  margin: var(--space-m) 0;
+  padding: var(--space-s) var(--space-m);
+  border-left: 3px solid var(--tone);
+  background: var(--surface-1);
+  border-radius: 0 var(--r-control) var(--r-control) 0;
+  max-width: var(--measure);
+}
+.pd-cite .label { margin-bottom: var(--space-3xs); }
+.prose .pd-cite p { margin: 0; color: var(--text-0); }
+
+
+/* --------------------------------------------------------------------------
+   6. Closing download box: a QR for laptops and tablets only
+   -------------------------------------------------------------------------- */
+.pd-qr { display: none; }
+@media (min-width: 768px) {
+  .pd-qr {
+    display: flex;
+    align-items: center;
+    gap: var(--space-m);
+    margin-top: var(--space-m);
+    padding-top: var(--space-m);
+    border-top: 1px solid var(--line);
+  }
+  .pd-qr img {
+    flex: none;
+    width: 120px;
+    height: 120px;
+    padding: 6px;
+    border-radius: 12px;
+    background: #FFFFFF;
+  }
+  .cta-block .pd-qr p { margin: 0; max-width: 30ch; color: var(--text-2); font-size: var(--step--1); }
+}
+.pd-page .cta-block .cta + .cta { margin-top: var(--space-2xs); }
+@media (min-width: 560px) {
+  .pd-page .cta-block .cta + .cta { margin-top: 0; margin-left: var(--space-2xs); }
+}
+
+
+/* --------------------------------------------------------------------------
+   7. Tap targets: 44px minimum on this page. The shared crumb and contents
+      chips are 40px in site.css.
+   -------------------------------------------------------------------------- */
+.pd-page .crumb a,
+.pd-page .toc a { min-height: 44px; }
+.pd-page .prose p a { padding-block: 0.6em; }
+.pd-page .site-foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 8px;
+}
+.pd-page .site-foot a:first-child { margin-left: -8px; }
+
+@media print {
+  .pd-bar-fill { fill: #555; }
+  .pd-bars .is-key .pd-bar-fill { fill: #000; }
+}
