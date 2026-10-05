@@ -59,10 +59,12 @@ left on a content page.
 | `site-best-apps-qr` | `/best-party-game-apps/` | the closing box QR, laptops and tablets only (`/best-party-game-apps/qr.png`) |
 | `site-best-apps-footer` | `/best-party-game-apps/` | footer "Get the app" |
 | `site-best-apps-bar` | `/best-party-game-apps/` | the phone install bar |
+| `site-best-apps-pick` | `/best-party-game-apps/` | "Get Antics free" at the end of the Antics (our pick) section |
 | `site-best-imposter` | `/best-imposter-game-apps/` | the two store buttons in the closing box |
 | `site-best-imposter-qr` | `/best-imposter-game-apps/` | the closing box QR, laptops and tablets only (`/best-imposter-game-apps/qr.png`) |
 | `site-best-imposter-footer` | `/best-imposter-game-apps/` | footer "Get the app" |
 | `site-best-imposter-bar` | `/best-imposter-game-apps/` | the phone install bar |
+| `site-best-imposter-pick` | `/best-imposter-game-apps/` | "Get Antics free" at the end of the Antics (our pick) section |
 | `site-imposter` | `/how-to-play-imposter/` | the two store buttons |
 | `site-imposter-inline` | `/how-to-play-imposter/` | "Open Imposter in Antics" in the steps |
 | `site-imposter-laptop` | `/how-to-play-imposter/` | the "On a laptop?" line |
