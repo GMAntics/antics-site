@@ -1,6 +1,9 @@
 # anticsapp.com
 # Search engines and the fetchers that answer a person's question are welcome.
 # Crawlers that only collect training data are not (Guy's ruling, 30 Sep 2026).
+# Google-Extended is allowed (Guy, 5 Oct 2026): Google uses the same token to
+# decide whether the Gemini app may ground answers on these pages, so blocking
+# it hid the site from Gemini, not just from training.
 # This is a request that well-behaved bots honour; it is not a wall.
 
 User-agent: *
@@ -11,9 +14,6 @@ User-agent: GPTBot
 Disallow: /
 
 User-agent: CCBot
-Disallow: /
-
-User-agent: Google-Extended
 Disallow: /
 
 User-agent: Applebot-Extended
