@@ -80,6 +80,8 @@ left on a content page.
 | `site-blog-freshers` | `/blog/freshers-icebreakers/` | end CTA |
 | `site-blog-how-we-write` | `/blog/how-we-write-party-game-questions/` | end CTA |
 | `site-blog-running-order` | `/blog/party-games-night-running-order/` | end CTA |
+| `site-blog-halloween` | `/blog/halloween-party-games-for-adults/` | end CTA |
+| `site-blog-halloween-bar` | `/blog/halloween-party-games-for-adults/` | the phone install bar |
 | `site-llms` | `llms.txt` | the "Get Antics free" line |
 | `site-referral-fallback` | `/r/` | the no-JS button, used only when a share token does not resolve |
 
