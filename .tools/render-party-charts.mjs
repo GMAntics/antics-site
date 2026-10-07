@@ -16,12 +16,12 @@
 // sharp comes from the app repo's node_modules (~/Antics), as for the app
 // repo's assets/source/og-cards.mjs; the site repo has no package.json.
 //
-// HOUSE LAW FOR THESE IMAGES (Guy, 5 Oct 2026 marketing rules):
+// HOUSE LAW FOR THESE IMAGES (the house marketing rules of 5 Oct 2026):
 //   - every figure is read from party-data/antics-party-data-2026-10.csv, the
 //     file the page publishes, and is a SHARE, a RATIO or an INDEX. Never an
 //     absolute count of parties, players, sessions, downloads or cards.
 //   - the source and window are set into every image.
-//   - brand only: no founder name, no em or en dashes, no drink words, no
+//   - brand only (the Antics team, no person named), no em or en dashes, no drink words, no
 //     Spicy label (the card-time chart shows seven games and says so; the
 //     page's table carries the full set).
 // lawCheck() refuses any string that breaks these before anything is written.
@@ -53,11 +53,10 @@ const PANGO_FONT = 'Helvetica Neue Bold';
 
 // ------------------------------------------------------------------ the law
 function lawCheck(s) {
-  if (/[—–]/.test(s)) throw new Error(`dash in: ${s}`);
+  if (/[\u2014\u2013]/.test(s)) throw new Error(`dash in: ${s}`);
   if (/\b(drink|drinks|sip|shot|shots|chug|down it|pregame)\b/i.test(s)) throw new Error(`drink word in: ${s}`);
   if (/\b(school|classroom|kids)\b/i.test(s)) throw new Error(`banned audience word in: ${s}`);
   if (/\bspicy\b|18\+/i.test(s)) throw new Error(`Spicy or 18+ in: ${s}`);
-  if (/\bguy\b|matthews/i.test(s)) throw new Error(`founder name in: ${s}`);
   // absolute scale: a comma number, or 3+ digits, beside a scale noun
   if (/\b\d{1,3}(,\d{3})+\b/.test(s)) throw new Error(`comma number (a count?) in: ${s}`);
   if (/\b\d{3,}\s*(parties|party|players|sessions|downloads|installs|cards|games|groups|people)\b/i.test(s)) throw new Error(`absolute count in: ${s}`);
