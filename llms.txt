@@ -32,7 +32,7 @@
 
 ## Original data
 
-- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link; CSV at https://anticsapp.com/party-data/antics-party-data-2026-10.csv. Press: support@anticsapp.com.
+- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link; CSV at https://anticsapp.com/party-data/antics-party-data-2026-10.csv. Ready-made charts (PNG, landscape and portrait, source set into each image) at https://anticsapp.com/party-data/#charts. Press: support@anticsapp.com.
 
 ## Free browser generators
 
@@ -91,6 +91,7 @@ cards from the app's own translations and a generator on each page.
 ## About
 
 - [About Antics](https://anticsapp.com/about/)
+- [Antics press kit](https://anticsapp.com/press/): fast facts, logo files, the party data findings and charts, and the press contact.
 - [A Picolo alternative, compared honestly](https://anticsapp.com/picolo-alternative/)
 - [Best party game apps (2026), compared by the makers of Antics](https://anticsapp.com/best-party-game-apps/): ten party game apps on price, platforms and how you play, from the UK App Store and Google Play listings on 5 October 2026. Written by Antics, and says so.
 - [Best Imposter game apps, compared by the makers of Antics](https://anticsapp.com/best-imposter-game-apps/): eight Imposter apps on players, price and platforms, from the UK store listings on 5 October 2026. Written by Antics, and says so.
