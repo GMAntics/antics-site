@@ -1854,19 +1854,22 @@ body.embed .tool-wrap { position: static; margin: 0; }
 /* --------------------------------------------------------------------------
    31. Imposter word lists in Spanish and Portuguese
    (/es/palabras-juego-del-impostor/, /pt/palavras-jogo-do-impostor/, body
-   class wl-page). On screen they reuse the tables above. In print, every
-   rule is scoped to .wl-page so no other page changes: A4 through a named
-   page, black on white, and each category starts its own sheet with its
-   words in two columns (the longest list, Places, fits one sheet). The
-   first category shares its sheet with the page title only; the paper and
-   three-player rules print after the last category.
+   class wl-page). On screen they reuse the tables above, with headers that
+   may wrap so a phone needs no sideways scroll. In print, every rule is
+   scoped to .wl-page so no other page changes: a named page with margins
+   but no fixed size (so A4 and Letter both work, whatever the printer's
+   default), black on white, and each category starts its own sheet with
+   its words in two columns (the longest list, Places, fits one sheet of
+   either size). The first category shares its sheet with the page title
+   only; the paper and three-player rules print after the last category.
    -------------------------------------------------------------------------- */
 .wl-page .ilang + .guide-body { margin-top: var(--space-l); }
+.wl-page .wl-table th { white-space: normal; }
 
 @media print {
-  @page wl-a4 { size: A4; margin: 14mm; }
+  @page wl-sheet { margin: 14mm; }
   html:has(> body.wl-page) { background: #FFFFFF; }
-  body.wl-page { page: wl-a4; padding: 0; background: #FFFFFF; }
+  body.wl-page { page: wl-sheet; padding: 0; background: #FFFFFF; }
   .wl-page .page { max-width: none; padding: 0; }
   .wl-page * {
     color: #000000 !important;
@@ -1886,7 +1889,10 @@ body.embed .tool-wrap { position: static; margin: 0; }
   .wl-page .section > h2:first-child { margin-top: 6mm; }
   .wl-page .prose p,
   .wl-page .steps li { font-size: 10.5pt; max-width: none; }
-  .wl-page ol.stack > li::before { color: #000000 !important; }
+  .wl-page ol.stack > li::before { color: #000000 !important; top: 2mm; }
+  /* Tight rule steps, so the paper and three-player rules share one sheet
+     on Letter as well as A4 */
+  .wl-page ol.stack > li { min-height: 0; padding-top: 2mm; padding-bottom: 2mm; }
   .wl-page .wl-cat + .wl-cat,
   .wl-page .wl-after { break-before: page; }
   .wl-page .wl-cat + .wl-cat > h2:first-child,
