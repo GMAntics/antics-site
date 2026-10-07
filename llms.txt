@@ -74,6 +74,7 @@ cards from the app's own translations and a generator on each page.
 - [Games to play with friends](https://anticsapp.com/games-to-play-with-friends/)
 - [The classic party games](https://anticsapp.com/drinking-games/)
 - [Hen do games](https://anticsapp.com/hen-do-games/)
+- [Girls' night games](https://anticsapp.com/girls-night-games/)
 - [Stag do games](https://anticsapp.com/stag-do-games/)
 - [Party games without drinking: one app for drinkers and non-drinkers](https://anticsapp.com/party-games-without-drinking/)
 - [Party games for uni: freshers, flat parties and pre-drinks](https://anticsapp.com/party-games-for-uni/)
