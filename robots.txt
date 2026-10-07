@@ -4,15 +4,16 @@
 # Google-Extended is allowed (Guy, 5 Oct 2026): Google uses the same token to
 # decide whether the Gemini app may ground answers on these pages, so blocking
 # it hid the site from Gemini, not just from training.
+# GPTBot (OpenAI) and ClaudeBot / anthropic-ai (Anthropic) are allowed (Guy,
+# 7 Oct 2026, "ok fine" to unblocking ChatGPT's and Claude's training
+# crawlers): future models learn Antics from our own pages, not only from
+# other people's. The other training crawlers below stay blocked.
 # This is a request that well-behaved bots honour; it is not a wall.
 
 User-agent: *
 Allow: /
 
 # AI training crawlers: no.
-User-agent: GPTBot
-Disallow: /
-
 User-agent: CCBot
 Disallow: /
 
@@ -23,12 +24,6 @@ User-agent: Bytespider
 Disallow: /
 
 User-agent: meta-externalagent
-Disallow: /
-
-User-agent: ClaudeBot
-Disallow: /
-
-User-agent: anthropic-ai
 Disallow: /
 
 User-agent: cohere-ai
