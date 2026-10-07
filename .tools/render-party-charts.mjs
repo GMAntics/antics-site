@@ -88,6 +88,13 @@ function val(section, measure) {
   if (!Number.isFinite(v)) throw new Error(`not a number: ${section} / ${measure}`);
   return v;
 }
+// Hours a start_time block covers, from the CSV's definition column ("7 hour block")
+function blockHours(measure) {
+  const row = DATA.find((r) => r.section === 'start_time' && r.measure === measure);
+  const m = row && /(\d+) hour block/.exec(row.definition);
+  if (!m) throw new Error(`no hour block in the definition of: ${measure}`);
+  return Number(m[1]);
+}
 // Refuse any row whose unit is not a share, ratio, index or median time
 for (const r of DATA) {
   if (!/^(%|index|times|median seconds)/.test(r.unit)) throw new Error(`unexpected unit in CSV: ${r.unit}`);
@@ -129,11 +136,14 @@ const t = (x, y, size, fill, text, extra = '') =>
   `<text x="${x}" y="${y}" font-family="${FONT}" font-weight="700" font-size="${size}" fill="${fill}" ${extra}>${esc(text)}</text>`;
 
 // ------------------------------------------------------------------ chart kinds
-// Vertical bars. rows: [{ label: [line, line?], v, key }]
+// Vertical bars. rows: [{ label: [line, line?], v, key, per? }]
+// per: a small second line under the value ("an hour"), so a bar that averages
+// a longer stretch never reads as a bare share when the image is cropped.
 async function vbars(box, rows, s, fmt, ref) {
   const { x, y, w, h } = box;
   const labelH = s.label * 1.25 * 2 + 14;
-  const valueH = s.value + 14 + (ref ? s.label + 24 : 0);
+  const perH = s.label + 6;
+  const valueH = s.value + 14 + (rows.some((r) => r.per) ? perH : 0) + (ref ? s.label + 24 : 0);
   let key = '';
   if (ref) {
     const lw = await measure(ref.label, s.label);
@@ -158,7 +168,9 @@ async function vbars(box, rows, s, fmt, ref) {
     const bh = Math.max(4, ((base - top) * r.v) / max);
     out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="8" fill="${r.key ? C.pink : C.bar}"/>`;
     out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - Math.min(bh, 8)).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.min(bh, 8).toFixed(1)}" fill="${r.key ? C.pink : C.bar}"/>`;
-    out += t(cx.toFixed(1), (base - bh - 14).toFixed(1), s.value, r.key ? C.white : C.text2, fmt(r.v), `text-anchor="middle" ${knock}`);
+    const vy = base - bh - 14 - (r.per ? perH : 0);
+    out += t(cx.toFixed(1), vy.toFixed(1), s.value, r.key ? C.white : C.text2, fmt(r.v), `text-anchor="middle" ${knock}`);
+    if (r.per) out += t(cx.toFixed(1), (vy + perH).toFixed(1), s.label, r.key ? C.white : C.text3, lawCheck(r.per), `text-anchor="middle" ${knock}`);
     r.label.forEach((ln, j) => {
       out += t(cx.toFixed(1), (base + 14 + s.label * (j + 1) * 1.2).toFixed(1), s.label, r.key ? C.white : C.text2, ln, 'text-anchor="middle"');
     });
@@ -289,7 +301,7 @@ const start = [
   ['10pm to 11pm (UK time)', ['10pm']],
   ['11pm to midnight (UK time)', ['11pm']],
   ['Midnight to 5am (UK time)', ['Midnight', 'to 5am']],
-].map(([m, label]) => ({ label, v: val('start_time', m), key: m.startsWith('9pm') }));
+].map(([m, label]) => ({ label, v: val('start_time', m), key: m.startsWith('9pm'), per: blockHours(m) > 1 ? 'an hour' : undefined }));
 const peak = start.find((r) => r.key).v;
 if (peak !== Math.max(...start.map((r) => r.v))) throw new Error('9pm is no longer the peak hour');
 
