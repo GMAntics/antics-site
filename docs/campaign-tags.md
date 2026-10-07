@@ -80,6 +80,9 @@ left on a content page.
 | `site-odds` | `/what-are-the-odds/` | the two store buttons |
 | `site-odds-laptop` | `/what-are-the-odds/` | the "On a laptop?" line |
 | `site-hen` | `/hen-do-games/` | end CTA |
+| `site-girls` | `/girls-night-games/` | end CTA |
+| `site-girls-inline` | `/girls-night-games/` | mid-page CTA |
+| `site-girls-bar` | `/girls-night-games/` | install bar |
 | `site-stag` | `/stag-do-games/` | end CTA |
 | `site-forfeits` | `/forfeit-ideas/` | end CTA |
 | `site-nhie-questions` | `/never-have-i-ever-questions/` | end CTA |
