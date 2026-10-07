@@ -1919,3 +1919,72 @@ body.embed .tool-wrap { position: static; margin: 0; }
   .wl-page .wl-table td { padding: 1.3mm 0; border: 0; font-size: 10.5pt; line-height: 1.25; }
   .wl-page .wl-table td + td { color: #444444 !important; text-align: right; }
 }
+
+
+/* --------------------------------------------------------------------------
+   32. Chart downloads (/party-data/#charts and /press/). A preview of each
+   press chart with its two files, landscape and portrait, and their sizes.
+   The list between the charts markers is written by
+   .tools/render-party-charts.mjs; edit the script, not the list. One
+   column on phones, two from 640px.
+   -------------------------------------------------------------------------- */
+.chart-dl-credit {
+  padding: var(--space-xs) var(--space-s);
+  border-left: 3px solid var(--tone);
+  background: var(--surface-1);
+  border-radius: 0 var(--r-small) var(--r-small) 0;
+  color: var(--text-0);
+  font-weight: 700;
+}
+.chart-dl {
+  list-style: none;
+  display: grid;
+  gap: var(--space-s);
+  margin: var(--space-m) 0 var(--space-s);
+}
+@media (min-width: 640px) {
+  .chart-dl { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.chart-dl li {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-xs) var(--space-xs) var(--space-3xs);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--r-control);
+}
+.chart-dl .chart-dl-img {
+  display: block;
+  margin-bottom: var(--space-xs);
+  border-radius: var(--r-small);
+  overflow: hidden;
+}
+.chart-dl .chart-dl-img img { width: 100%; height: auto; }
+.chart-dl strong {
+  padding-inline: var(--space-3xs);
+  margin-bottom: var(--space-3xs);
+  font-size: var(--step-0);
+  line-height: var(--leading-snug);
+}
+.chart-dl li > a:not(.chart-dl-img) {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-inline: var(--space-3xs);
+  border-top: 1px solid var(--line);
+  color: var(--text-1);
+  font-size: var(--step--1);
+  font-weight: 600;
+}
+.chart-dl li > a:not(.chart-dl-img):hover { color: var(--text-0); }
+
+/* Logo and image downloads on /press/: the image on a quiet tile */
+.press-assets .chart-dl-img {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  background: var(--well);
+}
+.press-assets .chart-dl-img img { width: auto; max-width: 100%; max-height: 100%; }
+.press-assets .is-icon img { width: 40%; max-width: 160px; border-radius: 22%; }
