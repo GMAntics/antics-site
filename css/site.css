@@ -1849,3 +1849,67 @@ body.embed .tool-wrap { position: static; margin: 0; }
 @media (max-width: 559px) {
   .reasons-cta .cta { width: 100%; }
 }
+
+
+/* --------------------------------------------------------------------------
+   31. Imposter word lists in Spanish and Portuguese
+   (/es/palabras-juego-del-impostor/, /pt/palavras-jogo-do-impostor/, body
+   class wl-page). On screen they reuse the tables above. In print, every
+   rule is scoped to .wl-page so no other page changes: A4 through a named
+   page, black on white, and each category starts its own sheet with its
+   words in two columns (the longest list, Places, fits one sheet). The
+   first category shares its sheet with the page title only; the paper and
+   three-player rules print after the last category.
+   -------------------------------------------------------------------------- */
+.wl-page .ilang + .guide-body { margin-top: var(--space-l); }
+
+@media print {
+  @page wl-a4 { size: A4; margin: 14mm; }
+  html:has(> body.wl-page) { background: #FFFFFF; }
+  body.wl-page { page: wl-a4; padding: 0; background: #FFFFFF; }
+  .wl-page .page { max-width: none; padding: 0; }
+  .wl-page * {
+    color: #000000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  .wl-page .crumb,
+  .wl-page .page-head .note,
+  .wl-page .wl-print-tip,
+  .wl-page .cta-block,
+  .wl-page .guides,
+  .wl-page .site-foot { display: none !important; }
+  .wl-page h1 { font-size: 22pt; margin: 0 0 3mm; }
+  .wl-page .standfirst { font-size: 11pt; max-width: none; }
+  .wl-page h2 { font-size: 16pt; margin: 0 0 3mm; }
+  .wl-page .section > h2:first-child { margin-top: 6mm; }
+  .wl-page .prose p,
+  .wl-page .steps li { font-size: 10.5pt; max-width: none; }
+  .wl-page ol.stack > li::before { color: #000000 !important; }
+  .wl-page .wl-cat + .wl-cat,
+  .wl-page .wl-after { break-before: page; }
+  .wl-page .wl-cat + .wl-cat > h2:first-child,
+  .wl-page .wl-after > h2:first-child { margin-top: 0; }
+  .wl-page .wl-cat .table-wrap { margin: 0; border: 0; overflow: visible; }
+  .wl-page .wl-table,
+  .wl-page .wl-table thead,
+  .wl-page .wl-table tbody { display: block; }
+  .wl-page .wl-table thead tr {
+    display: flex;
+    justify-content: space-between;
+    width: calc(50% - 4mm);
+    border-bottom: 0.4mm solid #000000;
+  }
+  .wl-page .wl-table th { padding: 0 0 1mm; font-size: 8pt; white-space: normal; }
+  .wl-page .wl-table tbody { columns: 2; column-gap: 8mm; }
+  .wl-page .wl-table tr {
+    display: flex;
+    justify-content: space-between;
+    gap: 3mm;
+    break-inside: avoid;
+    border-bottom: 0.2mm solid #999999;
+  }
+  .wl-page .wl-table td { padding: 1.3mm 0; border: 0; font-size: 10.5pt; line-height: 1.25; }
+  .wl-page .wl-table td + td { color: #444444 !important; text-align: right; }
+}
