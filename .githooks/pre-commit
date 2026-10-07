@@ -1,0 +1,12 @@
+#!/bin/sh
+# Refuse a commit that leaves the printable Imposter word lists (es, pt)
+# different from their web dealer's words.json. Added 7 Oct 2026: those
+# pages say every word on them is in the app, and a fresh words.json export
+# after a retire or a mirror repair would otherwise leave them silently
+# stale. Runs only when a commit touches one of those files; reads the
+# copies being committed. Regenerate with .tools/gen-es-pt-word-pages.mjs.
+. "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
+if git diff --cached --name-only | grep -qE '^(es/juego-del-impostor/words\.json|pt/jogo-do-impostor/words\.json|es/palabras-juego-del-impostor/|pt/palavras-jogo-do-impostor/)'; then
+  root=$(git rev-parse --show-toplevel)
+  node "$root/.githooks/check-word-pages.mjs" --staged || { echo "pre-commit: refusing to commit stale Imposter word-list pages"; exit 1; }
+fi
