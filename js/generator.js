@@ -313,13 +313,13 @@
 
     function ctaLine() {
       return mode === 'clean'
-        ? 'From Antics, the 18+ party game app: a stack of games, thousands of cards.'
+        ? 'From Antics: nine party games on one phone, thousands of cards.'
         : 'Want thousands more cards and a whole stack more games?';
     }
     function deckLine() {
       return mode === 'clean'
-        ? total + ' free clean cards. Nothing about drinking.'
-        : total + ' free cards. The app has thousands.';
+        ? 'Free clean cards. Nothing about drinking.'
+        : 'Free cards here. The app has thousands.';
     }
     function syncModeBtns() {
       for (var i = 0; i < modeBtns.length; i++) {
@@ -340,7 +340,7 @@
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's all " + total + ' free ' + cfg.label + ' cards. The app has thousands more, plus seven other games.';
+        qEl.textContent = "That's every free " + cfg.label + ' card. The app has thousands more, plus eight other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
         countEl.textContent = 'You have seen every free card.';
