@@ -20,7 +20,7 @@ Rules for a tag:
 | `site-` | a link on anticsapp.com itself |
 | `embed-` | the generator widget running on somebody else's site |
 | `st-` | street team promoter page (`/leeds`, `/pippa`, ...) |
-| `out-` | outreach and press placements (`/unifresher`, `/pocketgamer`) |
+| `out-` | outreach and press placements (`/unifresher`, `/pocketgamer`, `/ph` for Product Hunt) |
 | `ig-`, `tt-` | social bio links |
 | `web-`, `app-` | the browser demo (`/play`) and the in-app wall (`/room`) |
 | `pitch-` | emailed pitches to independent "best apps" pages (`ops/ai-search-pitches-2026-10-05.md` in the app repo): `pitch-feelgood`, `pitch-igeeks`, `pitch-techlog`; and the nine data pitches `pitch-data-sts`, `pitch-data-tab`, `pitch-data-unifresher`, `pitch-data-varsity`, `pitch-data-cherwell`, `pitch-data-boar`, `pitch-data-metro`, `pitch-data-timeout`, `pitch-data-olive` (`/party-data/?c=...`, carried onto every `/get/` link by `/party-data/tag.js`; `ops/data-page-pitches-2026-10-05.md`) |
