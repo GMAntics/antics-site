@@ -7,23 +7,20 @@
 # GPTBot (OpenAI) and ClaudeBot / anthropic-ai (Anthropic) are allowed (Guy,
 # 7 Oct 2026, "ok fine" to unblocking ChatGPT's and Claude's training
 # crawlers): future models learn Antics from our own pages, not only from
-# other people's. The other training crawlers below stay blocked.
+# other people's. CCBot (Common Crawl, the archive most models learn from) and
+# meta-externalagent (Meta AI, inside WhatsApp and Instagram) are allowed too
+# (Guy, 8 Oct 2026, "ok let both in"). The other training crawlers below stay
+# blocked.
 # This is a request that well-behaved bots honour; it is not a wall.
 
 User-agent: *
 Allow: /
 
 # AI training crawlers: no.
-User-agent: CCBot
-Disallow: /
-
 User-agent: Applebot-Extended
 Disallow: /
 
 User-agent: Bytespider
-Disallow: /
-
-User-agent: meta-externalagent
 Disallow: /
 
 User-agent: cohere-ai
