@@ -68,16 +68,16 @@
       category: function (name) { return 'Categoría: ' + name; },                 // APP categoryOnCard
       yourWord: 'Tu palabra secreta',                                              // APP yourWordIs
       youreAt: 'Estás en',                                                         // APP youreAt
-      wordBody: 'Habla alrededor de la palabra sin decirla nunca. El impostor está escuchando.', // APP wordBody
+      wordBody: 'Descríbela sin decirla nunca. El impostor está escuchando.', // APP wordBody
       placeBody: 'Descríbelo sin delatarlo. El impostor está escuchando.',         // APP locationBody
       impTitle: 'Eres el IMPOSTOR',                                                // APP imposterTitle
-      impBodyWord: 'Todos los demás la saben. Camúflate y que no te atrapen.',     // APP imposterBodyWord
+      impBodyWord: 'Todos los demás conocen la palabra. Camúflate y que no te atrapen.',     // APP imposterBodyWord
       impBodyPlace: 'Todos los demás saben dónde están. Camúflate y que no te atrapen.', // APP imposterBody
       hintTitle: 'Tu pista',                                                       // APP hintTitle
-      next: 'Pásale al siguiente jugador',                                         // APP nextPlayer
+      next: 'Pásalo al siguiente jugador',                                         // APP nextPlayer
       allSeen: 'Ya todos vieron el suyo',                                          // APP everyoneSeen
-      talkWord: 'En círculo, cada quien describe la palabra, ¡sin decirla! Cuando hayan oído suficiente: a las tres, todos señalan a su sospechoso.', // APP discussBodyWord
-      talkPlace: 'En círculo, cada quien describe dónde está, ¡sin nombrarlo! Cuando hayan oído suficiente: a las tres, todos señalan a su sospechoso.', // APP discussBody
+      talkWord: 'En círculo, cada quien describe la palabra, ¡sin decirla! Cuando hayan oído suficiente: a la cuenta de tres, todos señalan a su sospechoso.', // APP discussBodyWord
+      talkPlace: 'En círculo, cada quien describe dónde está, ¡sin nombrarlo! Cuando hayan oído suficiente: a la cuenta de tres, todos señalan a su sospechoso.', // APP discussBody
       starts: function (p) { return 'Empieza ' + p; },                             // APP discussStarter
       wasWord: 'La palabra era',
       wasPlace: 'El lugar era',
@@ -91,16 +91,16 @@
       category: function (name) { return 'Categoria: ' + name; },                 // APP categoryOnCard
       yourWord: 'Sua palavra secreta',                                             // APP yourWordIs
       youreAt: 'Você está em',                                                     // APP youreAt
-      wordBody: 'Fale em volta da palavra sem nunca dizê-la. O impostor está ouvindo.', // APP wordBody
+      wordBody: 'Dê pistas sem nunca dizer a palavra. O impostor está ouvindo.', // APP wordBody
       placeBody: 'Descreva sem entregar. O impostor está ouvindo.',                // APP locationBody
       impTitle: 'Você é o IMPOSTOR',                                               // APP imposterTitle
       impBodyWord: 'Todo mundo sabe qual é, menos você. Disfarce e não seja pego.', // APP imposterBodyWord
       impBodyPlace: 'Todo mundo sabe onde está, menos você. Disfarce e não seja pego.', // APP imposterBody
       hintTitle: 'Sua dica',                                                       // APP hintTitle
       next: 'Passe para o próximo jogador',                                        // APP nextPlayer
-      allSeen: 'Todo mundo já viu o seu',                                          // APP everyoneSeen
-      talkWord: 'Em círculo, cada um descreve a palavra, sem dizer ela! Quando já ouviram o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBodyWord
-      talkPlace: 'Em círculo, cada um descreve onde está, sem dizer o nome! Quando já ouviram o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBody
+      allSeen: 'Todo mundo já viu',                                          // APP everyoneSeen
+      talkWord: 'Em círculo, cada um descreve a palavra, sem dizê-la! Quando tiverem ouvido o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBodyWord
+      talkPlace: 'Em círculo, cada um descreve onde está, sem dizer o nome! Quando tiverem ouvido o suficiente: no três, todo mundo aponta para o suspeito.', // APP discussBody
       starts: function (p) { return p + ' começa'; },                             // APP discussStarter
       wasWord: 'A palavra era',
       wasPlace: 'O lugar era',
