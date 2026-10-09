@@ -162,7 +162,7 @@ Set 5 October 2026. Each question page carries five tags; each language home thr
 | `site-es-<g>-gen` | same | the generator's "Descarga Antics gratis" button (from `js/generator.js`, via `data-cta`) |
 | `site-es-<g>-gen-imp` | same | the generator's "Juega al impostor gratis" button: it opens `/es/juego-del-impostor/?c=site-es-<g>-gen-imp`, whose wall then carries this tag (as `-play` does for `/play/`) |
 | `site-es-hub` / `-hub-qr` / `-hub-bar` | `/es/` | button, QR, install bar |
-| `site-pt-<g>` ... `site-pt-<g>-gen-imp` | `/pt/perguntas-.../` | the same five, Portuguese ("Baixe o Antics grátis", "Jogue o impostor grátis") |
+| `site-pt-<g>` ... `site-pt-<g>-gen-imp` | `/pt/perguntas-.../` | the same five, Portuguese ("Baixe o Antics grátis", "Jogue o jogo do impostor grátis") |
 | `site-pt-hub` / `-hub-qr` / `-hub-bar` | `/pt/` | button, QR, install bar |
 
 ## Deliberately left alone

@@ -64,7 +64,7 @@ cards from the app's own translations and a generator on each page.
 - [¿Quién es más probable que…? Preguntas para señalar](https://anticsapp.com/es/preguntas-quien-es-mas-probable/)
 - [Antics em português: jogos de festa para passar o celular](https://anticsapp.com/pt/)
 - [Jogo do impostor online, em português: o mesmo jogo em um celular só](https://anticsapp.com/pt/jogo-do-impostor/)
-- [Palavras para jogo do impostor: lista para imprimir](https://anticsapp.com/pt/palavras-jogo-do-impostor/)
+- [Palavras para o jogo do impostor: lista para imprimir](https://anticsapp.com/pt/palavras-jogo-do-impostor/)
 - [Eu nunca: perguntas e como jogar](https://anticsapp.com/pt/perguntas-eu-nunca/)
 - [Verdade ou desafio: perguntas e desafios](https://anticsapp.com/pt/perguntas-verdade-ou-desafio/)
 - [O que você prefere? Perguntas para dividir o grupo](https://anticsapp.com/pt/perguntas-o-que-voce-prefere/)
