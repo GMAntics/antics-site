@@ -1,11 +1,38 @@
 #!/usr/bin/env node
 // ---------------------------------------------------------------------------
-// GEN ES/PT WORD PAGES (7 Oct 2026, lever 7 of the app repo's
-// ops/research/organic-visibility-2026-10-05.md). Builds
-//   /es/palabras-juego-del-impostor/index.html  (es-419)
-//   /pt/palavras-jogo-do-impostor/index.html    (pt-BR)
-// from the SAME arrays the app deals from, with the SAME filters as the app
-// repo's ops/export-imposter-web-words.mjs (copied, not imported):
+// GEN WORD PAGES (7 Oct 2026, lever 7 of the app repo's
+// ops/research/organic-visibility-2026-10-05.md; made data-driven per
+// language 10 Oct 2026, file name kept so every page's own comment and the
+// pre-commit message stay true). Builds the printable Imposter word list
+// page of every language that has a config in .tools/word-pages/:
+//   /es/palabras-juego-del-impostor/index.html  (es-419, word-pages/es.mjs)
+//   /pt/palavras-jogo-do-impostor/index.html    (pt-BR,  word-pages/pt.mjs)
+//   ...and any other language added the way described below.
+//
+// HOW TO ADD A LANGUAGE (de, fr, it, nl, pl, cs; any code with an app mirror
+// in src/data/<lang>/ and a dictionary src/i18n/strings.<lang>.ts):
+//   1. Export the dealer's words first (app repo):
+//        node --no-warnings ops/export-imposter-web-words.mjs <site> --lang de --out <site>/de/<dealer-slug>/words.json
+//   2. Copy .tools/word-pages/es.mjs to .tools/word-pages/de.mjs and rewrite
+//      every value for the new language: lang, order (the next free number:
+//      it fixes where the language sits in every page's hreflang list and
+//      switcher), hreflang, dealerWords (the words.json from step 1, relative
+//      to the site root), wordsId, htmlLang, path and dir (path is '/' + dir +
+//      '/', dir starts with '<lang>/'), ogLocale, langName (the language's own
+//      name, as the switcher shows it), langHome, gamePath and every sentence.
+//      The word tables are never written there: they come from the mirror.
+//   3. node --no-warnings .tools/gen-es-pt-word-pages.mjs --lang de --app <app>
+//      writes de's page and QR only. Then --check --lang de must pass.
+//   Adding a language also adds it to the hreflang lines, og:locale
+//   alternates and switcher of EVERY other word page, so once all new configs
+//   are in, the publishing session runs the generator once with no --lang to
+//   bring every page up to date (and --check with no --lang to prove it).
+//   With only es.mjs and pt.mjs present, both pages are byte for byte what
+//   this generator wrote before the change (proved 10 Oct 2026).
+//
+// Every page is built from the SAME arrays the app deals from, with the SAME
+// filters as the app repo's ops/export-imposter-web-words.mjs (copied, not
+// imported):
 //   1. RETIRED_CARDS from src/data/retired.ts (a retired index reaches nobody)
 //   2. ACCESS: only decks registered 'free' and not seasonal (no Brands,
 //      Sports, Halloween; ALLOW_FOLLOW stays empty)
@@ -17,33 +44,36 @@
 //      bracket, no em or en dash
 // Extra checks for these pages:
 //   4. the lists must equal the web dealer's own words.json in this checkout
-//      (/es/juego-del-impostor/words.json, /pt/jogo-do-impostor/words.json)
+//      (the config's dealerWords: es/juego-del-impostor/words.json,
+//      pt/jogo-do-impostor/words.json, ...)
 //   5. OPTIONAL, with --live <commit>: the lists must also equal what the app
-//      at that commit deals (the live binary's release commit); its es/pt
+//      at that commit deals (the live binary's release commit); its mirror
 //      words, easy hints, access and retired indexes are read with git show
-// Only the EASY hint is shown: HARD_TIER_LANGS in src/data/localizedDecks.ts
-// is ['en'], so the app never deals an es or pt hard hint.
+//   6. each config is checked before anything is written: required fields,
+//      path and dir agree, no em or en dash, no "17+", no Spicy mention.
+// Only the EASY hint is shown. The app also deals a hard tier in every
+// language since 8 Oct 2026 (HARD_TIER_LANGS in src/data/localizedDecks.ts);
+// that stays an app feature and never reaches these pages.
 //
-// WHY IT LIVES HERE: these two pages say every word on them is in the app,
-// so they must be regenerated after ANY Imposter retire or es/pt mirror
-// repair, in the same sitting as ops/export-imposter-web-words.mjs. The site
-// repo's pre-commit hook (.githooks/check-word-pages.mjs) refuses a commit when
-// either page no longer equals its dealer's words.json, which is exactly
-// the state a fresh export leaves behind. The dot folder keeps this file off
-// the published site (GitHub Pages skips dot folders). Moving it into the
-// app repo as an export mode is a job for a session allowed to edit that
-// repo; until then, this is the one generator.
+// WHY IT LIVES HERE: these pages say every word on them is in the app,
+// so they must be regenerated after ANY Imposter retire or mirror repair, in
+// the same sitting as ops/export-imposter-web-words.mjs. The site repo's
+// pre-commit hook (.githooks/check-word-pages.mjs) refuses a commit when a
+// page no longer equals its dealer's words.json, which is exactly the state a
+// fresh export leaves behind. The dot folder keeps this file off the
+// published site (GitHub Pages skips dot folders).
 //
 // Reads the app repo read-only. Writes only into the site checkout.
 // Usage (from a site checkout or worktree):
 //   source ~/.nvm/nvm.sh
-//   node --no-warnings .tools/gen-es-pt-word-pages.mjs            # regenerate
+//   node --no-warnings .tools/gen-es-pt-word-pages.mjs            # regenerate every language
 //   node --no-warnings .tools/gen-es-pt-word-pages.mjs --check    # compare only
-//   options: --site <dir> (default: the checkout holding this file)
+//   options: --lang <code>[,<code>] (only these pages; repeatable; default all)
+//            --site <dir> (default: the checkout holding this file)
 //            --app <dir>  (default: /Users/guymatthews/Antics)
 //            --live <commit> (rule 5)
 // ---------------------------------------------------------------------------
-import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, existsSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, mkdtempSync, existsSync, rmSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
@@ -60,14 +90,63 @@ if (!existsSync(join(SITE, 'sitemap.xml'))) { console.error(`not a site checkout
 if (!existsSync(join(APP, 'src/data/imposterDecks.ts'))) { console.error(`not the app repo: ${APP}`); process.exit(1); }
 if (LIVE_COMMIT !== undefined && !/^[0-9a-f]{7,40}$/.test(LIVE_COMMIT)) { console.error('--live takes a commit hash'); process.exit(1); }
 
+// --- page configs (.tools/word-pages/<lang>.mjs), rule 6 ------------------
+const CONFIG_DIR = join(SITE, '.tools', 'word-pages');
+const LANG_ARGS = argv.flatMap((a, i) => (argv[i - 1] === '--lang' ? a.split(',') : [])).map((l) => l.trim()).filter(Boolean);
+const REQUIRED = ['lang', 'order', 'hreflang', 'dealerWords', 'wordsId', 'htmlLang', 'path', 'dir', 'ogLocale', 'title', 'desc', 'ogTitle',
+  'crumbLabel', 'langHome', 'langName', 'crumbGame', 'gamePath', 'crumbHere', 'ldGame', 'ldHere', 'h1', 'standfirst', 'note', 'ilangLabel',
+  'tocLabel', 'tocAfter', 'wordsH2', 'wordsP', 'printTip', 'thWord', 'thHint', 'paperId', 'paperH2', 'paperP', 'paperSteps', 'paperAfter',
+  'threeId', 'threeH2', 'threeP', 'threeSteps', 'cta', 'guides', 'footer', 'installbar', 'qr'];
+function configProblems(file, C) {
+  const out = [];
+  const lang = file.replace(/\.mjs$/, '');
+  if (!C || typeof C !== 'object') return [`${file}: no default export`];
+  for (const k of REQUIRED) if (C[k] === undefined || C[k] === '') out.push(`${file}: missing ${k}`);
+  if (C.lang !== lang) out.push(`${file}: lang '${C.lang}' does not match the file name`);
+  if (!Number.isInteger(C.order)) out.push(`${file}: order must be a whole number`);
+  if (typeof C.dir === 'string' && !C.dir.startsWith(`${lang}/`)) out.push(`${file}: dir must start with '${lang}/'`);
+  if (C.path !== `/${C.dir}/`) out.push(`${file}: path must be '/' + dir + '/'`);
+  if (typeof C.dealerWords === 'string' && !existsSync(join(SITE, C.dealerWords))) out.push(`${file}: dealerWords ${C.dealerWords} does not exist (export the words first)`);
+  if (typeof C.qr === 'string' && !/^https:\/\/anticsapp\.com\/get\/\?c=[a-z0-9-]{1,32}$/.test(C.qr)) out.push(`${file}: qr must be https://anticsapp.com/get/?c=<tag>`);
+  const text = JSON.stringify(C);
+  if (/[\u2013\u2014]/.test(text)) out.push(`${file}: em or en dash`);
+  if (/17\+/.test(text)) out.push(`${file}: "17+" (the rating is 18+)`);
+  if (/spicy/i.test(text)) out.push(`${file}: mentions Spicy`);
+  return out;
+}
+const CONFIGS = {};
+const configErrors = {};
+for (const file of readdirSync(CONFIG_DIR).filter((f) => /^[a-z]{2}(-[a-z]{2,4})?\.mjs$/i.test(f)).sort()) {
+  const lang = file.replace(/\.mjs$/, '');
+  try {
+    const C = (await import(pathToFileURL(join(CONFIG_DIR, file)).href)).default;
+    const bad = configProblems(file, C);
+    if (bad.length) configErrors[lang] = bad; else CONFIGS[lang] = C;
+  } catch (e) { configErrors[lang] = [`${file}: cannot load (${e.message})`]; }
+}
+for (const l of LANG_ARGS) if (!CONFIGS[l] && !configErrors[l]) { console.error(`--lang ${l}: no config at .tools/word-pages/${l}.mjs`); process.exit(1); }
+const byOrder = (a, b) => (CONFIGS[a]?.order ?? 999) - (CONFIGS[b]?.order ?? 999) || a.localeCompare(b);
+const LANGS = (LANG_ARGS.length ? [...new Set(LANG_ARGS)] : Object.keys({ ...CONFIGS, ...configErrors })).sort(byOrder);
+// A broken config of a language being built stops the run. A broken config of
+// ANOTHER language (a parallel builder mid-edit) only leaves that language out
+// of this run's hreflang lines and switcher, with a warning; the final run
+// with no --lang then requires every config to be sound.
+const selectedErrors = LANGS.flatMap((l) => configErrors[l] || []);
+if (selectedErrors.length) { console.error('Refusing to write, bad config:\n  ' + selectedErrors.join('\n  ')); process.exit(1); }
+for (const [l, errs] of Object.entries(configErrors)) if (!LANGS.includes(l)) console.warn(`warning: ${l} left out of the alternates this run (${errs[0]})`);
+const ALTS = Object.values(CONFIGS).sort((a, b) => a.order - b.order || a.lang.localeCompare(b.lang));
+const orders = ALTS.map((c) => c.order);
+if (new Set(orders).size !== orders.length) { console.error(`two configs share an order number (${orders.join(', ')})`); process.exit(1); }
+
 const imp = (rel) => import(pathToFileURL(join(APP, rel)).href);
 const decks = await imp('src/data/imposterDecks.ts');
 const locations = await imp('src/data/imposter.ts');
 const { RETIRED_CARDS } = await imp('src/data/retired.ts');
-const MIRROR = {
-  es: { decks: await imp('src/data/es/imposterDecks.ts'), locations: await imp('src/data/es/imposter.ts'), strings: 'src/i18n/strings.es.ts' },
-  pt: { decks: await imp('src/data/pt/imposterDecks.ts'), locations: await imp('src/data/pt/imposter.ts'), strings: 'src/i18n/strings.pt.ts' },
-};
+const MIRROR = {};
+for (const lang of LANGS) {
+  if (!existsSync(join(APP, `src/data/${lang}/imposterDecks.ts`))) { console.error(`no app mirror src/data/${lang}/ in ${APP}`); process.exit(1); }
+  MIRROR[lang] = { decks: await imp(`src/data/${lang}/imposterDecks.ts`), locations: await imp(`src/data/${lang}/imposter.ts`), strings: `src/i18n/strings.${lang}.ts` };
+}
 const EN_MODULES = { decks, locations };
 
 // Rule 5: the release commit's copies, written to a temporary folder and
@@ -82,10 +161,8 @@ if (LIVE_COMMIT) {
     writeFileSync(out, src);
     return import(pathToFileURL(out).href);
   };
-  LIVE = {
-    es: { decks: await liveModule('src/data/es/imposterDecks.ts'), locations: await liveModule('src/data/es/imposter.ts') },
-    pt: { decks: await liveModule('src/data/pt/imposterDecks.ts'), locations: await liveModule('src/data/pt/imposter.ts') },
-  };
+  LIVE = {};
+  for (const lang of LANGS) LIVE[lang] = { decks: await liveModule(`src/data/${lang}/imposterDecks.ts`), locations: await liveModule(`src/data/${lang}/imposter.ts`) };
   LIVE_RETIRED = (await liveModule('src/data/retired.ts')).RETIRED_CARDS;
   LIVE_REGISTRY = execFileSync('git', ['-C', APP, 'show', `${LIVE_COMMIT}:src/data/imposterCategories.ts`], { encoding: 'utf8' });
   rmSync(tmp, { recursive: true, force: true });
@@ -163,10 +240,10 @@ for (const d of DECKS) {
 
 // --- mirror pass (rule 3b) plus rules 4 and 5 ------------------------------
 const OUT = {};
-for (const lang of ['es', 'pt']) {
+for (const lang of LANGS) {
   const L = MIRROR[lang];
   const strings = readFileSync(join(APP, L.strings), 'utf8');
-  const dealer = JSON.parse(readFileSync(join(SITE, lang === 'es' ? 'es/juego-del-impostor/words.json' : 'pt/jogo-do-impostor/words.json'), 'utf8'));
+  const dealer = JSON.parse(readFileSync(join(SITE, CONFIGS[lang].dealerWords), 'utf8'));
   OUT[lang] = [];
   for (const d of DECKS) {
     const words = L[d.from][d.words];
@@ -199,167 +276,25 @@ for (const lang of ['es', 'pt']) {
 }
 if (problems.length) { console.error('Refusing to write:\n  ' + problems.join('\n  ')); process.exit(1); }
 
-// --- page copy (PROPOSALS for Guy; every visible sentence is listed in the
-// branch report) ------------------------------------------------------------
+// --- page copy: one config per language in .tools/word-pages/ (PROPOSALS
+// for Guy; every visible sentence is listed in the branch report) ----------
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const slugify = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+// German anchors transliterate umlauts (ä to ae), as the de slugs do
+// (wuerdest, woerter); only de, so every other language's anchors are unchanged.
+const DE_UMLAUT = { ä: 'ae', ö: 'oe', ü: 'ue', Ä: 'Ae', Ö: 'Oe', Ü: 'Ue' };
+const slugify = (s, lang) => (lang === 'de' ? s.replace(/[äöüÄÖÜ]/g, (m) => DE_UMLAUT[m]) : s).replace(/ł/g, 'l').replace(/Ł/g, 'L').replace(/ß/g, 'ss').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const TONES = ['tone-cyan', 'tone-pink', 'tone-orange', 'tone-purple'];
-
-const COPY = {
-  es: {
-    htmlLang: 'es-419', path: '/es/palabras-juego-del-impostor/', dir: 'es/palabras-juego-del-impostor',
-    ogLocale: 'es_MX', ogAlt: ['en_GB', 'pt_BR'],
-    title: 'Palabras para el juego del impostor: lista para imprimir',
-    desc: 'Palabras para el juego del impostor con la pista de cada una, en cuatro categorías. Para imprimir, para jugar sin celular y para jugar de a 3. Gratis.',
-    ogTitle: 'Palabras para el juego del impostor, con la pista de cada una',
-    crumbLabel: 'Ruta de navegación', langHome: '/es/', langName: 'Español',
-    crumbGame: 'Juego del impostor online', gamePath: '/es/juego-del-impostor/', crumbHere: 'Palabras',
-    ldGame: 'Juego del impostor online', ldHere: 'Palabras para el juego del impostor',
-    h1: 'Palabras para el juego del impostor',
-    standfirst: 'Cuatro categorías completas del juego del impostor, con la pista que recibe el impostor para cada palabra. Sirven para jugar en papel, sin celular, y se imprimen con una categoría por hoja.',
-    note: '¿Van a jugar ya? <a class="inline" href="/es/juego-del-impostor/">Repartan las palabras en un solo celular</a>, gratis y sin descargar nada.',
-    ilangLabel: 'Idioma',
-    ilang: '<a href="/imposter-game-words/" hreflang="en" lang="en">English</a>\n      <span aria-current="page">Español</span>\n      <a href="/pt/palavras-jogo-do-impostor/" hreflang="pt" lang="pt-BR">Português</a>',
-    tocLabel: 'En esta página',
-    tocAfter: [['sin-celular', 'Sin celular'], ['de-a-3', 'De a 3']],
-    wordsH2: 'Las palabras y la pista del impostor',
-    wordsP: 'Cada palabra de esta página sale en la app Antics en español latinoamericano, con la misma pista. La pista es lo que ve el impostor en lugar de la palabra: algo que lo acerca sin regalarle la respuesta. En papel, ustedes deciden si se la dan o no.',
-    printTip: 'Para imprimir: en la computadora, usen Imprimir (Ctrl+P, o Cmd+P en Mac). Cada categoría sale en su propia hoja.',
-    thWord: 'Palabra secreta', thHint: 'Pista del impostor',
-    paperId: 'sin-celular',
-    paperH2: 'Cómo jugar al impostor sin celular ni app',
-    paperP: 'No hace falta celular (o móvil) ni app: solo papel, algo para escribir y esta lista. En cada ronda, una persona reparte y no juega.',
-    paperSteps: [
-      'Quien reparte elige una palabra de la lista y no se la dice a nadie.',
-      'Corta un papelito por cada jugador. Escribe la palabra en todos menos en uno, y en ese escribe Impostor. Si quieren ayudar al impostor, escribe también la pista.',
-      'Doblen los papelitos, revuélvanlos y que cada quien saque uno sin mostrarlo.',
-      'Den una vuelta: cada quien dice un detalle de la palabra, sin decirla. El impostor finge que la sabe.',
-      'A la cuenta de tres, todos señalan a su sospechoso. Si atrapan al impostor, tiene un intento para adivinar la palabra, y si acierta, gana igual.',
-      'En la siguiente ronda reparte la persona de la izquierda.',
-    ],
-    paperAfter: 'Sin papel también se puede: la app Antics le muestra la palabra a todos menos al impostor, que recibe una pista, y así nadie tiene que quedarse fuera.',
-    threeId: 'de-a-3',
-    threeH2: 'Cómo jugar al impostor de a 3',
-    threeP: 'De a tres, los dos que saben la palabra solo tienen que confiar el uno en el otro, y la votación se acaba antes de empezar. Con estos cuatro cambios vuelve a ser un juego:',
-    threeSteps: [
-      'Repartan en un celular, no en papel: de a tres nadie puede quedarse fuera para escribir los papelitos. <a class="inline" href="/es/juego-del-impostor/">El juego del impostor online</a> funciona desde tres jugadores.',
-      'Una sola palabra por persona y una sola vuelta. Luego voten.',
-      'Cualquiera puede empezar, también el impostor. Si quien empieza nunca es el impostor, los otros lo descartan de entrada.',
-      'Dejen la pista activada y lleven la cuenta: el impostor gana un punto si se salva en la votación y otro si adivina la palabra, lo hayan atrapado o no, y los otros dos ganan un punto cada uno si señalan a quien era. Gana el primero en llegar a cinco.',
-    ],
-    // Copied exactly from the /es/ hub's closing box (tags are this page's own)
-    cta: `<div class="cta-block">
-        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
-        <h2>Nueve juegos. Un celular.</h2>
-        <p>Sin anuncios, sin registro, y todos juegan.</p>
-        <a class="cta" href="/get/?c=site-es-palabras">Descarga Antics gratis</a>
-        <div class="cta-qr">
-          <img src="/es/palabras-juego-del-impostor/qr.png" width="120" height="120" alt="Código QR que abre Antics en tu celular" loading="lazy">
-          <p>¿Estás en la computadora? Apunta aquí la cámara de tu celular.</p>
-        </div>
-      </div>`,
-    guides: `<nav class="guides tone-cyan" aria-label="Más juegos en español">
-        <strong>Más juegos en español</strong>
-        <ul class="link-list">
-          <li><a href="/es/juego-del-impostor/">Juego del impostor online, en un solo celular</a></li>
-          <li><a href="/es/preguntas-yo-nunca-nunca/">Yo nunca nunca: preguntas y cómo se juega</a></li>
-          <li><a href="/es/preguntas-verdad-o-reto/">Verdad o reto: preguntas y retos</a></li>
-          <li><a href="/es/preguntas-que-prefieres/">¿Qué prefieres? Preguntas para dividir al grupo</a></li>
-          <li><a href="/es/preguntas-quien-es-mas-probable/">¿Quién es más probable que…? Preguntas para señalar</a></li>
-          <li><a href="/es/">Antics en español: todos los juegos</a></li>
-        </ul>
-      </nav>`,
-    footer: `<footer class="site-foot">
-    <a href="/es/">Antics: juegos de fiesta</a> · <a href="/privacy.html" hreflang="en">Privacidad (en inglés)</a><br>
-    18+ · Cuiden a sus amigos.
-  </footer>`,
-    installbar: `<aside class="installbar" aria-label="Descarga la app">
-  <img src="/img/icon-192.png" alt="" width="40" height="40">
-  <p><strong>Antics</strong><span>Juegos de fiesta</span></p>
-  <a class="btn btn--sm" href="/get/?c=site-es-palabras-bar">Descargar gratis</a>
-</aside>`,
-    qr: 'https://anticsapp.com/get/?c=site-es-palabras-qr',
-  },
-  pt: {
-    htmlLang: 'pt-BR', path: '/pt/palavras-jogo-do-impostor/', dir: 'pt/palavras-jogo-do-impostor',
-    ogLocale: 'pt_BR', ogAlt: ['en_GB', 'es_MX'],
-    title: 'Palavras para o jogo do impostor: lista para imprimir',
-    desc: 'Palavras para o jogo do impostor com a dica de cada uma, em quatro categorias. Para imprimir, para jogar sem celular e para jogar com 3 pessoas. Grátis.',
-    ogTitle: 'Palavras para o jogo do impostor, com a dica de cada uma',
-    crumbLabel: 'Caminho de navegação', langHome: '/pt/', langName: 'Português',
-    crumbGame: 'Jogo do impostor online', gamePath: '/pt/jogo-do-impostor/', crumbHere: 'Palavras',
-    ldGame: 'Jogo do impostor online', ldHere: 'Palavras para o jogo do impostor',
-    h1: 'Palavras para o jogo do impostor',
-    standfirst: 'Quatro categorias completas do jogo do impostor, com a dica que o impostor recebe para cada palavra. Dá para jogar no papel, sem celular, e imprimir uma categoria por folha.',
-    note: 'Vão jogar agora? <a class="inline" href="/pt/jogo-do-impostor/">Distribuam as palavras em um celular só</a>, grátis e sem baixar nada.',
-    ilangLabel: 'Idioma',
-    ilang: '<a href="/imposter-game-words/" hreflang="en" lang="en">English</a>\n      <a href="/es/palabras-juego-del-impostor/" hreflang="es" lang="es-419">Español</a>\n      <span aria-current="page">Português</span>',
-    tocLabel: 'Nesta página',
-    tocAfter: [['sem-celular', 'Sem celular'], ['com-3-pessoas', 'Com 3 pessoas']],
-    wordsH2: 'As palavras e a dica do impostor',
-    wordsP: 'Cada palavra desta página aparece no app Antics em português do Brasil, com a mesma dica. A dica é o que o impostor vê no lugar da palavra: algo que chega perto sem entregar a resposta. No papel, vocês decidem se ele recebe a dica ou não.',
-    printTip: 'Para imprimir: no computador, use Imprimir (Ctrl+P, ou Cmd+P no Mac). Cada categoria sai em uma folha própria.',
-    thWord: 'Palavra secreta', thHint: 'Dica do impostor',
-    paperId: 'sem-celular',
-    paperH2: 'Como jogar o jogo do impostor sem celular e sem app',
-    paperP: 'Não precisa de celular nem de app: só papel, caneta e esta lista. Em cada rodada, uma pessoa distribui e não joga.',
-    paperSteps: [
-      'Quem distribui escolhe uma palavra da lista e não conta para ninguém.',
-      'Corte um papelzinho para cada jogador. Escreva a palavra em todos menos um, e nesse escreva Impostor. Se quiserem ajudar o impostor, escreva também a dica.',
-      'Dobrem os papéis, misturem e cada um pega um sem mostrar.',
-      'Façam uma roda: cada um fala um detalhe da palavra, sem dizer qual é. O impostor finge que sabe.',
-      'No três, todo mundo aponta para o suspeito. Se o impostor for pego, tem um chute para acertar a palavra, e se acertar, ganha mesmo assim.',
-      'Na rodada seguinte, quem distribui é a pessoa da esquerda.',
-    ],
-    paperAfter: 'Sem papel também dá: o app Antics mostra a palavra para todo mundo menos o impostor, que recebe uma dica, e assim ninguém precisa ficar de fora.',
-    threeId: 'com-3-pessoas',
-    threeH2: 'Como jogar o jogo do impostor com 3 pessoas',
-    threeP: 'Com três, os dois que sabem a palavra só precisam confiar um no outro, e a votação acaba antes de começar. Com estas quatro mudanças, vira jogo de novo:',
-    threeSteps: [
-      'Distribuam no celular, não no papel: com três, ninguém pode ficar de fora para escrever os papéis. <a class="inline" href="/pt/jogo-do-impostor/">O jogo do impostor online</a> funciona a partir de três jogadores.',
-      'Uma palavra só por pessoa e uma volta só. Depois votem.',
-      'Qualquer um pode começar, inclusive o impostor. Se quem começa nunca é o impostor, os outros descartam essa pessoa logo de cara.',
-      'Deixem a dica ligada e marquem pontos: o impostor ganha um ponto se escapar da votação e outro se acertar a palavra, pego ou não, e os outros dois ganham um ponto cada se apontarem a pessoa certa. Ganha quem chegar a cinco primeiro.',
-    ],
-    // Copied exactly from the /pt/ hub's closing box (tags are this page's own)
-    cta: `<div class="cta-block">
-        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
-        <h2>Nove jogos. Um celular.</h2>
-        <p>Sem anúncios, sem cadastro, e todo mundo joga.</p>
-        <a class="cta" href="/get/?c=site-pt-palavras">Baixe o Antics grátis</a>
-        <div class="cta-qr">
-          <img src="/pt/palavras-jogo-do-impostor/qr.png" width="120" height="120" alt="Código QR que abre o Antics no seu celular" loading="lazy">
-          <p>Está no computador? Aponte a câmera do celular para cá.</p>
-        </div>
-      </div>`,
-    guides: `<nav class="guides tone-cyan" aria-label="Mais jogos em português">
-        <strong>Mais jogos em português</strong>
-        <ul class="link-list">
-          <li><a href="/pt/jogo-do-impostor/">Jogo do impostor online, em um celular só</a></li>
-          <li><a href="/pt/perguntas-eu-nunca/">Eu nunca: perguntas e como jogar</a></li>
-          <li><a href="/pt/perguntas-verdade-ou-desafio/">Verdade ou desafio: perguntas e desafios</a></li>
-          <li><a href="/pt/perguntas-o-que-voce-prefere/">O que você prefere? Perguntas para dividir o grupo</a></li>
-          <li><a href="/pt/perguntas-quem-e-mais-provavel/">Quem é mais provável? Perguntas para apontar o dedo</a></li>
-          <li><a href="/pt/">Antics em português: todos os jogos</a></li>
-        </ul>
-      </nav>`,
-    footer: `<footer class="site-foot">
-    <a href="/pt/">Antics: jogos de festa</a> · <a href="/privacy.html" hreflang="en">Privacidade (em inglês)</a><br>
-    18+ · Cuidem dos amigos.
-  </footer>`,
-    installbar: `<aside class="installbar" aria-label="Baixe o app">
-  <img src="/img/icon-192.png" alt="" width="40" height="40">
-  <p><strong>Antics</strong><span>Jogos de festa</span></p>
-  <a class="btn btn--sm" href="/get/?c=site-pt-palavras-bar">Baixar grátis</a>
-</aside>`,
-    qr: 'https://anticsapp.com/get/?c=site-pt-palavras-qr',
-  },
-};
+const COPY = CONFIGS;
+// The switcher: English first, then every config in order; this page is the
+// one plain span. With es and pt alone this is exactly the markup the two
+// configs used to carry by hand.
+const ilang = (lang) => ['<a href="/imposter-game-words/" hreflang="en" lang="en">English</a>',
+  ...ALTS.map((c) => (c.lang === lang ? `<span aria-current="page">${esc(c.langName)}</span>` : `<a href="${c.path}" hreflang="${c.hreflang}" lang="${c.htmlLang}">${esc(c.langName)}</a>`))].join('\n      ');
 
 const ORIGIN = 'https://anticsapp.com';
 function render(lang) {
   const C = COPY[lang];
-  const cats = OUT[lang].map((d, n) => ({ ...d, anchor: slugify(d.name), tone: TONES[n % TONES.length] }));
+  const cats = OUT[lang].map((d, n) => ({ ...d, anchor: slugify(d.name, lang), tone: TONES[n % TONES.length] }));
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -396,12 +331,11 @@ ${c.words.map(([w, h]) => `              <tr><td>${esc(w)}</td><td>${esc(h)}</td
   <meta name="description" content="${esc(C.desc)}">
   <link rel="canonical" href="${ORIGIN}${C.path}">
   <link rel="alternate" hreflang="en" href="${ORIGIN}/imposter-game-words/">
-  <link rel="alternate" hreflang="es" href="${ORIGIN}${COPY.es.path}">
-  <link rel="alternate" hreflang="pt" href="${ORIGIN}${COPY.pt.path}">
+${ALTS.map((c) => `  <link rel="alternate" hreflang="${c.hreflang}" href="${ORIGIN}${c.path}">`).join('\n')}
   <link rel="alternate" hreflang="x-default" href="${ORIGIN}/imposter-game-words/">
   <meta property="og:site_name" content="Antics">
   <meta property="og:locale" content="${C.ogLocale}">
-${C.ogAlt.map((l) => `  <meta property="og:locale:alternate" content="${l}">`).join('\n')}
+${['en_GB', ...ALTS.filter((c) => c.lang !== lang).map((c) => c.ogLocale)].map((l) => `  <meta property="og:locale:alternate" content="${l}">`).join('\n')}
   <meta property="og:title" content="${esc(C.ogTitle)}">
   <meta property="og:description" content="${esc(C.desc)}">
   <meta property="og:type" content="article">
@@ -437,7 +371,7 @@ ${JSON.stringify(breadcrumb, null, 2)}
     <p class="note">${C.note}</p>
   </header>
   <nav class="ilang" aria-label="${esc(C.ilangLabel)}">
-      ${C.ilang}
+      ${ilang(lang)}
   </nav>
 
   <div class="guide-body">
@@ -449,7 +383,7 @@ ${toc}
     </nav>
 
     <div class="prose">
-      <section class="section tone-lime" id="${lang === 'es' ? 'palabras' : 'palavras'}">
+      <section class="section tone-lime" id="${C.wordsId}">
         <h2>${esc(C.wordsH2)}</h2>
         <p>${esc(C.wordsP)}</p>
         <p class="note wl-print-tip">${esc(C.printTip)}</p>
@@ -494,17 +428,18 @@ ${C.installbar}
 const passed = 'retired applied, free non-seasonal decks only, English-published indexes, equal to the web dealer words.json' + (LIVE_COMMIT ? `, equal to ${LIVE_COMMIT}` : '');
 if (CHECK) {
   // Compare only: the pages on disk must be exactly what this run renders.
-  const stale = ['es', 'pt'].filter((lang) => {
+  const stale = LANGS.filter((lang) => {
     const f = join(SITE, COPY[lang].dir, 'index.html');
     return !existsSync(f) || readFileSync(f, 'utf8') !== render(lang);
   });
   if (stale.length) { console.error(`Stale: ${stale.map((l) => COPY[l].dir).join(', ')}. Run without --check to regenerate.`); process.exit(1); }
-  console.log(`Both pages are current (${passed}).`);
+  const n = LANGS.length;
+  console.log(`${n === 1 ? 'The page is' : n === 2 ? 'Both pages are' : `All ${n} pages are`} current (${LANGS.join(', ')}; ${passed}).`);
   process.exit(0);
 }
 const require = createRequire(join(APP, 'package.json'));
 const QRCode = require('qrcode');
-for (const lang of ['es', 'pt']) {
+for (const lang of LANGS) {
   const C = COPY[lang];
   mkdirSync(join(SITE, C.dir), { recursive: true });
   writeFileSync(join(SITE, C.dir, 'index.html'), render(lang));

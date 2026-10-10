@@ -14,7 +14,11 @@
    /es/cards.js or /pt/cards.js first; both are written by
    ops/export-free-cards.mjs --lang in the app repo: free-tier cards only).
    One deck, no Party/Clean switch, no embed mode. A mount without data-lang,
-   or with any other value, is the English widget exactly as before. */
+   or with any other value, is the English widget exactly as before.
+   From 10 Oct 2026 the same holds for data-lang="de", "fr", "it", "nl", "pl"
+   and "cs" (window.ANTICS_FREE_DE and so on, from /<lang>/cards.js); those
+   mounts also carry data-alt="/<lang>/<imposter-slug>/" for the second
+   button, which is left out without it. */
 (function () {
   var CFG = {
     nhie: { prefix: 'Never have I ever', label: 'Never Have I Ever', lower: true },
@@ -82,6 +86,164 @@
       group: 'Cartas',
       via: '(via anticsapp.com)',
       none: 'Gerador indispon\u00edvel.'
+    },
+    // German, French, Italian, Dutch, Polish and Czech (10 Oct 2026), the same
+    // shape. Each kicker is the app's own label (strings.<lang>.ts nhie.label,
+    // mlt.label, wyr.label, tod.truthLabel / dareLabel, games.truthOrDare.name)
+    // in sentence case, as es and pt do; or is the word inside the app's
+    // wyr.or divider. The other lines are site copy, for a native read before
+    // publishing. altUrl is null on purpose: each page names its own Imposter
+    // page on the mount, data-alt="/<lang>/<slug>/", because the slugs belong
+    // to the page builders. With no data-alt the second button is left out.
+    de: {
+      bank: 'ANTICS_FREE_DE',
+      games: {
+        nhie: { kicker: 'Ich hab noch nie\u2026' },
+        mlt:  { kicker: 'Wer w\u00fcrde am ehesten\u2026' },
+        wyr:  { kicker: 'Was w\u00e4re dir lieber\u2026' },
+        tod:  { kicker: 'Wahrheit oder Pflicht', truth: 'Wahrheit', dare: 'Pflicht' }
+      },
+      or: 'oder',
+      empty: 'Tipp auf den Button, um die erste Karte zu ziehen.',
+      draw: 'Karte ziehen', next: 'N\u00e4chste Karte', again: 'Noch mal von vorn',
+      copy: 'Kopieren', copied: 'Kopiert', copyTitle: 'F\u00fcr die Gruppe kopieren',
+      deck: function () { return 'Hier gibt\u2019s ein paar Karten gratis. In der App sind es Tausende.'; },
+      count: function (i, n) { return 'Karte ' + i + ' von ' + n; },
+      end: function () { return 'Das waren alle Gratis-Karten. In der App warten Tausende mehr und acht weitere Spiele.'; },
+      endCount: 'Du hast alle Gratis-Karten gesehen.',
+      ctaH: 'Lust auf Tausende Karten mehr und acht weitere Spiele?',
+      ctaEnd: 'Damit die Karten nie ausgehen, hol dir Antics gratis:',
+      get: 'Antics gratis laden',
+      alt: 'Imposter gratis spielen',
+      altUrl: null,
+      group: 'Karten',
+      via: '(\u00fcber anticsapp.com)',
+      none: 'Generator gerade nicht verf\u00fcgbar.'
+    },
+    fr: {
+      bank: 'ANTICS_FREE_FR',
+      games: {
+        nhie: { kicker: 'Je n\u2019ai jamais\u2026' },
+        mlt:  { kicker: 'Qui risque le plus de\u2026' },
+        wyr:  { kicker: 'Tu pr\u00e9f\u00e8res\u2026' },
+        tod:  { kicker: 'Action ou v\u00e9rit\u00e9', truth: 'V\u00e9rit\u00e9', dare: 'Action' }
+      },
+      or: 'ou',
+      empty: 'Appuie sur le bouton pour tirer la premi\u00e8re carte.',
+      draw: 'Tirer une carte', next: 'Carte suivante', again: 'Recommencer',
+      copy: 'Copier', copied: 'Copi\u00e9', copyTitle: 'Copier pour le groupe',
+      deck: function () { return 'Quelques cartes gratuites ici. Dans l\u2019appli, il y en a des milliers.'; },
+      count: function (i, n) { return 'Carte ' + i + ' sur ' + n; },
+      end: function () { return 'Tu as tir\u00e9 toutes les cartes gratuites. L\u2019appli en a des milliers d\u2019autres, plus huit autres jeux.'; },
+      endCount: 'Tu as vu toutes les cartes gratuites.',
+      ctaH: 'Envie de milliers de cartes en plus et de huit autres jeux\u00a0?',
+      ctaEnd: 'Pour ne jamais tomber \u00e0 court, t\u00e9l\u00e9charge Antics gratuitement\u00a0:',
+      get: 'T\u00e9l\u00e9charge Antics gratuitement',
+      alt: 'Joue \u00e0 l\u2019Imposteur gratuitement',
+      altUrl: null,
+      group: 'Cartes',
+      via: '(via anticsapp.com)',
+      none: 'G\u00e9n\u00e9rateur indisponible.'
+    },
+    it: {
+      bank: 'ANTICS_FREE_IT',
+      games: {
+        nhie: { kicker: 'Non ho mai\u2026' },
+        mlt:  { kicker: 'Chi \u00e8 pi\u00f9 probabile che\u2026' },
+        wyr:  { kicker: 'Preferiresti\u2026' },
+        tod:  { kicker: 'Obbligo o verit\u00e0', truth: 'Verit\u00e0', dare: 'Obbligo' }
+      },
+      or: 'o',
+      empty: 'Tocca il pulsante per pescare la prima carta.',
+      draw: 'Pesca una carta', next: 'Un\u2019altra carta', again: 'Ricomincia',
+      copy: 'Copia', copied: 'Copiato', copyTitle: 'Copia per il gruppo',
+      deck: function () { return 'Qui trovi qualche carta gratis. Nell\u2019app ce ne sono migliaia.'; },
+      count: function (i, n) { return 'Carta ' + i + ' di ' + n; },
+      end: function () { return 'Le carte gratis sono finite. Nell\u2019app ce ne sono migliaia, pi\u00f9 altri otto giochi.'; },
+      endCount: 'Hai visto tutte le carte gratis.',
+      ctaH: 'Vuoi migliaia di carte in pi\u00f9 e altri otto giochi?',
+      ctaEnd: 'Per non restare mai senza carte, scarica Antics gratis:',
+      get: 'Scarica Antics gratis',
+      alt: 'Gioca all\u2019Impostore gratis',
+      altUrl: null,
+      group: 'Carte',
+      via: '(via anticsapp.com)',
+      none: 'Generatore non disponibile.'
+    },
+    nl: {
+      bank: 'ANTICS_FREE_NL',
+      games: {
+        nhie: { kicker: 'Ik heb nog nooit\u2026' },
+        mlt:  { kicker: 'Wie in de groep zou\u2026' },
+        wyr:  { kicker: 'Zou je liever\u2026' },
+        tod:  { kicker: 'Waarheid of durven', truth: 'Waarheid', dare: 'Durven' }
+      },
+      or: 'of',
+      empty: 'Tik op de knop om de eerste kaart te trekken.',
+      draw: 'Trek een kaart', next: 'Volgende kaart', again: 'Opnieuw beginnen',
+      copy: 'Kopi\u00ebren', copied: 'Gekopieerd', copyTitle: 'Kopi\u00ebren voor de groepsapp',
+      deck: function () { return 'Hier een paar gratis kaarten. In de app zijn het er duizenden.'; },
+      count: function (i, n) { return 'Kaart ' + i + ' van ' + n; },
+      end: function () { return 'Dat waren alle gratis kaarten. In de app zijn er nog duizenden, plus acht andere spellen.'; },
+      endCount: 'Je hebt alle gratis kaarten gezien.',
+      ctaH: 'Zin in nog duizenden kaarten en acht andere spellen?',
+      ctaEnd: 'Download Antics gratis, dan raken de kaarten nooit op:',
+      get: 'Download Antics gratis',
+      alt: 'Speel Imposter gratis',
+      altUrl: null,
+      group: 'Kaarten',
+      via: '(via anticsapp.com)',
+      none: 'Generator niet beschikbaar.'
+    },
+    pl: {
+      bank: 'ANTICS_FREE_PL',
+      games: {
+        nhie: { kicker: 'Nigdy przenigdy\u2026' },
+        mlt:  { kicker: 'Kto z nas\u2026' },
+        wyr:  { kicker: 'Co wolisz\u2026' },
+        tod:  { kicker: 'Prawda czy wyzwanie', truth: 'Prawda', dare: 'Wyzwanie' }
+      },
+      or: 'czy',
+      empty: 'Dotknij przycisku, \u017ceby wylosowa\u0107 pierwsz\u0105 kart\u0119.',
+      draw: 'Losuj kart\u0119', next: 'Nast\u0119pna karta', again: 'Zacznij od nowa',
+      copy: 'Kopiuj', copied: 'Skopiowano', copyTitle: 'Skopiuj dla grupy',
+      deck: function () { return 'Tu masz kilka darmowych kart. W aplikacji s\u0105 ich tysi\u0105ce.'; },
+      count: function (i, n) { return 'Karta ' + i + ' z ' + n; },
+      end: function () { return 'To ju\u017c wszystkie darmowe karty. W aplikacji czekaj\u0105 tysi\u0105ce kolejnych i osiem innych gier.'; },
+      endCount: 'Wszystkie darmowe karty ju\u017c za tob\u0105.',
+      ctaH: 'Chcesz tysi\u0105ce kolejnych kart i osiem innych gier?',
+      ctaEnd: '\u017beby karty nigdy si\u0119 nie sko\u0144czy\u0142y, pobierz Antics za darmo:',
+      get: 'Pobierz Antics za darmo',
+      alt: 'Zagraj w Impostora za darmo',
+      altUrl: null,
+      group: 'Karty',
+      via: '(z anticsapp.com)',
+      none: 'Generator jest niedost\u0119pny.'
+    },
+    cs: {
+      bank: 'ANTICS_FREE_CS',
+      games: {
+        nhie: { kicker: 'J\u00e1 nikdy\u2026' },
+        mlt:  { kicker: 'Kdo by nejsp\u00ed\u0161\u2026' },
+        wyr:  { kicker: 'Co bys rad\u0161i\u2026' },
+        tod:  { kicker: 'Pravda nebo \u00fakol', truth: 'Pravda', dare: '\u00dakol' }
+      },
+      or: 'nebo',
+      empty: 'Klepni na tla\u010d\u00edtko a vyt\u00e1hni si prvn\u00ed kartu.',
+      draw: 'Vyt\u00e1hnout kartu', next: 'Dal\u0161\u00ed karta', again: 'Za\u010d\u00edt znovu',
+      copy: 'Kop\u00edrovat', copied: 'Zkop\u00edrov\u00e1no', copyTitle: 'Zkop\u00edrovat pro skupinu',
+      deck: function () { return 'Tady m\u00e1\u0161 p\u00e1r karet zdarma. V aplikaci jich jsou tis\u00edce.'; },
+      count: function (i, n) { return 'Karta ' + i + ' z ' + n; },
+      end: function () { return 'To byly v\u0161echny karty zdarma. V aplikaci jich jsou tis\u00edce a k tomu osm dal\u0161\u00edch her.'; },
+      endCount: 'V\u0161echny karty zdarma u\u017e m\u00e1\u0161 za sebou.',
+      ctaH: 'Chce\u0161 tis\u00edce karet nav\u00edc a osm dal\u0161\u00edch her?',
+      ctaEnd: 'Aby karty nikdy nedo\u0161ly, st\u00e1hni si Antics zdarma:',
+      get: 'St\u00e1hni si Antics zdarma',
+      alt: 'Zahraj si hru Impostor zdarma',
+      altUrl: null,
+      group: 'Karty',
+      via: '(p\u0159es anticsapp.com)',
+      none: 'Gener\u00e1tor nen\u00ed k dispozici.'
     }
   };
   // The CTA buttons go through /get rather than straight at a store, so every
@@ -175,8 +337,15 @@
     copyBtn.title = L.copyTitle;
     getA.href = getUrl(ctaTag);
     getA.textContent = L.get;
-    altA.href = L.altUrl + '?c=' + ctaTag + '-imp';
-    altA.textContent = L.alt;
+    // data-alt (10 Oct 2026): a root-relative path to the page's own Imposter
+    // page overrides altUrl; es and pt set none and keep their fixed URL.
+    var altUrl = L.altUrl;
+    var altAttr = root.getAttribute('data-alt') || '';
+    if (/^\/[a-z0-9\/-]+\/$/.test(altAttr)) altUrl = 'https://anticsapp.com' + altAttr;
+    if (altUrl) {
+      altA.href = altUrl + '?c=' + ctaTag + '-imp';
+      altA.textContent = L.alt;
+    } else altA.parentNode.removeChild(altA);
 
     function render() {
       ctaH.textContent = L.ctaH;

@@ -173,6 +173,39 @@ Set 5 October 2026. Each question page carries five tags; each language home thr
 | `site-es-hub` / `-hub-qr` / `-hub-bar` | `/es/` | button, QR, install bar |
 | `site-pt-<g>` ... `site-pt-<g>-gen-imp` | `/pt/perguntas-.../` | the same five, Portuguese ("Baixe o Antics grátis", "Jogue o jogo do impostor grátis") |
 | `site-pt-hub` / `-hub-qr` / `-hub-bar` | `/pt/` | button, QR, install bar |
+| `site-es-palabras` / `-palabras-qr` / `-palabras-bar` | `/es/palabras-juego-del-impostor/` | the download box's button, QR, install bar (generated page; the tag comes from `.tools/word-pages/es.mjs`) |
+| `site-pt-palavras` / `-palavras-qr` / `-palavras-bar` | `/pt/palavras-jogo-do-impostor/` | the same three, Portuguese (`.tools/word-pages/pt.mjs`) |
+
+## German, French, Italian, Dutch, Polish and Czech pages
+
+Set 10 October 2026. Same pattern as Spanish and Portuguese: `<L>` is `de`,
+`fr`, `it`, `nl`, `pl` or `cs`; `<g>` is `nhie`, `tod`, `wyr` or `mlt`. Every
+page has its own QR in its own folder (`qr.png`), the dealer's included, so no
+language has a root `/qr-imposter-<L>.png`.
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-<L>-<g>` | each question page | the download box's button |
+| `site-<L>-<g>-qr` | same | the download box's QR, laptops and tablets only |
+| `site-<L>-<g>-bar` | same | the phone install bar |
+| `site-<L>-<g>-gen` | same | the generator's download button (from `js/generator.js`, via `data-cta`) |
+| `site-<L>-<g>-gen-imp` | same | the generator's "play Imposter free" button: it opens the language's own Imposter page (`data-alt`) with `?c=site-<L>-<g>-gen-imp`, whose wall then carries this tag |
+| `site-<L>-hub` / `-hub-qr` / `-hub-bar` | `/<L>/` | button, QR, install bar |
+| `site-imposter-<L>` | the language's Imposter page | the wall's download button (after every third round; also the page's `data-code`); a `?c=` on the page URL replaces it |
+| `site-imposter-<L>-qr` | same | the wall's QR, wide screens only (`qr.png` in the page's folder) |
+| `site-imposter-<L>-bar` | same | the phone install bar |
+| `site-<L>-<w>` / `-<w>-qr` / `-<w>-bar` | the language's printable word page | the download box's button, QR, install bar (generated page; the tag comes from `.tools/word-pages/<L>.mjs`) |
+
+The pages, and `<w>` for each word page:
+
+| Language | Hub | Imposter page | Word page (`<w>`) | `nhie` | `tod` | `mlt` | `wyr` |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `de` | `/de/` | `/de/imposter-spiel/` | `/de/imposter-woerter/` (`woerter`) | `/de/ich-hab-noch-nie-fragen/` | `/de/wahrheit-oder-pflicht-fragen/` | `/de/wer-wuerde-eher-fragen/` | `/de/wuerdest-du-eher-fragen/` |
+| `fr` | `/fr/` | `/fr/jeu-imposteur/` | `/fr/mots-jeu-imposteur/` (`mots`) | `/fr/questions-je-n-ai-jamais/` | `/fr/questions-action-ou-verite/` | `/fr/questions-qui-est-le-plus-susceptible-de/` | `/fr/questions-tu-preferes/` |
+| `it` | `/it/` | `/it/gioco-dell-impostore/` | `/it/parole-gioco-dell-impostore/` (`parole`) | `/it/domande-non-ho-mai/` | `/it/domande-obbligo-o-verita/` | `/it/domande-chi-e-piu-probabile/` | `/it/domande-preferiresti/` |
+| `nl` | `/nl/` | `/nl/imposter-spel/` | `/nl/imposter-woorden/` (`woorden`) | `/nl/ik-heb-nog-nooit-vragen/` | `/nl/truth-or-dare-vragen/` | `/nl/most-likely-to-vragen/` | `/nl/zou-je-liever-vragen/` |
+| `pl` | `/pl/` | `/pl/gra-w-impostora/` | `/pl/hasla-do-impostora/` (`hasla`) | `/pl/pytania-nigdy-przenigdy/` | `/pl/pytania-prawda-czy-wyzwanie/` | `/pl/pytania-kto-z-nas/` | `/pl/pytania-co-wolisz/` |
+| `cs` | `/cs/` | `/cs/impostor-hra/` | `/cs/impostor-hra-slova/` (`slova`) | `/cs/nikdy-jsem-otazky/` | `/cs/pravda-nebo-ukol-otazky/` | `/cs/kdo-by-spis-otazky/` | `/cs/co-bys-radsi-otazky/` |
 
 ## Deliberately left alone
 

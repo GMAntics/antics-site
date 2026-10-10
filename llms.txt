@@ -71,6 +71,19 @@ cards from the app's own translations and a generator on each page.
 - [O que você prefere? Perguntas para dividir o grupo](https://anticsapp.com/pt/perguntas-o-que-voce-prefere/)
 - [Quem é mais provável? Perguntas para apontar o dedo](https://anticsapp.com/pt/perguntas-quem-e-mais-provavel/)
 
+## Other languages
+
+The same free games in German, French, Italian, Dutch, Polish and Czech. Each
+language has a home page, the Imposter dealer, a printable Imposter word list and
+the four question games, with the free cards and words from the app's own translations.
+
+- [Antics auf Deutsch: Partyspiele mit nur einem Handy](https://anticsapp.com/de/)
+- [Antics en français : jeux de soirée sur un seul téléphone](https://anticsapp.com/fr/)
+- [Antics in italiano: giochi di gruppo con un solo telefono](https://anticsapp.com/it/)
+- [Antics in het Nederlands: partyspellen op één telefoon](https://anticsapp.com/nl/)
+- [Antics po polsku: gry imprezowe na jeden telefon](https://anticsapp.com/pl/)
+- [Antics česky: párty hry na jeden telefon](https://anticsapp.com/cs/)
+
 ## Guides for occasions
 
 - [Games to play with friends](https://anticsapp.com/games-to-play-with-friends/)

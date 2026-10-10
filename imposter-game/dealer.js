@@ -23,6 +23,9 @@
 // data-code its default install tag. The English page sets none of them and
 // deals exactly as before. Every page now adds `lang` ('en', 'es', 'pt') to
 // both beacons, so a read can split the three (ops/site-imposter-es-pt-2026-10-05.md).
+// From 10 Oct 2026 data-lang also takes 'de', 'fr', 'it', 'nl', 'pl' and 'cs',
+// which then ride the same `lang` prop (contract delta A-68 in the app repo);
+// any other value, or none, is the English dealer.
 (function () {
   'use strict';
 
@@ -106,6 +109,150 @@
       wasPlace: 'O lugar era',
       hintWas: function (h) { return 'O impostor tinha só uma pista: "' + h + '".'; }, // APP hintWas
       loadFail: 'Não deu para carregar as palavras. Confira sua conexão e recarregue a página.'
+    },
+    // German, French, Italian, Dutch, Polish and Czech (10 Oct 2026), the app's
+    // de, fr, it, nl, pl and cs dictionaries. Lines marked APP are
+    // strings.<lang>.ts, imposter.*, word for word (generated from the
+    // dictionaries and checked against them for 1 to 12 players, the Czech
+    // plural included); the rest (round, wasWord, wasPlace, loadFail) are new
+    // site copy for a native read before publishing.
+    de: {
+      deal: function (n) { return 'Runde austeilen (' + n + ' Spieler)'; },  // APP deal
+      player: function (n) { return 'Spieler ' + n; },  // APP playerN
+      round: function (n) { return 'Runde ' + n; },
+      category: function (name) { return 'Kategorie: ' + name; },  // APP categoryOnCard
+      yourWord: 'Dein Geheimwort',  // APP yourWordIs
+      youreAt: 'Du bist hier',  // APP youreAt
+      wordBody: 'Beschreib es, ohne es je zu sagen. Der Imposter hört mit.',  // APP wordBody
+      placeBody: 'Beschreib den Ort, ohne ihn zu verraten. Der Imposter hört mit.',  // APP locationBody
+      impTitle: 'Du bist der IMPOSTER',  // APP imposterTitle
+      impBodyWord: 'Alle anderen wissen es. Bleib unauffällig und lass dich nicht erwischen.',  // APP imposterBodyWord
+      impBodyPlace: 'Alle anderen wissen, wo sie sind. Bleib unauffällig und lass dich nicht erwischen.',  // APP imposterBody
+      hintTitle: 'Dein Hinweis',  // APP hintTitle
+      next: 'Weiter zum nächsten Spieler',  // APP nextPlayer
+      allSeen: 'Alle haben ihre Rolle gesehen',  // APP everyoneSeen
+      talkWord: 'Reihum beschreiben alle das Wort, ohne es zu sagen! Wenn ihr genug gehört habt: Auf drei zeigen alle auf ihren Verdächtigen.',  // APP discussBodyWord
+      talkPlace: 'Reihum beschreiben alle, wo sie sind, ohne den Ort zu nennen! Wenn ihr genug gehört habt: Auf drei zeigen alle auf ihren Verdächtigen.',  // APP discussBody
+      starts: function (p) { return p + ' fängt an'; },  // APP discussStarter
+      wasWord: 'Das Wort war',
+      wasPlace: 'Der Ort war',
+      hintWas: function (h) { return 'Der Imposter hatte nur einen Hinweis: “' + h + '”.'; },  // APP hintWas
+      loadFail: 'Die Wörter konnten nicht geladen werden. Prüf deine Verbindung und lade die Seite neu.'
+    },
+    fr: {
+      deal: function (n) { return 'Distribuer la manche (' + n + ' joueurs)'; },  // APP deal
+      player: function (n) { return 'Joueur ' + n; },  // APP playerN
+      round: function (n) { return 'Manche ' + n; },
+      category: function (name) { return 'Catégorie : ' + name; },  // APP categoryOnCard
+      yourWord: 'Ton mot secret',  // APP yourWordIs
+      youreAt: 'Ton lieu secret',  // APP youreAt
+      wordBody: 'Tourne autour sans jamais le dire. L’imposteur écoute.',  // APP wordBody
+      placeBody: 'Décris-le sans le dévoiler. L’imposteur écoute.',  // APP locationBody
+      impTitle: 'Tu es l’IMPOSTEUR',  // APP imposterTitle
+      impBodyWord: 'Les autres le savent. Bluffe sans te faire choper.',  // APP imposterBodyWord
+      impBodyPlace: 'Les autres savent où ils sont. Bluffe sans te faire choper.',  // APP imposterBody
+      hintTitle: 'Ton indice',  // APP hintTitle
+      next: 'Passe au joueur suivant',  // APP nextPlayer
+      allSeen: 'Tout le monde a vu le sien',  // APP everyoneSeen
+      talkWord: 'Chacun son tour, décrivez le mot sans le dire ! Quand vous en avez assez entendu : à trois, tout le monde pointe son suspect.',  // APP discussBodyWord
+      talkPlace: 'Chacun son tour, décrivez où vous êtes sans le nommer ! Quand vous en avez assez entendu : à trois, tout le monde pointe son suspect.',  // APP discussBody
+      starts: function (p) { return p + ' commence'; },  // APP discussStarter
+      wasWord: 'Le mot était',
+      wasPlace: 'Le lieu était',
+      hintWas: function (h) { return 'L’imposteur n’avait qu’un indice : "' + h + '".'; },  // APP hintWas
+      loadFail: 'Impossible de charger les mots. Vérifie ta connexion et recharge la page.'
+    },
+    it: {
+      deal: function (n) { return 'Distribuisci il round (' + n + ' giocatori)'; },  // APP deal
+      player: function (n) { return 'Giocatore ' + n; },  // APP playerN
+      round: function (n) { return 'Round ' + n; },
+      category: function (name) { return 'Categoria: ' + name; },  // APP categoryOnCard
+      yourWord: 'La tua parola segreta',  // APP yourWordIs
+      youreAt: 'Sei qui',  // APP youreAt
+      wordBody: 'Giraci intorno senza mai dirla. L’impostore sta ascoltando.',  // APP wordBody
+      placeBody: 'Descrivilo senza svelarlo. L’impostore sta ascoltando.',  // APP locationBody
+      impTitle: 'Sei l’IMPOSTORE',  // APP imposterTitle
+      impBodyWord: 'Tutti gli altri sanno qual è. Mimetizzati e non farti scoprire.',  // APP imposterBodyWord
+      impBodyPlace: 'Tutti gli altri sanno dove si trovano. Mimetizzati e non farti scoprire.',  // APP imposterBody
+      hintTitle: 'Il tuo indizio',  // APP hintTitle
+      next: 'Passa al prossimo giocatore',  // APP nextPlayer
+      allSeen: 'Tutti hanno visto il proprio ruolo',  // APP everyoneSeen
+      talkWord: 'A turno, ognuno descrive la parola, senza dirla! Quando avete sentito abbastanza: al tre, tutti puntano il dito contro il proprio sospettato.',  // APP discussBodyWord
+      talkPlace: 'A turno, ognuno descrive dove si trova, senza nominarlo! Quando avete sentito abbastanza: al tre, tutti puntano il dito contro il proprio sospettato.',  // APP discussBody
+      starts: function (p) { return 'Inizia ' + p; },  // APP discussStarter
+      wasWord: 'La parola era',
+      wasPlace: 'Il luogo era',
+      hintWas: function (h) { return 'L’impostore aveva un solo indizio: “' + h + '”.'; },  // APP hintWas
+      loadFail: 'Impossibile caricare le parole. Controlla la connessione e ricarica la pagina.'
+    },
+    nl: {
+      deal: function (n) { return 'Start de ronde (' + n + ' spelers)'; },  // APP deal
+      player: function (n) { return 'Speler ' + n; },  // APP playerN
+      round: function (n) { return 'Ronde ' + n; },
+      category: function (name) { return 'Categorie: ' + name; },  // APP categoryOnCard
+      yourWord: 'Jouw geheime woord',  // APP yourWordIs
+      youreAt: 'Jouw locatie',  // APP youreAt
+      wordBody: 'Praat eromheen zonder het ooit te zeggen. De bedrieger luistert mee.',  // APP wordBody
+      placeBody: 'Beschrijf het zonder het te verklappen. De bedrieger luistert mee.',  // APP locationBody
+      impTitle: 'Jij bent de BEDRIEGER',  // APP imposterTitle
+      impBodyWord: 'De rest weet het. Doe net alsof en zorg dat je niet gesnapt wordt.',  // APP imposterBodyWord
+      impBodyPlace: 'De rest weet waar ze zijn. Doe net alsof en zorg dat je niet gesnapt wordt.',  // APP imposterBody
+      hintTitle: 'Jouw hint',  // APP hintTitle
+      next: 'Geef door aan de volgende speler',  // APP nextPlayer
+      allSeen: 'Iedereen heeft gekeken',  // APP everyoneSeen
+      talkWord: 'Ga de kring rond en beschrijf om de beurt het woord, zonder het te zeggen! Als jullie genoeg gehoord hebben: op drie wijzen jullie allemaal naar je verdachte.',  // APP discussBodyWord
+      talkPlace: 'Ga de kring rond en beschrijf om de beurt waar je bent, zonder het te noemen! Als jullie genoeg gehoord hebben: op drie wijzen jullie allemaal naar je verdachte.',  // APP discussBody
+      starts: function (p) { return p + ' begint'; },  // APP discussStarter
+      wasWord: 'Het woord was',
+      wasPlace: 'De locatie was',
+      hintWas: function (h) { return 'De bedrieger had maar één aanwijzing: “' + h + '”.'; },  // APP hintWas
+      loadFail: 'De woorden konden niet worden geladen. Controleer je verbinding en herlaad de pagina.'
+    },
+    pl: {
+      deal: function (n) { return 'Rozdaj rundę (' + n + ' graczy)'; },  // APP deal
+      player: function (n) { return 'Gracz ' + n; },  // APP playerN
+      round: function (n) { return 'Runda ' + n; },
+      category: function (name) { return 'Kategoria: ' + name; },  // APP categoryOnCard
+      yourWord: 'Twoje sekretne słowo',  // APP yourWordIs
+      youreAt: 'Twoje miejsce',  // APP youreAt
+      wordBody: 'Krąż wokół niego, nigdy go nie wypowiadając. Impostor słucha.',  // APP wordBody
+      placeBody: 'Opisz to, nie zdradzając, o co chodzi. Impostor słucha.',  // APP locationBody
+      impTitle: 'Jesteś IMPOSTOREM',  // APP imposterTitle
+      impBodyWord: 'Wszyscy inni je znają. Wtop się w tło i nie daj się złapać.',  // APP imposterBodyWord
+      impBodyPlace: 'Wszyscy inni wiedzą, gdzie są. Wtop się w tło i nie daj się złapać.',  // APP imposterBody
+      hintTitle: 'Twoja podpowiedź',  // APP hintTitle
+      next: 'Podaj telefon następnemu graczowi',  // APP nextPlayer
+      allSeen: 'Wszyscy już widzieli swoje',  // APP everyoneSeen
+      talkWord: 'Po kolei, w kółko, każdy opisuje słowo, nie wypowiadając go! Gdy uznacie, że wystarczy: na trzy wszyscy wskazują swojego podejrzanego.',  // APP discussBodyWord
+      talkPlace: 'Po kolei, w kółko, każdy opisuje, gdzie jest, nie nazywając tego! Gdy uznacie, że wystarczy: na trzy wszyscy wskazują swojego podejrzanego.',  // APP discussBody
+      starts: function (p) { return 'Zaczyna ' + p; },  // APP discussStarter
+      wasWord: 'Sekretne słowo to',
+      wasPlace: 'Sekretne miejsce to',
+      hintWas: function (h) { return 'Wskazówka impostora: “' + h + '”.'; },  // APP hintWas
+      loadFail: 'Nie udało się wczytać słów. Sprawdź połączenie i odśwież stronę.'
+    },
+    cs: {
+      deal: function (n) { return 'Rozdat kolo (' + n + ' ' + (n === 1 ? 'hráč' : n < 5 ? 'hráči' : 'hráčů') + ')'; },  // APP deal
+      player: function (n) { return 'Hráč ' + n; },  // APP playerN
+      round: function (n) { return 'Kolo ' + n; },
+      category: function (name) { return 'Kategorie: ' + name; },  // APP categoryOnCard
+      yourWord: 'Tvoje tajné slovo:',  // APP yourWordIs
+      youreAt: 'Tvoje místo:',  // APP youreAt
+      wordBody: 'Popiš ho, ale nikdy ho nevyslov. Podvodník poslouchá.',  // APP wordBody
+      placeBody: 'Popiš to, ale neprozraď to. Podvodník poslouchá.',  // APP locationBody
+      impTitle: 'Jsi PODVODNÍK',  // APP imposterTitle
+      impBodyWord: 'Všichni ostatní to znají. Splyň s davem a nenech se chytit.',  // APP imposterBodyWord
+      impBodyPlace: 'Všichni ostatní vědí, kde jsou. Splyň s davem a nenech se chytit.',  // APP imposterBody
+      hintTitle: 'Tvoje nápověda',  // APP hintTitle
+      next: 'Pošli dalšímu hráči',  // APP nextPlayer
+      allSeen: 'Všichni už viděli svou roli',  // APP everyoneSeen
+      talkWord: 'V kruhu postupně každý popíše slovo, ale nevysloví ho! Až uslyšíte dost: na tři všichni ukážou na podezřelého.',  // APP discussBodyWord
+      talkPlace: 'V kruhu postupně každý popíše, kde je, ale místo nepojmenuje! Až uslyšíte dost: na tři všichni ukážou na podezřelého.',  // APP discussBody
+      starts: function (p) { return p + ' začíná'; },  // APP discussStarter
+      wasWord: 'Tajné slovo bylo',
+      wasPlace: 'Tajné místo bylo',
+      hintWas: function (h) { return 'Jediná stopa pro podvodníka: “' + h + '”.'; },  // APP hintWas
+      loadFail: 'Slova se nepodařilo načíst. Zkontroluj připojení a obnov stránku.'
     }
   };
 
