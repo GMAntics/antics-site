@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-itunes-app" content="app-id=6787743558">
+  <title>Which Party Game Should We Play? | Antics</title>
+  <meta name="description" content="Answer three questions (how many of you, the mood, how long you have) and get the party game to play, with every answer and the reasoning written out.">
+  <link rel="canonical" href="https://anticsapp.com/which-party-game/">
+  <meta property="og:site_name" content="Antics">
+  <meta property="og:title" content="Which Party Game Should We Play?">
+  <meta property="og:description" content="Three questions, one answer: how many of you there are, the mood and how long you have. One phone, nothing to set up.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://anticsapp.com/which-party-game/">
+  <meta property="og:image" content="https://anticsapp.com/img/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Antics",
+        "item": "https://anticsapp.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Which party game should we play?",
+        "item": "https://anticsapp.com/which-party-game/"
+      }
+    ]
+  }
+  </script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <style>
+    /* The picker: page-only styles, built from the site's own tokens */
+    .picker { margin: var(--space-m) 0 0; padding: var(--space-s); background: var(--surface-2); border: 1px solid var(--line); border-radius: 28px; max-width: 40em; }
+    .picker[hidden] { display: none; }
+    .picker-q { margin: 0 0 var(--space-m); }
+    .picker-q .label { margin-bottom: var(--space-xs); }
+    .picker-opts { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
+    .picker-opts button {
+      min-height: var(--tap-min); padding: 0 var(--space-s);
+      border-radius: var(--r-chip); background: var(--bg); border: 1px solid var(--line-strong);
+      color: var(--text-1); font-family: var(--font-body); font-size: var(--step--1); font-weight: 700; line-height: 1.2;
+      cursor: pointer; transition: background 0.15s ease, color 0.15s ease;
+    }
+    .picker-opts button:hover { color: var(--text-0); border-color: rgba(255, 255, 255, 0.3); }
+    .picker-opts button[aria-pressed="true"] { background: var(--action); border-color: transparent; color: #FFFFFF; }
+    .picker-opts button:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+    .picker-out { margin-top: var(--space-s); padding-top: var(--space-m); border-top: 1px solid var(--line); }
+    .picker-out p { margin-bottom: var(--space-xs); }
+    .picker-wait { color: var(--text-2); }
+    .picker-lead { font-family: var(--font-display); font-size: var(--step-2); font-weight: 800; line-height: 1.15; color: var(--text-0); text-wrap: balance; }
+    .pick-game { margin: var(--space-s) 0 0; padding: var(--space-s); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-control); }
+    .pick-game h3 { margin: 0 0 var(--space-3xs); font-size: var(--step-1); }
+    .pick-game p { margin-bottom: var(--space-3xs); }
+    .pick-access { font-size: var(--step--1); color: var(--text-2); }
+    .picker .pick-links { display: flex; flex-wrap: wrap; column-gap: var(--space-m); margin: 0; }
+    .picker .pick-links a { display: inline-flex; align-items: center; min-height: var(--tap-min); padding-block: 0; font-size: var(--step--1); font-weight: 700; }
+    .picker-out .note { margin-top: var(--space-s); }
+    /* The written-out answers: wide enough to read, swiped sideways on a phone */
+    table.picks { min-width: 38rem; }
+    table.picks td, table.picks tbody th { width: 25%; }
+    /* The mood is a row header for screen readers, styled like the base first cell */
+    table.picks tbody th[scope="row"] {
+      padding: var(--space-xs) var(--space-s); border-top: 1px solid var(--line); background: transparent;
+      color: var(--text-0); font-size: inherit; font-weight: 700; letter-spacing: normal;
+      text-transform: none; white-space: normal; vertical-align: top;
+    }
+    table.picks tbody tr:nth-child(even) th[scope="row"] { background: var(--row-alt); }
+  </style>
+</head>
+<body class="has-installbar">
+<div class="page">
+<article>
+  <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> Which party game should we play?</nav>
+
+  <div class="hero">
+    <header class="page-head">
+      <h1>Which party game should we play?</h1>
+      <p class="standfirst">Everyone is here, the snacks are out and nobody wants to be the one who decides. Answer three questions and get one or two games that suit your group, with the reason for each. Every answer is also written out below, so you can read the whole thing at a glance.</p>
+    </header>
+  </div>
+
+  <div class="guide-body">
+    <nav class="toc" aria-label="On this page">
+      <span class="label">On this page</span>
+      <ol>
+        <li class="tone-pink"><a href="#pick">The picker</a></li>
+        <li class="tone-cyan"><a href="#short-answer">The short answer</a></li>
+        <li class="tone-purple"><a href="#rules">How it decides</a></li>
+        <li class="tone-lime"><a href="#two">Two of you</a></li>
+        <li class="tone-orange"><a href="#three-to-four">Three or four</a></li>
+        <li class="tone-cyan"><a href="#five-to-eight">Five to eight</a></li>
+        <li class="tone-purple"><a href="#nine-or-more">Nine or more</a></li>
+        <li class="tone-lime"><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <div class="prose">
+      <section class="section tone-pink" id="pick" aria-labelledby="pick-h">
+        <h2 id="pick-h">Three questions, one answer</h2>
+        <p>Tap one answer to each question. The pick updates as soon as all three are in, and you can change any answer to see what moves.</p>
+        <noscript><p>The picker needs JavaScript, which is switched off in this browser. Nothing is lost: <a href="#two">every answer is in the tables below</a>, by group size, with the reason for each game.</p></noscript>
+        <div class="picker" id="picker" hidden>
+          <div class="picker-q" role="group" aria-labelledby="q-size">
+            <span class="label" id="q-size">How many of you?</span>
+            <div class="picker-opts">
+              <button type="button" data-q="size" data-v="2" aria-pressed="false">2</button>
+              <button type="button" data-q="size" data-v="3-4" aria-pressed="false">3 to 4</button>
+              <button type="button" data-q="size" data-v="5-8" aria-pressed="false">5 to 8</button>
+              <button type="button" data-q="size" data-v="9+" aria-pressed="false">9 or more</button>
+            </div>
+          </div>
+          <div class="picker-q" role="group" aria-labelledby="q-mood">
+            <span class="label" id="q-mood">What's the mood?</span>
+            <div class="picker-opts">
+              <button type="button" data-q="mood" data-v="know" aria-pressed="false">Get to know each other</button>
+              <button type="button" data-q="mood" data-v="chaos" aria-pressed="false">Chaos and laughs</button>
+              <button type="button" data-q="mood" data-v="deduction" aria-pressed="false">Deduction and bluffing</button>
+              <button type="button" data-q="mood" data-v="confessions" aria-pressed="false">Confessions</button>
+            </div>
+          </div>
+          <div class="picker-q" role="group" aria-labelledby="q-time">
+            <span class="label" id="q-time">How long have you got?</span>
+            <div class="picker-opts">
+              <button type="button" data-q="time" data-v="quick" aria-pressed="false">10 minutes</button>
+              <button type="button" data-q="time" data-v="hour" aria-pressed="false">An hour</button>
+              <button type="button" data-q="time" data-v="night" aria-pressed="false">All night</button>
+            </div>
+          </div>
+          <div class="picker-out" id="pick-result" aria-live="polite">
+            <p class="picker-wait">Answer all three and your game appears here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section tone-cyan" id="short-answer">
+        <h2>The short answer</h2>
+        <p>If you only have ten minutes, pick by mood. To get to know each other: Never Have I Ever, or Would You Rather once there are five or more of you. For chaos and laughs: What Are The Odds, or Most Likely To from nine. For deduction and bluffing: Imposter from three players, or What Are The Odds with two. For confessions: Never Have I Ever. With an hour or all night you get two games in the order to play them, and the opener can change: the tables below have every answer.</p>
+        <p>None of it needs equipment. One phone gets passed round the room, and every game here is in the Antics app, with most of them free to play in your browser on this site.</p>
+      </section>
+
+      <section class="section tone-purple" id="rules">
+        <h2>How the picker decides</h2>
+        <p>The picks follow five rules, all taken from how the games actually play.</p>
+        <ol>
+          <li><strong>Headcount comes first.</strong> Never Have I Ever, Truth or Dare and What Are The Odds all work with two, so the picker keeps two of you to those. The other games are listed for three or more: Would You Rather, Antics mode and The Four Kings can be adapted for two, but Most Likely To with two is just pointing at each other. Imposter needs three, and the app deals it for up to twelve.</li>
+          <li><strong>Small groups want cards that land on everyone.</strong> With three or four, games where every card asks something of each person get sharper, and pointing games need four or five before they find their feet. More on that in <a href="/party-games-for-small-groups/">party games for small groups</a>.</li>
+          <li><strong>Strangers get the gentle openers.</strong> Never Have I Ever has the lowest barrier to entry of any party game and works with strangers, and Would You Rather lets everyone answer at once, so nobody is put on the spot. Most Likely To is saved for groups with history, so it never comes up for getting to know each other.</li>
+          <li><strong>Ten minutes means one game.</strong> Something you can start in seconds and stop at any card. Never The Four Kings, which keeps going until the fourth King comes out.</li>
+          <li><strong>A long night is built, not picked.</strong> An hour gets two games back to back. All night gets two to build around, switching at the first lull. Spicy, the 18+ deck that comes with Premium, only ever comes in late, never as the opener.</li>
+        </ol>
+        <p>Every game below links to its full rules, and the reasons in the tables are the same lines the picker shows.</p>
+      </section>
+
+<!-- answers:start -->
+      <p>Here is the whole picker written out. Find your group size, then your mood down the left and the time you have along the top. Games are listed in the order to play them. On a phone, swipe a table sideways to see all night.</p>
+
+      <section class="section tone-lime" id="two">
+        <h2>If there are two of you</h2>
+        <div class="table-wrap">
+          <table class="picks">
+            <caption>Two players: what to play</caption>
+            <thead>
+              <tr><th scope="col">You want</th><th scope="col">10 minutes</th><th scope="col">An hour</th><th scope="col">All night</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Get to know each other</th><td>Never Have I Ever</td><td>Never Have I Ever, then Truth or Dare</td><td>Never Have I Ever, then Truth or Dare</td></tr>
+              <tr><th scope="row">Chaos and laughs</th><td>What Are The Odds</td><td>What Are The Odds, then Truth or Dare</td><td>What Are The Odds, then Truth or Dare</td></tr>
+              <tr><th scope="row">Deduction and bluffing</th><td>What Are The Odds</td><td>What Are The Odds, then Truth or Dare</td><td>What Are The Odds, then Truth or Dare</td></tr>
+              <tr><th scope="row">Confessions</th><td>Never Have I Ever</td><td>Truth or Dare, then Never Have I Ever</td><td>Truth or Dare, then Never Have I Ever</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Why these games for two</h3>
+        <ul>
+          <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: Works fine with two, as long as you do not mind there being only one person to judge you. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Swap turns card by card, so it is back to you before you have finished your last excuse. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: Built for two: every card is a duel, and if you both shout the same number, it has to happen. Free cards in the app, full deck with Premium.</li>
+        </ul>
+        <p><strong>Deduction and bluffing:</strong> Imposter needs at least three players. With two, What Are The Odds is the nearest thing to a bluff: you are both trying to read the other person's number.</p>
+      </section>
+
+      <section class="section tone-orange" id="three-to-four">
+        <h2>If there are three or four of you</h2>
+        <div class="table-wrap">
+          <table class="picks">
+            <caption>Three or four players: what to play</caption>
+            <thead>
+              <tr><th scope="col">You want</th><th scope="col">10 minutes</th><th scope="col">An hour</th><th scope="col">All night</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Get to know each other</th><td>Never Have I Ever</td><td>Would You Rather, then Never Have I Ever</td><td>Never Have I Ever, then Antics mode</td></tr>
+              <tr><th scope="row">Chaos and laughs</th><td>What Are The Odds</td><td>What Are The Odds, then Antics mode</td><td>Antics mode, then The Four Kings</td></tr>
+              <tr><th scope="row">Deduction and bluffing</th><td>Imposter</td><td>Imposter, then What Are The Odds</td><td>Imposter, then Antics mode</td></tr>
+              <tr><th scope="row">Confessions</th><td>Never Have I Ever</td><td>Never Have I Ever, then Truth or Dare</td><td>Truth or Dare, then Spicy</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Why these games for three or four</h3>
+        <ul>
+          <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: At three or four it is at its most honest, because nobody can hide behind a crowd of hands going up. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Better small: with three of you, your turn comes back every third card, and chickening out means a forfeit. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/would-you-rather-questions/">Would You Rather</a></strong>: Everyone votes at once, so nobody is put on the spot. With three the vote can never tie; with four, agree what a two-two split means first. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The chaos engine: dare a mate, they name the odds, you both shout a number. Match, and it has to happen. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/how-to-play-imposter/">Imposter</a></strong>: Works from three and gets better from four. Keep the one-word hint on at this size. Free in the app.</li>
+          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: Thirteen rules and one circle, and with three or four your draw comes round fast. Whoever draws the fourth King performs the whole routine. Free in the app.</li>
+          <li><strong><a href="/antics-mode/">Antics mode</a></strong>: One phone deals dares, rules and callouts by name, so nobody has to host. With three, tap past the vote cards. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/spicy/">Spicy</a></strong>: The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it. 18+, comes with Premium.</li>
+        </ul>
+        <p><strong>Deduction and bluffing, 10 minutes:</strong> A few lightning rounds of Imposter fit: one circuit of clues, then straight to the vote.</p>
+        <p><strong>Deduction and bluffing, an hour or all night:</strong> Imposter is good for about twenty minutes at a time. When the scheming runs dry, switch somewhere different rather than somewhere similar.</p>
+      </section>
+
+      <section class="section tone-cyan" id="five-to-eight">
+        <h2>If there are five to eight of you</h2>
+        <div class="table-wrap">
+          <table class="picks">
+            <caption>Five to eight players: what to play</caption>
+            <thead>
+              <tr><th scope="col">You want</th><th scope="col">10 minutes</th><th scope="col">An hour</th><th scope="col">All night</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Get to know each other</th><td>Would You Rather</td><td>Would You Rather, then Never Have I Ever</td><td>Never Have I Ever, then Antics mode</td></tr>
+              <tr><th scope="row">Chaos and laughs</th><td>What Are The Odds</td><td>Most Likely To, then What Are The Odds</td><td>Antics mode, then The Four Kings</td></tr>
+              <tr><th scope="row">Deduction and bluffing</th><td>Imposter</td><td>Imposter, then What Are The Odds</td><td>Imposter, then Antics mode</td></tr>
+              <tr><th scope="row">Confessions</th><td>Never Have I Ever</td><td>Never Have I Ever, then Truth or Dare</td><td>Truth or Dare, then Spicy</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Why these games for five to eight</h3>
+        <ul>
+          <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: Turns the first confessions into the shared history the rest of the night runs on, and it works with strangers. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Great once the group has warmed up. One hard veto each keeps the pressure theatrical rather than mean. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/most-likely-to-questions/">Most Likely To</a></strong>: At its best around this size: everyone points on three, and the defence speeches are the real content. Best with your actual mates. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/would-you-rather-questions/">Would You Rather</a></strong>: The best opener: everyone answers at once, so nobody is put on the spot while people are still arriving. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The reliable peak: no other party game produces a "no way that just happened" moment as often. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/how-to-play-imposter/">Imposter</a></strong>: The sweet spot: Imposter is best from four to eight players, and from six the app can deal a second imposter. Free in the app.</li>
+          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: One game with a proper finale: a rule for every card, and whoever draws the fourth King performs the whole routine. Free in the app.</li>
+          <li><strong><a href="/antics-mode/">Antics mode</a></strong>: Let the phone run it: dares, rules that stay live for several cards, votes and callouts by name, so nobody has to host. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/spicy/">Spicy</a></strong>: The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it. 18+, comes with Premium.</li>
+        </ul>
+        <p><strong>Deduction and bluffing, 10 minutes:</strong> A few lightning rounds of Imposter fit: one circuit of clues, then straight to the vote.</p>
+        <p><strong>Deduction and bluffing, an hour or all night:</strong> Imposter is good for about twenty minutes at a time. When the scheming runs dry, switch somewhere different rather than somewhere similar.</p>
+      </section>
+
+      <section class="section tone-purple" id="nine-or-more">
+        <h2>If there are nine or more of you</h2>
+        <div class="table-wrap">
+          <table class="picks">
+            <caption>Nine or more players: what to play</caption>
+            <thead>
+              <tr><th scope="col">You want</th><th scope="col">10 minutes</th><th scope="col">An hour</th><th scope="col">All night</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Get to know each other</th><td>Would You Rather</td><td>Would You Rather, then Never Have I Ever</td><td>Never Have I Ever, then Antics mode</td></tr>
+              <tr><th scope="row">Chaos and laughs</th><td>Most Likely To</td><td>Most Likely To, then Would You Rather</td><td>Antics mode, then Most Likely To</td></tr>
+              <tr><th scope="row">Deduction and bluffing</th><td>Imposter</td><td>Imposter, then Most Likely To</td><td>Imposter, then Antics mode</td></tr>
+              <tr><th scope="row">Confessions</th><td>Never Have I Ever</td><td>Never Have I Ever, then Truth or Dare</td><td>Truth or Dare, then Spicy</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>Why these games for nine or more</h3>
+        <ul>
+          <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: Works at any size: no setup, and it works with strangers. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Great once the group has warmed up. One hard veto each keeps the pressure theatrical rather than mean. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/most-likely-to-questions/">Most Likely To</a></strong>: Scales best for big groups because everyone points at once, and the defence speeches are the real content. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/would-you-rather-questions/">Would You Rather</a></strong>: Scales beautifully to a big group: everyone commits at once, then has to defend it. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/how-to-play-imposter/">Imposter</a></strong>: Antics deals up to 12 on one phone. Play with two imposters, and past ten, think about splitting into two circles. Free in the app.</li>
+          <li><strong><a href="/antics-mode/">Antics mode</a></strong>: Let the phone run the whole night: a mixed feed of dares, rules, votes and callouts by name, so nobody has to host. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/spicy/">Spicy</a></strong>: The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it. 18+, comes with Premium.</li>
+        </ul>
+        <p><strong>Deduction and bluffing, 10 minutes:</strong> A few lightning rounds of Imposter fit: one circuit of clues, then straight to the vote.</p>
+        <p><strong>Deduction and bluffing, an hour or all night:</strong> Imposter is good for about twenty minutes at a time. When the scheming runs dry, switch somewhere different rather than somewhere similar.</p>
+        <p>More than twelve of you? Run two circles: past twelve, one circle turns into side conversations.</p>
+      </section>
+<!-- answers:end -->
+
+      <section class="section faq tone-lime" id="faq">
+        <h2>Which party game: questions</h2>
+
+        <h3>What party game should we play?</h3>
+        <p>It depends on how many of you there are and what kind of night you want. With two, What Are The Odds, Truth or Dare and Never Have I Ever all work. With three or four, Never Have I Ever and Would You Rather land on everyone. With five to eight, Imposter and Most Likely To are at their best. With nine or more, Would You Rather and Most Likely To scale best because everyone votes at once.</p>
+        <h3>What is the best party game for two people?</h3>
+        <p>What Are The Odds, because every card is a duel between two people anyway: one asks, the other sets the odds, then you both shout a number. Truth or Dare and Never Have I Ever work with two as well. Imposter needs at least three players.</p>
+        <h3>What is the best party game for three people?</h3>
+        <p>Would You Rather is a natural fit, because a vote between three people always has a minority unless everyone agrees. Never Have I Ever, Truth or Dare and What Are The Odds all play well with three, and Imposter works from three if you keep the hint on.</p>
+        <h3>What party game works for a big group?</h3>
+        <p>Would You Rather and Most Likely To scale best for big groups because everyone votes at once. Imposter works too: the Antics app deals it for up to twelve players on one phone, with a second imposter from six, and past ten it is worth splitting into two circles. More than twelve of you? Run two circles for every game.</p>
+        <h3>What party game is good for people who don't know each other?</h3>
+        <p>Never Have I Ever has the lowest barrier to entry of any party game and works with strangers, and Would You Rather lets everyone answer at once so nobody is put on the spot. Save Most Likely To for your actual mates.</p>
+        <h3>Do we need anything to play?</h3>
+        <p>No. Every game here runs on one phone passed round the room. Most of them play free in your browser on this site, and all nine are in the Antics app, which is free to download on iPhone and Android, with no ads and no sign-up.</p>
+      </section>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>Every pick on this page, on one phone</h2>
+        <p>Nine games and thousands of cards in the Antics app. Penalties are forfeits, so whoever is not drinking plays the same game as everyone else. No ads and nothing to sign up for.</p>
+        <a class="cta" href="/get/?c=site-picker">Get Antics free</a>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More free guides">
+        <strong>More free guides</strong>
+        <ul class="link-list">
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/party-games-for-small-groups/">Party games for small groups: what works with three or four</a></li>
+          <li><a href="/how-to-play-imposter/">How to play Imposter: rules, example rounds and strategy</a></li>
+          <li><a href="/blog/party-games-night-running-order/">How to run a games night that doesn't die at 9pm</a></li>
+          <li><a href="/play/">Play party games online, free</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <footer class="site-foot">
+    <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a> · <a href="/support/">Support</a><br>
+    18+ · Look after your mates.
+  </footer>
+</article>
+</div>
+
+<aside class="installbar" aria-label="Get the app">
+  <img src="/img/icon-192.png" alt="" width="40" height="40">
+  <p><strong>Antics</strong><span>The party games app</span></p>
+  <a class="btn btn--sm" href="/get/?c=site-picker-bar">Get Antics free</a>
+</aside>
+
+<script id="picker-js">
+/* Which party game: the whole recommendation is the pure function
+   recommend(size, mood, time) below. No libraries, no network, no storage.
+   The answer tables on this page are generated from the same data by
+   .tools/which-party-game.mjs, which also tests every combination. */
+(function (root) {
+  'use strict';
+  var own = Object.prototype.hasOwnProperty;
+  var FREE_CARDS = 'Free cards in the app, full deck with Premium';
+  var GAMES = {
+    nhie:     { name: 'Never Have I Ever', href: '/never-have-i-ever-questions/', play: '/never-have-i-ever-generator/', min: 2, max: 0, access: FREE_CARDS },
+    tod:      { name: 'Truth or Dare', href: '/truth-or-dare-questions/', play: '/truth-or-dare-generator/', min: 2, max: 0, access: FREE_CARDS },
+    mlt:      { name: 'Most Likely To', href: '/most-likely-to-questions/', play: '/most-likely-to-generator/', min: 3, max: 0, access: FREE_CARDS },
+    wyr:      { name: 'Would You Rather', href: '/would-you-rather-questions/', play: '/would-you-rather-generator/', min: 3, max: 0, access: FREE_CARDS },
+    odds:     { name: 'What Are The Odds', href: '/what-are-the-odds/', play: '/what-are-the-odds-generator/', min: 2, max: 0, access: FREE_CARDS },
+    imposter: { name: 'Imposter', href: '/how-to-play-imposter/', play: '/imposter-game/', min: 3, max: 12, access: 'Free in the app' },
+    kings:    { name: 'The Four Kings', href: '/the-four-kings/', play: '', min: 3, max: 0, access: 'Free in the app' },
+    antics:   { name: 'Antics mode', href: '/antics-mode/', play: '/play/', min: 3, max: 0, access: FREE_CARDS },
+    spicy:    { name: 'Spicy', href: '/spicy/', play: '', min: 3, max: 0, access: '18+, comes with Premium' }
+  };
+  var SIZES = [
+    { id: '2', label: '2', min: 2, max: 2 },
+    { id: '3-4', label: '3 to 4', min: 3, max: 4 },
+    { id: '5-8', label: '5 to 8', min: 5, max: 8 },
+    { id: '9+', label: '9 or more', min: 9, max: 0 }
+  ];
+  var MOODS = [
+    { id: 'know', label: 'Get to know each other' },
+    { id: 'chaos', label: 'Chaos and laughs' },
+    { id: 'deduction', label: 'Deduction and bluffing' },
+    { id: 'confessions', label: 'Confessions' }
+  ];
+  var TIMES = [
+    { id: 'quick', label: '10 minutes' },
+    { id: 'hour', label: 'An hour' },
+    { id: 'night', label: 'All night' }
+  ];
+  var TIME_NOTES = {
+    quick: 'Ten minutes: one game, straight in. Stop while people still want one more round.',
+    hour: 'An hour: play them back to back, and switch at the first lull, not the third.',
+    night: 'All night: build the night around these, and switch game the moment the room dips.'
+  };
+  /* One reason per game per group size: the same line the tables below show */
+  var REASONS = {
+    '2': {
+      nhie: 'Works fine with two, as long as you do not mind there being only one person to judge you.',
+      tod: 'Swap turns card by card, so it is back to you before you have finished your last excuse.',
+      odds: 'Built for two: every card is a duel, and if you both shout the same number, it has to happen.'
+    },
+    '3-4': {
+      nhie: 'At three or four it is at its most honest, because nobody can hide behind a crowd of hands going up.',
+      wyr: 'Everyone votes at once, so nobody is put on the spot. With three the vote can never tie; with four, agree what a two-two split means first.',
+      tod: 'Better small: with three of you, your turn comes back every third card, and chickening out means a forfeit.',
+      odds: 'The chaos engine: dare a mate, they name the odds, you both shout a number. Match, and it has to happen.',
+      antics: 'One phone deals dares, rules and callouts by name, so nobody has to host. With three, tap past the vote cards.',
+      kings: 'Thirteen rules and one circle, and with three or four your draw comes round fast. Whoever draws the fourth King performs the whole routine.',
+      imposter: 'Works from three and gets better from four. Keep the one-word hint on at this size.',
+      spicy: 'The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it.'
+    },
+    '5-8': {
+      wyr: 'The best opener: everyone answers at once, so nobody is put on the spot while people are still arriving.',
+      nhie: 'Turns the first confessions into the shared history the rest of the night runs on, and it works with strangers.',
+      tod: 'Great once the group has warmed up. One hard veto each keeps the pressure theatrical rather than mean.',
+      odds: 'The reliable peak: no other party game produces a "no way that just happened" moment as often.',
+      mlt: 'At its best around this size: everyone points on three, and the defence speeches are the real content. Best with your actual mates.',
+      antics: 'Let the phone run it: dares, rules that stay live for several cards, votes and callouts by name, so nobody has to host.',
+      kings: 'One game with a proper finale: a rule for every card, and whoever draws the fourth King performs the whole routine.',
+      imposter: 'The sweet spot: Imposter is best from four to eight players, and from six the app can deal a second imposter.',
+      spicy: 'The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it.'
+    },
+    '9+': {
+      wyr: 'Scales beautifully to a big group: everyone commits at once, then has to defend it.',
+      nhie: 'Works at any size: no setup, and it works with strangers.',
+      tod: 'Great once the group has warmed up. One hard veto each keeps the pressure theatrical rather than mean.',
+      mlt: 'Scales best for big groups because everyone points at once, and the defence speeches are the real content.',
+      antics: 'Let the phone run the whole night: a mixed feed of dares, rules, votes and callouts by name, so nobody has to host.',
+      imposter: 'Antics deals up to 12 on one phone. Play with two imposters, and past ten, think about splitting into two circles.',
+      spicy: 'The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it.'
+    }
+  };
+  /* The picks: group size, then mood, then time. Games are listed in the
+     order to play them. A note applies to every time ("all") or to one. */
+  var LIGHTNING = 'A few lightning rounds of Imposter fit: one circuit of clues, then straight to the vote.';
+  var SWITCH = 'Imposter is good for about twenty minutes at a time. When the scheming runs dry, switch somewhere different rather than somewhere similar.';
+  var PICKS = {
+    '2': {
+      know:        { quick: ['nhie'], hour: ['nhie', 'tod'], night: ['nhie', 'tod'] },
+      chaos:       { quick: ['odds'], hour: ['odds', 'tod'], night: ['odds', 'tod'] },
+      deduction:   { quick: ['odds'], hour: ['odds', 'tod'], night: ['odds', 'tod'],
+                     note: { all: "Imposter needs at least three players. With two, What Are The Odds is the nearest thing to a bluff: you are both trying to read the other person's number." } },
+      confessions: { quick: ['nhie'], hour: ['tod', 'nhie'], night: ['tod', 'nhie'] }
+    },
+    '3-4': {
+      know:        { quick: ['nhie'], hour: ['wyr', 'nhie'], night: ['nhie', 'antics'] },
+      chaos:       { quick: ['odds'], hour: ['odds', 'antics'], night: ['antics', 'kings'] },
+      deduction:   { quick: ['imposter'], hour: ['imposter', 'odds'], night: ['imposter', 'antics'],
+                     note: { quick: LIGHTNING, hour: SWITCH, night: SWITCH } },
+      confessions: { quick: ['nhie'], hour: ['nhie', 'tod'], night: ['tod', 'spicy'] }
+    },
+    '5-8': {
+      know:        { quick: ['wyr'], hour: ['wyr', 'nhie'], night: ['nhie', 'antics'] },
+      chaos:       { quick: ['odds'], hour: ['mlt', 'odds'], night: ['antics', 'kings'] },
+      deduction:   { quick: ['imposter'], hour: ['imposter', 'odds'], night: ['imposter', 'antics'],
+                     note: { quick: LIGHTNING, hour: SWITCH, night: SWITCH } },
+      confessions: { quick: ['nhie'], hour: ['nhie', 'tod'], night: ['tod', 'spicy'] }
+    },
+    '9+': {
+      know:        { quick: ['wyr'], hour: ['wyr', 'nhie'], night: ['nhie', 'antics'] },
+      chaos:       { quick: ['mlt'], hour: ['mlt', 'wyr'], night: ['antics', 'mlt'] },
+      deduction:   { quick: ['imposter'], hour: ['imposter', 'mlt'], night: ['imposter', 'antics'],
+                     note: { quick: LIGHTNING, hour: SWITCH, night: SWITCH } },
+      confessions: { quick: ['nhie'], hour: ['nhie', 'tod'], night: ['tod', 'spicy'] }
+    }
+  };
+  var SIZE_NOTES = {
+    '9+': 'More than twelve of you? Run two circles: past twelve, one circle turns into side conversations.'
+  };
+
+  function recommend(size, mood, time) {
+    if (!own.call(PICKS, size) || !own.call(PICKS[size], mood)) return null;
+    var entry = PICKS[size][mood];
+    if (!own.call(entry, time) || time === 'note') return null;
+    var games = [];
+    for (var i = 0; i < entry[time].length; i++) {
+      var id = entry[time][i], g = GAMES[id];
+      games.push({ id: id, name: g.name, href: g.href, play: g.play, access: g.access, reason: REASONS[size][id] });
+    }
+    var notes = [];
+    if (entry.note && entry.note.all) notes.push(entry.note.all);
+    if (entry.note && entry.note[time]) notes.push(entry.note[time]);
+    if (own.call(SIZE_NOTES, size)) notes.push(SIZE_NOTES[size]);
+    return { games: games, notes: notes, time: TIME_NOTES[time] };
+  }
+
+  root.AnticsPicker = { recommend: recommend, GAMES: GAMES, SIZES: SIZES, MOODS: MOODS, TIMES: TIMES, REASONS: REASONS, PICKS: PICKS, SIZE_NOTES: SIZE_NOTES };
+  if (typeof document === 'undefined') return;
+
+  var box = document.getElementById('picker');
+  var out = document.getElementById('pick-result');
+  if (!box || !out) return;
+  var state = { size: '', mood: '', time: '' };
+
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+  function link(href, text) {
+    var a = el('a', '', text);
+    a.href = href;
+    return a;
+  }
+  function render() {
+    if (!state.size || !state.mood || !state.time) return;
+    var r = recommend(state.size, state.mood, state.time);
+    if (!r) return;
+    var names = [];
+    for (var i = 0; i < r.games.length; i++) names.push(r.games[i].name);
+    var frag = document.createDocumentFragment();
+    frag.appendChild(el('p', 'picker-lead', 'Play ' + names.join(', then ') + '.'));
+    for (var j = 0; j < r.games.length; j++) {
+      var g = r.games[j];
+      var card = el('div', 'pick-game');
+      card.appendChild(el('h3', '', g.name));
+      card.appendChild(el('p', '', g.reason));
+      card.appendChild(el('p', 'pick-access', g.access + '.'));
+      var links = el('p', 'pick-links');
+      links.appendChild(link(g.href, 'How to play ' + g.name));
+      if (g.play) links.appendChild(link(g.play, 'Play free in your browser'));
+      card.appendChild(links);
+      frag.appendChild(card);
+    }
+    for (var k = 0; k < r.notes.length; k++) frag.appendChild(el('p', 'note', r.notes[k]));
+    var t = el('p', 'note', r.time + ' ');
+    if (state.time === 'night') t.appendChild(link('/blog/party-games-night-running-order/', 'The running order for a whole night'));
+    frag.appendChild(t);
+    while (out.firstChild) out.removeChild(out.firstChild);
+    out.appendChild(frag);
+  }
+  box.addEventListener('click', function (e) {
+    var b = e.target;
+    while (b && b !== box && !(b.tagName === 'BUTTON' && b.getAttribute('data-q'))) b = b.parentNode;
+    if (!b || b === box) return;
+    var q = b.getAttribute('data-q');
+    state[q] = b.getAttribute('data-v');
+    var group = box.querySelectorAll('button[data-q="' + q + '"]');
+    for (var i = 0; i < group.length; i++) group[i].setAttribute('aria-pressed', group[i] === b ? 'true' : 'false');
+    render();
+  });
+  box.hidden = false;
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<!-- faq-ld:start -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What party game should we play?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on how many of you there are and what kind of night you want. With two, What Are The Odds, Truth or Dare and Never Have I Ever all work. With three or four, Never Have I Ever and Would You Rather land on everyone. With five to eight, Imposter and Most Likely To are at their best. With nine or more, Would You Rather and Most Likely To scale best because everyone votes at once."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best party game for two people?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "What Are The Odds, because every card is a duel between two people anyway: one asks, the other sets the odds, then you both shout a number. Truth or Dare and Never Have I Ever work with two as well. Imposter needs at least three players."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the best party game for three people?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Would You Rather is a natural fit, because a vote between three people always has a minority unless everyone agrees. Never Have I Ever, Truth or Dare and What Are The Odds all play well with three, and Imposter works from three if you keep the hint on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What party game works for a big group?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Would You Rather and Most Likely To scale best for big groups because everyone votes at once. Imposter works too: the Antics app deals it for up to twelve players on one phone, with a second imposter from six, and past ten it is worth splitting into two circles. More than twelve of you? Run two circles for every game."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What party game is good for people who don't know each other?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Never Have I Ever has the lowest barrier to entry of any party game and works with strangers, and Would You Rather lets everyone answer at once so nobody is put on the spot. Save Most Likely To for your actual mates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do we need anything to play?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Every game here runs on one phone passed round the room. Most of them play free in your browser on this site, and all nine are in the Antics app, which is free to download on iPhone and Android, with no ads and no sign-up."
+      }
+    }
+  ]
+}
+</script>
+<!-- faq-ld:end -->
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

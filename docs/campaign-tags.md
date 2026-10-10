@@ -83,6 +83,11 @@ left on a content page.
 | `site-girls` | `/girls-night-games/` | end CTA |
 | `site-girls-inline` | `/girls-night-games/` | mid-page CTA |
 | `site-girls-bar` | `/girls-night-games/` | install bar |
+| `site-icebreakers` | `/icebreaker-questions/` | end CTA |
+| `site-icebreakers-bar` | `/icebreaker-questions/` | install bar |
+| `site-icebreakers-gen` | `/icebreaker-questions/` | clean generator CTA |
+| `site-picker` | `/which-party-game/` | end CTA |
+| `site-picker-bar` | `/which-party-game/` | install bar |
 | `site-stag` | `/stag-do-games/` | end CTA |
 | `site-forfeits` | `/forfeit-ideas/` | end CTA |
 | `site-nhie-questions` | `/never-have-i-ever-questions/` | end CTA |

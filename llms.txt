@@ -77,6 +77,8 @@ cards from the app's own translations and a generator on each page.
 - [Hen do games](https://anticsapp.com/hen-do-games/)
 - [Girls' night games](https://anticsapp.com/girls-night-games/)
 - [Party games for small groups](https://anticsapp.com/party-games-for-small-groups/)
+- [Which party game should we play? A three-question picker](https://anticsapp.com/which-party-game/)
+- [Icebreaker questions for work, new groups and friends](https://anticsapp.com/icebreaker-questions/)
 - [The Antics app: what's free, what's Premium and how it works](https://anticsapp.com/antics-app/)
 - [Stag do games](https://anticsapp.com/stag-do-games/)
 - [Party games without drinking: one app for drinkers and non-drinkers](https://anticsapp.com/party-games-without-drinking/)
