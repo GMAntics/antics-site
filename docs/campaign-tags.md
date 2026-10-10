@@ -71,6 +71,10 @@ left on a content page.
 | `site-imposter-play` | `/imposter-game/` | the wall's "Get Antics free" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
 | `site-imposter-play-qr` | `/imposter-game/` | the wall's QR, shown on wide screens only (`/qr-imposter-play.png`) |
 | `site-imposter-play-bar` | `/imposter-game/` | the phone install bar |
+| `site-fourkings` | `/four-kings-online/` | the two store buttons in the closing box |
+| `site-fourkings-qr` | `/four-kings-online/` | the closing box QR, laptops and tablets only (`/four-kings-online/qr.png`) |
+| `site-fourkings-bar` | `/four-kings-online/` | the phone install bar |
+| `site-fourkings-end` | `/four-kings-online/` | the finish screen's "Get Antics free" button (after the 52nd card); a `?c=` on the page URL replaces it, as on `/play/` |
 | `site-imposter-es` | `/es/juego-del-impostor/` | the wall's "Descarga Antics gratis" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
 | `site-imposter-es-qr` | `/es/juego-del-impostor/` | the wall's QR, wide screens only (`/qr-imposter-es.png`) |
 | `site-imposter-es-bar` | `/es/juego-del-impostor/` | the phone install bar |

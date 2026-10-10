@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-itunes-app" content="app-id=6787743558">
+  <title>The Four Kings Online: Play the Card Game Free</title>
+  <meta name="description" content="Play The Four Kings online on one phone: the circle card game people call Kings Cup or Ring of Fire. A shuffled 52-card deck, a rule on every card. Free.">
+  <link rel="canonical" href="https://anticsapp.com/four-kings-online/">
+  <meta property="og:site_name" content="Antics">
+  <meta property="og:title" content="The Four Kings online: the card game on one phone">
+  <meta property="og:description" content="A shuffled 52-card deck, a rule on every card, one phone passed round. Free, no download, no sign-up.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://anticsapp.com/four-kings-online/">
+  <meta property="og:image" content="https://anticsapp.com/img/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://anticsapp.com/img/og-card.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Antics: The Four Kings online",
+    "url": "https://anticsapp.com/four-kings-online/",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript",
+    "isAccessibleForFree": true,
+    "featureList": [
+      "The whole 52-card deck from The Four Kings in the Antics app, shuffled",
+      "A rule on every card, Ace to King, with a King counter",
+      "One phone passed round the circle",
+      "No sign-up, no accounts, no ads"
+    ],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+    "publisher": { "@type": "Organization", "name": "Antics", "url": "https://anticsapp.com/" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Antics", "item": "https://anticsapp.com/" },
+      { "@type": "ListItem", "position": 2, "name": "The Four Kings", "item": "https://anticsapp.com/the-four-kings/" },
+      { "@type": "ListItem", "position": 3, "name": "The Four Kings online", "item": "https://anticsapp.com/four-kings-online/" }
+    ]
+  }
+  </script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0E0A1F">
+  <link rel="stylesheet" href="/css/site.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <style>
+    /* The Four Kings table. The panel, buttons, titles and QR reuse the
+       Imposter dealer's .idl classes in /css/site.css; only the playing card
+       and the two counters are drawn here, after the app's own card
+       (src/screens/RingOfFireScreen.tsx: white face, pink back, corners). */
+    .fk-hint { color: var(--text-2); font-size: var(--step--1); line-height: 1.4; text-wrap: balance; }
+    .fk-card {
+      position: relative;
+      width: min(290px, 100%, 40vh);
+      aspect-ratio: 100 / 145;
+      margin: 0 auto 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: var(--deck-edge), 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+    .fk-back, .fk-face {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100%;
+      padding: 30px 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+    .fk-back { background: #2A2150; border: 2px solid var(--pink); }
+    .fk-back-emoji { font-size: 64px; line-height: 1; }
+    .fk-back-logo { margin-top: 10px; color: var(--pink); font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: 4px; }
+    .fk-back-hint { margin-top: 18px; color: #9C92C7; font-size: 12px; font-weight: 700; letter-spacing: 2px; }
+    .fk-face { position: relative; background: #FDF9FF; border: 2px solid transparent; }
+    .fk-face.is-finale { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(255, 176, 46, 0.35); }
+    .fk-corner { position: absolute; font-size: 19px; font-weight: 800; line-height: 1; }
+    .fk-tl { top: 12px; left: 14px; }
+    .fk-br { bottom: 12px; right: 14px; transform: rotate(180deg); }
+    .fk-red { color: #E0005F; }
+    .fk-black { color: #14102A; }
+    .fk-title {
+      margin: 0 0 12px;
+      color: #14102A;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 1.35rem + 0.6vw, 1.75rem);
+      font-weight: 800;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+    .fk-rule { margin: 0; color: #3A3355; font-size: 1rem; line-height: 1.45; text-wrap: pretty; }
+    .fk-forfeit { margin: 14px 0 0; color: #5B35C9; font-size: 0.875rem; font-style: italic; line-height: 1.4; text-wrap: pretty; }
+    .fk-status { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .fk-pill {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: #FFFFFF;
+      font-size: 14px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .fk-pill.is-full { border-color: var(--orange); color: var(--orange); }
+    .fk-end-emoji { font-size: 48px; line-height: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+      .fk-face.is-new { animation: fk-flip 260ms ease-out; }
+      @keyframes fk-flip { from { transform: perspective(900px) rotateY(80deg); opacity: 0.4; } to { transform: none; opacity: 1; } }
+    }
+    @media (max-width: 559px) {
+      .fk-card { width: min(270px, 100%, 40vh); }
+      .fk-back, .fk-face { padding: 28px 16px; }
+    }
+    /* A phone held sideways: the app locks to portrait, the page cannot. A
+       wide, short card instead of a tall thin strip under the install bar. */
+    @media (orientation: landscape) and (max-height: 500px) {
+      #fk.idl { padding: 12px; }
+      #fk .idl-screen { gap: 8px; }
+      .fk-card { width: min(460px, 100%); aspect-ratio: auto; margin-bottom: 4px; }
+      .fk-back, .fk-face { min-height: 0; padding: 20px 40px; }
+      .fk-back-emoji { font-size: 36px; }
+      .fk-back-hint { margin-top: 8px; }
+      .fk-title { margin-bottom: 6px; font-size: 1.375rem; }
+      .fk-forfeit { margin-top: 8px; }
+    }
+  </style>
+</head>
+<body class="has-installbar">
+  <div class="page">
+  <main class="tool-layout">
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">&rsaquo;</span> <a href="/the-four-kings/">The Four Kings</a> <span aria-hidden="true">&rsaquo;</span> Play online</nav>
+    <header class="page-head">
+      <h1>The Four Kings online: the card game on one phone</h1>
+      <p class="lead">A shuffled 52-card deck with a rule on every card, dealt right here. Pass the phone round the circle and tap to draw. Free, no download, no sign-up.</p>
+      <p class="note">The same circle card game people call Kings Cup or Ring of Fire. Every card is a forfeit or a challenge, so it works with or without drinks.</p>
+    </header>
+
+    <div class="tool-wrap">
+      <div class="idl" id="fk" aria-label="The Four Kings game">
+
+        <section class="idl-screen" id="fk-play">
+          <p class="fk-hint">Each King adds a move to the group dance routine.&nbsp;👑</p>
+          <div class="fk-card" id="fk-card">
+            <div class="fk-back" id="fk-back" aria-hidden="true">
+              <span class="fk-back-emoji">🔥</span>
+              <span class="fk-back-logo">ANTICS</span>
+              <span class="fk-back-hint">TAP TO DRAW</span>
+            </div>
+            <div class="fk-face" id="fk-face" aria-hidden="true" hidden>
+              <span class="fk-corner fk-tl" id="fk-tl"></span>
+              <span class="fk-corner fk-br" id="fk-br"></span>
+              <p class="fk-title" id="fk-title"></p>
+              <p class="fk-rule" id="fk-rule"></p>
+              <p class="fk-forfeit" id="fk-forfeit" hidden></p>
+            </div>
+          </div>
+          <p class="visually-hidden" id="fk-live" aria-live="polite" aria-atomic="true"></p>
+          <div class="fk-status">
+            <span class="fk-pill"><span aria-hidden="true">🎴</span> <span id="fk-left">52</span> left</span>
+            <span class="fk-pill" id="fk-kings-pill"><span aria-hidden="true">👑</span><span class="visually-hidden">Kings drawn:</span> <span id="fk-kings">0</span> / 4</span>
+          </div>
+          <button type="button" class="btn" id="fk-draw">Draw a card</button>
+          <button type="button" class="btn btn--ghost" id="fk-restart" hidden>Shuffle and start again</button>
+          <noscript><p class="note">The game needs JavaScript switched on. Every card&rsquo;s rule is on <a href="/the-four-kings/">The Four Kings rules</a> page.</p></noscript>
+        </section>
+
+        <section class="idl-screen" id="fk-end" hidden>
+          <p class="fk-end-emoji" aria-hidden="true">🔥🏁</p>
+          <p class="idl-title" id="fk-end-title" tabindex="-1">Deck demolished!</p>
+          <p class="idl-body">All 52 cards down. That final dance routine deserves an encore.</p>
+          <button type="button" class="btn" id="fk-again">Play again</button>
+          <p class="idl-body">The Four Kings is free in the Antics app too, and there are eight more games in there.</p>
+          <a class="btn btn--ghost" id="fk-get" href="/get/?c=site-fourkings-end">Get Antics free</a>
+        </section>
+
+      </div>
+      <p class="tool-note">Every card and rule is dealt exactly as The Four Kings deals it in the Antics app, forfeit ideas included. The full rule sheet: <a href="/the-four-kings/">The Four Kings rules</a>.</p>
+    </div>
+
+    <div class="tool-body prose">
+      <section class="section tone-cyan" id="how-to-play">
+        <h2>How to play The Four Kings online</h2>
+        <ol class="stack steps">
+          <li>Sit in a circle with one phone. Put it in the middle or pass it round.</li>
+          <li>On your turn, tap the card to draw. Read out its name and its rule.</li>
+          <li>Do what it says. When a card calls for a forfeit, it suggests one, or the room can invent its own.</li>
+          <li>Four cards give someone a job that lasts until the same card comes up again: the Thumbmaster (5), the Mate (8), the Rule Maker (Jack) and the Question Master (Queen).</li>
+          <li>Each King adds a move to the group dance routine, and the counter shows how many are out. Hope you are not the one who draws the fourth.</li>
+          <li>The game runs to the last of the 52 cards. Then shuffle and play again.</li>
+        </ol>
+        <p class="copy">Want every rule on one page? <a class="inline" href="/the-four-kings/">The Four Kings rules</a> has the lot, Ace to King, and <a class="inline" href="/forfeit-ideas/">forfeit ideas</a> has plenty more if the room runs dry.</p>
+      </section>
+
+      <section class="section tone-orange" id="kings-cup">
+        <h2>Kings Cup and Ring of Fire, on one phone</h2>
+        <p class="copy">If you have played Kings Cup or Ring of Fire, you already know this one: a full deck, a circle, a rule for every card and a lot riding on the last King. The Four Kings is how the Antics app plays it. There is no cup in the middle and no pack to lose, and nobody argues about what a 6 means, because the card says it.</p>
+      </section>
+
+      <section class="section faq tone-purple" id="faq">
+        <h2>The Four Kings online: questions</h2>
+        <h3>Can you play The Four Kings online?</h3>
+        <p>Yes, right here. The page shuffles a full 52-card deck and deals it one card at a time. Pass the phone round the circle and tap to draw. No download, no sign-up.</p>
+        <h3>Is this the Kings Cup game?</h3>
+        <p>It is the same circle card game, which plenty of people call Kings Cup or Ring of Fire. The Four Kings is the Antics version, and every card is a forfeit or a challenge.</p>
+        <h3>Do we need a pack of cards?</h3>
+        <p>No. The page deals all 52 cards, keeps count of the Kings and suggests a forfeit whenever a card calls for one.</p>
+        <h3>What happens on the fourth King?</h3>
+        <p>Every King card reads: “Add one move to the group dance routine. Whoever draws the FOURTH King performs the whole routine, start to finish.” The counter under the card shows how many Kings are out, and the deck carries on to the last card.</p>
+        <h3>Does it work offline?</h3>
+        <p>Once the page has loaded, yes. The whole deck is already on your phone, so a bad signal will not stop the game.</p>
+        <h3>Is it free?</h3>
+        <p>Yes. No download, no sign-up, no ads. The Four Kings is free in the Antics app too, the whole deck.</p>
+      </section>
+
+      <div class="cta-block">
+        <img class="cta-icon" src="/img/icon-192.png" alt="" width="56" height="56" loading="lazy">
+        <h2>The whole deck, in your pocket</h2>
+        <p>The Four Kings is free in the Antics app for iPhone and Android, with eight more games and thousands of cards. No ads, no accounts.</p>
+        <a class="cta" href="/get/?c=site-fourkings">App Store</a>
+        <a class="cta btn--ghost" href="/get/?c=site-fourkings">Google Play</a>
+        <div class="cta-qr">
+          <img src="/four-kings-online/qr.png" width="120" height="120" alt="QR code: scan with your phone to get Antics" loading="lazy">
+          <p>On a laptop or tablet? Point your phone camera here.</p>
+        </div>
+      </div>
+
+      <nav class="guides tone-cyan" aria-label="More party game guides">
+        <strong>More party game guides</strong>
+        <ul class="link-list">
+          <li><a href="/the-four-kings/">The Four Kings: a rule for every card</a></li>
+          <li><a href="/play/">Play party games online: one phone, no download</a></li>
+          <li><a href="/imposter-game/">Play Imposter online: one phone, no download</a></li>
+          <li><a href="/forfeit-ideas/">60+ forfeit ideas for any party game</a></li>
+          <li><a href="/party-games/">Party games for adults: every game in one app</a></li>
+          <li><a href="/party-games-without-drinking/">Party games without drinking: one game for drinkers and non-drinkers</a></li>
+          <li><a href="/party-games-for-uni/">Party games for uni: freshers, flat parties and pre-drinks</a></li>
+          <li><a href="/games-to-play-with-friends/">Games to play with friends: no props, just a phone</a></li>
+          <li><a href="/antics-mode/">Antics mode: the game that does it all</a></li>
+          <li><a href="/hen-do-games/">Hen do games: no props, no printing</a></li>
+          <li><a href="/stag-do-games/">Stag do games: zero setup, nothing to carry</a></li>
+          <li><a href="/best-party-game-apps/">Best party game apps, compared</a></li>
+        </ul>
+      </nav>
+
+      <footer class="site-foot">
+        <a href="/">Antics: the party games app</a> · <a href="/privacy.html">Privacy</a><br>
+        18+ · Look after your mates.
+      </footer>
+    </div>
+  </main>
+  </div>
+
+  <aside class="installbar" aria-label="Get the app">
+    <img src="/img/icon-192.png" alt="" width="40" height="40">
+    <p><strong>Antics</strong><span>The party games app</span></p>
+    <a class="btn btn--sm" href="/get/?c=site-fourkings-bar">Get Antics free</a>
+  </aside>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Can you play The Four Kings online?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, right here. The page shuffles a full 52-card deck and deals it one card at a time. Pass the phone round the circle and tap to draw. No download, no sign-up." } },
+    { "@type": "Question", "name": "Is this the Kings Cup game?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It is the same circle card game, which plenty of people call Kings Cup or Ring of Fire. The Four Kings is the Antics version, and every card is a forfeit or a challenge." } },
+    { "@type": "Question", "name": "Do we need a pack of cards?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. The page deals all 52 cards, keeps count of the Kings and suggests a forfeit whenever a card calls for one." } },
+    { "@type": "Question", "name": "What happens on the fourth King?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Every King card reads: “Add one move to the group dance routine. Whoever draws the FOURTH King performs the whole routine, start to finish.” The counter under the card shows how many Kings are out, and the deck carries on to the last card." } },
+    { "@type": "Question", "name": "Does it work offline?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Once the page has loaded, yes. The whole deck is already on your phone, so a bad signal will not stop the game." } },
+    { "@type": "Question", "name": "Is it free?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. No download, no sign-up, no ads. The Four Kings is free in the Antics app too, the whole deck." } }
+  ]
+}
+</script>
+  <script src="/four-kings-online/cards.js"></script>
+  <script>
+  // The Four Kings in the browser (10 Oct 2026). It plays as the app's
+  // src/screens/RingOfFireScreen.tsx does: a fresh shuffle of all 52 cards,
+  // one card per tap, the King counter, a forfeit idea under every card whose
+  // rule calls for a forfeit, the K titled for the King it is, and the deck
+  // runs to its last card before the finish screen. All text comes only from
+  // /four-kings-online/cards.js, exported from the app: the rules, the King
+  // titles and the forfeit ideas (the app's live forfeit deck, retired ones
+  // removed, the pool drawForfeit() deals from). It is only ever written with
+  // textContent.
+  // MEASUREMENT: no new event names. play_started (first draw of each deck)
+  // and play_wall_reached (the finish screen) with game 'fourKings', the
+  // /play/ beacon.
+  (function () {
+    'use strict';
+    var DATA = window.ANTICS_FOUR_KINGS;
+    function $(id) { return document.getElementById(id); }
+    if (!DATA || !DATA.ranks || !DATA.suits || !DATA.kingTitles || !$('fk')) return;
+    var FORFEITS = DATA.forfeits || [];
+
+    // --- the app's rules, pure ------------------------------------------------
+    // buildDeck(): every rank once per suit, suit by suit, as the app builds it.
+    function buildDeck(ranks, suits) {
+      var out = [];
+      suits.forEach(function (suit) {
+        ranks.forEach(function (r) { out.push({ rank: r.rank, title: r.title, party: r.party, suit: suit }); });
+      });
+      return out;
+    }
+    function shuffle(arr) {
+      var a = arr.slice();
+      for (var i = a.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var t = a[i]; a[i] = a[j]; a[j] = t;
+      }
+      return a;
+    }
+    // displayTitle(): a K shows the King it is (1 to 4), every other rank its title.
+    function displayTitle(card, kingsDrawn) {
+      if (card.rank !== 'K') return card.title;
+      var n = Math.min(4, Math.max(1, Math.round(kingsDrawn)));
+      return DATA.kingTitles[n - 1] || card.title;
+    }
+    // FORFEIT_RANKS: the ranks whose rule says forfeit get a forfeit idea.
+    var FORFEIT_RANKS = {};
+    DATA.ranks.forEach(function (r) { if (r.party.toLowerCase().indexOf('forfeit') !== -1) FORFEIT_RANKS[r.rank] = true; });
+    var RANK_NAMES = { A: 'Ace', J: 'Jack', Q: 'Queen', K: 'King' };
+    var SUIT_NAMES = { '♠': 'Spades', '♥': 'Hearts', '♦': 'Diamonds', '♣': 'Clubs' };
+    function cardName(c) { return (RANK_NAMES[c.rank] || c.rank) + ' of ' + (SUIT_NAMES[c.suit] || c.suit); }
+    function isRed(c) { return c.suit === '♥' || c.suit === '♦'; }
+    function forfeitIdea(f) { return 'Forfeit idea: ' + f; }   // APP rof.forfeitIdea
+
+    // --- promoter passthrough, as /play/ and /imposter-game/ do it -----------
+    var promo = { code: null, offer: null };
+    try {
+      var q = location.search.toLowerCase();
+      var mc = /[?&]c=([a-z0-9-]{1,32})(&|$)/.exec(q);
+      var mo = /[?&]o=([a-z0-9]{1,20})(&|$)/.exec(q);
+      if (mc) promo.code = mc[1];
+      if (mo) promo.offer = mo[1].toUpperCase();
+      if (promo.code || promo.offer) sessionStorage.setItem('anticsPlayPromo', JSON.stringify(promo));
+      else { var saved = sessionStorage.getItem('anticsPlayPromo'); if (saved) promo = JSON.parse(saved) || promo; }
+    } catch (e) {}
+    (function applyPromo() {
+      var code = /^[a-z0-9-]{1,32}$/.test(promo.code || '') ? promo.code : null;
+      var offer = /^[A-Z0-9]{1,20}$/.test(promo.offer || '') ? promo.offer : null;
+      promo.code = code; promo.offer = offer;
+      var a = $('fk-get');
+      a.href = '/get/?c=' + (code || 'site-fourkings-end') + (offer ? '&o=' + offer : '');
+      if (offer && /iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        var line = document.createElement('p');
+        line.className = 'note';
+        line.textContent = 'Your free week of Premium from the flyer is attached to that button.';
+        a.parentNode.insertBefore(line, a.nextSibling);
+      }
+    })();
+
+    // --- beacon, the /play/ shape: no identifiers, one random id per visit ----
+    var PLAY_SID = 'web-' + Math.random().toString(36).slice(2, 10);
+    function beacon(name, props) {
+      try {
+        fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
+          method: 'POST',
+          keepalive: true,
+          headers: { 'Content-Type': 'application/json', 'x-antics-key': '3ee624f1eea2a9e2b1f6aa66955369e4a4942134f46ac504' },
+          body: JSON.stringify({ events: [{ name: name, props: props, ts: new Date().toISOString(), sessionId: PLAY_SID, appVersion: 'site', platform: 'web' }] })
+        }).catch(function () {});
+      } catch (e) {}
+    }
+
+    // --- the table -------------------------------------------------------------
+    var state = { deck: [], drawn: 0, kings: 0, started: false, over: false, fOrder: [], fIdx: -1 };
+    var shownAt = 0;
+    var SETTLE_MS = 400;   // a quick double tap never skips a card
+
+    function nextForfeit() {
+      if (!FORFEITS.length) return '';
+      state.fIdx++;
+      if (state.fIdx >= state.fOrder.length) { state.fOrder = shuffle(FORFEITS); state.fIdx = 0; }
+      return state.fOrder[state.fIdx];
+    }
+    function showScreen(name) {
+      $('fk-play').hidden = name !== 'play';
+      $('fk-end').hidden = name !== 'end';
+    }
+    function visibleBottom() {
+      var bar = document.querySelector('.installbar');
+      if (bar && bar.getBoundingClientRect().height > 0) return bar.getBoundingClientRect().top - 8;
+      return window.innerHeight;
+    }
+    function keepInView() {
+      var root = $('fk');
+      var r = root.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > visibleBottom()) {
+        // A short screen (a phone held sideways) cannot show the whole table:
+        // line the card itself up at the top so its rule is never under the
+        // install bar.
+        var target = root;
+        var c = $('fk-card').getBoundingClientRect();
+        if (!$('fk-play').hidden && c.bottom - r.top > visibleBottom()) target = $('fk-card');
+        try { target.scrollIntoView({ block: 'start' }); } catch (e) { target.scrollIntoView(true); }
+      }
+    }
+    function renderCounts() {
+      $('fk-left').textContent = String(state.deck.length - state.drawn);
+      $('fk-kings').textContent = String(state.kings);
+      $('fk-kings-pill').classList.toggle('is-full', state.kings >= 4);
+    }
+
+    function newGame() {
+      state.deck = shuffle(buildDeck(DATA.ranks, DATA.suits));
+      state.drawn = 0; state.kings = 0; state.started = false; state.over = false;
+      $('fk-face').hidden = true;
+      $('fk-back').hidden = false;
+      $('fk-live').textContent = '';
+      $('fk-draw').textContent = 'Draw a card';
+      $('fk-restart').hidden = true;
+      renderCounts();
+      showScreen('play');
+    }
+
+    function draw() {
+      if (state.over || Date.now() - shownAt < SETTLE_MS) return;
+      if (state.drawn >= state.deck.length) { finish(); return; }
+      var card = state.deck[state.drawn];
+      if (!state.started) {
+        state.started = true;
+        beacon('play_started', { game: 'fourKings', names: 'no', code: promo.code || 'none' });
+      }
+      state.drawn++;
+      if (card.rank === 'K') state.kings++;
+      shownAt = Date.now();
+
+      var face = $('fk-face');
+      var corner = card.rank + card.suit;
+      var tone = isRed(card) ? 'fk-corner fk-red' : 'fk-corner fk-black';
+      $('fk-tl').className = tone + ' fk-tl'; $('fk-tl').textContent = corner;
+      $('fk-br').className = tone + ' fk-br'; $('fk-br').textContent = corner;
+      var title = displayTitle(card, state.kings);
+      $('fk-title').textContent = title;
+      $('fk-rule').textContent = card.party;
+      var idea = FORFEIT_RANKS[card.rank] ? nextForfeit() : '';
+      $('fk-forfeit').hidden = !idea;
+      $('fk-forfeit').textContent = idea ? forfeitIdea(idea) : '';
+      face.classList.toggle('is-finale', card.rank === 'K' && state.kings >= 4);
+      face.classList.remove('is-new');
+      void face.offsetWidth;   // restart the flip
+      face.classList.add('is-new');
+      $('fk-back').hidden = true;
+      face.hidden = false;
+      $('fk-live').textContent = cardName(card) + '. ' + title + '. ' + card.party + (idea ? ' ' + forfeitIdea(idea) : '');
+      $('fk-draw').textContent = state.drawn >= state.deck.length ? 'Finish the game' : 'Next card';
+      $('fk-restart').hidden = false;
+      renderCounts();
+      if (card.rank === 'K') { try { if (navigator.vibrate) navigator.vibrate(60); } catch (e) {} }
+      keepInView();
+    }
+
+    function finish() {
+      state.over = true;
+      beacon('play_wall_reached', { game: 'fourKings', cards: state.drawn, code: promo.code || 'none', reason: 'complete' });
+      showScreen('end');
+      keepInView();
+      try { $('fk-end-title').focus({ preventScroll: true }); } catch (e) {}
+    }
+
+    $('fk-card').addEventListener('click', draw);
+    $('fk-draw').addEventListener('click', draw);
+    $('fk-restart').addEventListener('click', function () {
+      if (state.drawn > 0 && !window.confirm('Start a new game with a fresh shuffle?')) return;
+      newGame();
+      $('fk-draw').focus();
+    });
+    $('fk-again').addEventListener('click', function () {
+      newGame();
+      keepInView();
+      $('fk-draw').focus();
+    });
+
+    newGame();
+  })();
+  </script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

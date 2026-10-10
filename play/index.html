@@ -163,8 +163,8 @@
     <!-- Screen 1: intro + game picker -->
     <section id="screen-intro">
       <h1>Play party games online, free</h1>
-      <p class="lead">One phone, pass it round. Pick a game and get ten free cards, right here, no download and no sign-up.</p>
-      <p class="lead">This is a taste of the Antics app: the same games and the same cards, dealt in your browser. The app has thousands more, remembers what your phone has already shown, and adds Imposter and The Four Kings, which are free to play.</p>
+      <p class="lead">One phone, pass it round. Pick a game and get ten free cards, right here, no download and no sign-up. The Four Kings deals its whole deck on its own page.</p>
+      <p class="lead">This is a taste of the Antics app: the same games and the same cards, dealt in your browser. The app has thousands more, remembers what your phone has already shown, and adds Imposter, which is free to play.</p>
       <!-- The picker is plain links in the HTML so it reads without JavaScript.
            The script below colours each tile and turns a plain click into
            "play this game here"; a modified click (new tab) follows the href
@@ -178,6 +178,11 @@
         <a class="pick-btn" data-game="mostLikelyTo" href="/most-likely-to-questions/"><span class="pick-emoji" aria-hidden="true">👉</span><span class="pick-text"><span class="pick-name">Most Likely To</span><span class="pick-blurb">Point fingers. Ruin friendships</span></span><span class="pick-chev" aria-hidden="true">&rsaquo;</span></a>
         <a class="pick-btn" data-game="wouldYouRather" href="/would-you-rather-questions/"><span class="pick-emoji" aria-hidden="true">🤔</span><span class="pick-text"><span class="pick-name">Would You Rather</span><span class="pick-blurb">Impossible choices, real consequences</span></span><span class="pick-chev" aria-hidden="true">&rsaquo;</span></a>
         <a class="pick-btn" data-game="odds" href="/what-are-the-odds/"><span class="pick-emoji" aria-hidden="true">🎯</span><span class="pick-text"><span class="pick-name">What Are The Odds</span><span class="pick-blurb">Shout the same number, do the thing</span></span><span class="pick-chev" aria-hidden="true">&rsaquo;</span></a>
+        <!-- The Four Kings plays on its own page (/four-kings-online/, the whole
+             free deck), so this tile is a plain link: no data-game, the script
+             leaves it alone. Gradient is the app's tile (gamesConfig.ts: pink
+             to orange, white text). -->
+        <a class="pick-btn" href="/four-kings-online/" style="background: linear-gradient(135deg, #FF2E7E, #FFB02E)"><span class="pick-emoji" aria-hidden="true">🔥</span><span class="pick-text"><span class="pick-name">The Four Kings</span><span class="pick-blurb">The classic circle game, 52 cards of chaos</span></span><span class="pick-chev" aria-hidden="true">&rsaquo;</span></a>
       </div>
 
       <!-- A real free card from each game, in the HTML. Every card below is
