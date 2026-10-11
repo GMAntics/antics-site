@@ -214,7 +214,6 @@ window.ANTICS_QUESTIONS = {
   "Show the room your search history, ten seconds, no scrolling past anything.",
   "Take one bite of a raw onion like it's an apple.",
   "Swap phones, unlocked, with the person opposite for ten minutes.",
-  "Attempt the splits, right now, no warm-up.",
   "Tell the story of your worst ever date, names redacted, nothing else redacted.",
   "Call whoever the group picks from your contacts and sing to them until they hang up.",
   "Let the group order one thing to your house on your account, under a tenner.",

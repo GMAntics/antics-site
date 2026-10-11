@@ -222,7 +222,6 @@ window.ANTICS_QUESTIONS_CLEAN = {
   "Wear a tea towel as a cape for the next twenty minutes.",
   "Give a two minute presentation on a topic the group picks, unprepared.",
   "Compliment a stranger next time you leave the house and report back.",
-  "Attempt the splits, right now, with no warm up.",
   "Let the group decide what you order at the next coffee shop.",
   "Do a handstand against the wall for as long as you can manage.",
   "Recite a nursery rhyme as though it were extremely serious news.",
