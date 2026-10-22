@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Imposter on the big screen | Antics</title>
+  <meta name="description" content="Show your Antics Imposter room on a TV or laptop: who is in, the round and the reveal. Never anyone's card.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#0E0A1F">
+  <!-- anticsapp.com/tv: the way onto a room's TV view. NO SCRIPT ON PURPOSE:
+       a plain form that submits to /j/?room=CODE&tv=1, so no redirect line
+       can ever break it (AGENTS.md law of 7 Sep 2026). The join page reads the
+       code case-blind. Imposter rooms, 1.1.5 (app repo,
+       ops/imposter-rooms-app-2026-10-22/PLAN.md section 5.2). -->
+  <style>
+    :root { --bg: #0E0A1F; --surface: #1C1535; --pink: #FF2E7E; --action: #EA0059; --white: #FFFFFF; --dim: #9C92C7; --body: #D8D3EE; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5; padding: 7vh 16px 48px; text-align: center; -webkit-text-size-adjust: 100%;
+    }
+    main { max-width: min(820px, 100%); margin: 0 auto; }
+    .brand { font-size: clamp(14px, 2vh, 26px); font-weight: 900; letter-spacing: 4px; color: var(--dim); margin-bottom: 20px; }
+    h1 { font-size: clamp(30px, 5.6vh, 72px); font-weight: 900; line-height: 1.12; margin-bottom: 10px; }
+    .lead { color: var(--body); font-size: clamp(16px, 2.7vh, 34px); margin-bottom: 26px; }
+    label { display: block; font-size: clamp(13px, 1.8vh, 22px); font-weight: 800; letter-spacing: 2px; color: var(--dim); margin-bottom: 8px; }
+    input[type=text] {
+      width: 100%; background: var(--surface); border: 3px solid transparent; border-radius: 16px; outline: none;
+      color: var(--white); font-size: clamp(34px, 7vh, 90px); font-weight: 900; padding: 14px 16px;
+      text-transform: uppercase; letter-spacing: .3em; text-align: center;
+    }
+    input[type=text]:focus { border-color: var(--pink); }
+    button {
+      font: inherit; border: 0; cursor: pointer; border-radius: 16px; font-weight: 800; width: 100%;
+      margin-top: 18px; padding: 2vh 20px; font-size: clamp(18px, 3vh, 36px);
+      background: var(--action); color: var(--white);
+    }
+    button:focus-visible { outline: 3px solid var(--white); outline-offset: 3px; }
+    .small { color: var(--dim); font-size: clamp(14px, 2vh, 24px); margin-top: 22px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">ANTICS</div>
+    <h1>Put the room on the TV</h1>
+    <p class="lead">Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.</p>
+    <form action="/j/" method="get" autocomplete="off">
+      <label for="room">ROOM CODE</label>
+      <input id="room" name="room" type="text" required minlength="4" maxlength="4" pattern="[A-Za-z0-9]{4}" title="The four character code from the host's phone" inputmode="text" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="····" autofocus>
+      <input type="hidden" name="tv" value="1">
+      <button type="submit">Show the room</button>
+    </form>
+    <p class="small">Open this on a laptop, tablet or smart TV, or on a spare laptop or iPad you AirPlay to the TV. Never mirror a phone that is playing: it would show that phone's card.</p>
+  </main>
+</body>
+</html>

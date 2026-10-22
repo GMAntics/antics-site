@@ -75,6 +75,69 @@
     .live { font-size: 12px; color: var(--dim); margin-top: 22px; }
     .wall { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
     .wall a.cta { display: block; background: var(--white); color: #17112f; font-weight: 900; border-radius: 16px; padding: 15px; text-decoration: none; margin-top: 12px; }
+    .tvbar { margin-top: 10px; }
+    .tvon { color: var(--good); font-weight: 800; font-size: 14px; }
+    .tvbar .link { margin-top: 0; padding: 6px 10px; }
+
+    /* ---- TV view (?tv=1): public room state only, sized to read across a room.
+       Type is in vh so a 1080p television and a 13 inch laptop both work;
+       padding keeps clear of a television's overscan. Nothing here is a tap
+       target once the code is in. ---- */
+    body.tv { padding: 4vh 5vw; min-height: 100vh; font-size: clamp(16px, 2.4vh, 34px); }
+    body.tv main { max-width: none; text-align: left; }
+    body.tv .brand { display: none; }
+    body.tv #live { display: none; }
+    .tv-entry { max-width: min(820px, 100%); margin: 6vh auto 0; text-align: center; }
+    .tv-entry .brand { display: block !important; font-size: clamp(13px, 2vh, 26px); }
+    .tv-entry h1 { font-size: clamp(30px, 5.4vh, 70px); }
+    .tv-entry .lead { font-size: clamp(16px, 2.7vh, 34px); }
+    .tv-entry label { font-size: clamp(12px, 1.8vh, 22px); }
+    .tv-entry button { font-size: clamp(17px, 3vh, 36px); padding: 2vh 20px; }
+    .tv-entry .error { font-size: clamp(15px, 2.4vh, 30px); }
+    .tv-entry .small { font-size: clamp(13px, 2vh, 24px); }
+    #tv-in-code { text-transform: uppercase; letter-spacing: .3em; text-align: center; font-size: clamp(34px, 7vh, 90px); font-weight: 900; }
+    .tv-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4vw; font-weight: 900; letter-spacing: .3em; color: var(--dim); font-size: clamp(13px, 2.1vh, 30px); margin-bottom: 3.5vh; }
+    .tv-head .tv-join { letter-spacing: .04em; color: var(--body); font-weight: 800; }
+    .tv-grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 5vw; align-items: center; }
+    .tv-kicker { font-size: clamp(12px, min(2.7vh, 4vw), 38px); font-weight: 900; letter-spacing: .25em; color: var(--dim); text-transform: uppercase; }
+    .tv-code { font-size: clamp(56px, min(18vh, 13vw), 250px); font-weight: 900; letter-spacing: .12em; line-height: 1; margin: 1.2vh 0 1vh; }
+    .tv-url { font-size: clamp(16px, min(3.6vh, 5.4vw), 50px); font-weight: 800; color: var(--body); }
+    .tv-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 1.4vh 1.2vw; margin-top: 3.5vh; }
+    .tv-chips li { background: var(--surface); border-radius: 999px; padding: .45em 1em; font-size: clamp(16px, min(3.4vh, 5.2vw), 46px); font-weight: 800; display: flex; align-items: center; gap: .5em; max-width: 100%; }
+    .tv-chips .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tv-chips .tag { font-size: .42em; padding: .3em .8em; }
+    .tv-chips li.looked { background: rgba(46,230,168,.16); }
+    .tv-chips .tick { color: var(--good); font-weight: 900; }
+    .tv-line { font-size: clamp(16px, min(3.3vh, 5vw), 46px); color: var(--body); font-weight: 700; margin-top: 3vh; }
+    .tv-small { font-size: clamp(13px, 2.1vh, 30px); color: var(--dim); font-weight: 700; margin-top: 2vh; }
+    .tv-big { font-size: clamp(34px, min(9.5vh, 7vw), 150px); font-weight: 900; line-height: 1.05; margin-top: 1vh; }
+    /* On a landscape screen the room sits in the middle of the glass, not
+       stuck to the top with the bottom half empty. */
+    #tv-lobby, #tv-dealt, #tv-revealed { min-height: 76vh; }
+    #tv-lobby { align-content: center; }
+    #tv-dealt, #tv-revealed { display: flex; flex-direction: column; justify-content: center; }
+    .tv-qr { width: min(44vh, 38vw); text-align: center; }
+    .tv-qr .qrbox { background: #FFFFFF; border-radius: 2.4vh; padding: 1.4vh; aspect-ratio: 1 / 1; }
+    .tv-qr svg { display: block; width: 100%; height: 100%; }
+    .tv-qr p { font-size: clamp(14px, 2.5vh, 34px); color: var(--body); font-weight: 700; margin-top: 1.6vh; }
+    .tv-reveal { max-width: 70vw; }
+    .tv-names { font-size: clamp(44px, min(14vh, 9vw), 210px); color: var(--pink); font-weight: 900; line-height: 1.02; overflow-wrap: anywhere; margin: 1vh 0 3vh; }
+    .tv-word { background: linear-gradient(160deg, var(--card1), var(--card2)); border-radius: 3vh; padding: 3vh 3vw; display: inline-block; max-width: 100%; }
+    .tv-word .big { font-size: clamp(36px, 8.5vh, 130px); font-weight: 900; line-height: 1.1; overflow-wrap: anywhere; }
+    .tv-word .sub { font-size: clamp(16px, 3vh, 42px); color: var(--body); font-weight: 700; margin-top: 1vh; }
+    .tv-get { position: fixed; left: 5vw; bottom: 4vh; font-size: clamp(14px, 2.6vh, 36px); font-weight: 800; color: var(--body); }
+    .tv-get a { color: var(--white); text-decoration: none; }
+    .tv-corner { position: fixed; right: 5vw; bottom: 4vh; width: min(22vh, 18vw); }
+    .tv-corner p { font-size: clamp(12px, 1.9vh, 26px); }
+    .tv-foot { position: fixed; right: 5vw; top: 1.4vh; font-size: clamp(11px, 1.6vh, 22px); color: var(--dim); font-weight: 700; }
+    @media (orientation: portrait), (max-width: 700px) {
+      .tv-grid { grid-template-columns: minmax(0, 1fr); }
+      .tv-qr { width: min(38vh, 72vw); margin: 0 auto; }
+      .tv-reveal { max-width: none; }
+      .tv-corner, .tv-get { position: static; margin: 3vh auto 0; }
+      .tv-head { flex-direction: column; gap: 1vh; }
+      #tv-lobby, #tv-dealt, #tv-revealed { min-height: 0; }
+    }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -114,6 +177,7 @@
       <p class="lead" style="margin-bottom:0">Room code</p>
       <div class="code" id="lobby-code"></div>
       <p class="small" style="margin-top:0" id="lobby-link"></p>
+      <div class="tvslot" id="tvslot-lobby"></div>
       <button id="btn-share" class="ghost">Share the join link</button>
       <div class="panel">
         <h2 id="lobby-count">IN THE ROOM</h2>
@@ -121,6 +185,7 @@
       </div>
       <button id="btn-start" class="primary" hidden>Deal the round</button>
       <p id="lobby-wait" class="small"></p>
+      <p id="lobby-tvhint" class="small"></p>
       <p id="lobby-error" class="error" role="alert"></p>
       <button id="btn-leave" class="link">Leave the room</button>
     </section>
@@ -148,6 +213,7 @@
       <p class="lead" id="card-starter" style="margin-top:18px"></p>
       <button id="btn-reveal" class="primary">Reveal the imposter</button>
       <p id="card-error" class="error" role="alert"></p>
+      <div class="tvslot" id="tvslot-card"></div>
     </section>
 
     <section id="screen-reveal" hidden>
@@ -161,6 +227,7 @@
       <button id="btn-again" class="primary" hidden>Deal the next round</button>
       <p id="reveal-wait" class="small"></p>
       <p id="reveal-error" class="error" role="alert"></p>
+      <div class="tvslot" id="tvslot-reveal"></div>
       <div class="wall" id="wall">
         <p class="lead" style="margin-bottom:0">Antics is a party game app for iPhone and Android: a stack of games, thousands of cards, no ads.</p>
         <a class="cta" id="wall-get" href="/get/?c=web-room">Get Antics free</a>
@@ -172,6 +239,81 @@
       <h1>That room has ended</h1>
       <p class="lead">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
       <button id="btn-rejoin" class="primary">Join another room</button>
+    </section>
+
+    <!-- One "TV connected" line, moved into the slot of whichever player
+         screen is showing. The host also gets the button that disconnects
+         every TV watching the room. -->
+    <div class="tvbar" id="tvbar" hidden>
+      <p class="tvon">TV connected</p>
+      <button id="btn-tv-off" class="link" hidden>Disconnect the TV</button>
+    </div>
+
+    <!-- THE TV VIEW (?tv=1). It is sent only what a player who joined late is
+         sent, minus any card: the code, who is in, who has looked, who starts,
+         and the reveal once it has happened. It never takes a seat. -->
+    <section id="screen-tv" hidden>
+      <div class="tv-entry" id="tv-entry">
+        <div class="brand">ANTICS</div>
+        <h1 id="tv-entry-title">Put the room on the TV</h1>
+        <p class="lead" id="tv-entry-lead">Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.</p>
+        <label for="tv-in-code">ROOM CODE</label>
+        <input id="tv-in-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
+        <button id="btn-tv-watch" class="primary">Show the room</button>
+        <p id="tv-error" class="error" role="alert"></p>
+        <p class="small">Open this on a laptop, tablet or smart TV, or on a spare laptop or iPad you AirPlay to the TV. Never mirror a phone that is playing: it would show that phone's card.</p>
+      </div>
+
+      <div id="tv-room" hidden>
+        <div class="tv-head">
+          <span>ANTICS · IMPOSTER</span>
+          <span class="tv-join" id="tv-head-join"></span>
+        </div>
+
+        <div id="tv-lobby" class="tv-grid" hidden>
+          <div>
+            <div class="tv-kicker">Join the room</div>
+            <div class="tv-code" id="tv-code"></div>
+            <div class="tv-url" id="tv-url"></div>
+            <ul class="tv-chips" id="tv-lobby-players"></ul>
+            <p class="tv-line" id="tv-lobby-wait"></p>
+            <p class="tv-small" id="tv-decks"></p>
+          </div>
+          <div class="tv-qr" id="tv-qr-lobby">
+            <div class="qrbox" id="tv-qr-lobby-box"></div>
+            <p id="tv-qr-lobby-caption"></p>
+          </div>
+        </div>
+
+        <div id="tv-dealt" hidden>
+          <div class="tv-kicker" id="tv-round"></div>
+          <div class="tv-big">Everyone, check your phone.</div>
+          <ul class="tv-chips" id="tv-dealt-players"></ul>
+          <p class="tv-small" id="tv-looked"></p>
+          <p class="tv-line" id="tv-starter"></p>
+          <p class="tv-line">Vote, then anyone can reveal on their phone.</p>
+        </div>
+
+        <div id="tv-revealed" hidden>
+          <div class="tv-reveal">
+            <div class="tv-kicker" id="tv-reveal-kicker"></div>
+            <div class="tv-names" id="tv-reveal-names"></div>
+            <div class="tv-word">
+              <div class="tv-kicker" id="tv-reveal-word-kicker"></div>
+              <div class="big" id="tv-reveal-word"></div>
+              <div class="sub" id="tv-reveal-hint"></div>
+            </div>
+            <p class="tv-small" id="tv-reveal-wait">Waiting for the host to deal the next round.</p>
+          </div>
+          <div class="tv-qr tv-corner" id="tv-qr-corner">
+            <div class="qrbox" id="tv-qr-corner-box"></div>
+            <p>Late? Scan to join the next round</p>
+          </div>
+          <p class="tv-get">Get Antics: <a id="tv-get" href="/get/?c=web-room">anticsapp.com/get</a></p>
+        </div>
+
+        <p class="tv-foot" id="tv-foot"></p>
+      </div>
     </section>
 
     <p class="live" id="live"></p>
@@ -197,6 +339,17 @@
     //
     // Everything the server sends is drawn with textContent. Player names
     // are other people's typed text and are never parsed as HTML.
+    //
+    // THE TV VIEW (?tv=1, added 22 Oct 2026 for 1.1.5; PLAN.md section 5 in
+    // the app repo, ops/imposter-rooms-app-2026-10-22/). A television, laptop
+    // or tablet WATCHES a room: it calls `watch` once with the code and then
+    // only `screen`, with its own screen token in its own sessionStorage key.
+    // It never calls join, state, seen, reveal, leave or kick, so it never
+    // takes a seat and can never be dealt a card. The server sends it exactly
+    // what a player who joined late is sent, minus the card: the code, who is
+    // in, who has looked, who starts, and the reveal block only once the room
+    // says revealed. As a second lock, this page reads `reveal` only when the
+    // status is 'revealed', and never reads a card in TV mode at all.
     // ---------------------------------------------------------------------
 
     var PROJECT = 'https://amioohsgipjzagmclwle.supabase.co';
@@ -221,6 +374,16 @@
     var USE_PROD = !LOCAL || /[?&]api=prod(&|$)/.test(location.search);
     var API = (USE_PROD ? PROJECT : location.origin) + '/functions/v1/room/';
 
+    // QR codes on the TV view. qrcode-generator 1.4.4 (published 18 Sep 2019),
+    // pinned with SRI. Hash read 22 Oct 2026 and checked three ways: the npm
+    // tarball's qrcode.js, jsDelivr's own published hash and this download all
+    // agree. If it fails to load, the TV shows the code and the address as
+    // text, which is all a QR carries anyway.
+    var QR_JS = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';
+    var QR_JS_SRI = 'sha384-8FWZA6BGMXhsfO+BLtrJK0We6gg5o1JyO8xQm6peWDEUs17ACA5ziE/NIAkl9z2k';
+
+    var TV = /[?&]tv=1(&|$)/.test(location.search);
+
     var POLL_WITH_BELL_MS = 30000;
     var POLL_NO_BELL_MS = 5000;
 
@@ -239,11 +402,12 @@
       host_only: 'Only the host can do that.',
       not_in_round: 'You joined mid-round. You are in the next one.',
       round_in_progress: 'Wait for the round to end.',
+      screens_full: 'Two screens are already showing this room. The host can disconnect them from their phone.',
       network: 'No connection. Trying again.'
     };
 
     function $(id) { return document.getElementById(id); }
-    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone'];
+    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv'];
     var current = null;
     function show(name) {
       if (current === name) return;
@@ -266,11 +430,16 @@
     $('wall-get').href = '/get/?c=' + (promo.code || 'web-room') + (promo.offer ? '&o=' + promo.offer : '');
 
     // --- measurement: WIRED, AND SWITCHED OFF -------------------------------
-    // Every name below is PROPOSED, not ruled (app repo:
-    // ops/analytics/delta-imposter-rooms.md). A new event name is Guy's call,
-    // so RULED stays empty and nothing is sent until he says yes; then the
-    // approved names go in this list and no other line changes. No event
-    // ever carries a player name, a token or a word.
+    // Nothing is sent for a name until it is in RULED. Six names were RULED
+    // by Guy on 5 Oct 2026 (contract delta A-61): room_created, room_joined,
+    // room_join_failed, room_started, room_reveal_viewed, room_install_tapped.
+    // They go in this list at go-live step 7a, which is what switches the
+    // page's analytics on. Four more are wired below and are PROPOSED, NOT
+    // ruled (decision D7 of ops/imposter-rooms-app-2026-10-22/README.md in
+    // the app repo): room_link_shared, room_left, room_screen_opened, and the
+    // app-only room_setup_opened. A new event name is Guy's call, so each
+    // joins RULED only on his word, and no other line changes. No event ever
+    // carries a player name, a room code, a token, the word or the hint.
     var RULED = [];
     var SID = 'web-' + Math.random().toString(36).slice(2, 10);
     function track(name, props) {
@@ -293,6 +462,16 @@
     var view = null;
     function saveSession() { try { sessionStorage.setItem('anticsRoom', JSON.stringify(session)); } catch (e) {} }
     function clearSession() { session = { code: null, token: null }; view = null; try { sessionStorage.removeItem('anticsRoom'); } catch (e) {} }
+
+    // A TV's screen token lives under its OWN key, so one laptop can be a TV
+    // in one tab and a player in another without the two ever sharing a token.
+    var tv = { code: null, token: null };
+    var screenView = null;
+    var trouble = false; // a TV whose last refresh failed polls fast until one succeeds
+    function saveTv() { try { sessionStorage.setItem('anticsRoomTv', JSON.stringify(tv)); } catch (e) {} }
+    function clearTv() { tv = { code: null, token: null }; screenView = null; try { sessionStorage.removeItem('anticsRoomTv'); } catch (e) {} }
+    function hasSeat() { return TV ? !!tv.token : !!session.token; }
+    function roomCode() { return TV ? tv.code : session.code; }
 
     function api(route, body) {
       return fetch(API + route, {
@@ -340,6 +519,16 @@
 
     function categoryLabel(id) { return CATEGORY_NAMES[id] || 'Mystery deck'; }
 
+    /** "TV connected" on every player screen while a TV watches the room
+     *  (`view.screens`, absent on a phase 0 server, so it reads as none). */
+    function drawTvBar() {
+      var on = (view.screens || 0) > 0;
+      var slot = $('tvslot-' + (view.status === 'lobby' ? 'lobby' : view.status === 'dealt' ? 'card' : 'reveal'));
+      if (slot && $('tvbar').parentNode !== slot) slot.appendChild($('tvbar'));
+      $('tvbar').hidden = !on;
+      $('btn-tv-off').hidden = !(on && view.you.isHost);
+    }
+
     function draw() {
       if (!view) return;
       var n = view.players.length;
@@ -347,16 +536,18 @@
         // A new deal or a new phase: the card starts closed, every time.
         if (view.status === 'dealt' && view.round !== lastRoundDrawn) cardOpen = false;
         if (view.status === 'revealed' && lastStatus !== 'revealed') {
-          track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) });
+          track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll' });
         }
         lastStatus = view.status;
         lastRoundDrawn = view.round;
       }
+      drawTvBar();
 
       if (view.status === 'lobby') {
         show('lobby');
         $('lobby-code').textContent = view.code;
         $('lobby-link').textContent = 'anticsapp.com/j/' + view.code;
+        $('lobby-tvhint').textContent = 'On a TV or laptop? Go to anticsapp.com/tv and type ' + view.code + '.';
         $('lobby-count').textContent = 'IN THE ROOM (' + n + ' OF 12)';
         playerList($('lobby-players'), false, view.you.isHost);
         $('btn-start').hidden = !view.you.isHost;
@@ -430,7 +621,12 @@
         draw();
         return true;
       }
-      if (r.status === 404 && session.token) { disconnect(); clearSession(); show('gone'); return false; }
+      if (r.status === 404 && session.token) {
+        // The server says GONE for both, so the room's own clock decides
+        // which: past its expiry it ended, before it the host removed us.
+        if (view) track('room_left', { via: 'web', reason: Date.parse(view.expiresAt) <= Date.now() ? 'ended' : 'removed', round_n: view.round });
+        disconnect(); clearSession(); show('gone'); return false;
+      }
       if (errorId) say(errorId, r);
       return false;
     }
@@ -439,30 +635,34 @@
     var pollTimer = null, bell = null, bellUp = false, inflight = false, again = false;
 
     function refresh() {
-      if (!session.token) return;
+      if (!hasSeat()) return;
       if (inflight) { again = true; return; }
       inflight = true;
-      api('state', mine()).then(function (r) {
+      // A TV asks `screen` with its screen token; a player asks `state` with
+      // its seat. The two are never mixed.
+      var ask = TV ? api('screen', { code: tv.code, screenToken: tv.token }) : api('state', mine());
+      ask.then(function (r) {
         inflight = false;
-        take(r);
+        if (TV) takeScreen(r); else take(r);
         if (again) { again = false; refresh(); }
       });
     }
     function schedule() {
       clearTimeout(pollTimer);
-      if (!session.token) return;
+      if (!hasSeat()) return;
       pollTimer = setTimeout(function () {
         if (!document.hidden) refresh();
         schedule();
-      }, bellUp ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS);
+      }, bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS);
       $('live').textContent = bellUp ? 'Live' : 'Updating every few seconds';
+      if (TV) $('tv-foot').textContent = trouble ? 'Reconnecting' : '';
     }
     function connectBell() {
       if (!ANON_KEY || !USE_PROD || bell) return;
       var start = function () {
         try {
           var client = window.supabase.createClient(PROJECT, ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
-          var channel = client.channel('room:' + session.code);
+          var channel = client.channel('room:' + roomCode());
           channel.on('broadcast', { event: 'poke' }, function () { refresh(); });
           channel.subscribe(function (status) {
             bellUp = status === 'SUBSCRIBED';
@@ -510,7 +710,7 @@
     });
     function deal(btn, errorId) {
       busy(btn, api('start', mine())).then(function (r) {
-        if (take(r, errorId)) { var n = view.players.length; track('room_started', { host: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) }); }
+        if (take(r, errorId)) { var n = view.players.length; track('room_started', { host: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll' }); }
       });
     }
     $('btn-start').addEventListener('click', function () { deal(this, 'lobby-error'); });
@@ -527,6 +727,7 @@
     });
     function leave() {
       if (!confirm('Leave this room?')) return;
+      if (view) track('room_left', { via: 'web', reason: 'leave', round_n: view.round });
       api('leave', mine());
       disconnect(); clearSession(); start();
     }
@@ -534,14 +735,266 @@
     $('btn-leave2').addEventListener('click', leave);
     $('btn-rejoin').addEventListener('click', function () { start(); });
     $('btn-share').addEventListener('click', function () {
-      var url = 'https://anticsapp.com/j/' + view.code;
+      // Decision D4: the shared link is the join page itself, so a pasted link
+      // previews as "Join our Imposter room", not the 404 page's "Page not
+      // found". The line people TYPE stays anticsapp.com/j/CODE.
+      var url = 'https://anticsapp.com/j/?room=' + view.code;
       var text = 'Join our Imposter room on Antics. Code ' + view.code;
+      track('room_link_shared', { via: 'web' });
       if (navigator.share) navigator.share({ title: 'Antics Imposter', text: text, url: url }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { $('btn-share').textContent = 'Link copied'; });
+    });
+    $('btn-tv-off').addEventListener('click', function () {
+      // Host only, at any status: a screen holds no card. Every TV watching
+      // the room is disconnected; anyone with the code can put one back.
+      busy(this, api('kick', mine({ screens: true }))).then(function (r) { take(r); });
     });
     $('wall-get').addEventListener('click', function () { track('room_install_tapped', { round_n: view ? view.round : 0 }); });
     $('in-code').addEventListener('input', function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
     ['in-name', 'in-code'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') $('btn-join').click(); }); });
+
+    // --- the TV view ------------------------------------------------------------
+    function joinUrl(code) { return 'https://anticsapp.com/j/?room=' + code; }
+
+    /** One fixed-string message on the TV's code box (gone, full, no such room). */
+    function tvEntry(code, title, message) {
+      show('tv');
+      $('tv-room').hidden = true;
+      $('tv-entry').hidden = false;
+      $('tv-entry-title').textContent = title || 'Put the room on the TV';
+      $('tv-error').textContent = message || '';
+      if (code) $('tv-in-code').value = code;
+      $('tv-in-code').focus();
+    }
+
+    var watchRetry = null;
+    var watchBackoff = 5000;
+    function watchRoom(raw) {
+      clearTimeout(watchRetry);
+      var code = String(raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (code.length !== 4) { tvEntry(code, null, 'Type the four character code from the host\'s phone.'); return; }
+      // One room per TV tab: drop any earlier screen's poll and doorbell first,
+      // so an old room can never draw over the one asked for now.
+      if (tv.token) { disconnect(); clearTv(); }
+      $('btn-tv-watch').disabled = true;
+      api('watch', { code: code }).then(function (r) {
+        $('btn-tv-watch').disabled = false;
+        if (r.ok && r.data.screen && r.data.screenToken) {
+          watchBackoff = 5000;
+          tv = { code: r.data.screen.code, token: r.data.screenToken };
+          saveTv();
+          try { history.replaceState(null, '', '/j/?room=' + tv.code + '&tv=1'); } catch (e) {}
+          takeScreen({ ok: true, status: 200, data: { screen: r.data.screen } });
+          connect();
+          keepAwake();
+          var n = screenView.players.length;
+          track('room_screen_opened', { players_n: n, players_bucket: bucketPlayers(n), status: screenView.status });
+          return;
+        }
+        if (r.status === 0 || r.status >= 500) {
+          // No connection or a server hiccup: say so, and quietly try again.
+          tvEntry(code, null, ERRORS.network);
+          watchRetry = setTimeout(function () { watchRoom(code); }, watchBackoff);
+          watchBackoff = Math.min(watchBackoff * 2, 30000);
+          return;
+        }
+        tvEntry(code, null, ERRORS[r.data.error] || 'Something went wrong. Try again.');
+      });
+    }
+
+    /** Every TV response goes through here, so the TV always follows the server. */
+    function takeScreen(r) {
+      if (r.ok && r.data.screen) {
+        screenView = r.data.screen;
+        var was = trouble;
+        trouble = false;
+        drawTv();
+        if (was) schedule(); // back to the slow poll, and the corner note clears
+        return true;
+      }
+      if (r.status === 404 && tv.token) {
+        // A wrong or removed screen token, or a room that ended, all read the
+        // same from the server. Never re-watch on our own: if the host
+        // disconnected this TV, putting it straight back would undo them.
+        var code = tv.code;
+        disconnect(); clearTv();
+        tvEntry(code, 'This screen is no longer showing the room', 'The host disconnected it, or the room has ended. Show it again with the code, or ask for a fresh one.');
+        return false;
+      }
+      // No connection, a server hiccup or a rate limit: keep the last picture
+      // on screen, say "Reconnecting" in the corner, and poll fast till it clears.
+      trouble = true;
+      schedule();
+      return false;
+    }
+
+    function tvChips(ul, showLooked) {
+      ul.textContent = '';
+      screenView.players.forEach(function (p) {
+        var li = document.createElement('li');
+        if (showLooked && p.ready) {
+          li.className = 'looked';
+          var t = document.createElement('span'); t.className = 'tick'; t.textContent = '✓'; li.appendChild(t);
+        }
+        var name = document.createElement('span'); name.className = 'name'; name.textContent = p.name; li.appendChild(name);
+        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = 'HOST'; li.appendChild(h); }
+        ul.appendChild(li);
+      });
+    }
+
+    function drawTv() {
+      var v = screenView;
+      if (!v) return;
+      show('tv');
+      $('tv-entry').hidden = true;
+      $('tv-room').hidden = false;
+      var status = v.status === 'dealt' || v.status === 'revealed' ? v.status : 'lobby';
+      var n = v.players.length;
+      $('tv-lobby').hidden = status !== 'lobby';
+      $('tv-dealt').hidden = status !== 'dealt';
+      $('tv-revealed').hidden = status !== 'revealed';
+      $('tv-head-join').textContent = status === 'lobby' ? '' : 'Join: anticsapp.com/j/' + v.code;
+      if (status !== 'revealed') {
+        // The last reveal was public, but it is not this round's: the TV's
+        // page holds only what the room is showing now.
+        ['tv-reveal-kicker', 'tv-reveal-names', 'tv-reveal-word-kicker', 'tv-reveal-word', 'tv-reveal-hint'].forEach(function (id) { $(id).textContent = ''; });
+      }
+
+      if (status === 'lobby') {
+        $('tv-code').textContent = v.code;
+        $('tv-url').textContent = 'anticsapp.com/j/' + v.code;
+        tvChips($('tv-lobby-players'), false);
+        $('tv-lobby-wait').textContent = n < 3
+          ? (n === 0 ? 'Waiting for players.' : 'Waiting for at least 3 players.')
+          : 'Waiting for the host to deal.';
+        var decks = (v.categories || []).map(categoryLabel);
+        $('tv-decks').textContent = decks.length ? 'Decks: ' + decks.join(', ') : '';
+        $('tv-qr-lobby-caption').textContent = 'Scan to join, or go to anticsapp.com/j/' + v.code;
+        drawQr($('tv-qr-lobby-box'), $('tv-qr-lobby'), v.code);
+        return;
+      }
+
+      if (status === 'dealt') {
+        $('tv-round').textContent = 'Round ' + v.round;
+        tvChips($('tv-dealt-players'), true);
+        var looked = v.players.filter(function (p) { return p.ready; }).length;
+        $('tv-looked').textContent = looked + ' of ' + n + ' have looked';
+        // Nothing about how many imposters there are: in a Mischief round
+        // that line would be a lie, and it is not the TV's to say.
+        $('tv-starter').textContent = v.starterName ? v.starterName + ' starts. One clue each, round the room.' : 'One clue each, round the room.';
+        return;
+      }
+
+      // revealed: the reveal block is read ONLY here, after the status says so.
+      var r = v.reveal;
+      if (!r) {
+        $('tv-reveal-kicker').textContent = 'Round over';
+        $('tv-reveal-names').textContent = '';
+        $('tv-reveal-word-kicker').textContent = '';
+        $('tv-reveal-word').textContent = 'Check your phones';
+        $('tv-reveal-hint').textContent = '';
+      } else if (r.mischief) {
+        $('tv-reveal-kicker').textContent = 'Mischief round';
+        $('tv-reveal-names').textContent = 'You were ALL the imposter';
+      } else {
+        $('tv-reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
+        $('tv-reveal-names').textContent = r.imposterNames.join(' and ');
+      }
+      if (r) {
+        $('tv-reveal-word-kicker').textContent = (r.categoryKind === 'place' ? 'The place' : 'The secret word') + ' · ' + categoryLabel(r.categoryId);
+        $('tv-reveal-word').textContent = r.word;
+        $('tv-reveal-hint').textContent = r.hint ? 'The hint was: ' + r.hint : '';
+      }
+      drawQr($('tv-qr-corner-box'), $('tv-qr-corner'), v.code);
+    }
+
+    // QR: drawn as an SVG with DOM calls (no innerHTML), only for the code.
+    var qrState = 'idle'; // idle, loading, ready, failed
+    var qrWaiting = [];
+    function loadQr(then) {
+      if (window.qrcode) qrState = 'ready';
+      if (qrState === 'ready') return then();
+      if (qrState === 'failed') return;
+      qrWaiting.push(then);
+      if (qrState === 'loading') return;
+      qrState = 'loading';
+      var s = document.createElement('script');
+      s.src = QR_JS; s.integrity = QR_JS_SRI; s.crossOrigin = 'anonymous';
+      s.onload = function () { qrState = window.qrcode ? 'ready' : 'failed'; var w = qrWaiting; qrWaiting = []; if (qrState === 'ready') w.forEach(function (f) { f(); }); else hideQrs(); };
+      s.onerror = function () { qrState = 'failed'; qrWaiting = []; hideQrs(); };
+      document.head.appendChild(s);
+    }
+    function hideQrs() { $('tv-qr-lobby').hidden = true; $('tv-qr-corner').hidden = true; }
+    function drawQr(box, wrap, code) {
+      if (qrState === 'failed') { wrap.hidden = true; return; }
+      if (box.getAttribute('data-for') === code) return;
+      loadQr(function () {
+        var q;
+        try { q = window.qrcode(0, 'M'); q.addData(joinUrl(code)); q.make(); } catch (e) { wrap.hidden = true; return; }
+        // Three modules of quiet zone here plus the white card's padding make
+        // the four a scanner wants.
+        var size = q.getModuleCount(), pad = 3, d = '';
+        for (var row = 0; row < size; row++) {
+          for (var col = 0; col < size; col++) if (q.isDark(row, col)) d += 'M' + (col + pad) + ' ' + (row + pad) + 'h1v1h-1z';
+        }
+        var NS = 'http://www.w3.org/2000/svg', all = size + pad * 2;
+        var svg = document.createElementNS(NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 ' + all + ' ' + all);
+        svg.setAttribute('shape-rendering', 'crispEdges');
+        svg.setAttribute('role', 'img');
+        svg.setAttribute('aria-label', 'QR code: ' + joinUrl(code));
+        var path = document.createElementNS(NS, 'path');
+        path.setAttribute('d', d);
+        path.setAttribute('fill', '#0E0A1F');
+        svg.appendChild(path);
+        box.textContent = '';
+        box.appendChild(svg);
+        box.setAttribute('data-for', code);
+        wrap.hidden = false;
+      });
+    }
+
+    // Keep a laptop on the telly awake. Feature-detected; browsers drop the
+    // lock whenever the tab is hidden, so it is taken again on return.
+    var wakeLock = null;
+    function keepAwake() {
+      if (!TV || !tv.token || wakeLock || document.hidden || !navigator.wakeLock) return;
+      try {
+        navigator.wakeLock.request('screen').then(function (lock) {
+          wakeLock = lock;
+          lock.addEventListener('release', function () { wakeLock = null; });
+        }, function () {});
+      } catch (e) {}
+    }
+    document.addEventListener('visibilitychange', keepAwake);
+
+    $('btn-tv-watch').addEventListener('click', function () { watchRoom($('tv-in-code').value); });
+    $('tv-in-code').addEventListener('input', function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
+    $('tv-in-code').addEventListener('keydown', function (e) { if (e.key === 'Enter') $('btn-tv-watch').click(); });
+
+    function bootTv() {
+      document.body.classList.add('tv');
+      document.title = 'Imposter on the big screen | Antics';
+      $('tv-get').href = $('wall-get').href;
+      var kept = null;
+      try { kept = JSON.parse(sessionStorage.getItem('anticsRoomTv') || 'null'); } catch (e) {}
+      if (kept && kept.token && kept.code && (!prefilled || prefilled === kept.code)) {
+        // A refresh: pick the same screen back up rather than taking a second
+        // slot. If the server no longer knows it, takeScreen shows why.
+        tv = kept;
+        api('screen', { code: tv.code, screenToken: tv.token }).then(function (r) {
+          if (takeScreen(r)) { connect(); keepAwake(); return; }
+          if (r.status === 404) return; // takeScreen has already said why
+          // A network blip before the first picture: say so, keep the token,
+          // and keep trying quietly. The first answer that lands draws the room.
+          tvEntry(tv.code, null, ERRORS.network);
+          connect();
+        });
+        return;
+      }
+      if (prefilled) { watchRoom(prefilled); return; }
+      tvEntry(null, null, '');
+    }
 
     // --- boot ---------------------------------------------------------------------
     // The code arrives as /j/?room=K7QM (404.html rewrites /j/K7QM to that).
@@ -557,6 +1010,11 @@
       if (prefilled) { $('in-code').value = prefilled; $('in-name').focus(); }
     }
 
+    if (TV) {
+      // A TV never reads, uses or touches a player's seat in this tab.
+      bootTv();
+      return;
+    }
     try { var kept = JSON.parse(sessionStorage.getItem('anticsRoom') || 'null'); if (kept && kept.token) session = kept; } catch (e) {}
     if (session.token && (!prefilled || prefilled === session.code)) {
       // A refresh mid-game: pick the seat back up rather than asking again.
