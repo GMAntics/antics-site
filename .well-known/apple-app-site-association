@@ -1,0 +1,18 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["AKNKWRSY3A.com.anticsapp.antics"],
+        "components": [
+          { "/": "/event/*", "comment": "In-App Event and other event links: the app opens the event's game" },
+          { "/": "/event/*/*", "comment": "Same, with a game named" },
+          { "/": "/j/*", "?": { "tv": "?*" }, "exclude": true, "comment": "The TV view always stays in the browser" },
+          { "/": "/j/*", "?": { "web": "?*" }, "exclude": true, "comment": "An explicit browser join: the 1.1.4 fallback and the app's own join-in-the-browser button" },
+          { "/": "/j/*", "?": { "host": "?*" }, "exclude": true, "comment": "The browser host page (test builds and ROOMS_WEB_HOST) stays in the browser" },
+          { "/": "/j/config.json", "exclude": true, "comment": "The app's remote switch file, never a link" },
+          { "/": "/j/*", "comment": "A room link opens the app's join screen, 1.1.5 and later" }
+        ]
+      }
+    ]
+  }
+}
