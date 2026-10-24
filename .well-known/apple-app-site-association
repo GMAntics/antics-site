@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["AKNKWRSY3A.com.anticsapp.antics"],
+        "components": [
+          { "/": "/event/*", "comment": "In-App Event and other event links: the app opens the event's game" },
+          { "/": "/event/*/*", "comment": "Same, with a game named" }
+        ]
+      }
+    ]
+  }
+}
