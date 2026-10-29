@@ -318,7 +318,11 @@
     // address), so polls and pokes hold off: for Retry-After when the browser
     // can read it, otherwise 2 s doubling to 60 s. Buttons are never held.
     var holdUntil = 0, holdMs = 0;
+    // How many 429s this tab has met since its last room_reveal_viewed row
+    // (contract delta A-83): whether real parties ever meet the limiter.
+    var limitedN = 0;
     function noteLimited(res) {
+      limitedN++;
       var sec = 0;
       try { sec = parseInt(res.headers.get('Retry-After'), 10) || 0; } catch (e) {}
       holdMs = sec > 0 ? Math.min(sec * 1000, HOLD_MAX_MS) : Math.min(holdMs ? holdMs * 2 : HOLD_FIRST_MS, HOLD_MAX_MS);
@@ -380,7 +384,8 @@
         // A new deal or a new phase: the card starts closed, every time.
         if (view.status === 'dealt' && view.round !== lastRoundDrawn) cardOpen = false;
         if (view.status === 'revealed' && lastStatus !== 'revealed') {
-          track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) });
+          track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll', limited_n: limitedN });
+          limitedN = 0;
         }
         lastStatus = view.status;
         lastRoundDrawn = view.round;
@@ -562,7 +567,7 @@
     });
     function deal(btn, errorId) {
       busy(btn, api('start', mine())).then(function (r) {
-        if (take(r, errorId)) { var n = view.players.length; track('room_started', { host: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) }); }
+        if (take(r, errorId)) { var n = view.players.length; track('room_started', { host: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll' }); }
       });
     }
     $('btn-start').addEventListener('click', function () { deal(this, 'lobby-error'); });
