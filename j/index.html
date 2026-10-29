@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Join an Imposter room | Antics</title>
+  <meta name="description" content="Join your mates' Imposter room on Antics. Everyone plays on their own phone. No download, no sign-up.">
+  <meta property="og:site_name" content="Antics">
+  <meta property="og:title" content="Join our Imposter room">
+  <meta property="og:description" content="One of us is the imposter. Tap to join on your own phone. No download, no sign-up.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://anticsapp.com/img/og-card.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#0E0A1F">
+  <style>
+    :root {
+      --bg: #0E0A1F; --surface: #1C1535; --card1: #241a45; --card2: #17112f;
+      --pink: #FF2E7E; --action: #EA0059; --white: #FFFFFF; --dim: #9C92C7; --body: #D8D3EE; --good: #2EE6A8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      background: var(--bg); color: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5; padding: 28px 18px calc(40px + env(safe-area-inset-bottom));
+      -webkit-text-size-adjust: 100%;
+    }
+    main { max-width: 460px; margin: 0 auto; text-align: center; }
+    .brand { font-size: 13px; font-weight: 900; letter-spacing: 4px; color: var(--dim); margin-bottom: 18px; }
+    h1 { font-size: 30px; font-weight: 900; line-height: 1.15; margin-bottom: 8px; }
+    .lead { color: var(--body); font-size: 16px; margin-bottom: 22px; }
+    .small { color: var(--dim); font-size: 13px; margin-top: 14px; }
+    label { display: block; text-align: left; font-size: 12px; font-weight: 800; letter-spacing: 2px; color: var(--dim); margin: 14px 0 6px; }
+    input[type=text] {
+      width: 100%; background: var(--surface); border: 2px solid transparent; border-radius: 14px;
+      color: var(--white); font-size: 20px; font-weight: 700; padding: 14px 16px; outline: none;
+    }
+    input[type=text]:focus { border-color: var(--pink); }
+    #in-code { text-transform: uppercase; letter-spacing: 8px; text-align: center; font-size: 28px; }
+    button {
+      font: inherit; border: 0; cursor: pointer; border-radius: 16px; font-weight: 800;
+      padding: 16px 20px; width: 100%; margin-top: 16px; font-size: 17px;
+      -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    }
+    .primary { background: var(--action); color: var(--white); }
+    .ghost { background: var(--surface); color: var(--white); }
+    .link { background: none; color: var(--dim); font-weight: 700; font-size: 14px; width: auto; padding: 10px; }
+    button:disabled { opacity: .45; cursor: default; }
+    .error { color: #FFB627; font-weight: 700; min-height: 22px; margin-top: 12px; font-size: 15px; }
+    .code { font-size: 54px; font-weight: 900; letter-spacing: 10px; margin: 2px 0 2px 10px; }
+    .panel { background: var(--surface); border-radius: 18px; padding: 16px; margin-top: 18px; text-align: left; }
+    .panel h2 { font-size: 12px; letter-spacing: 3px; color: var(--dim); font-weight: 900; margin-bottom: 8px; }
+    .players { list-style: none; }
+    .players li { display: flex; align-items: center; gap: 8px; padding: 9px 0; font-size: 17px; font-weight: 700; border-top: 1px solid rgba(255,255,255,.06); }
+    .players li:first-child { border-top: 0; }
+    .players .name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tag { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; border-radius: 999px; padding: 3px 9px; background: rgba(255,255,255,.1); color: var(--body); }
+    .tag.ready { background: rgba(46,230,168,.18); color: var(--good); }
+    .kick { width: auto; margin: 0; padding: 4px 10px; font-size: 12px; border-radius: 999px; background: rgba(255,255,255,.08); color: var(--dim); }
+    .check { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 16px; font-weight: 700; color: var(--body); }
+    .check input { width: 22px; height: 22px; accent-color: var(--pink); }
+    .secret {
+      background: linear-gradient(160deg, var(--card1), var(--card2)); border-radius: 24px; padding: 30px 20px;
+      margin-top: 18px; min-height: 250px; display: flex; flex-direction: column; justify-content: center; user-select: none;
+    }
+    .secret .kicker { font-size: 12px; letter-spacing: 3px; font-weight: 900; color: var(--dim); }
+    .secret .big { font-size: 36px; font-weight: 900; line-height: 1.15; margin: 10px 0; overflow-wrap: anywhere; }
+    .secret .big.imposter { color: var(--pink); }
+    .secret .sub { color: var(--body); font-size: 16px; }
+    .secret .hintline { margin-top: 12px; font-size: 18px; font-weight: 800; }
+    .live { font-size: 12px; color: var(--dim); margin-top: 22px; }
+    .wall { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
+    a.plain { color: var(--dim); font-weight: 700; }
+    .wall a.cta { display: block; background: var(--white); color: #17112f; font-weight: 900; border-radius: 16px; padding: 15px; text-decoration: none; margin-top: 12px; }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand">ANTICS</div>
+
+    <section id="screen-join" hidden>
+      <h1>Join the Imposter room</h1>
+      <p class="lead">Everyone plays on their own phone. One of you is bluffing.</p>
+      <label for="in-code">ROOM CODE</label>
+      <input id="in-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
+      <label for="in-name">NICKNAME</label>
+      <input id="in-name" type="text" autocomplete="nickname" maxlength="16" placeholder="What the room calls you">
+      <button id="btn-join" class="primary">Join the room</button>
+      <p id="join-error" class="error" role="alert"></p>
+      <p class="small">No sign-up. Use a nickname: the other players see it, and it is deleted within fifteen minutes of the room closing.</p>
+      <p class="small">Antics is for ages 18 and over. <a class="plain" href="/privacy.html#rooms">Privacy</a></p>
+    </section>
+
+    <section id="screen-host" hidden>
+      <h1>Host an Imposter room</h1>
+      <p class="lead">You get a code. Everyone else joins on their own phone.</p>
+      <label for="host-name">NICKNAME</label>
+      <input id="host-name" type="text" autocomplete="nickname" maxlength="16" placeholder="What the room calls you">
+      <div class="panel">
+        <h2>ROUND SETTINGS</h2>
+        <label class="check"><input id="set-hint" type="checkbox" checked> Imposter gets a hint</label>
+        <label class="check"><input id="set-hard" type="checkbox"> Hard hints</label>
+        <label class="check"><input id="set-two" type="checkbox"> Two imposters (six or more players)</label>
+        <label class="check"><input id="set-mischief" type="checkbox"> Mischief mode</label>
+      </div>
+      <button id="btn-create" class="primary">Create the room</button>
+      <p id="host-error" class="error" role="alert"></p>
+      <p class="small">No sign-up. Use a nickname: the other players see it, and it is deleted within fifteen minutes of the room closing.</p>
+      <p class="small">Antics is for ages 18 and over. <a class="plain" href="/privacy.html#rooms">Privacy</a></p>
+    </section>
+
+    <section id="screen-lobby" hidden>
+      <p class="lead" style="margin-bottom:0">Room code</p>
+      <div class="code" id="lobby-code"></div>
+      <p class="small" style="margin-top:0" id="lobby-link"></p>
+      <button id="btn-share" class="ghost">Share the join link</button>
+      <div class="panel">
+        <h2 id="lobby-count">IN THE ROOM</h2>
+        <ul class="players" id="lobby-players"></ul>
+      </div>
+      <button id="btn-start" class="primary" hidden>Deal the round</button>
+      <p id="lobby-wait" class="small"></p>
+      <p id="lobby-error" class="error" role="alert"></p>
+      <button id="btn-leave" class="link">Leave the room</button>
+    </section>
+
+    <section id="screen-card" hidden>
+      <p class="lead" id="card-round" style="margin-bottom:0"></p>
+      <div class="secret" id="secret">
+        <div id="secret-closed">
+          <div class="kicker">YOUR CARD</div>
+          <div class="big">Tap to look</div>
+          <div class="sub">Keep your screen to yourself.</div>
+        </div>
+        <div id="secret-open" hidden>
+          <div class="kicker" id="secret-kicker"></div>
+          <div class="big" id="secret-big"></div>
+          <div class="sub" id="secret-sub"></div>
+          <div class="hintline" id="secret-hint"></div>
+        </div>
+      </div>
+      <p class="small" id="card-tip">Tap the card again to hide it.</p>
+      <div class="panel">
+        <h2 id="card-ready">WHO HAS LOOKED</h2>
+        <ul class="players" id="card-players"></ul>
+      </div>
+      <p class="lead" id="card-starter" style="margin-top:18px"></p>
+      <button id="btn-reveal" class="primary">Reveal the imposter</button>
+      <p id="card-error" class="error" role="alert"></p>
+    </section>
+
+    <section id="screen-reveal" hidden>
+      <p class="lead" id="reveal-kicker" style="margin-bottom:0"></p>
+      <h1 id="reveal-names"></h1>
+      <div class="secret" style="min-height:0">
+        <div class="kicker" id="reveal-word-kicker"></div>
+        <div class="big" id="reveal-word"></div>
+        <div class="sub" id="reveal-hint"></div>
+      </div>
+      <button id="btn-again" class="primary" hidden>Deal the next round</button>
+      <p id="reveal-wait" class="small"></p>
+      <p id="reveal-error" class="error" role="alert"></p>
+      <div class="wall" id="wall">
+        <p class="lead" style="margin-bottom:0">This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.</p>
+        <a class="cta" id="wall-get" href="/get/?c=web-room">Get Antics free</a>
+        <p class="small">iPhone and Android. Thousands of cards, no ads.</p>
+      </div>
+      <button id="btn-leave2" class="link">Leave the room</button>
+    </section>
+
+    <section id="screen-gone" hidden>
+      <h1>That room has ended</h1>
+      <p class="lead">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
+      <button id="btn-rejoin" class="primary">Join another room</button>
+    </section>
+
+    <p class="live" id="live"></p>
+  </main>
+
+  <script>
+  (function () {
+    'use strict';
+
+    // ---------------------------------------------------------------------
+    // IMPOSTER ROOMS, PHASE 0 (21 Sep 2026). A THIN client, on purpose.
+    //
+    // This page computes NO game logic and holds NO deck. It asks the `room`
+    // edge function one question, "what may I see?", and draws the answer.
+    // The server builds that answer per player, so an imposter's phone is
+    // never SENT the secret word: there is nothing in this tab's memory or
+    // network log for a curious thumb to find. (Design and rulings:
+    // ops/imposter-multidevice-scope-2026-09-07.md in the app repo.)
+    //
+    // Realtime is a DOORBELL. A 'poke' on the room's channel carries nothing;
+    // hearing one just makes us ask the server again. A slow poll covers a
+    // dropped socket, a sleeping phone or Realtime being off entirely.
+    //
+    // Everything the server sends is drawn with textContent. Player names
+    // are other people's typed text and are never parsed as HTML.
+    // ---------------------------------------------------------------------
+
+    var PROJECT = 'https://amioohsgipjzagmclwle.supabase.co';
+    // The site key: public by construction, the same one /get/ and /play/
+    // send. It authenticates nothing about a person; the server treats it
+    // as "a browser" and lets it join and play, never deal paid decks.
+    var SITE_KEY = '3ee624f1eea2a9e2b1f6aa66955369e4a4942134f46ac504';
+    // The project's ANON key, for the Realtime doorbell only. EMPTY until Guy
+    // pastes it (runbook step 6); while empty the page simply polls. It is a
+    // public key by design, and every table in the project has row level
+    // security on, which the runbook makes him check BEFORE it goes here.
+    var ANON_KEY = '';
+    // Served from this site, never a CDN (Guy's rooms ruling of 24 Oct 2026:
+    // the privacy policy's list of outside services stays complete). The
+    // file is the unmodified UMD build of @supabase/supabase-js 2.115.0 from
+    // npm (licence beside it); the hash below is of that exact file, so a
+    // changed copy is refused and the page falls back to polling.
+    var SUPABASE_JS = '/j/vendor/supabase-js-2.115.0.js';
+    var SUPABASE_JS_SRI = 'sha384-CLZeq1dk8+Uzrs7TVvBUdlFoV5F0DMqgRoeHa8g5wJcuPe5SkVfEvdxB0ZuzlnBQ';
+
+    // Local harness (ops/imposter-rooms/local-server.mjs in the app repo)
+    // serves this page AND a stand-in API from one localhost port. On
+    // localhost, ?api=prod points at the deployed function instead, for the
+    // pre-publish proof in the runbook. It is a fixed switch, never a URL,
+    // so no link can aim this page at somebody else's server.
+    var LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+    var USE_PROD = !LOCAL || /[?&]api=prod(&|$)/.test(location.search);
+    var API = (USE_PROD ? PROJECT : location.origin) + '/functions/v1/room/';
+
+    var POLL_WITH_BELL_MS = 30000;
+    var POLL_NO_BELL_MS = 5000;
+    // THE POKE GATE (rooms go-live audit item 1, 24 Oct 2026). Anyone with
+    // the public anon key and a room code can ring the doorbell, so a poke
+    // must never pull straight away: a pull starts at most once per
+    // PULL_GAP_MS for pokes and re-runs (the last ring is kept, a trailing
+    // pull follows it), and after a 429 nothing but a button pulls until
+    // HOLD has passed. Same rule as the app's src/rooms/doorbell.ts.
+    var PULL_GAP_MS = 1500;
+    var HOLD_FIRST_MS = 2000;
+    var HOLD_MAX_MS = 60000;
+
+    var CATEGORY_NAMES = {
+      locations: 'Locations', everydayObjects: 'Everyday Objects', famousPeople: 'Famous People',
+      foodAndDrinks: 'Food and Drinks', brandsAndLogos: 'Brands and Logos', sports: 'Sports'
+    };
+    var ERRORS = {
+      room_not_found: 'No room with that code. Check it with the host.',
+      name_taken: 'Someone in the room already has that name.',
+      room_full: 'That room is full (12 players).',
+      invalid_name: 'Type a name first.',
+      rate_limited: 'Too many tries. Give it a minute.',
+      rooms_busy: 'Lots of rooms are open right now. Try again later.',
+      web_host_disabled: 'Hosting from the browser is switched off.',
+      not_enough_players: 'You need at least 3 players.',
+      host_only: 'Only the host can do that.',
+      not_in_round: 'You joined mid-round. You are in the next one.',
+      round_in_progress: 'Wait for the round to end.',
+      network: 'No connection. Trying again.'
+    };
+
+    function $(id) { return document.getElementById(id); }
+    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone'];
+    var current = null;
+    function show(name) {
+      if (current === name) return;
+      current = name;
+      screens.forEach(function (s) { $('screen-' + s).hidden = (s !== name); });
+      window.scrollTo(0, 0);
+    }
+
+    // --- promoter passthrough, same params and sanitising as /play/ ---------
+    var promo = { code: null, offer: null };
+    try {
+      var q = location.search.toLowerCase();
+      var mc = /[?&]c=([a-z0-9-]{1,32})(&|$)/.exec(q);
+      var mo = /[?&]o=([a-z0-9]{1,20})(&|$)/.exec(q);
+      if (mc) promo.code = mc[1];
+      if (mo) promo.offer = mo[1].toUpperCase();
+      if (promo.code || promo.offer) sessionStorage.setItem('anticsPlayPromo', JSON.stringify(promo));
+      else { var saved = sessionStorage.getItem('anticsPlayPromo'); if (saved) promo = JSON.parse(saved); }
+    } catch (e) {}
+    $('wall-get').href = '/get/?c=' + (promo.code || 'web-room') + (promo.offer ? '&o=' + promo.offer : '');
+
+    // --- measurement -------------------------------------------------------
+    // The six names below were RULED by Guy on 5 Oct 2026 ("Yes, all six";
+    // app repo ops/analytics/CONTRACT.md delta A-61). A new event name is
+    // still his call: only a name in this list is ever sent, and nothing is
+    // sent from localhost. No event ever carries a player name, a token or
+    // a word.
+    var RULED = ['room_created', 'room_joined', 'room_join_failed', 'room_started', 'room_reveal_viewed', 'room_install_tapped'];
+    var SID = 'web-' + Math.random().toString(36).slice(2, 10);
+    function track(name, props) {
+      if (RULED.indexOf(name) === -1 || !USE_PROD || LOCAL) return;
+      try {
+        fetch(PROJECT + '/functions/v1/ingest-events', {
+          method: 'POST', keepalive: true,
+          headers: { 'Content-Type': 'application/json', 'x-antics-key': SITE_KEY },
+          body: JSON.stringify({ events: [{ name: name, props: props, ts: new Date().toISOString(), sessionId: SID, appVersion: 'site', platform: 'web' }] })
+        }).catch(function () {});
+      } catch (e) {}
+    }
+    // The app's FROZEN edges (src/analytics.ts bucketPlayers). Never move one.
+    function bucketPlayers(n) { return n <= 2 ? '1-2' : n <= 4 ? '3-4' : n <= 7 ? '5-7' : '8+'; }
+
+    // --- session: the token is this tab's whole identity ---------------------
+    // sessionStorage, so a refresh keeps your seat and two tabs are two
+    // players. Never a cookie, never the URL.
+    var session = { code: null, token: null };
+    var view = null;
+    function saveSession() { try { sessionStorage.setItem('anticsRoom', JSON.stringify(session)); } catch (e) {} }
+    function clearSession() { session = { code: null, token: null }; view = null; try { sessionStorage.removeItem('anticsRoom'); } catch (e) {} }
+
+    // After a 429 every phone in the party shares the refusal (one house
+    // address), so polls and pokes hold off: for Retry-After when the browser
+    // can read it, otherwise 2 s doubling to 60 s. Buttons are never held.
+    var holdUntil = 0, holdMs = 0;
+    function noteLimited(res) {
+      var sec = 0;
+      try { sec = parseInt(res.headers.get('Retry-After'), 10) || 0; } catch (e) {}
+      holdMs = sec > 0 ? Math.min(sec * 1000, HOLD_MAX_MS) : Math.min(holdMs ? holdMs * 2 : HOLD_FIRST_MS, HOLD_MAX_MS);
+      holdUntil = Date.now() + holdMs;
+    }
+
+    function api(route, body) {
+      return fetch(API + route, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-antics-key': SITE_KEY },
+        body: JSON.stringify(body)
+      }).then(function (res) {
+        if (res.status === 429) noteLimited(res);
+        else if (res.ok) holdMs = 0;
+        return res.json().catch(function () { return {}; }).then(function (data) {
+          if (res.status === 429) data.error = 'rate_limited';
+          return { ok: res.ok, status: res.status, data: data };
+        });
+      }, function () { return { ok: false, status: 0, data: { error: 'network' } }; });
+    }
+    function say(id, r) { $(id).textContent = r ? (ERRORS[r.data.error] || 'Something went wrong. Try again.') : ''; }
+    function mine(extra) {
+      var b = { code: session.code, token: session.token };
+      for (var k in extra || {}) b[k] = extra[k];
+      return b;
+    }
+
+    // --- drawing -------------------------------------------------------------
+    var cardOpen = false;
+    var lastRoundDrawn = 0;
+    var lastStatus = null;
+
+    function playerList(ul, showReady, canKick) {
+      ul.textContent = '';
+      view.players.forEach(function (p) {
+        var li = document.createElement('li');
+        var name = document.createElement('span');
+        name.className = 'name';
+        name.textContent = p.name + (p.id === view.you.id ? ' (you)' : '');
+        li.appendChild(name);
+        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = 'HOST'; li.appendChild(h); }
+        if (showReady && p.ready) { var r = document.createElement('span'); r.className = 'tag ready'; r.textContent = 'LOOKED'; li.appendChild(r); }
+        if (canKick && p.id !== view.you.id) {
+          var k = document.createElement('button');
+          k.className = 'kick'; k.textContent = 'Remove';
+          k.addEventListener('click', function () { api('kick', mine({ playerId: p.id })).then(take); });
+          li.appendChild(k);
+        }
+        ul.appendChild(li);
+      });
+    }
+
+    function categoryLabel(id) { return CATEGORY_NAMES[id] || 'Mystery deck'; }
+
+    function draw() {
+      if (!view) return;
+      var n = view.players.length;
+      if (view.status !== lastStatus || view.round !== lastRoundDrawn) {
+        // A new deal or a new phase: the card starts closed, every time.
+        if (view.status === 'dealt' && view.round !== lastRoundDrawn) cardOpen = false;
+        if (view.status === 'revealed' && lastStatus !== 'revealed') {
+          track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) });
+        }
+        lastStatus = view.status;
+        lastRoundDrawn = view.round;
+      }
+
+      if (view.status === 'lobby') {
+        show('lobby');
+        $('lobby-code').textContent = view.code;
+        $('lobby-link').textContent = 'anticsapp.com/j/' + view.code;
+        $('lobby-count').textContent = 'IN THE ROOM (' + n + ' OF 12)';
+        playerList($('lobby-players'), false, view.you.isHost);
+        $('btn-start').hidden = !view.you.isHost;
+        $('btn-start').disabled = !view.canStart;
+        $('lobby-wait').textContent = view.you.isHost
+          ? (n < 3 ? 'You need at least 3 players to deal.' : 'Deal when everyone is in.')
+          : 'Waiting for the host to deal.';
+        return;
+      }
+
+      if (view.status === 'dealt') {
+        show('card');
+        var c = view.card || { role: 'waiting' };
+        $('card-round').textContent = 'Round ' + view.round;
+        $('secret-closed').hidden = cardOpen || c.role === 'waiting';
+        $('secret-open').hidden = !cardOpen && c.role !== 'waiting';
+        $('card-tip').hidden = c.role === 'waiting';
+        if (c.role === 'waiting') {
+          $('secret-kicker').textContent = 'ROUND IN PROGRESS';
+          $('secret-big').className = 'big';
+          $('secret-big').textContent = 'You are in the next one';
+          $('secret-sub').textContent = 'You joined after the cards went out. Watch this one.';
+          $('secret-hint').textContent = '';
+        } else if (c.role === 'imposter') {
+          $('secret-kicker').textContent = categoryLabel(c.categoryId).toUpperCase();
+          $('secret-big').className = 'big imposter';
+          $('secret-big').textContent = 'You are the imposter';
+          $('secret-sub').textContent = c.twoImposters
+            ? 'There are two of you. Blend in and work out the secret.'
+            : 'Everyone else knows the secret. Blend in and work it out.';
+          $('secret-hint').textContent = c.hint ? 'Your hint: ' + c.hint : '';
+        } else {
+          $('secret-kicker').textContent = categoryLabel(c.categoryId).toUpperCase();
+          $('secret-big').className = 'big';
+          $('secret-big').textContent = c.word;
+          $('secret-sub').textContent = c.categoryKind === 'place' ? 'This is where you all are. One of you has no idea.' : 'This is the secret word. One of you has no idea.';
+          $('secret-hint').textContent = '';
+        }
+        var looked = view.players.filter(function (p) { return p.ready; }).length;
+        $('card-ready').textContent = 'WHO HAS LOOKED (' + looked + ' OF ' + n + ')';
+        playerList($('card-players'), true, false);
+        $('card-starter').textContent = view.starterName ? view.starterName + ' starts. Go round, one clue each, then vote.' : '';
+        $('btn-reveal').hidden = c.role === 'waiting';
+        return;
+      }
+
+      // revealed
+      show('reveal');
+      var r = view.reveal;
+      if (r.mischief) {
+        $('reveal-kicker').textContent = 'Mischief round';
+        $('reveal-names').textContent = 'You were ALL the imposter';
+      } else {
+        $('reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
+        $('reveal-names').textContent = r.imposterNames.join(' and ');
+      }
+      $('reveal-word-kicker').textContent = (r.categoryKind === 'place' ? 'THE PLACE' : 'THE SECRET WORD') + ' · ' + categoryLabel(r.categoryId).toUpperCase();
+      $('reveal-word').textContent = r.word;
+      $('reveal-hint').textContent = r.hint ? 'The hint was: ' + r.hint : '';
+      $('btn-again').hidden = !view.you.isHost;
+      $('btn-again').disabled = !view.canStart;
+      $('reveal-wait').textContent = view.you.isHost ? '' : 'Waiting for the host to deal the next round.';
+    }
+
+    /** Every response goes through here, so the screen always follows the server. */
+    function take(r, errorId) {
+      if (r.ok && r.data.room) {
+        view = r.data.room;
+        if (r.data.token) { session = { code: view.code, token: r.data.token }; saveSession(); connect(); }
+        ['lobby-error', 'card-error', 'reveal-error'].forEach(function (id) { $(id).textContent = ''; });
+        draw();
+        return true;
+      }
+      if (r.status === 404 && session.token) { disconnect(); clearSession(); show('gone'); return false; }
+      if (errorId) say(errorId, r);
+      return false;
+    }
+
+    // --- staying current: doorbell plus slow poll ----------------------------
+    var pollTimer = null, bell = null, bellUp = false, inflight = false, again = false;
+    var pullStartedAt = 0, trailing = null;
+
+    // The only place a state pull starts.
+    function pull() {
+      clearTimeout(trailing); trailing = null;
+      inflight = true;
+      pullStartedAt = Date.now();
+      api('state', mine()).then(function (r) {
+        inflight = false;
+        take(r);
+        if (again) { again = false; ring(); }
+      });
+    }
+    // A doorbell poke, a re-run or the bell coming up: through the gate.
+    // Never sooner than PULL_GAP_MS after the last pull began, never inside
+    // a hold, and never dropped: one trailing pull answers every ring since.
+    function ring() {
+      if (!session.token) return;
+      if (inflight) { again = true; return; }
+      var wait = Math.max(pullStartedAt + PULL_GAP_MS, holdUntil) - Date.now();
+      if (wait <= 0) { pull(); return; }
+      if (!trailing) trailing = setTimeout(function () { trailing = null; ring(); }, wait);
+    }
+    // A slow poll or a return to the tab: pulls now, unless a 429 hold is on.
+    function refresh() {
+      if (!session.token) return;
+      if (Date.now() < holdUntil) { ring(); return; }
+      if (inflight) { again = true; return; }
+      pull();
+    }
+    function schedule() {
+      clearTimeout(pollTimer);
+      if (!session.token) return;
+      pollTimer = setTimeout(function () {
+        if (!document.hidden) refresh();
+        schedule();
+      }, bellUp ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS);
+      $('live').textContent = bellUp ? 'Live' : 'Updating every few seconds';
+    }
+    function connectBell() {
+      if (!ANON_KEY || !USE_PROD || bell) return;
+      var start = function () {
+        try {
+          var client = window.supabase.createClient(PROJECT, ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
+          var channel = client.channel('room:' + session.code);
+          channel.on('broadcast', { event: 'poke' }, function () { ring(); });
+          channel.subscribe(function (status) {
+            bellUp = status === 'SUBSCRIBED';
+            if (bellUp) ring();
+            schedule();
+          });
+          bell = { client: client, channel: channel };
+        } catch (e) { bellUp = false; }
+      };
+      if (window.supabase) return start();
+      var s = document.createElement('script');
+      s.src = SUPABASE_JS; s.integrity = SUPABASE_JS_SRI; s.crossOrigin = 'anonymous';
+      s.onload = start;
+      document.head.appendChild(s);
+    }
+    function connect() { schedule(); connectBell(); }
+    function disconnect() {
+      clearTimeout(pollTimer); clearTimeout(trailing); trailing = null; again = false;
+      if (bell) { try { bell.client.removeChannel(bell.channel); } catch (e) {} bell = null; }
+      bellUp = false;
+      $('live').textContent = '';
+    }
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
+
+    // --- buttons ----------------------------------------------------------------
+    function busy(btn, p) { btn.disabled = true; return p.then(function (v) { btn.disabled = false; return v; }); }
+
+    $('btn-join').addEventListener('click', function () {
+      var method = prefilled && $('in-code').value.toUpperCase() === prefilled ? 'link' : 'code';
+      busy(this, api('join', { code: $('in-code').value, name: $('in-name').value })).then(function (r) {
+        if (take(r, 'join-error')) track('room_joined', { via: 'web', method: method, players_n: view.players.length });
+        else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown' });
+      });
+    });
+    $('btn-create').addEventListener('click', function () {
+      var settings = {
+        hintOn: $('set-hint').checked, difficulty: $('set-hard').checked ? 'hard' : 'easy',
+        twoImposters: $('set-two').checked, mischief: $('set-mischief').checked, lang: 'en'
+      };
+      busy(this, api('create', { name: $('host-name').value, settings: settings })).then(function (r) {
+        if (take(r, 'host-error')) {
+          track('room_created', { host: 'web', categories_n: view.settings.categories.length, two_imposters: settings.twoImposters ? 'yes' : 'no', mischief: settings.mischief ? 'yes' : 'no', difficulty: view.settings.difficulty, hint: settings.hintOn ? 'on' : 'off' });
+        }
+      });
+    });
+    function deal(btn, errorId) {
+      busy(btn, api('start', mine())).then(function (r) {
+        if (take(r, errorId)) { var n = view.players.length; track('room_started', { host: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n) }); }
+      });
+    }
+    $('btn-start').addEventListener('click', function () { deal(this, 'lobby-error'); });
+    $('btn-again').addEventListener('click', function () { deal(this, 'reveal-error'); });
+    $('secret').addEventListener('click', function () {
+      if (!view || view.status !== 'dealt' || !view.card || view.card.role === 'waiting') return;
+      cardOpen = !cardOpen;
+      draw();
+      if (cardOpen) api('seen', mine()).then(take);
+    });
+    $('btn-reveal').addEventListener('click', function () {
+      if (!confirm('Reveal the imposter to everyone? Do this after the vote.')) return;
+      busy(this, api('reveal', mine())).then(function (r) { take(r, 'card-error'); });
+    });
+    function leave() {
+      if (!confirm('Leave this room?')) return;
+      api('leave', mine());
+      disconnect(); clearSession(); start();
+    }
+    $('btn-leave').addEventListener('click', leave);
+    $('btn-leave2').addEventListener('click', leave);
+    $('btn-rejoin').addEventListener('click', function () { start(); });
+    $('btn-share').addEventListener('click', function () {
+      // The ?room= form is a real page (200), so a chat app's link preview
+      // shows the join card, never the 404 page /j/CODE is served through.
+      // The typed line on screen stays anticsapp.com/j/CODE (ruled 24 Oct).
+      var url = 'https://anticsapp.com/j/?room=' + view.code;
+      var text = 'Join our Imposter room on Antics. Code ' + view.code;
+      if (navigator.share) navigator.share({ title: 'Antics Imposter', text: text, url: url }).catch(function () {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { $('btn-share').textContent = 'Link copied'; });
+    });
+    $('wall-get').addEventListener('click', function () { track('room_install_tapped', { round_n: view ? view.round : 0 }); });
+    $('in-code').addEventListener('input', function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
+    ['in-name', 'in-code'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') $('btn-join').click(); }); });
+
+    // --- boot ---------------------------------------------------------------------
+    // The code arrives as /j/?room=K7QM (404.html rewrites /j/K7QM to that).
+    var prefilled = null;
+    var m = /[?&]room=([A-Za-z0-9]{4})(&|$)/.exec(location.search);
+    if (m) prefilled = m[1].toUpperCase();
+    var wantsHost = /[?&]host=1(&|$)/.test(location.search);
+
+    function start() {
+      current = null;
+      if (wantsHost && !prefilled) { show('host'); return; }
+      show('join');
+      if (prefilled) { $('in-code').value = prefilled; $('in-name').focus(); }
+    }
+
+    try { var kept = JSON.parse(sessionStorage.getItem('anticsRoom') || 'null'); if (kept && kept.token) session = kept; } catch (e) {}
+    if (session.token && (!prefilled || prefilled === session.code)) {
+      // A refresh mid-game: pick the seat back up rather than asking again.
+      api('state', mine()).then(function (r) { if (take(r)) connect(); else if (current !== 'gone') { clearSession(); start(); } });
+    } else {
+      start();
+    }
+  })();
+  </script>
+</body>
+</html>
