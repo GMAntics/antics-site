@@ -55,6 +55,9 @@ left on a content page.
 | `site-kings-cup` | `/kings-cup-rules/` | the two store buttons |
 | `site-ring-of-fire` | `/ring-of-fire-rules/` | the two store buttons |
 | `site-picolo` | `/picolo-alternative/` | the two store buttons |
+| `site-picolo-pick` | `/picolo-alternative/` | the "Get Antics free" button under "Why Antics is our pick" (added 29 Oct 2026, SEO batch 1) |
+| `site-picolo-footer` | `/picolo-alternative/` | footer "Get the app" (added 29 Oct 2026, SEO batch 1) |
+| `site-picolo-bar` | `/picolo-alternative/` | the phone install bar (live before 29 Oct 2026, registered then) |
 | `site-best-apps` | `/best-party-game-apps/` | the two store buttons in the closing box |
 | `site-best-apps-qr` | `/best-party-game-apps/` | the closing box QR, laptops and tablets only (`/best-party-game-apps/qr.png`) |
 | `site-best-apps-footer` | `/best-party-game-apps/` | footer "Get the app" |
@@ -121,13 +124,16 @@ Each category page under `/imposter-game-words/` carries three tags:
 on the "On a laptop?" line and `site-imposter-<category>-bar` on the phone install bar.
 The hub `/imposter-game-words/` carries the same three as `site-imposter-words`.
 Categories in use: `food`, `celebrities`, `places`, `everyday-objects`, `brands`,
-`sports` and `halloween`.
+`sports`, `halloween` and `christmas`.
 
 | Tag | Page | Which link |
 | --- | --- | --- |
 | `site-imposter-halloween` | `/imposter-game-words/halloween/` | the two store buttons (added 5 Oct 2026, when the page replaced Football) |
 | `site-imposter-halloween-laptop` | `/imposter-game-words/halloween/` | the "On a laptop?" line |
 | `site-imposter-halloween-bar` | `/imposter-game-words/halloween/` | the phone install bar |
+| `site-imposter-christmas` | `/imposter-game-words/christmas/` | the two store buttons (added 29 Oct 2026, SEO batch 1) |
+| `site-imposter-christmas-laptop` | `/imposter-game-words/christmas/` | the "On a laptop?" line |
+| `site-imposter-christmas-bar` | `/imposter-game-words/christmas/` | the phone install bar |
 
 ### Retired
 

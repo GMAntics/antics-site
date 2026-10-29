@@ -1,6 +1,6 @@
 # Antics
 
-> Antics is a party game app for iPhone and Android: nine pass-the-phone party games and thousands of cards on one phone, with no ads and no accounts. It is a party-only edition built on forfeits rather than drinking, so drinkers and non-drinkers play the same game. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
+> Antics is a party game app for iPhone and Android: nine pass-the-phone party games and thousands of cards on one phone, with no ads and no accounts. It is a party-only app: nothing in it depends on drinking, so it works for everyone. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
 
 ## Key facts
 
@@ -26,15 +26,25 @@
 - [What Are The Odds: rules and dares](https://anticsapp.com/what-are-the-odds/)
 - [How to play Imposter](https://anticsapp.com/how-to-play-imposter/)
 - [Play Imposter online: a free word dealer for one phone](https://anticsapp.com/imposter-game/)
-- [Play The Four Kings online: the whole 52-card deck, free on one phone](https://anticsapp.com/four-kings-online/)
+- [Ring of Fire online (The Four Kings): the whole 52-card deck, free in your browser](https://anticsapp.com/four-kings-online/)
+- [Imposter game words (hub)](https://anticsapp.com/imposter-game-words/): how to pick a good word for Imposter, with a word list for every deck in the app.
+- [Imposter game locations: every place in the deck, with hints](https://anticsapp.com/imposter-game-words/places/)
+- [Everyday objects for Imposter](https://anticsapp.com/imposter-game-words/everyday-objects/)
+- [Celebrity words for Imposter: the Famous People deck](https://anticsapp.com/imposter-game-words/celebrities/)
+- [Imposter food words: the Food and Drinks deck](https://anticsapp.com/imposter-game-words/food/)
+- [Brand words for Imposter: the Brands and Logos deck](https://anticsapp.com/imposter-game-words/brands/)
+- [Sports words for Imposter](https://anticsapp.com/imposter-game-words/sports/)
 - [Halloween words for Imposter](https://anticsapp.com/imposter-game-words/halloween/): a ready-made Halloween list with an easy and a hard hint for every word, for a round on paper.
+- [Christmas Imposter words: the Christmas and New Year deck](https://anticsapp.com/imposter-game-words/christmas/): the app's Christmas and New Year deck, with an easy and a hard hint for every word.
+- [Imposter game variations: Undercover, Mr White and more](https://anticsapp.com/imposter-game-variations/)
+- [The Four Kings: a rule for every card](https://anticsapp.com/the-four-kings/)
 - [Ring of Fire rules (the card game)](https://anticsapp.com/ring-of-fire-rules/)
 - [Kings Cup card meanings](https://anticsapp.com/kings-cup-rules/)
 - [Forfeit ideas](https://anticsapp.com/forfeit-ideas/)
 
 ## Original data
 
-- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link; CSV at https://anticsapp.com/party-data/antics-party-data-2026-10.csv. Ready-made charts (PNG, landscape and portrait, source set into each image) at https://anticsapp.com/party-data/#charts. Press: support@anticsapp.com.
+- [Antics party data: how groups really play party games](https://anticsapp.com/party-data/): anonymous aggregates from parties played on Antics, 26 August to 4 October 2026: when parties start (UK time), the busiest night, how many games a party plays, truth versus dare and which cards get skipped. Percentages and ratios only. Free to use under CC BY 4.0 with a link. Every figure is in the [party data CSV](https://anticsapp.com/party-data/antics-party-data-2026-10.csv), and ready-made charts (PNG, landscape and portrait, source set into each image) are in the [charts section](https://anticsapp.com/party-data/#charts). Press: support@anticsapp.com.
 
 ## Free browser generators
 
@@ -78,11 +88,23 @@ language has a home page, the Imposter dealer, a printable Imposter word list an
 the four question games, with the free cards and words from the app's own translations.
 
 - [Antics auf Deutsch: Partyspiele mit nur einem Handy](https://anticsapp.com/de/)
+- [Das Imposter-Spiel online](https://anticsapp.com/de/imposter-spiel/)
+- [Wörter für das Imposter-Spiel, mit Tipp](https://anticsapp.com/de/imposter-woerter/)
 - [Antics en français : jeux de soirée sur un seul téléphone](https://anticsapp.com/fr/)
+- [Le jeu de l’imposteur en ligne](https://anticsapp.com/fr/jeu-imposteur/)
+- [Mots pour le jeu de l’imposteur](https://anticsapp.com/fr/mots-jeu-imposteur/)
 - [Antics in italiano: giochi di gruppo con un solo telefono](https://anticsapp.com/it/)
+- [Gioco dell'impostore online](https://anticsapp.com/it/gioco-dell-impostore/)
+- [Parole per il gioco dell'impostore](https://anticsapp.com/it/parole-gioco-dell-impostore/)
 - [Antics in het Nederlands: partyspellen op één telefoon](https://anticsapp.com/nl/)
+- [Imposter spel online](https://anticsapp.com/nl/imposter-spel/)
+- [Woorden voor het imposter spel](https://anticsapp.com/nl/imposter-woorden/)
 - [Antics po polsku: gry imprezowe na jeden telefon](https://anticsapp.com/pl/)
+- [Gra w impostora online](https://anticsapp.com/pl/gra-w-impostora/)
+- [Hasła do gry w impostora](https://anticsapp.com/pl/hasla-do-impostora/)
 - [Antics česky: párty hry na jeden telefon](https://anticsapp.com/cs/)
+- [Impostor hra online](https://anticsapp.com/cs/impostor-hra/)
+- [Slova do hry Impostor](https://anticsapp.com/cs/impostor-hra-slova/)
 
 ## Guides for occasions
 
@@ -112,9 +134,9 @@ the four question games, with the free cards and words from the app's own transl
 
 - [About Antics](https://anticsapp.com/about/)
 - [Antics press kit](https://anticsapp.com/press/): fast facts, logo files, the party data findings and charts, and the press contact.
-- [A Picolo alternative, compared honestly](https://anticsapp.com/picolo-alternative/)
+- [Apps like Picolo (2026): Antics compared](https://anticsapp.com/picolo-alternative/): Antics next to Picolo on what is in each app, paying, platforms and updates, from Picolo's UK store listings on 29 October 2026. Written by Antics, and says so.
 - [Best party game apps (2026), compared by the makers of Antics](https://anticsapp.com/best-party-game-apps/): ten party game apps on price, platforms and how you play, from the UK App Store and Google Play listings on 5 October 2026. Written by Antics, and says so.
-- [Best Imposter game apps, compared by the makers of Antics](https://anticsapp.com/best-imposter-game-apps/): eight Imposter apps on players, price and platforms, from the UK store listings on 5 October 2026. Written by Antics, and says so.
+- [Best Imposter game apps, compared by the makers of Antics](https://anticsapp.com/best-imposter-game-apps/): eight Imposter apps on players, price and platforms, from the UK store listings on 29 October 2026. Written by Antics, and says so.
 - [Play a free round in your browser](https://anticsapp.com/play/)
 - [Support and FAQ](https://anticsapp.com/support/)
 

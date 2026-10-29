@@ -15,3 +15,6 @@ for f in $(git ls-files '*/index.html'); do
   fi
 done
 [ $bad = 0 ] || { echo "pre-push: refusing to push broken redirect pages"; exit 1; }
+# 29 Oct 2026 (SEO route item 8): warn, never block, when a page's main content
+# changed but its sitemap lastmod did not catch up. The checker always exits 0.
+node "$(git rev-parse --show-toplevel)/.tools/lastmod-check.mjs" || true

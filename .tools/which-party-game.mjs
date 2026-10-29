@@ -15,7 +15,7 @@
 // game's player range; house rules for the picks (10 minutes is one game and
 // never The Four Kings; Spicy only all night and never first; Most Likely To
 // never for strangers; Imposter never for two); "The short answer" matches the
-// ten minute picks; no Four Kings line ends it at the end of the deck, and no
+// ten minute picks; no Four Kings line ends it at the fourth King, and no
 // count of the in-browser games; every link resolves to a file
 // in this repo; every JSON-LD block parses; no em or en dash anywhere; the
 // title is at most 60 characters. No dependencies, no network.
@@ -172,8 +172,9 @@ for (const [mood, bySize] of Object.entries(SHORT_ANSWER)) for (const [size, id]
   const r = P.recommend(size, mood, 'quick');
   ok(r && r.games[0].id === id, `${size}/${mood}/quick is ${r ? r.games[0].id : 'null'}, but "The short answer" says ${id}: update the paragraph and SHORT_ANSWER together`);
 }
-// The Four Kings ends when the fourth King comes out, not at the end of the deck
-ok(!/last card ends|full deck (to its finale|in a ring)/.test(next), 'a Four Kings line says the game ends with the deck; it ends at the fourth King');
+// The Four Kings runs to the end of the deck; the fourth King is the routine, not the end
+// (app: RingOfFireScreen.tsx sets gameOver when drawn >= deck.length; corrected 29 Oct 2026)
+ok(!/until the fourth King|(ends|is over|finishes|stops) (at|when|with|on) the fourth King/i.test(next), 'a Four Kings line says the game ends at the fourth King; in the app it runs to the end of the deck');
 // no count of browser games: /play/ adds Antics mode to the six /party-games/ counts
 ok(!/\b(six|seven) of them (play|free)/i.test(next), 'the page counts the in-browser games; say "most of them"');
 // reasons: none missing, none unused
