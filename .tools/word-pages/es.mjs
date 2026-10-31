@@ -12,19 +12,19 @@ export default {
   htmlLang: 'es-419', path: '/es/palabras-juego-del-impostor/', dir: 'es/palabras-juego-del-impostor',
   ogLocale: 'es_MX',
   title: 'Palabras para el juego del impostor: lista para imprimir',
-  desc: 'Palabras para el juego del impostor con la pista de cada una, en cuatro categorías. Para imprimir, para jugar sin celular y para jugar de a 3. Gratis.',
-  ogTitle: 'Palabras para el juego del impostor, con la pista de cada una',
+  desc: 'Palabras para el juego del impostor, con pista fácil y difícil: comida, famosos, lugares, objetos, marcas, deportes y Navidad. Para imprimir.',
+  ogTitle: 'Palabras para el juego del impostor, fáciles y difíciles',
   crumbLabel: 'Ruta de navegación', langHome: '/es/', langName: 'Español',
   crumbGame: 'Juego del impostor online', gamePath: '/es/juego-del-impostor/', crumbHere: 'Palabras',
   ldGame: 'Juego del impostor online', ldHere: 'Palabras para el juego del impostor',
   h1: 'Palabras para el juego del impostor',
-  standfirst: 'Cuatro categorías completas del juego del impostor, con la pista que recibe el impostor para cada palabra. Sirven para jugar en papel, sin celular, y se imprimen con una categoría por hoja.',
+  standfirst: 'Seis categorías completas del juego del impostor y la de Navidad, con la pista fácil y la pista difícil que recibe el impostor para cada palabra. Sirven para jugar en papel, sin celular, y se imprimen con una categoría por hoja.',
   note: '¿Van a jugar ya? <a class="inline" href="/es/juego-del-impostor/">Repartan las palabras en un solo celular</a>, gratis y sin descargar nada.',
   ilangLabel: 'Idioma',
   tocLabel: 'En esta página',
   tocAfter: [['sin-celular', 'Sin celular'], ['de-a-3', 'De a 3']],
   wordsH2: 'Las palabras y la pista del impostor',
-  wordsP: 'Cada palabra de esta página sale en la app Antics en español latinoamericano, con la misma pista. La pista es lo que ve el impostor en lugar de la palabra: algo que lo acerca sin regalarle la respuesta. En papel, ustedes deciden si se la dan o no.',
+  wordsP: 'Cada palabra de esta página sale en la app Antics en español latinoamericano, con las mismas pistas. La pista es lo que ve el impostor en lugar de la palabra: algo que lo acerca sin regalarle la respuesta. La fácil es algo que salta a la vista; la difícil habla del momento o del ambiente, así que el impostor tiene que improvisar más. Si la difícil está en blanco, la app le da la fácil. En papel, ustedes deciden cuál le dan, o si no le dan ninguna.',
   printTip: 'Para imprimir: en la computadora, usen Imprimir (Ctrl+P, o Cmd+P en Mac). Cada categoría sale en su propia hoja.',
   thWord: 'Palabra secreta', thHint: 'Pista del impostor',
   paperId: 'sin-celular',
@@ -79,5 +79,23 @@ export default {
   <p><strong>Antics</strong><span>Juegos de fiesta</span></p>
   <a class="btn btn--sm" href="/get/?c=site-es-palabras-bar">Descargar gratis</a>
 </aside>`,
+  // The fuller page (30 Oct 2026, FINAL.md item 12 of the app repo's
+  // ops/research/seo-route-2026-10-29/): both hint tiers, Brands, Sports and
+  // Christmas, and the hard-words section. See the generator's header.
+  more: {
+    thEasy: 'Pista fácil', thHard: 'Pista difícil',
+    follow: 'En la app Antics, esta categoría se desbloquea gratis siguiendo a Antics en TikTok o Instagram.',
+    christmasLine: 'Gratis en la app Antics del 1 de diciembre al 1 de enero.',
+    christmasToc: 'Navidad',
+    draw: 'Sacar una palabra al azar',
+    hard: {
+      id: 'palabras-dificiles', h2: 'Palabras difíciles para el impostor', toc: 'Palabras difíciles',
+      p: [
+        'Una palabra difícil es muy concreta: Curling, Esgrima, Wikipedia o Foto de llegada tienen pocas pistas obvias, así que quienes la saben se quedan sin pistas seguras enseguida.',
+        'Para empezar con lo difícil: Objetos cotidianos, la lista que sigue. Son cosas que todos usan y que nadie describe nunca en voz alta, así que las pistas seguras se acaban rápido.',
+        'Para que cualquier palabra de esta página cueste más, denle al impostor la pista difícil en lugar de la fácil. Funciona mejor con grupos que ya jugaron un par de veces.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-es-palabras-qr',
 };

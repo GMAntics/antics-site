@@ -56,12 +56,19 @@ for (const [pagePath, dealerPath] of PAIRS) {
   let dealer;
   try { dealer = JSON.parse(read(dealerPath)); }
   catch (e) { problems.push(`${dealerPath}: cannot read (${e.message})`); continue; }
-  const sections = [...html.matchAll(/<section class="[^"]*\bwl-cat\b[^"]*"[^>]*>\s*<h2>([^<]*)<\/h2>([\s\S]*?)<\/section>/g)];
+  // 30 Oct 2026 (es and pt, the generator's `more` pages): a row may carry a
+  // third cell, the hard hint, which the dealer does not deal; word and easy
+  // hint are still compared. A section also classed wl-app is a deck the web
+  // dealer never carries (Brands, Sports, Christmas; the generator checks it
+  // against the app and its English page instead) and is skipped, unless its
+  // name is one of the dealer's decks, so a free deck cannot opt out.
+  const sections = [...html.matchAll(/<section class="([^"]*\bwl-cat\b[^"]*)"[^>]*>\s*<h2>([^<]*)<\/h2>([\s\S]*?)<\/section>/g)];
   if (sections.length === 0) { problems.push(`${pagePath}: no category tables found`); continue; }
-  for (const [, rawName, body] of sections) {
+  for (const [, cls, rawName, body] of sections) {
     const name = decode(rawName);
-    const rows = [...body.matchAll(/<tr><td>([^<]*)<\/td><td>([^<]*)<\/td><\/tr>/g)].map((m) => [decode(m[1]), decode(m[2])]);
+    const rows = [...body.matchAll(/<tr><td>([^<]*)<\/td><td>([^<]*)<\/td>(?:<td>[^<]*<\/td>)?<\/tr>/g)].map((m) => [decode(m[1]), decode(m[2])]);
     const deck = ((dealer && dealer.decks) || []).find((d) => d.name === name);
+    if (!deck && /\bwl-app\b/.test(cls)) continue;
     if (!deck) { problems.push(`${pagePath}: "${name}" is not a deck in ${dealerPath}`); continue; }
     if (JSON.stringify(rows) !== JSON.stringify(deck.words)) problems.push(`${pagePath}: "${name}" differs from ${dealerPath} (${rows.length} rows on the page, ${deck.words.length} in the dealer)`);
   }

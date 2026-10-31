@@ -59,6 +59,7 @@ locked clean version.
 - [Would You Rather generator](https://anticsapp.com/would-you-rather-generator/)
 - [Most Likely To generator](https://anticsapp.com/most-likely-to-generator/)
 - [Truth or Dare generator](https://anticsapp.com/truth-or-dare-generator/)
+- [Christmas Truth or Dare](https://anticsapp.com/christmas-truth-or-dare/): festive truths and dares from the Antics Christmas cards, dealt in the browser.
 - [What Are The Odds generator](https://anticsapp.com/what-are-the-odds-generator/)
 
 ## In Spanish and Portuguese

@@ -54,6 +54,30 @@
 // Only the EASY hint is shown. The app also deals a hard tier in every
 // language since 8 Oct 2026 (HARD_TIER_LANGS in src/data/localizedDecks.ts);
 // that stays an app feature and never reaches these pages.
+// EXCEPT A PAGE WHOSE CONFIG CARRIES `more` (es and pt from 30 Oct 2026, the
+// app repo's ops/research/seo-route-2026-10-29/FINAL.md item 12, ruled by Guy
+// 29 Oct "yes to all"). Such a page also shows:
+//   - the hard hint beside the easy one in every table (the app's own
+//     <deck>HintsHard arrays at the same index; a blank hard hint renders
+//     blank, and the app serves the easy hint there);
+//   - the two follow decks, Brands and Sports (registry access 'follow'),
+//     and the Christmas deck (access 'free', season 'christmas', in the app
+//     1 Dec to 1 Jan), each checked against its published English page
+//     (/imposter-game-words/brands/, sports/, christmas/) the same way the
+//     free decks are, word, easy hint and hard hint; a language whose mirror
+//     lacks the Christmas deck simply gets no Christmas section;
+//   - a "hard words" section just before Everyday objects, the category the
+//     English hub calls the sneaky hard one;
+//   - a draw-one-word button (more.draw) under the words intro: a small
+//     inline script picks a random row from the tables already on the page
+//     and shows the word, its list and both hints. No new data, hidden until
+//     the script runs and hidden in print (30 Oct 2026, item 12's button,
+//     added after the batch 2 review).
+// The extra decks are not in the web dealer's words.json (it deals the free
+// decks only), so their sections carry the class wl-app and
+// .githooks/check-word-pages.mjs leaves them out; the free decks' word and
+// easy hint are still checked against words.json (rule 4), now beside a
+// third cell. A config without `more` renders byte for byte as before.
 //
 // WHY IT LIVES HERE: these pages say every word on them is in the app,
 // so they must be regenerated after ANY Imposter retire or mirror repair, in
@@ -108,6 +132,11 @@ function configProblems(file, C) {
   if (C.path !== `/${C.dir}/`) out.push(`${file}: path must be '/' + dir + '/'`);
   if (typeof C.dealerWords === 'string' && !existsSync(join(SITE, C.dealerWords))) out.push(`${file}: dealerWords ${C.dealerWords} does not exist (export the words first)`);
   if (typeof C.qr === 'string' && !/^https:\/\/anticsapp\.com\/get\/\?c=[a-z0-9-]{1,32}$/.test(C.qr)) out.push(`${file}: qr must be https://anticsapp.com/get/?c=<tag>`);
+  if (C.more !== undefined) {
+    const M = C.more;
+    for (const k of ['thEasy', 'thHard', 'follow', 'christmasLine', 'christmasToc', 'draw']) if (typeof M?.[k] !== 'string' || !M[k]) out.push(`${file}: more.${k} missing`);
+    if (!M?.hard || !M.hard.id || !M.hard.h2 || !M.hard.toc || !Array.isArray(M.hard.p) || !M.hard.p.length) out.push(`${file}: more.hard needs id, h2, toc and p[]`);
+  }
   const text = JSON.stringify(C);
   if (/[\u2013\u2014]/.test(text)) out.push(`${file}: em or en dash`);
   if (/17\+/.test(text)) out.push(`${file}: "17+" (the rating is 18+)`);
@@ -175,6 +204,15 @@ const DECKS = [
   { id: 'everyday-objects', app: 'everydayObjects', kind: 'word', from: 'decks', words: 'everydayObjectsWords', hints: 'everydayObjectsHints', retiredKey: 'imposterEverydayObjects' },
 ];
 const ALLOW_FOLLOW = new Set([]);
+// The fuller page's extra decks (configs with `more` only, see the header).
+// Each names the access and season the registry must still say, so a deck
+// that moves to premium, or a season that is renamed, stops the run.
+const EXTRA_DECKS = [
+  { id: 'brands', app: 'brandsAndLogos', kind: 'word', from: 'decks', words: 'brandsAndLogosWords', hints: 'brandsAndLogosHints', retiredKey: 'imposterBrandsAndLogos', access: 'follow', season: null },
+  { id: 'sports', app: 'sports', kind: 'word', from: 'decks', words: 'sportsWords', hints: 'sportsHints', retiredKey: 'imposterSports', access: 'follow', season: null },
+  { id: 'christmas', app: 'christmas', kind: 'word', from: 'decks', words: 'christmasWords', hints: 'christmasHints', retiredKey: 'imposterChristmas', access: 'free', season: 'christmas' },
+];
+const HARD_OF = (d) => `${d.hints}Hard`;
 
 const registry = readFileSync(join(APP, 'src/data/imposterCategories.ts'), 'utf8');
 function accessOf(reg, appId) {
@@ -185,6 +223,17 @@ function accessOf(reg, appId) {
   if (!m) throw new Error(`deck ${appId} has no access line`);
   if (/\bseason:/.test(block)) throw new Error(`deck ${appId} is seasonal and never ships to the web`);
   return m[1];
+}
+// The extra decks' registry line: access and season, without accessOf's
+// seasonal refusal (the Christmas deck is seasonal on purpose).
+function registryOf(reg, appId) {
+  const at = reg.indexOf(`id: '${appId}'`);
+  if (at === -1) throw new Error(`deck ${appId} is not in imposterCategories.ts`);
+  const block = reg.slice(at, reg.indexOf('}', at));
+  const m = /access:\s*'(\w+)'/.exec(block);
+  if (!m) throw new Error(`deck ${appId} has no access line`);
+  const s = /\bseason:\s*'(\w+)'/.exec(block);
+  return { access: m[1], season: s ? s[1] : null };
 }
 
 const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", rsquo: '’', lsquo: '‘', eacute: 'é', nbsp: ' ' };
@@ -197,6 +246,14 @@ function publishedTable(slug) {
   const html = readFileSync(join(SITE, 'imposter-game-words', slug, 'index.html'), 'utf8');
   const rows = new Map();
   for (const m of html.matchAll(/<tr><td>([^<]*)<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td><\/tr>/g)) rows.set(decode(m[1]), decode(m[2]));
+  if (rows.size === 0) throw new Error(`no word rows on ${slug}`);
+  return rows;
+}
+// The same English table with both hints: word -> [easy, hard].
+function publishedRows(slug) {
+  const html = readFileSync(join(SITE, 'imposter-game-words', slug, 'index.html'), 'utf8');
+  const rows = new Map();
+  for (const m of html.matchAll(/<tr><td>([^<]*)<\/td><td>([^<]*)<\/td><td>([^<]*)<\/td><\/tr>/g)) rows.set(decode(m[1]), [decode(m[2]), decode(m[3])]);
   if (rows.size === 0) throw new Error(`no word rows on ${slug}`);
   return rows;
 }
@@ -274,6 +331,108 @@ for (const lang of LANGS) {
     OUT[lang].push({ id: d.id, name: nm[1], kind: d.kind, words: list });
   }
 }
+
+// --- the fuller page (configs with `more`): hard hints and extra decks ----
+// Same rules as above, applied to the hard tier of the four free decks and
+// to every tier of the extra decks: English first (published English page,
+// retired list, registry access and season), then each mirror at exactly the
+// English indexes. Nothing here runs for a language without `more`.
+const MORE_LANGS = LANGS.filter((l) => CONFIGS[l].more);
+const HARD_OUT = {}; // lang -> deck id -> hard hints, aligned with OUT[lang]'s list
+const EXTRA_OUT = {}; // lang -> [{ id, name, kind, words: [[word, easy, hard]] }]
+const MORE_NOTES = [];
+if (MORE_LANGS.length) {
+  const emittedX = new Map();
+  for (const d of EXTRA_DECKS) {
+    for (const [label, reg] of [['HEAD', registry], ...(LIVE_COMMIT ? [[LIVE_COMMIT, LIVE_REGISTRY]] : [])]) {
+      const r = registryOf(reg, d.app);
+      if (r.access !== d.access || r.season !== d.season) throw new Error(`${d.app} is access '${r.access}' season '${r.season}' (${label}), expected '${d.access}' '${d.season}'`);
+    }
+    if (!RETIRED_CARDS[d.retiredKey]) throw new Error(`RETIRED_CARDS has no key ${d.retiredKey}`);
+    const retired = new Set(RETIRED_CARDS[d.retiredKey]);
+    if (LIVE_COMMIT && [...retired].sort().join() !== [...new Set(LIVE_RETIRED[d.retiredKey] || [])].sort().join()) problems.push(`${d.id}: retired list differs from ${LIVE_COMMIT}`);
+    const enWords = EN_MODULES[d.from][d.words];
+    const enHints = EN_MODULES[d.from][d.hints];
+    const enHard = EN_MODULES[d.from][HARD_OF(d)] || [];
+    const page = publishedRows(d.id);
+    const idx = [];
+    enWords.forEach((word, i) => {
+      if (retired.has(i)) return;
+      const hint = enHints[i] || '';
+      const hard = enHard[i] || '';
+      if (typeof word !== 'string' || !word.trim()) { problems.push(`${d.id}[${i}]: empty word`); return; }
+      if (/[<>]/.test(word + hint + hard)) { problems.push(`${d.id}[${i}]: angle bracket`); return; }
+      if (!page.has(word)) { problems.push(`${d.id}[${i}]: "${word}" not published on /imposter-game-words/${d.id}/`); return; }
+      const [pe, ph] = page.get(word);
+      if (pe !== hint || ph !== hard) { problems.push(`${d.id}[${i}]: hints "${hint}"/"${hard}" differ from published "${pe}"/"${ph}"`); return; }
+      idx.push(i);
+    });
+    for (const w of page.keys()) {
+      const i = enWords.indexOf(w);
+      if (i === -1) problems.push(`${d.id}: page publishes "${w}", not in the app deck`);
+      else if (retired.has(i)) problems.push(`${d.id}: page publishes "${w}", RETIRED (${i})`);
+    }
+    emittedX.set(d.id, idx);
+  }
+  // the free decks' hard tier on the English pages
+  for (const d of DECKS) {
+    const enWords = EN_MODULES[d.from][d.words];
+    const enHard = EN_MODULES[d.from][HARD_OF(d)] || [];
+    const page = publishedRows(d.id);
+    for (const i of emitted.get(d.id)) if (page.get(enWords[i])[1] !== (enHard[i] || '')) problems.push(`${d.id}[${i}]: hard hint "${enHard[i]}" differs from published "${page.get(enWords[i])[1]}"`);
+  }
+  for (const lang of MORE_LANGS) {
+    const L = MIRROR[lang];
+    const strings = readFileSync(join(APP, L.strings), 'utf8');
+    const tierOf = (d, i, words, hard, liveSrc) => {
+      const h = hard[i] || '';
+      if (/[<>]/.test(h)) problems.push(`${lang} ${d.id}[${i}]: angle bracket in hard hint`);
+      if (/[\u2014\u2013]/.test(h)) problems.push(`${lang} ${d.id}[${i}]: em or en dash in hard hint`);
+      if (liveSrc && (liveSrc[i] || '') !== h) problems.push(`${lang} ${d.id}[${i}]: hard hint "${h}" is not what ${LIVE_COMMIT} deals ("${liveSrc[i]}")`);
+      return h;
+    };
+    HARD_OUT[lang] = {};
+    for (const d of DECKS) {
+      const words = L[d.from][d.words];
+      const hard = L[d.from][HARD_OF(d)];
+      if (!Array.isArray(hard) || hard.length !== words.length) { problems.push(`${lang} ${d.id}: hard tier missing or not 1:1 (${hard && hard.length} vs ${words.length})`); continue; }
+      HARD_OUT[lang][d.id] = emitted.get(d.id).map((i) => tierOf(d, i, words, hard, LIVE ? LIVE[lang][d.from][HARD_OF(d)] : null));
+      const blank = HARD_OUT[lang][d.id].filter((h) => !h).length;
+      if (blank) MORE_NOTES.push(`${lang} ${d.id}: ${blank} blank hard hint(s), rendered blank`);
+    }
+    EXTRA_OUT[lang] = [];
+    for (const d of EXTRA_DECKS) {
+      const words = L[d.from][d.words];
+      const hints = L[d.from][d.hints];
+      const hard = L[d.from][HARD_OF(d)];
+      const enWords = EN_MODULES[d.from][d.words];
+      const enHints = EN_MODULES[d.from][d.hints];
+      // A seasonal deck the mirror does not carry in full is left out, as the
+      // app hides it there (SEASONAL_IMPOSTER_NATIVE in src/data/localizedDecks.ts).
+      const native = Array.isArray(words) && Array.isArray(hints) && words.length === enWords.length && words.length > 0 && words.every((w) => typeof w === 'string' && w.trim());
+      if (d.season && !native) { MORE_NOTES.push(`${lang} ${d.id}: mirror lacks the deck, no section`); continue; }
+      if (!native) { problems.push(`${lang} ${d.id}: ${words && words.length} words vs English ${enWords.length}`); continue; }
+      if (!Array.isArray(hard) || hard.length !== words.length) { problems.push(`${lang} ${d.id}: hard tier missing or not 1:1`); continue; }
+      const nm = new RegExp(`\\b${d.app}:\\s*'([^']+)'`).exec(strings);
+      if (!nm) { problems.push(`${lang} ${d.id}: no localized name`); continue; }
+      const retired = new Set(RETIRED_CARDS[d.retiredKey]);
+      const list = [];
+      for (const i of emittedX.get(d.id)) {
+        const word = words[i];
+        const hint = hints[i] || '';
+        if (retired.has(i)) { problems.push(`${lang} ${d.id}[${i}]: retired`); continue; }
+        if (!hint.trim() && (enHints[i] || '').trim()) { problems.push(`${lang} ${d.id}[${i}]: no easy hint`); continue; }
+        if (/[<>]/.test(word + hint)) { problems.push(`${lang} ${d.id}[${i}]: angle bracket`); continue; }
+        if (/[\u2014\u2013]/.test(word + hint)) { problems.push(`${lang} ${d.id}[${i}]: em or en dash`); continue; }
+        if (LIVE && (LIVE[lang][d.from][d.words][i] !== word || (LIVE[lang][d.from][d.hints][i] || '') !== hint)) problems.push(`${lang} ${d.id}[${i}]: "${word}"/"${hint}" is not what ${LIVE_COMMIT} deals`);
+        list.push([word, hint, tierOf(d, i, words, hard, LIVE ? LIVE[lang][d.from][HARD_OF(d)] : null)]);
+      }
+      const blank = list.filter((r) => !r[2]).length;
+      if (blank) MORE_NOTES.push(`${lang} ${d.id}: ${blank} blank hard hint(s), rendered blank`);
+      EXTRA_OUT[lang].push({ id: d.id, name: nm[1], kind: d.kind, words: list });
+    }
+  }
+}
 if (problems.length) { console.error('Refusing to write:\n  ' + problems.join('\n  ')); process.exit(1); }
 
 // --- page copy: one config per language in .tools/word-pages/ (PROPOSALS
@@ -292,9 +451,115 @@ const ilang = (lang) => ['<a href="/imposter-game-words/" hreflang="en" lang="en
   ...ALTS.map((c) => (c.lang === lang ? `<span aria-current="page">${esc(c.langName)}</span>` : `<a href="${c.path}" hreflang="${c.hreflang}" lang="${c.htmlLang}">${esc(c.langName)}</a>`))].join('\n      ');
 
 const ORIGIN = 'https://anticsapp.com';
+// The fuller page's blocks, in page order: the free decks with both hints,
+// Brands and Sports after Places, the hard-words section just before
+// Everyday objects, Christmas last. [{ type: 'deck'|'hard', ... }]
+function moreBlocks(lang) {
+  const C = COPY[lang];
+  const free = OUT[lang].map((d) => ({ ...d, words: d.words.map(([w, e], n) => [w, e, HARD_OUT[lang][d.id][n]]) }));
+  const extra = Object.fromEntries(EXTRA_OUT[lang].map((d) => [d.id, d]));
+  const order = [];
+  for (const d of free) {
+    if (d.id === 'everyday-objects') order.push({ type: 'hard', anchor: C.more.hard.id, tocLabel: C.more.hard.toc });
+    order.push({ type: 'deck', ...d });
+    if (d.id === 'places') for (const id of ['brands', 'sports']) if (extra[id]) order.push({ type: 'deck', ...extra[id], app: true, note: C.more.follow });
+  }
+  if (extra.christmas) order.push({ type: 'deck', ...extra.christmas, app: true, note: C.more.christmasLine, tocLabel: C.more.christmasToc });
+  let n = 0;
+  return order.map((b) => (b.type === 'deck' ? { ...b, anchor: slugify(b.name, lang), tone: TONES[n++ % TONES.length] } : b));
+}
+function moreTables(cats, C) {
+  return cats.map((c) => (c.type === 'hard'
+    ? `      <section class="section tone-lime wl-after" id="${c.anchor}">
+        <h2>${esc(C.more.hard.h2)}</h2>
+${C.more.hard.p.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
+      </section>`
+    : `      <section class="section ${c.tone} wl-cat${c.app ? ' wl-app' : ''}" id="${c.anchor}">
+        <h2>${esc(c.name)}</h2>
+${c.note ? `        <p class="note">${esc(c.note)}</p>\n` : ''}        <div class="table-wrap">
+          <table class="wl-table">
+            <thead>
+              <tr><th>${esc(C.thWord)}</th><th>${esc(C.more.thEasy)}</th><th>${esc(C.more.thHard)}</th></tr>
+            </thead>
+            <tbody>
+${c.words.map(([w, e, h]) => `              <tr><td>${esc(w)}</td><td>${esc(e)}</td><td>${esc(h)}</td></tr>`).join('\n')}
+            </tbody>
+          </table>
+        </div>
+      </section>`)).join('\n\n');
+}
+
+// Three columns on a phone: tighter cells and hyphenated long words, so no
+// table needs a sideways scroll (the shared stylesheet is sized for two).
+const MORE_STYLE = `  <style>
+    @media screen and (max-width: 559px) {
+      .wl-page .wl-table th, .wl-page .wl-table td { padding-left: 10px; padding-right: 10px; -webkit-hyphens: auto; hyphens: auto; }
+    }
+    .wl-page .wl-draw-out p { margin-top: var(--space-2xs); }
+    .wl-page .wl-draw-out p:first-child { margin-top: var(--space-s); }
+    @media print { .wl-page .wl-draw { display: none !important; } }
+  </style>
+`;
+
+// The draw-one-word button (more.draw). The block ships hidden and the script
+// shows it, so a page without JavaScript never shows a dead button. It reads
+// only the tables on the page: every row of every .wl-cat table, the list's
+// name from that section's h2, the hint labels from the table header. A blank
+// hard hint is left out (the app serves the easy one there).
+const drawBlock = (C) => `        <div class="wl-draw" hidden>
+          <button class="btn btn--sm" type="button">${esc(C.more.draw)}</button>
+          <div class="wl-draw-out" aria-live="polite"></div>
+        </div>
+`;
+const DRAW_SCRIPT = `<script>
+(function () {
+  var box = document.querySelector('.wl-draw');
+  if (!box) return;
+  var rows = [];
+  var secs = document.querySelectorAll('section.wl-cat');
+  for (var s = 0; s < secs.length; s++) {
+    var h = secs[s].querySelector('h2');
+    var th = secs[s].querySelectorAll('thead th');
+    var tr = secs[s].querySelectorAll('tbody tr');
+    for (var r = 0; r < tr.length; r++) {
+      var td = tr[r].querySelectorAll('td');
+      if (td.length < 3 || !td[0].textContent) continue;
+      rows.push({ list: h ? h.textContent : '', word: td[0].textContent, easy: td[1].textContent, hard: td[2].textContent,
+        easyLabel: th[1] ? th[1].textContent : '', hardLabel: th[2] ? th[2].textContent : '' });
+    }
+  }
+  if (!rows.length) return;
+  var out = box.querySelector('.wl-draw-out');
+  var last = -1;
+  function line(label, text) {
+    var p = document.createElement('p');
+    if (label) { var b = document.createElement('strong'); b.textContent = label + ': '; p.appendChild(b); }
+    p.appendChild(document.createTextNode(text));
+    return p;
+  }
+  box.querySelector('button').addEventListener('click', function () {
+    var i;
+    do { i = Math.floor(Math.random() * rows.length); } while (rows.length > 1 && i === last);
+    last = i;
+    var w = rows[i];
+    while (out.firstChild) out.removeChild(out.firstChild);
+    var top = document.createElement('p');
+    var big = document.createElement('strong');
+    big.textContent = w.word;
+    top.appendChild(big);
+    top.appendChild(document.createTextNode(' (' + w.list + ')'));
+    out.appendChild(top);
+    if (w.easy) out.appendChild(line(w.easyLabel, w.easy));
+    if (w.hard) out.appendChild(line(w.hardLabel, w.hard));
+  });
+  box.hidden = false;
+})();
+</script>
+`;
+
 function render(lang) {
   const C = COPY[lang];
-  const cats = OUT[lang].map((d, n) => ({ ...d, anchor: slugify(d.name, lang), tone: TONES[n % TONES.length] }));
+  const cats = C.more ? moreBlocks(lang) : OUT[lang].map((d, n) => ({ ...d, anchor: slugify(d.name, lang), tone: TONES[n % TONES.length] }));
   const breadcrumb = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -305,9 +570,9 @@ function render(lang) {
       { '@type': 'ListItem', position: 4, name: C.ldHere, item: `${ORIGIN}${C.path}` },
     ],
   };
-  const toc = [...cats.map((c) => [c.anchor, c.name]), ...C.tocAfter]
+  const toc = [...cats.map((c) => [c.anchor, c.tocLabel || c.name]), ...C.tocAfter]
     .map(([id, label], n) => `        <li class="${['tone-lime', ...TONES][n % 5]}"><a href="#${id}">${esc(label)}</a></li>`).join('\n');
-  const tables = cats.map((c) => `      <section class="section ${c.tone} wl-cat" id="${c.anchor}">
+  const tables = C.more ? moreTables(cats, C) : cats.map((c) => `      <section class="section ${c.tone} wl-cat" id="${c.anchor}">
         <h2>${esc(c.name)}</h2>
         <div class="table-wrap">
           <table class="wl-table">
@@ -358,7 +623,7 @@ ${JSON.stringify(breadcrumb, null, 2)}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
-  <!-- Word tables generated from the app's src/data/${lang} Imposter mirrors (free decks only, retired indexes removed, easy hint only) by .tools/gen-es-pt-word-pages.mjs in the site repo. Regenerate rather than hand-edit. -->
+${C.more ? MORE_STYLE : ''}  <!-- Word tables generated from the app's src/data/${lang} Imposter mirrors (${C.more ? 'free decks plus the follow decks Brands and Sports and the seasonal Christmas deck, retired indexes removed, easy and hard hint' : 'free decks only, retired indexes removed, easy hint only'}) by .tools/gen-es-pt-word-pages.mjs in the site repo. Regenerate rather than hand-edit. -->
 </head>
 <body class="has-installbar wl-page">
 <div class="page">
@@ -386,7 +651,7 @@ ${toc}
       <section class="section tone-lime" id="${C.wordsId}">
         <h2>${esc(C.wordsH2)}</h2>
         <p>${esc(C.wordsP)}</p>
-        <p class="note wl-print-tip">${esc(C.printTip)}</p>
+${C.more ? drawBlock(C) : ''}        <p class="note wl-print-tip">${esc(C.printTip)}</p>
       </section>
 
 ${tables}
@@ -419,13 +684,13 @@ ${steps(C.threeSteps)}
 </div>
 
 ${C.installbar}
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
+${C.more ? DRAW_SCRIPT : ''}<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 `;
 }
 
-const passed = 'retired applied, free non-seasonal decks only, English-published indexes, equal to the web dealer words.json' + (LIVE_COMMIT ? `, equal to ${LIVE_COMMIT}` : '');
+const passed = 'retired applied, free non-seasonal decks only, English-published indexes, equal to the web dealer words.json' + (MORE_LANGS.length ? ` (${MORE_LANGS.join(', ')} also: hard tier, Brands, Sports and Christmas against their English pages and registry lines)` : '') + (LIVE_COMMIT ? `, equal to ${LIVE_COMMIT}` : '');
 if (CHECK) {
   // Compare only: the pages on disk must be exactly what this run renders.
   const stale = LANGS.filter((lang) => {
@@ -446,6 +711,7 @@ for (const lang of LANGS) {
   if (!/[?&]c=([a-z0-9-]{1,32})$/.test(C.qr)) throw new Error('bad tag ' + C.qr);
   await QRCode.toFile(join(SITE, C.dir, 'qr.png'), C.qr, { width: 600, margin: 1, errorCorrectionLevel: 'M', color: { dark: '#0E0A1F', light: '#FFFFFF' } });
   console.log(`Wrote ${C.dir}/index.html and qr.png (${C.qr})`);
-  for (const d of OUT[lang]) console.log(`  ${d.id.padEnd(17)} ${String(d.words.length).padStart(3)}  ${d.name}`);
+  for (const d of [...OUT[lang], ...(EXTRA_OUT[lang] || [])]) console.log(`  ${d.id.padEnd(17)} ${String(d.words.length).padStart(3)}  ${d.name}`);
 }
+for (const n of MORE_NOTES) console.log(`  note: ${n}`);
 console.log(`All checks passed: ${passed}.`);

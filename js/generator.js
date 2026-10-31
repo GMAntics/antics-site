@@ -408,6 +408,11 @@
     var game = root.getAttribute('data-game');
     var cfg = CFG[game];
     if (!cfg) { root.textContent = 'Generator unavailable.'; return; }
+    // A page that deals only part of a game's cards can name them (data-label),
+    // so the first and last lines describe that page's deck, not the whole
+    // free deck: /christmas-truth-or-dare/ says "Christmas Truth or Dare"
+    // (30 Oct 2026). Pages without the attribute read exactly as before.
+    var label = root.getAttribute('data-label') || cfg.label;
 
     var embed = /[?&]embed=1/.test(location.search);
     var urlMode = param('mode');
@@ -502,14 +507,14 @@
       ctaH.textContent = ctaLine();
       qEl.classList.toggle('agen-q-empty', idx < 0);
       if (idx < 0) {
-        qEl.textContent = 'Tap below to draw your first ' + cfg.label + ' card.';
+        qEl.textContent = 'Tap below to draw your first ' + label + ' card.';
         copyBtn.style.visibility = 'hidden';
         nextBtn.textContent = 'Draw a card';
         countEl.textContent = deckLine();
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's every free " + cfg.label + ' card. The app has thousands more, plus eight other games.';
+        qEl.textContent = "That's every free " + label + ' card. The app has thousands more, plus eight other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
         countEl.textContent = 'You have seen every free card.';

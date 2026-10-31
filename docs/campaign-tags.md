@@ -114,6 +114,10 @@ left on a content page.
 | `site-blog-reset-bar` | `/blog/after-party-15-minute-reset/` | the phone install bar |
 | `site-blog-christmas` | `/blog/christmas-party-games-for-adults/` | end CTA |
 | `site-blog-christmas-bar` | `/blog/christmas-party-games-for-adults/` | the phone install bar |
+| `site-christmas-tod` | `/christmas-truth-or-dare/` | the dealer's "Get Antics free" button and its static fallback (added 30 Oct 2026, SEO batch 2; the mount's `data-cta`) |
+| `site-christmas-tod-play` | `/christmas-truth-or-dare/` | the dealer's "Play a free round" link to `/play/` (`js/generator.js` adds `-play` to the mount's tag) |
+| `site-christmas-tod-foot` | `/christmas-truth-or-dare/` | the footer line |
+| `site-christmas-tod-bar` | `/christmas-truth-or-dare/` | the phone install bar |
 | `site-llms` | `llms.txt` | the "Get Antics free" line |
 | `site-referral-fallback` | `/r/` | the no-JS button, used only when a share token does not resolve |
 

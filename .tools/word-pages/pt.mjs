@@ -11,20 +11,20 @@ export default {
   dealerWords: 'pt/jogo-do-impostor/words.json', wordsId: 'palavras',
   htmlLang: 'pt-BR', path: '/pt/palavras-jogo-do-impostor/', dir: 'pt/palavras-jogo-do-impostor',
   ogLocale: 'pt_BR',
-  title: 'Palavras para o jogo do impostor: lista para imprimir',
-  desc: 'Palavras para o jogo do impostor com a dica de cada uma, em quatro categorias. Para imprimir, para jogar sem celular e para jogar com 3 pessoas. Grátis.',
-  ogTitle: 'Palavras para o jogo do impostor, com a dica de cada uma',
+  title: 'Palavras para o jogo do impostor: ideias fáceis e difíceis',
+  desc: 'Palavras para o jogo do impostor, fáceis e difíceis, com dica fácil e difícil: comida, famosos, lugares, objetos, marcas, esportes e Natal. Para imprimir.',
+  ogTitle: 'Palavras para o jogo do impostor: ideias fáceis e difíceis',
   crumbLabel: 'Caminho de navegação', langHome: '/pt/', langName: 'Português',
   crumbGame: 'Jogo do impostor online', gamePath: '/pt/jogo-do-impostor/', crumbHere: 'Palavras',
   ldGame: 'Jogo do impostor online', ldHere: 'Palavras para o jogo do impostor',
   h1: 'Palavras para o jogo do impostor',
-  standfirst: 'Quatro categorias completas do jogo do impostor, com a dica que o impostor recebe para cada palavra. Dá para jogar no papel, sem celular, e imprimir uma categoria por folha.',
+  standfirst: 'Seis categorias completas do jogo do impostor e a de Natal, com a dica fácil e a dica difícil que o impostor recebe para cada palavra. Dá para jogar no papel, sem celular, e imprimir uma categoria por folha.',
   note: 'Vão jogar agora? <a class="inline" href="/pt/jogo-do-impostor/">Distribuam as palavras em um celular só</a>, grátis e sem baixar nada.',
   ilangLabel: 'Idioma',
   tocLabel: 'Nesta página',
   tocAfter: [['sem-celular', 'Sem celular'], ['com-3-pessoas', 'Com 3 pessoas']],
   wordsH2: 'As palavras e a dica do impostor',
-  wordsP: 'Cada palavra desta página aparece no app Antics em português do Brasil, com a mesma dica. A dica é o que o impostor vê no lugar da palavra: algo que chega perto sem entregar a resposta. No papel, vocês decidem se ele recebe a dica ou não.',
+  wordsP: 'Cada palavra desta página aparece no app Antics em português do Brasil, com as mesmas dicas. A dica é o que o impostor vê no lugar da palavra: algo que chega perto sem entregar a resposta. A fácil é algo que salta aos olhos; a difícil fala do momento ou do clima, então o impostor precisa improvisar mais. Se a difícil estiver em branco, o app dá a fácil. No papel, vocês decidem qual ele recebe, ou se não recebe nenhuma.',
   printTip: 'Para imprimir: no computador, use Imprimir (Ctrl+P, ou Cmd+P no Mac). Cada categoria sai em uma folha própria.',
   thWord: 'Palavra secreta', thHint: 'Dica do impostor',
   paperId: 'sem-celular',
@@ -79,5 +79,23 @@ export default {
   <p><strong>Antics</strong><span>Jogos de festa</span></p>
   <a class="btn btn--sm" href="/get/?c=site-pt-palavras-bar">Baixar grátis</a>
 </aside>`,
+  // The fuller page (30 Oct 2026, FINAL.md item 12 of the app repo's
+  // ops/research/seo-route-2026-10-29/): both hint tiers, Brands, Sports and
+  // Christmas, and the hard-words section. See the generator's header.
+  more: {
+    thEasy: 'Dica fácil', thHard: 'Dica difícil',
+    follow: 'No app Antics, esta categoria é liberada de graça quando você segue o Antics no TikTok ou no Instagram.',
+    christmasLine: 'Grátis no app Antics de 1º de dezembro a 1º de janeiro.',
+    christmasToc: 'Natal',
+    draw: 'Sortear uma palavra',
+    hard: {
+      id: 'palavras-dificeis', h2: 'Palavras difíceis para o jogo do impostor', toc: 'Palavras difíceis',
+      p: [
+        'Uma palavra difícil é bem específica: Curling, Esgrima, Wikipedia ou Foto de chegada têm poucas dicas óbvias, então quem sabe a palavra fica sem dicas seguras rapidinho.',
+        'Para começar pelo difícil: Objetos do dia a dia, a lista logo abaixo. São coisas que todo mundo usa e que ninguém descreve em voz alta, então as dicas seguras acabam rápido.',
+        'Para qualquer palavra desta página ficar mais difícil, deem ao impostor a dica difícil em vez da fácil. Funciona melhor com grupos que já jogaram algumas vezes.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-pt-palavras-qr',
 };
