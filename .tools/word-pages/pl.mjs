@@ -14,19 +14,19 @@ export default {
   htmlLang: 'pl', path: '/pl/hasla-do-impostora/', dir: 'pl/hasla-do-impostora',
   ogLocale: 'pl_PL',
   title: 'Hasła do gry w impostora: słowa z podpowiedziami | Antics',
-  desc: 'Hasła do gry w impostora z podpowiedzią do każdego, w czterech kategoriach. Do druku, do gry bez telefonu i do gry we trójkę. Za darmo.',
-  ogTitle: 'Hasła do gry w impostora, z podpowiedzią do każdego',
+  desc: 'Hasła do gry w impostora z łatwą i trudną podpowiedzią: jedzenie, znane osoby, miejsca, przedmioty, marki, sport i święta. Do druku i do gry bez telefonu.',
+  ogTitle: 'Hasła do gry w impostora, łatwe i trudne',
   crumbLabel: 'Ścieżka nawigacji', langHome: '/pl/', langName: 'Polski',
   crumbGame: 'Gra w impostora online', gamePath: '/pl/gra-w-impostora/', crumbHere: 'Hasła',
   ldGame: 'Gra w impostora online', ldHere: 'Hasła do gry w impostora',
   h1: 'Hasła do gry w impostora',
-  standfirst: 'Cztery pełne kategorie haseł do gry w impostora, z podpowiedzią, którą impostor dostaje do każdego słowa. Przydadzą się do gry na kartkach, bez telefonu, a przy drukowaniu każda kategoria trafia na osobną stronę.',
+  standfirst: 'Sześć pełnych kategorii haseł do gry w impostora i do tego kategoria świąteczna, z łatwą i trudną podpowiedzią dla impostora do każdego słowa. Przydadzą się do gry na kartkach, bez telefonu, a przy drukowaniu każda kategoria trafia na osobną stronę.',
   note: 'Chcecie zagrać od razu? <a class="inline" href="/pl/gra-w-impostora/">Rozdajcie hasła na jednym telefonie</a>, za darmo i bez pobierania.',
   ilangLabel: 'Język',
   tocLabel: 'Na tej stronie',
   tocAfter: [['bez-telefonu', 'Bez telefonu'], ['we-trojke', 'We trójkę']],
   wordsH2: 'Hasła i podpowiedź dla impostora',
-  wordsP: 'Każde hasło (tajne słowo) z tej strony pojawia się w aplikacji Antics po polsku, z tą samą podpowiedzią. Podpowiedź jest tym, co impostor widzi zamiast hasła: czymś, co go naprowadza, ale nie zdradza odpowiedzi. Na kartkach sami decydujecie, czy mu ją dać.',
+  wordsP: 'Każde hasło (tajne słowo) z tej strony pojawia się w aplikacji Antics po polsku, z tymi samymi podpowiedziami. Podpowiedź jest tym, co impostor widzi zamiast hasła: czymś, co go naprowadza, ale nie zdradza odpowiedzi. Łatwa rzuca się w oczy, a trudna mówi raczej o chwili albo nastroju, więc impostor musi bardziej blefować. Jeśli trudna jest pusta, aplikacja daje łatwą. Na kartkach sami decydujecie, którą mu dać i czy w ogóle.',
   printTip: 'Do druku: na komputerze wybierzcie Drukuj (Ctrl+P albo Cmd+P na Macu). Każda kategoria drukuje się na osobnej stronie.',
   thWord: 'Hasło', thHint: 'Podpowiedź dla impostora',
   paperId: 'bez-telefonu',
@@ -81,5 +81,25 @@ export default {
   <p><strong>Antics</strong><span>Gry imprezowe</span></p>
   <a class="btn btn--sm" href="/get/?c=site-pl-hasla-bar">Pobierz za darmo</a>
 </aside>`,
+  // The fuller page (31 Oct 2026, FINAL.md item 15's second wave in the app
+  // repo's ops/research/seo-route-2026-10-29/, the es/pt `more` block of 30
+  // Oct): both hint tiers, Brands, Sports and Christmas, and the hard-words
+  // section. The {word:...} and {name:...} tokens are filled from the mirror
+  // by the generator, never typed here. See the generator's header.
+  more: {
+    thEasy: 'Łatwa podpowiedź', thHard: 'Trudna podpowiedź',
+    follow: 'W aplikacji Antics tę kategorię można odblokować za darmo, obserwując Antics na TikToku albo Instagramie.',
+    christmasLine: 'Za darmo w aplikacji Antics od 1 grudnia do 1 stycznia.',
+    christmasToc: 'Święta',
+    draw: 'Wylosuj hasło',
+    hard: {
+      id: 'trudne-hasla', h2: 'Trudne hasła do impostora', toc: 'Trudne hasła',
+      p: [
+        'Trudne hasło jest bardzo konkretne: „{word:sports:5}”, „{word:sports:11}”, „{word:brands:16}” czy „{word:sports:34}” mają niewiele oczywistych szczegółów, więc ci, którzy znają hasło, szybko tracą bezpieczne tropy.',
+        'Na początek coś trudnego: {name:everyday-objects}, lista tuż poniżej. Każdy ma te rzeczy w domu, ale nikt nigdy nie opisywał ich na głos.',
+        'Każde hasło z tej strony będzie trudniejsze, jeśli dacie impostorowi trudną podpowiedź zamiast łatwej. Najlepiej sprawdza się to w grupach, które grały już kilka razy.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-pl-hasla-qr',
 };

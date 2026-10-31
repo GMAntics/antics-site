@@ -13,19 +13,19 @@ export default {
   htmlLang: 'cs', path: '/cs/impostor-hra-slova/', dir: 'cs/impostor-hra-slova',
   ogLocale: 'cs_CZ',
   title: 'Impostor hra: slova s nápovědou, seznam k vytištění',
-  desc: 'Slova do hry Impostor s nápovědou ke každému, ve čtyřech kategoriích. K vytištění, na hraní bez telefonu i ve třech. Zdarma.',
-  ogTitle: 'Slova do hry Impostor, s nápovědou ke každému',
+  desc: 'Slova do hry Impostor s lehkou i těžkou nápovědou: jídlo, slavné osobnosti, místa, předměty, značky, sporty a Vánoce. K vytištění i na hraní bez telefonu.',
+  ogTitle: 'Slova do hry Impostor, lehká i těžká',
   crumbLabel: 'Drobečková navigace', langHome: '/cs/', langName: 'Čeština',
   crumbGame: 'Impostor hra online', gamePath: '/cs/impostor-hra/', crumbHere: 'Slova',
   ldGame: 'Impostor hra online', ldHere: 'Slova do hry Impostor',
   h1: 'Slova do hry Impostor',
-  standfirst: 'Čtyři celé kategorie do hry Impostor, s nápovědou, kterou impostor ke každému slovu dostane. Hodí se na hraní na papíře, bez telefonu, a každá kategorie se vytiskne na vlastní stránku.',
+  standfirst: 'Šest celých kategorií do hry Impostor a k tomu vánoční, s lehkou i těžkou nápovědou, kterou impostor ke každému slovu dostane. Hodí se na hraní na papíře, bez telefonu, a každá kategorie se vytiskne na vlastní stránku.',
   note: 'Chcete hrát hned? <a class="inline" href="/cs/impostor-hra/">Rozdejte slova na jednom telefonu</a>, zdarma a bez stahování.',
   ilangLabel: 'Jazyk',
   tocLabel: 'Na této stránce',
   tocAfter: [['bez-telefonu', 'Bez telefonu'], ['ve-trech', 'Ve třech']],
   wordsH2: 'Slova a nápověda pro impostora',
-  wordsP: 'Každé slovo z téhle stránky je i v aplikaci Antics, kde se hra jmenuje Podvodník, a to česky a se stejnou nápovědou. Nápověda je to, co impostor vidí místo slova: něco, co ho k němu postrčí, ale odpověď neprozradí. Na papíře si sami rozhodnete, jestli mu ji dáte.',
+  wordsP: 'Každé slovo z téhle stránky je i v aplikaci Antics, kde se hra jmenuje Podvodník, a to česky a se stejnými nápovědami. Nápověda je to, co impostor vidí místo slova: něco, co ho k němu postrčí, ale odpověď neprozradí. Lehká je nasnadě, těžká mluví spíš o chvíli nebo náladě, takže impostor musí víc blafovat. Když je těžká prázdná, aplikace dá lehkou. Na papíře si sami rozhodnete, kterou mu dáte, nebo jestli vůbec nějakou.',
   printTip: 'Tisk: na počítači použijte Tisk (Ctrl+P, na Macu Cmd+P). Každá kategorie se vytiskne na vlastní stránku.',
   thWord: 'Tajné slovo', thHint: 'Nápověda pro impostora',
   paperId: 'bez-telefonu',
@@ -80,5 +80,25 @@ export default {
   <p><strong>Antics</strong><span>Párty hry</span></p>
   <a class="btn btn--sm" href="/get/?c=site-cs-slova-bar">Stáhnout zdarma</a>
 </aside>`,
+  // The fuller page (31 Oct 2026, FINAL.md item 15's second wave in the app
+  // repo's ops/research/seo-route-2026-10-29/, the es/pt `more` block of 30
+  // Oct): both hint tiers, Brands, Sports and Christmas, and the hard-words
+  // section. The {word:...} and {name:...} tokens are filled from the mirror
+  // by the generator, never typed here. See the generator's header.
+  more: {
+    thEasy: 'Lehká nápověda', thHard: 'Těžká nápověda',
+    follow: 'V aplikaci Antics se tahle kategorie odemkne zdarma, když budete Antics sledovat na TikToku nebo Instagramu.',
+    christmasLine: 'Zdarma v aplikaci Antics od 1. prosince do 1. ledna.',
+    christmasToc: 'Vánoce',
+    draw: 'Vylosovat slovo',
+    hard: {
+      id: 'tezka-slova', h2: 'Těžká slova do hry Impostor', toc: 'Těžká slova',
+      p: [
+        'Těžké slovo je hodně konkrétní: „{word:sports:5}“, „{word:sports:11}“, „{word:brands:16}“ nebo „{word:sports:34}“ mají málo jasných detailů, takže těm, kdo slovo znají, ty bezpečné rychle dojdou.',
+        'Pro začátek něco těžkého: {name:everyday-objects}, seznam hned níž. Doma je má každý, ale nikdo je nikdy nepopisoval nahlas.',
+        'Každé slovo na téhle stránce bude těžší, když impostorovi dáte těžkou nápovědu místo lehké. Nejlíp to funguje ve skupinách, které už pár her odehrály.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-cs-slova-qr',
 };

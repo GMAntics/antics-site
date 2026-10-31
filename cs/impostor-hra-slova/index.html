@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Impostor hra: slova s nápovědou, seznam k vytištění</title>
-  <meta name="description" content="Slova do hry Impostor s nápovědou ke každému, ve čtyřech kategoriích. K vytištění, na hraní bez telefonu i ve třech. Zdarma.">
+  <meta name="description" content="Slova do hry Impostor s lehkou i těžkou nápovědou: jídlo, slavné osobnosti, místa, předměty, značky, sporty a Vánoce. K vytištění i na hraní bez telefonu.">
   <link rel="canonical" href="https://anticsapp.com/cs/impostor-hra-slova/">
   <link rel="alternate" hreflang="en" href="https://anticsapp.com/imposter-game-words/">
   <link rel="alternate" hreflang="es" href="https://anticsapp.com/es/palabras-juego-del-impostor/">
@@ -27,8 +27,8 @@
   <meta property="og:locale:alternate" content="it_IT">
   <meta property="og:locale:alternate" content="nl_NL">
   <meta property="og:locale:alternate" content="pl_PL">
-  <meta property="og:title" content="Slova do hry Impostor, s nápovědou ke každému">
-  <meta property="og:description" content="Slova do hry Impostor s nápovědou ke každému, ve čtyřech kategoriích. K vytištění, na hraní bez telefonu i ve třech. Zdarma.">
+  <meta property="og:title" content="Slova do hry Impostor, lehká i těžká">
+  <meta property="og:description" content="Slova do hry Impostor s lehkou i těžkou nápovědou: jídlo, slavné osobnosti, místa, předměty, značky, sporty a Vánoce. K vytištění i na hraní bez telefonu.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://anticsapp.com/cs/impostor-hra-slova/">
   <meta property="og:image" content="https://anticsapp.com/img/og-card.png">
@@ -78,7 +78,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
-  <!-- Word tables generated from the app's src/data/cs Imposter mirrors (free decks only, retired indexes removed, easy hint only) by .tools/gen-es-pt-word-pages.mjs in the site repo. Regenerate rather than hand-edit. -->
+  <style>
+    @media screen and (max-width: 559px) {
+      .wl-page .wl-table th, .wl-page .wl-table td { padding-left: 10px; padding-right: 10px; -webkit-hyphens: auto; hyphens: auto; }
+    }
+    .wl-page .wl-draw-out p { margin-top: var(--space-2xs); }
+    .wl-page .wl-draw-out p:first-child { margin-top: var(--space-s); }
+    @media print { .wl-page .wl-draw { display: none !important; } }
+  </style>
+  <!-- Word tables generated from the app's src/data/cs Imposter mirrors (free decks plus the follow decks Brands and Sports and the seasonal Christmas deck, retired indexes removed, easy and hard hint) by .tools/gen-es-pt-word-pages.mjs in the site repo. Regenerate rather than hand-edit. -->
 </head>
 <body class="has-installbar wl-page">
 <div class="page">
@@ -87,7 +95,7 @@
 
   <header class="page-head">
     <h1>Slova do hry Impostor</h1>
-    <p class="standfirst">Čtyři celé kategorie do hry Impostor, s nápovědou, kterou impostor ke každému slovu dostane. Hodí se na hraní na papíře, bez telefonu, a každá kategorie se vytiskne na vlastní stránku.</p>
+    <p class="standfirst">Šest celých kategorií do hry Impostor a k tomu vánoční, s lehkou i těžkou nápovědou, kterou impostor ke každému slovu dostane. Hodí se na hraní na papíře, bez telefonu, a každá kategorie se vytiskne na vlastní stránku.</p>
     <p class="note">Chcete hrát hned? <a class="inline" href="/cs/impostor-hra/">Rozdejte slova na jednom telefonu</a>, zdarma a bez stahování.</p>
   </header>
   <nav class="ilang" aria-label="Jazyk">
@@ -109,16 +117,24 @@
         <li class="tone-lime"><a href="#jidlo-a-piti">Jídlo a pití</a></li>
         <li class="tone-cyan"><a href="#slavne-osobnosti">Slavné osobnosti</a></li>
         <li class="tone-pink"><a href="#mista">Místa</a></li>
-        <li class="tone-orange"><a href="#bezne-predmety">Běžné předměty</a></li>
-        <li class="tone-purple"><a href="#bez-telefonu">Bez telefonu</a></li>
-        <li class="tone-lime"><a href="#ve-trech">Ve třech</a></li>
+        <li class="tone-orange"><a href="#znacky-a-loga">Značky a loga</a></li>
+        <li class="tone-purple"><a href="#sporty">Sporty</a></li>
+        <li class="tone-lime"><a href="#tezka-slova">Těžká slova</a></li>
+        <li class="tone-cyan"><a href="#bezne-predmety">Běžné předměty</a></li>
+        <li class="tone-pink"><a href="#vanoce-a-silvestr">Vánoce</a></li>
+        <li class="tone-orange"><a href="#bez-telefonu">Bez telefonu</a></li>
+        <li class="tone-purple"><a href="#ve-trech">Ve třech</a></li>
       </ol>
     </nav>
 
     <div class="prose">
       <section class="section tone-lime" id="slova">
         <h2>Slova a nápověda pro impostora</h2>
-        <p>Každé slovo z téhle stránky je i v aplikaci Antics, kde se hra jmenuje Podvodník, a to česky a se stejnou nápovědou. Nápověda je to, co impostor vidí místo slova: něco, co ho k němu postrčí, ale odpověď neprozradí. Na papíře si sami rozhodnete, jestli mu ji dáte.</p>
+        <p>Každé slovo z téhle stránky je i v aplikaci Antics, kde se hra jmenuje Podvodník, a to česky a se stejnými nápovědami. Nápověda je to, co impostor vidí místo slova: něco, co ho k němu postrčí, ale odpověď neprozradí. Lehká je nasnadě, těžká mluví spíš o chvíli nebo náladě, takže impostor musí víc blafovat. Když je těžká prázdná, aplikace dá lehkou. Na papíře si sami rozhodnete, kterou mu dáte, nebo jestli vůbec nějakou.</p>
+        <div class="wl-draw" hidden>
+          <button class="btn btn--sm" type="button">Vylosovat slovo</button>
+          <div class="wl-draw-out" aria-live="polite"></div>
+        </div>
         <p class="note wl-print-tip">Tisk: na počítači použijte Tisk (Ctrl+P, na Macu Cmd+P). Každá kategorie se vytiskne na vlastní stránku.</p>
       </section>
 
@@ -127,49 +143,49 @@
         <div class="table-wrap">
           <table class="wl-table">
             <thead>
-              <tr><th>Tajné slovo</th><th>Nápověda pro impostora</th></tr>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
             </thead>
             <tbody>
-              <tr><td>Pizza</td><td>Sýr</td></tr>
-              <tr><td>Káva</td><td>Hořký</td></tr>
-              <tr><td>Svíčková</td><td>Neděle</td></tr>
-              <tr><td>Popcorn</td><td>Křupavý</td></tr>
-              <tr><td>Guinness</td><td>Hospoda</td></tr>
-              <tr><td>Sushi</td><td>Ryba</td></tr>
-              <tr><td>Horká čokoláda</td><td>Hrnek</td></tr>
-              <tr><td>Kuřecí nugetky</td><td>Smažený</td></tr>
-              <tr><td>Pomazánkové máslo</td><td>Snídaně</td></tr>
-              <tr><td>Kebab</td><td>Bufet</td></tr>
-              <tr><td>Bubble tea</td><td>Brčko</td></tr>
-              <tr><td>Donut</td><td>Pekárna</td></tr>
-              <tr><td>Kari</td><td>Pikantní</td></tr>
-              <tr><td>Pomerančový džus</td><td>Ovoce</td></tr>
-              <tr><td>Česnekový chléb</td><td>Máslo</td></tr>
-              <tr><td>Zmrzlina</td><td>Studený</td></tr>
-              <tr><td>Guláš</td><td>Pivo</td></tr>
-              <tr><td>Coca-Cola</td><td>Bublinky</td></tr>
-              <tr><td>Lasagne</td><td>Itálie</td></tr>
-              <tr><td>Cukrová vata</td><td>Pouť</td></tr>
-              <tr><td>Pečený brambor</td><td>Sacharidy</td></tr>
-              <tr><td>Mojito</td><td>Máta</td></tr>
-              <tr><td>Ovesná kaše</td><td>Miska</td></tr>
-              <tr><td>Nachos</td><td>Sdílení</td></tr>
-              <tr><td>Red Bull</td><td>Plechovka</td></tr>
-              <tr><td>Palačinky</td><td>Těsto</td></tr>
-              <tr><td>Croissant</td><td>Francie</td></tr>
-              <tr><td>Knedlík</td><td>Omáčka</td></tr>
-              <tr><td>Milkshake</td><td>Mixér</td></tr>
-              <tr><td>Hummus</td><td>Dip</td></tr>
-              <tr><td>Burger</td><td>Hovězí</td></tr>
-              <tr><td>Prosecco</td><td>Víno</td></tr>
-              <tr><td>Banán</td><td>Žlutá</td></tr>
-              <tr><td>Sýrový toust</td><td>Roztavený</td></tr>
-              <tr><td>Avokádo</td><td>Zelená</td></tr>
-              <tr><td>Čínská polívka</td><td>Konvice</td></tr>
-              <tr><td>Marshmallow</td><td>Měkký</td></tr>
-              <tr><td>Fajitas</td><td>Pánev</td></tr>
-              <tr><td>Espresso Martini</td><td>Vodka</td></tr>
-              <tr><td>Narozeninový dort</td><td>Poleva</td></tr>
+              <tr><td>Pizza</td><td>Sýr</td><td>Pátek</td></tr>
+              <tr><td>Káva</td><td>Hořký</td><td>Dojíždění</td></tr>
+              <tr><td>Svíčková</td><td>Neděle</td><td>Ospalost</td></tr>
+              <tr><td>Popcorn</td><td>Křupavý</td><td>Gauč</td></tr>
+              <tr><td>Guinness</td><td>Hospoda</td><td>Pěna</td></tr>
+              <tr><td>Sushi</td><td>Ryba</td><td>Luxus</td></tr>
+              <tr><td>Horká čokoláda</td><td>Hrnek</td><td>Zima</td></tr>
+              <tr><td>Kuřecí nugetky</td><td>Smažený</td><td>Děti</td></tr>
+              <tr><td>Pomazánkové máslo</td><td>Snídaně</td><td>Školka</td></tr>
+              <tr><td>Kebab</td><td>Bufet</td><td>Kocovina</td></tr>
+              <tr><td>Bubble tea</td><td>Brčko</td><td>Móda</td></tr>
+              <tr><td>Donut</td><td>Pekárna</td><td>Pokušení</td></tr>
+              <tr><td>Kari</td><td>Pikantní</td><td>Zbytky</td></tr>
+              <tr><td>Pomerančový džus</td><td>Ovoce</td><td></td></tr>
+              <tr><td>Česnekový chléb</td><td>Máslo</td><td>Předkrm</td></tr>
+              <tr><td>Zmrzlina</td><td>Studený</td><td>Vedro</td></tr>
+              <tr><td>Guláš</td><td>Pivo</td><td></td></tr>
+              <tr><td>Coca-Cola</td><td>Bublinky</td><td>Vánoce</td></tr>
+              <tr><td>Lasagne</td><td>Itálie</td><td>Trouba</td></tr>
+              <tr><td>Cukrová vata</td><td>Pouť</td><td>Dětství</td></tr>
+              <tr><td>Pečený brambor</td><td>Sacharidy</td><td>Táborák</td></tr>
+              <tr><td>Mojito</td><td>Máta</td><td>Dovolená</td></tr>
+              <tr><td>Ovesná kaše</td><td>Miska</td><td>Nuda</td></tr>
+              <tr><td>Nachos</td><td>Sdílení</td><td>Zápas</td></tr>
+              <tr><td>Red Bull</td><td>Plechovka</td><td>Zkouškové</td></tr>
+              <tr><td>Palačinky</td><td>Těsto</td><td>Víkend</td></tr>
+              <tr><td>Croissant</td><td>Francie</td><td>Hotel</td></tr>
+              <tr><td>Knedlík</td><td>Omáčka</td><td></td></tr>
+              <tr><td>Milkshake</td><td>Mixér</td><td></td></tr>
+              <tr><td>Hummus</td><td>Dip</td><td>Piknik</td></tr>
+              <tr><td>Burger</td><td>Hovězí</td><td>Gril</td></tr>
+              <tr><td>Prosecco</td><td>Víno</td><td>Přípitek</td></tr>
+              <tr><td>Banán</td><td>Žlutá</td><td>Posilovna</td></tr>
+              <tr><td>Sýrový toust</td><td>Roztavený</td><td>Lenost</td></tr>
+              <tr><td>Avokádo</td><td>Zelená</td><td>Brunch</td></tr>
+              <tr><td>Čínská polívka</td><td>Konvice</td><td>Chudoba</td></tr>
+              <tr><td>Marshmallow</td><td>Měkký</td><td>Skauti</td></tr>
+              <tr><td>Fajitas</td><td>Pánev</td><td>Paprika</td></tr>
+              <tr><td>Espresso Martini</td><td>Vodka</td><td>Půlnoc</td></tr>
+              <tr><td>Narozeninový dort</td><td>Poleva</td><td></td></tr>
             </tbody>
           </table>
         </div>
@@ -180,49 +196,49 @@
         <div class="table-wrap">
           <table class="wl-table">
             <thead>
-              <tr><th>Tajné slovo</th><th>Nápověda pro impostora</th></tr>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
             </thead>
             <tbody>
-              <tr><td>Michael Jackson</td><td>Tanec</td></tr>
-              <tr><td>Elvis Presley</td><td>Rock</td></tr>
-              <tr><td>Beyoncé</td><td>Pódium</td></tr>
-              <tr><td>Taylor Swift</td><td>Texty</td></tr>
-              <tr><td>Ed Sheeran</td><td>Kytara</td></tr>
-              <tr><td>Adele</td><td>Británie</td></tr>
-              <tr><td>Freddie Mercury</td><td>Kapela</td></tr>
-              <tr><td>Bob Marley</td><td>Karibik</td></tr>
-              <tr><td>Eminem</td><td>Rap</td></tr>
-              <tr><td>Rihanna</td><td>Pop</td></tr>
-              <tr><td>Marilyn Monroe</td><td>Glamour</td></tr>
-              <tr><td>Tom Cruise</td><td>Akce</td></tr>
-              <tr><td>The Rock</td><td>Svaly</td></tr>
-              <tr><td>Keanu Reeves</td><td>Kaskadér</td></tr>
-              <tr><td>Leonardo DiCaprio</td><td>Hollywood</td></tr>
-              <tr><td>Emma Watson</td><td>Kouzla</td></tr>
-              <tr><td>Will Smith</td><td>Komedie</td></tr>
-              <tr><td>Morgan Freeman</td><td>Hlas</td></tr>
-              <tr><td>Lionel Messi</td><td>Fotbal</td></tr>
-              <tr><td>Cristiano Ronaldo</td><td>Góly</td></tr>
-              <tr><td>Serena Williams</td><td>Tenis</td></tr>
-              <tr><td>Usain Bolt</td><td>Běh</td></tr>
-              <tr><td>Muhammad Ali</td><td>Box</td></tr>
-              <tr><td>Michael Jordan</td><td>Basketbal</td></tr>
-              <tr><td>Albert Einstein</td><td>Věda</td></tr>
-              <tr><td>William Shakespeare</td><td>Psaní</td></tr>
-              <tr><td>Královna Alžběta II.</td><td>Monarchie</td></tr>
-              <tr><td>Jindřich VIII.</td><td>Manželství</td></tr>
-              <tr><td>Napoleon</td><td>Válka</td></tr>
-              <tr><td>Kleopatra</td><td>Egypt</td></tr>
-              <tr><td>Winston Churchill</td><td>Politika</td></tr>
-              <tr><td>Princezna Diana</td><td>Charita</td></tr>
-              <tr><td>Julius Caesar</td><td>Řím</td></tr>
-              <tr><td>Leonardo da Vinci</td><td>Obrazy</td></tr>
-              <tr><td>Steve Jobs</td><td>Technologie</td></tr>
-              <tr><td>MrBeast</td><td>YouTube</td></tr>
-              <tr><td>Kim Kardashian</td><td>Instagram</td></tr>
-              <tr><td>Elon Musk</td><td>Bohatý</td></tr>
-              <tr><td>Gordon Ramsay</td><td>Vaření</td></tr>
-              <tr><td>Jaromír Jágr</td><td>Hokej</td></tr>
+              <tr><td>Michael Jackson</td><td>Tanec</td><td>Osmdesátky</td></tr>
+              <tr><td>Elvis Presley</td><td>Rock</td><td>Vegas</td></tr>
+              <tr><td>Beyoncé</td><td>Pódium</td><td>Dravost</td></tr>
+              <tr><td>Taylor Swift</td><td>Texty</td><td>Vstupenky</td></tr>
+              <tr><td>Ed Sheeran</td><td>Kytara</td><td>Svatba</td></tr>
+              <tr><td>Adele</td><td>Británie</td><td>Rozchod</td></tr>
+              <tr><td>Freddie Mercury</td><td>Kapela</td><td>Extravagance</td></tr>
+              <tr><td>Bob Marley</td><td>Karibik</td><td>Plakáty</td></tr>
+              <tr><td>Eminem</td><td>Rap</td><td>Kontroverze</td></tr>
+              <tr><td>Rihanna</td><td>Pop</td><td>Móda</td></tr>
+              <tr><td>Marilyn Monroe</td><td>Glamour</td><td>Padesátky</td></tr>
+              <tr><td>Tom Cruise</td><td>Akce</td><td>Pokračování</td></tr>
+              <tr><td>The Rock</td><td>Svaly</td><td>Trhák</td></tr>
+              <tr><td>Keanu Reeves</td><td>Kaskadér</td><td>Skromnost</td></tr>
+              <tr><td>Leonardo DiCaprio</td><td>Hollywood</td><td>Katastrofa</td></tr>
+              <tr><td>Emma Watson</td><td>Kouzla</td><td>Knihovna</td></tr>
+              <tr><td>Will Smith</td><td>Komedie</td><td>Oscary</td></tr>
+              <tr><td>Morgan Freeman</td><td>Hlas</td><td>Moudrost</td></tr>
+              <tr><td>Lionel Messi</td><td>Fotbal</td><td></td></tr>
+              <tr><td>Cristiano Ronaldo</td><td>Góly</td><td>Rivalita</td></tr>
+              <tr><td>Serena Williams</td><td>Tenis</td><td>Sestra</td></tr>
+              <tr><td>Usain Bolt</td><td>Běh</td><td>Stadion</td></tr>
+              <tr><td>Muhammad Ali</td><td>Box</td><td>Sebevědomí</td></tr>
+              <tr><td>Michael Jordan</td><td>Basketbal</td><td>Devadesátky</td></tr>
+              <tr><td>Albert Einstein</td><td>Věda</td><td>Tabule</td></tr>
+              <tr><td>William Shakespeare</td><td>Psaní</td><td>Četba</td></tr>
+              <tr><td>Královna Alžběta II.</td><td>Monarchie</td><td>Povinnost</td></tr>
+              <tr><td>Jindřich VIII.</td><td>Manželství</td><td>Apetit</td></tr>
+              <tr><td>Napoleon</td><td>Válka</td><td>Ctižádost</td></tr>
+              <tr><td>Kleopatra</td><td>Egypt</td><td>Krása</td></tr>
+              <tr><td>Winston Churchill</td><td>Politika</td><td>Zarputilost</td></tr>
+              <tr><td>Princezna Diana</td><td>Charita</td><td>Srdce</td></tr>
+              <tr><td>Julius Caesar</td><td>Řím</td><td>Zrada</td></tr>
+              <tr><td>Leonardo da Vinci</td><td>Obrazy</td><td>Renesance</td></tr>
+              <tr><td>Steve Jobs</td><td>Technologie</td><td>Perfekcionismus</td></tr>
+              <tr><td>MrBeast</td><td>YouTube</td><td>Teenageři</td></tr>
+              <tr><td>Kim Kardashian</td><td>Instagram</td><td>Rodina</td></tr>
+              <tr><td>Elon Musk</td><td>Bohatý</td><td>Mars</td></tr>
+              <tr><td>Gordon Ramsay</td><td>Vaření</td><td>Křik</td></tr>
+              <tr><td>Jaromír Jágr</td><td>Hokej</td><td>Vytrvalost</td></tr>
             </tbody>
           </table>
         </div>
@@ -233,119 +249,287 @@
         <div class="table-wrap">
           <table class="wl-table">
             <thead>
-              <tr><th>Tajné slovo</th><th>Nápověda pro impostora</th></tr>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
             </thead>
             <tbody>
-              <tr><td>Kuřácký koutek</td><td>Venku</td></tr>
-              <tr><td>Knihovna</td><td>Ticho</td></tr>
-              <tr><td>Přednáška na vejšce</td><td>Poznámky</td></tr>
-              <tr><td>Veletrh práce</td><td>Stánky</td></tr>
-              <tr><td>Domácí mejdan</td><td>Narváno</td></tr>
-              <tr><td>Festivalový kemp</td><td>Blátivý</td></tr>
-              <tr><td>Kebabárna</td><td>Chilli</td></tr>
-              <tr><td>Posilovna</td><td>Zpocený</td></tr>
-              <tr><td>Bazén</td><td>Mokrý</td></tr>
-              <tr><td>Nemocniční čekárna</td><td>Časopisy</td></tr>
-              <tr><td>Letadlo</td><td>Těsno</td></tr>
-              <tr><td>Kontrola na letišti</td><td>Fronta</td></tr>
-              <tr><td>Sjezdovka</td><td>Zima</td></tr>
-              <tr><td>Kasino</td><td>Štěstí</td></tr>
-              <tr><td>Svatební hostina</td><td>Proslovy</td></tr>
-              <tr><td>Dívčí rozlučka</td><td>Koktejly</td></tr>
-              <tr><td>Rande</td><td>Romantika</td></tr>
-              <tr><td>Zoo</td><td>Rodiny</td></tr>
-              <tr><td>Akvárium</td><td>Sklo</td></tr>
-              <tr><td>Kino</td><td>Tma</td></tr>
-              <tr><td>Úniková místnost</td><td>Hádanky</td></tr>
-              <tr><td>Bowling</td><td>Skóre</td></tr>
-              <tr><td>IKEA</td><td>Nábytek</td></tr>
-              <tr><td>Prádelna</td><td>Sušení</td></tr>
-              <tr><td>Kadeřnictví</td><td>Zrcadla</td></tr>
-              <tr><td>Holičství</td><td>Nůžky</td></tr>
-              <tr><td>Tetovací studio</td><td>Jehly</td></tr>
-              <tr><td>Karaoke kabinka</td><td>Zpěv</td></tr>
-              <tr><td>Wellness</td><td>Župany</td></tr>
-              <tr><td>Zubař</td><td>Vrtačka</td></tr>
-              <tr><td>Autobus</td><td>Cestující</td></tr>
-              <tr><td>Vlakové nádraží</td><td>Hlášení</td></tr>
-              <tr><td>Taxík</td><td>Řidič</td></tr>
-              <tr><td>McDonald’s</td><td>Mastný</td></tr>
-              <tr><td>Drive-thru</td><td>Auto</td></tr>
-              <tr><td>Zábavní park</td><td>Atrakce</td></tr>
-              <tr><td>Strašidelný dům</td><td>Křik</td></tr>
-              <tr><td>Muzeum</td><td>Historie</td></tr>
-              <tr><td>Pracovní pohovor</td><td>Otázky</td></tr>
-              <tr><td>Zkouška na řidičák</td><td>Formulář</td></tr>
-              <tr><td>Promoce</td><td>Fotky</td></tr>
-              <tr><td>Sraz spolužáků</td><td>Raut</td></tr>
-              <tr><td>Vánoční večírek v práci</td><td>Kolegové</td></tr>
-              <tr><td>Rychlorande</td><td>Zvonek</td></tr>
-              <tr><td>Kuchyňka na koleji</td><td>Konvice</td></tr>
-              <tr><td>Bar na střeše</td><td>Výhled</td></tr>
-              <tr><td>Tichá diskotéka</td><td>Sluchátka</td></tr>
-              <tr><td>Kvíz v hospodě</td><td>Týmy</td></tr>
-              <tr><td>Golfové hřiště</td><td>Tráva</td></tr>
-              <tr><td>Dostihy</td><td>Sázky</td></tr>
-              <tr><td>Okresní přebor</td><td>Řev</td></tr>
-              <tr><td>Kempování</td><td>Oheň</td></tr>
-              <tr><td>Bleší trh</td><td>Veteš</td></tr>
-              <tr><td>Open mic večer</td><td>Pódium</td></tr>
-              <tr><td>Hodina jógy</td><td>Protahování</td></tr>
-              <tr><td>Výletní loď</td><td>Moře</td></tr>
-              <tr><td>Pokoj na hostelu</td><td>Chrápání</td></tr>
-              <tr><td>Bazén u hotelu</td><td>Nafukovací</td></tr>
+              <tr><td>Kuřácký koutek</td><td>Venku</td><td>Pauza</td></tr>
+              <tr><td>Knihovna</td><td>Ticho</td><td>Soustředění</td></tr>
+              <tr><td>Přednáška na vejšce</td><td>Poznámky</td><td>Nuda</td></tr>
+              <tr><td>Veletrh práce</td><td>Stánky</td><td>Budoucnost</td></tr>
+              <tr><td>Domácí mejdan</td><td>Narváno</td><td>Sousedé</td></tr>
+              <tr><td>Festivalový kemp</td><td>Blátivý</td><td>Léto</td></tr>
+              <tr><td>Kebabárna</td><td>Chilli</td><td>Hlad</td></tr>
+              <tr><td>Posilovna</td><td>Zpocený</td><td>Výmluvy</td></tr>
+              <tr><td>Bazén</td><td>Mokrý</td><td>Dětství</td></tr>
+              <tr><td>Nemocniční čekárna</td><td>Časopisy</td><td>Nervózní</td></tr>
+              <tr><td>Letadlo</td><td>Těsno</td><td>Zahraničí</td></tr>
+              <tr><td>Kontrola na letišti</td><td>Fronta</td><td>Uniforma</td></tr>
+              <tr><td>Sjezdovka</td><td>Zima</td><td>Začátečníci</td></tr>
+              <tr><td>Kasino</td><td>Štěstí</td><td>Půlnoc</td></tr>
+              <tr><td>Svatební hostina</td><td>Proslovy</td><td>Příbuzní</td></tr>
+              <tr><td>Dívčí rozlučka</td><td>Koktejly</td><td>Trapas</td></tr>
+              <tr><td>Rande</td><td>Romantika</td><td>Snaha</td></tr>
+              <tr><td>Zoo</td><td>Rodiny</td><td></td></tr>
+              <tr><td>Akvárium</td><td>Sklo</td><td>Hypnotické</td></tr>
+              <tr><td>Kino</td><td>Tma</td><td>Reklamy</td></tr>
+              <tr><td>Úniková místnost</td><td>Hádanky</td><td>Panika</td></tr>
+              <tr><td>Bowling</td><td>Skóre</td><td>Soutěživý</td></tr>
+              <tr><td>IKEA</td><td>Nábytek</td><td>Hádka</td></tr>
+              <tr><td>Prádelna</td><td>Sušení</td><td>Povinnosti</td></tr>
+              <tr><td>Kadeřnictví</td><td>Zrcadla</td><td>Drby</td></tr>
+              <tr><td>Holičství</td><td>Nůžky</td><td>Chlapi</td></tr>
+              <tr><td>Tetovací studio</td><td>Jehly</td><td>Lítost</td></tr>
+              <tr><td>Karaoke kabinka</td><td>Zpěv</td><td>Odvaha</td></tr>
+              <tr><td>Wellness</td><td>Župany</td><td>Relax</td></tr>
+              <tr><td>Zubař</td><td>Vrtačka</td><td>Termín</td></tr>
+              <tr><td>Autobus</td><td>Cestující</td><td>Dojíždění</td></tr>
+              <tr><td>Vlakové nádraží</td><td>Hlášení</td><td>Zpoždění</td></tr>
+              <tr><td>Taxík</td><td>Řidič</td><td>Spropitné</td></tr>
+              <tr><td>McDonald’s</td><td>Mastný</td><td>Kocovina</td></tr>
+              <tr><td>Drive-thru</td><td>Auto</td><td>Lenost</td></tr>
+              <tr><td>Zábavní park</td><td>Atrakce</td><td>Předražený</td></tr>
+              <tr><td>Strašidelný dům</td><td>Křik</td><td></td></tr>
+              <tr><td>Muzeum</td><td>Historie</td><td>Turisté</td></tr>
+              <tr><td>Pracovní pohovor</td><td>Otázky</td><td>Formální</td></tr>
+              <tr><td>Zkouška na řidičák</td><td>Formulář</td><td>Hodnocení</td></tr>
+              <tr><td>Promoce</td><td>Fotky</td><td>Milník</td></tr>
+              <tr><td>Sraz spolužáků</td><td>Raut</td><td>Nostalgie</td></tr>
+              <tr><td>Vánoční večírek v práci</td><td>Kolegové</td><td>Rozpaky</td></tr>
+              <tr><td>Rychlorande</td><td>Zvonek</td><td>Neznámí</td></tr>
+              <tr><td>Kuchyňka na koleji</td><td>Konvice</td><td>Sdílené</td></tr>
+              <tr><td>Bar na střeše</td><td>Výhled</td><td>Větrno</td></tr>
+              <tr><td>Tichá diskotéka</td><td>Sluchátka</td><td>Bizarní</td></tr>
+              <tr><td>Kvíz v hospodě</td><td>Týmy</td><td>Výhra</td></tr>
+              <tr><td>Golfové hřiště</td><td>Tráva</td><td>Procházka</td></tr>
+              <tr><td>Dostihy</td><td>Sázky</td><td>Diváci</td></tr>
+              <tr><td>Okresní přebor</td><td>Řev</td><td>Amatéři</td></tr>
+              <tr><td>Kempování</td><td>Oheň</td><td>Počasí</td></tr>
+              <tr><td>Bleší trh</td><td>Veteš</td><td>Zaprášený</td></tr>
+              <tr><td>Open mic večer</td><td>Pódium</td><td>Zdvořilost</td></tr>
+              <tr><td>Hodina jógy</td><td>Protahování</td><td>Rovnováha</td></tr>
+              <tr><td>Výletní loď</td><td>Moře</td><td>Důchodci</td></tr>
+              <tr><td>Pokoj na hostelu</td><td>Chrápání</td><td>Levný</td></tr>
+              <tr><td>Bazén u hotelu</td><td>Nafukovací</td><td>Dovolená</td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <section class="section tone-purple wl-cat" id="bezne-predmety">
+      <section class="section tone-purple wl-cat wl-app" id="znacky-a-loga">
+        <h2>Značky a loga</h2>
+        <p class="note">V aplikaci Antics se tahle kategorie odemkne zdarma, když budete Antics sledovat na TikToku nebo Instagramu.</p>
+        <div class="table-wrap">
+          <table class="wl-table">
+            <thead>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Nike</td><td>Tenisky</td><td>Sportovci</td></tr>
+              <tr><td>Shein</td><td>Hauly</td><td>Festival</td></tr>
+              <tr><td>Samsung</td><td>Korea</td><td>Rivalita</td></tr>
+              <tr><td>Apple</td><td>Ovoce</td><td>Fronta</td></tr>
+              <tr><td>Greggs</td><td>Klobása</td><td>Oběd</td></tr>
+              <tr><td>Netflix</td><td>Pohoda</td><td>Gauč</td></tr>
+              <tr><td>Ferrari</td><td>Červená</td><td>Bohatství</td></tr>
+              <tr><td>Primark</td><td>Levný</td><td>Studenti</td></tr>
+              <tr><td>Lego</td><td>Bolest</td><td>Koberec</td></tr>
+              <tr><td>KFC</td><td>Omáčka</td><td>Parta</td></tr>
+              <tr><td>Spotify</td><td>Náhoda</td><td>Autobus</td></tr>
+              <tr><td>Tesla</td><td>Tichý</td><td>Namyšlenost</td></tr>
+              <tr><td>Haribo</td><td>Gumové</td><td>Narozeniny</td></tr>
+              <tr><td>Amazon</td><td>Prales</td><td>Kurýr</td></tr>
+              <tr><td>Zara</td><td>Španělsko</td><td>Obchoďák</td></tr>
+              <tr><td>Xbox</td><td>Zelená</td><td>Pokojíček</td></tr>
+              <tr><td>Wikipedia</td><td>Dary</td><td>Tahák</td></tr>
+              <tr><td>Nando's</td><td>Drzý</td><td>Rande</td></tr>
+              <tr><td>Google</td><td>Barevné</td><td>Hádka</td></tr>
+              <tr><td>Rolex</td><td>Padělek</td><td>Prestiž</td></tr>
+              <tr><td>Pringles</td><td>Tuba</td><td>Silvestr</td></tr>
+              <tr><td>Disney</td><td>Zámek</td><td>Prázdniny</td></tr>
+              <tr><td>BMW</td><td>Německo</td><td>Dálnice</td></tr>
+              <tr><td>TikTok</td><td>Rolování</td><td>Závislost</td></tr>
+              <tr><td>Starbucks</td><td>Jména</td><td>Draho</td></tr>
+              <tr><td>Crocs</td><td>Pohodlné</td><td>Nemocnice</td></tr>
+              <tr><td>Nintendo</td><td>Japonsko</td><td>Ježíšek</td></tr>
+              <tr><td>Nutella</td><td>Oříšky</td><td>Lžíce</td></tr>
+              <tr><td>Uber</td><td>Přirážka</td><td>Cizinec</td></tr>
+              <tr><td>Gucci</td><td>Opasek</td><td>Rapeři</td></tr>
+              <tr><td>Domino's</td><td>Úterý</td><td>Kamarádi</td></tr>
+              <tr><td>WhatsApp</td><td>Fajfky</td><td>Máma</td></tr>
+              <tr><td>Ryanair</td><td>Poplatky</td><td>Svítání</td></tr>
+              <tr><td>Duolingo</td><td>Sova</td><td>Začátečníci</td></tr>
+              <tr><td>Heinz</td><td>Plechovky</td><td>Spíž</td></tr>
+              <tr><td>YouTube</td><td>Reklamy</td><td>Hodiny</td></tr>
+              <tr><td>Airbnb</td><td>Klíče</td><td>Úklid</td></tr>
+              <tr><td>Tesco</td><td>Vozíky</td><td>Pochůzky</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tone-cyan wl-cat wl-app" id="sporty">
+        <h2>Sporty</h2>
+        <p class="note">V aplikaci Antics se tahle kategorie odemkne zdarma, když budete Antics sledovat na TikToku nebo Instagramu.</p>
+        <div class="table-wrap">
+          <table class="wl-table">
+            <thead>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Šipky</td><td>Hospoda</td><td>Matematika</td></tr>
+              <tr><td>Sumo</td><td>Japonsko</td><td>Rituál</td></tr>
+              <tr><td>Snooker</td><td>Tágo</td><td>Ticho</td></tr>
+              <tr><td>Golf</td><td>Jamky</td><td>Důchodci</td></tr>
+              <tr><td>Box</td><td>Rukavice</td><td>Modřiny</td></tr>
+              <tr><td>Curling</td><td>Zima</td><td>Řev</td></tr>
+              <tr><td>Trampolína</td><td>Zahrada</td><td>Závrať</td></tr>
+              <tr><td>Vybíjená</td><td>Uhýbání</td><td>Chaos</td></tr>
+              <tr><td>Stolní tenis</td><td>Rotace</td><td>Reflexy</td></tr>
+              <tr><td>Synchronizované plavání</td><td>Flitry</td><td>Dech</td></tr>
+              <tr><td>Surfování</td><td>Vlny</td><td>Rovnováha</td></tr>
+              <tr><td>Šerm</td><td>Meče</td><td>Souboj</td></tr>
+              <tr><td>Lukostřelba</td><td>Terč</td><td>Klid</td></tr>
+              <tr><td>Bowling</td><td>Kuželky</td><td>Narozeniny</td></tr>
+              <tr><td>Roztleskávání</td><td>Pompony</td><td>Trapnost</td></tr>
+              <tr><td>Veslování</td><td>Řeka</td><td>Puchýře</td></tr>
+              <tr><td>Kriket</td><td>Bílá</td><td>Čaj</td></tr>
+              <tr><td>Basketbal</td><td>Koše</td><td>Parkety</td></tr>
+              <tr><td>Gymnastika</td><td>Pružná</td><td>Rozhodčí</td></tr>
+              <tr><td>Skateboarding</td><td>Rampy</td><td>Sídliště</td></tr>
+              <tr><td>Formule 1</td><td>Okruhy</td><td>Rachot</td></tr>
+              <tr><td>Dostihy</td><td>Sedlo</td><td>Klobouky</td></tr>
+              <tr><td>Karate</td><td>Pásy</td><td>Disciplína</td></tr>
+              <tr><td>Maraton</td><td>Kilometry</td><td>Křeče</td></tr>
+              <tr><td>Hod oštěpem</td><td>Rozběh</td><td>Rameno</td></tr>
+              <tr><td>Cyklistika</td><td>Pedály</td><td>Nohy</td></tr>
+              <tr><td>Vodní pólo</td><td>Čepice</td><td>Rvačka</td></tr>
+              <tr><td>Lyžování</td><td>Svahy</td><td>Prázdniny</td></tr>
+              <tr><td>Horolezectví</td><td>Křída</td><td>Strach</td></tr>
+              <tr><td>Wrestling</td><td>Kravaty</td><td>Divadlo</td></tr>
+              <tr><td>Penaltový rozstřel</td><td>Brankář</td><td>Nervy</td></tr>
+              <tr><td>Hattrick</td><td>Góly</td><td>Vzácnost</td></tr>
+              <tr><td>Judo</td><td>Chvaty</td><td>Úcta</td></tr>
+              <tr><td>Mexická vlna</td><td>Dav</td><td>Nuda</td></tr>
+              <tr><td>Cílová fotografie</td><td>Čára</td><td>Milimetry</td></tr>
+              <tr><td>Olympiáda</td><td>Medaile</td><td>Vlajky</td></tr>
+              <tr><td>Mistrovství světa</td><td>Pohár</td><td>Sázky</td></tr>
+              <tr><td>Maskot</td><td>Kostým</td><td>Tribuna</td></tr>
+              <tr><td>Badminton</td><td>Peří</td><td>Zápěstí</td></tr>
+              <tr><td>Wimbledon</td><td>Jahody</td><td>Déšť</td></tr>
+              <tr><td>Netball</td><td>Vesty</td><td>Obrana</td></tr>
+              <tr><td>Sportovní den</td><td>Škola</td><td>Vysvědčení</td></tr>
+              <tr><td>Přetahování lanem</td><td>Bahno</td><td>Remíza</td></tr>
+              <tr><td>Squash</td><td>Zdi</td><td>Zpocený</td></tr>
+              <tr><td>Tour de France</td><td>Kola</td><td>Červenec</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tone-lime wl-after" id="tezka-slova">
+        <h2>Těžká slova do hry Impostor</h2>
+        <p>Těžké slovo je hodně konkrétní: „Curling“, „Šerm“, „Wikipedia“ nebo „Cílová fotografie“ mají málo jasných detailů, takže těm, kdo slovo znají, ty bezpečné rychle dojdou.</p>
+        <p>Pro začátek něco těžkého: Běžné předměty, seznam hned níž. Doma je má každý, ale nikdo je nikdy nepopisoval nahlas.</p>
+        <p>Každé slovo na téhle stránce bude těžší, když impostorovi dáte těžkou nápovědu místo lehké. Nejlíp to funguje ve skupinách, které už pár her odehrály.</p>
+      </section>
+
+      <section class="section tone-pink wl-cat" id="bezne-predmety">
         <h2>Běžné předměty</h2>
         <div class="table-wrap">
           <table class="wl-table">
             <thead>
-              <tr><th>Tajné slovo</th><th>Nápověda pro impostora</th></tr>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
             </thead>
             <tbody>
-              <tr><td>Zubní kartáček</td><td>Koupelna</td></tr>
-              <tr><td>Vysavač</td><td>Hlučný</td></tr>
-              <tr><td>Popelnice</td><td>Venku</td></tr>
-              <tr><td>Deštník</td><td>Mokrý</td></tr>
-              <tr><td>Peřina</td><td>Postel</td></tr>
-              <tr><td>Fén</td><td>Horko</td></tr>
-              <tr><td>Dálkový ovladač</td><td>Tlačítka</td></tr>
-              <tr><td>Sekačka</td><td>Zahrada</td></tr>
-              <tr><td>Zvonek</td><td>Návštěva</td></tr>
-              <tr><td>Magnetka na lednici</td><td>Suvenýr</td></tr>
-              <tr><td>Žehlička</td><td>Pára</td></tr>
-              <tr><td>Rohožka</td><td>Bahno</td></tr>
-              <tr><td>Žehlicí prkno</td><td>Košile</td></tr>
-              <tr><td>Termofor</td><td>Guma</td></tr>
-              <tr><td>Gumová kachnička</td><td>Plovoucí</td></tr>
-              <tr><td>Sešívačka</td><td>Kancelář</td></tr>
-              <tr><td>Lehátko</td><td>Pláž</td></tr>
-              <tr><td>Potravinová fólie</td><td>Plast</td></tr>
-              <tr><td>Koš na prádlo</td><td>Oblečení</td></tr>
-              <tr><td>Svíčka</td><td>Plamen</td></tr>
-              <tr><td>Baterka</td><td>Tma</td></tr>
-              <tr><td>Prodlužovačka</td><td>Zástrčka</td></tr>
-              <tr><td>Nabíječka na mobil</td><td>Kabel</td></tr>
-              <tr><td>Sluchátka</td><td>Hudba</td></tr>
-              <tr><td>Zrcadlo</td><td>Sklo</td></tr>
-              <tr><td>Nůžky</td><td>Ostrý</td></tr>
-              <tr><td>Izolepa</td><td>Oprava</td></tr>
-              <tr><td>Bublinková fólie</td><td>Balík</td></tr>
-              <tr><td>Budík</td><td>Ráno</td></tr>
-              <tr><td>Radiátor</td><td>Kov</td></tr>
-              <tr><td>Pračka</td><td>Ždímání</td></tr>
-              <tr><td>Peněženka</td><td>Kůže</td></tr>
-              <tr><td>Sluneční brýle</td><td>Léto</td></tr>
-              <tr><td>Holínky</td><td>Nepromokavý</td></tr>
-              <tr><td>Detektor kouře</td><td>Strop</td></tr>
-              <tr><td>Toaletní papír</td><td>Měkký</td></tr>
-              <tr><td>Sprchový závěs</td><td>Háčky</td></tr>
-              <tr><td>Župan</td><td>Rukávy</td></tr>
-              <tr><td>Světýlka</td><td>Vánoce</td></tr>
+              <tr><td>Zubní kartáček</td><td>Koupelna</td><td>Výměna</td></tr>
+              <tr><td>Vysavač</td><td>Hlučný</td><td>Úklid</td></tr>
+              <tr><td>Popelnice</td><td>Venku</td><td>Sousedé</td></tr>
+              <tr><td>Deštník</td><td>Mokrý</td><td>Zapomenutý</td></tr>
+              <tr><td>Peřina</td><td>Postel</td><td>Vyspávání</td></tr>
+              <tr><td>Fén</td><td>Horko</td><td>Hotel</td></tr>
+              <tr><td>Dálkový ovladač</td><td>Tlačítka</td><td>Gauč</td></tr>
+              <tr><td>Sekačka</td><td>Zahrada</td><td>Neděle</td></tr>
+              <tr><td>Zvonek</td><td>Návštěva</td><td>Vyrušení</td></tr>
+              <tr><td>Magnetka na lednici</td><td>Suvenýr</td><td>Nepořádek</td></tr>
+              <tr><td>Žehlička</td><td>Pára</td><td>Otrava</td></tr>
+              <tr><td>Rohožka</td><td>Bahno</td><td>Slušnost</td></tr>
+              <tr><td>Žehlicí prkno</td><td>Košile</td><td>Vratké</td></tr>
+              <tr><td>Termofor</td><td>Guma</td><td>Zima</td></tr>
+              <tr><td>Gumová kachnička</td><td>Plovoucí</td><td>Dětství</td></tr>
+              <tr><td>Sešívačka</td><td>Kancelář</td><td>Zaseknutí</td></tr>
+              <tr><td>Lehátko</td><td>Pláž</td><td>Šlofík</td></tr>
+              <tr><td>Potravinová fólie</td><td>Plast</td><td>Zbytky</td></tr>
+              <tr><td>Koš na prádlo</td><td>Oblečení</td><td>Hromada</td></tr>
+              <tr><td>Svíčka</td><td>Plamen</td><td>Rande</td></tr>
+              <tr><td>Baterka</td><td>Tma</td><td>Tábor</td></tr>
+              <tr><td>Prodlužovačka</td><td>Zástrčka</td><td></td></tr>
+              <tr><td>Nabíječka na mobil</td><td>Kabel</td><td>Půjčená</td></tr>
+              <tr><td>Sluchátka</td><td>Hudba</td><td>Ignorování</td></tr>
+              <tr><td>Zrcadlo</td><td>Sklo</td><td>Upíři</td></tr>
+              <tr><td>Nůžky</td><td>Ostrý</td><td>Šuplík</td></tr>
+              <tr><td>Izolepa</td><td>Oprava</td><td>Dárky</td></tr>
+              <tr><td>Bublinková fólie</td><td>Balík</td><td></td></tr>
+              <tr><td>Budík</td><td>Ráno</td><td>Pondělí</td></tr>
+              <tr><td>Radiátor</td><td>Kov</td><td></td></tr>
+              <tr><td>Pračka</td><td>Ždímání</td><td>Čekání</td></tr>
+              <tr><td>Peněženka</td><td>Kůže</td><td>Panika</td></tr>
+              <tr><td>Sluneční brýle</td><td>Léto</td><td>Letiště</td></tr>
+              <tr><td>Holínky</td><td>Nepromokavý</td><td>Chalupa</td></tr>
+              <tr><td>Detektor kouře</td><td>Strop</td><td>Připálení</td></tr>
+              <tr><td>Toaletní papír</td><td>Měkký</td><td>Zásoby</td></tr>
+              <tr><td>Sprchový závěs</td><td>Háčky</td><td>Plíseň</td></tr>
+              <tr><td>Župan</td><td>Rukávy</td><td>Lenost</td></tr>
+              <tr><td>Světýlka</td><td>Vánoce</td><td>Půda</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tone-orange wl-cat wl-app" id="vanoce-a-silvestr">
+        <h2>Vánoce a Silvestr</h2>
+        <p class="note">Zdarma v aplikaci Antics od 1. prosince do 1. ledna.</p>
+        <div class="table-wrap">
+          <table class="wl-table">
+            <thead>
+              <tr><th>Tajné slovo</th><th>Lehká nápověda</th><th>Těžká nápověda</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Vánoční stromek</td><td>Jehličí</td><td>Kout</td></tr>
+              <tr><td>Pozlátko</td><td>Vlákna</td><td>Kýč</td></tr>
+              <tr><td>Vánoční baňky</td><td>Háčky</td><td>Střepy</td></tr>
+              <tr><td>Santa Claus</td><td>Boty</td><td>Komín</td></tr>
+              <tr><td>Sob</td><td>Kopyta</td><td>Tundra</td></tr>
+              <tr><td>Vánoční skřítek</td><td>Legíny</td><td>Přesčas</td></tr>
+              <tr><td>Vánoční punčocha</td><td>Špička</td><td>Mandarinka</td></tr>
+              <tr><td>Adventní kalendář</td><td>Karton</td><td>Ráno</td></tr>
+              <tr><td>Tajný Ježíšek</td><td>Jména</td><td>Hrnek</td></tr>
+              <tr><td>Balicí papír</td><td>Role</td><td>Popelnice</td></tr>
+              <tr><td>Recyklovaný dárek</td><td>Nerozbalený</td><td>Držgrešle</td></tr>
+              <tr><td>Kapr</td><td>Šupiny</td><td>Bahno</td></tr>
+              <tr><td>Bramborový salát</td><td>Okurky</td><td>Mísa</td></tr>
+              <tr><td>Zbytky</td><td>Folie</td><td>Ujídání</td></tr>
+              <tr><td>Perníčky</td><td>Vykrajovátka</td><td>Pečení</td></tr>
+              <tr><td>Vanilkové rohlíčky</td><td>Ořechy</td><td>Drobky</td></tr>
+              <tr><td>Čokoládové mince</td><td>Síťka</td><td>Pirát</td></tr>
+              <tr><td>Sněhulák</td><td>Větvičky</td><td>Zahrada</td></tr>
+              <tr><td>Sněžítko</td><td>Kopule</td><td>Suvenýr</td></tr>
+              <tr><td>Bruslení</td><td>Čepele</td><td>Mantinel</td></tr>
+              <tr><td>Společenská hra</td><td>Figurky</td><td>Trucování</td></tr>
+              <tr><td>Vánoční svetr</td><td>Svědění</td><td>Šatník</td></tr>
+              <tr><td>Lití olova</td><td>Lžíce</td><td>Výklad</td></tr>
+              <tr><td>Vánoční film</td><td>Titulky</td><td>Reprízy</td></tr>
+              <tr><td>Vánoční písničky</td><td>Refrén</td><td>Rádio</td></tr>
+              <tr><td>Vánoční trhy</td><td>Boudy</td><td>Prohlížení</td></tr>
+              <tr><td>Svařák</td><td>Hřebíček</td><td>Plotna</td></tr>
+              <tr><td>Betlém</td><td>Sláma</td><td>Besídka</td></tr>
+              <tr><td>Koledníci</td><td>Lucerny</td><td>Práh</td></tr>
+              <tr><td>Silvestr</td><td>Hymna</td><td>Taxík</td></tr>
+              <tr><td>Ohňostroj</td><td>Doutnák</td><td>Psi</td></tr>
+              <tr><td>Novoroční předsevzetí</td><td>Sebekázeň</td><td>Ambiciózní</td></tr>
+              <tr><td>Jmelí</td><td>Snítka</td><td>Záminka</td></tr>
+              <tr><td>Vánoční přání</td><td>Obálka</td><td>Police</td></tr>
+              <tr><td>Koulovačka</td><td>Rukavice</td><td>Léčka</td></tr>
+              <tr><td>Řízek</td><td>Trojobal</td><td>Ukradený</td></tr>
             </tbody>
           </table>
         </div>
@@ -413,6 +597,50 @@
   <p><strong>Antics</strong><span>Párty hry</span></p>
   <a class="btn btn--sm" href="/get/?c=site-cs-slova-bar">Stáhnout zdarma</a>
 </aside>
+<script>
+(function () {
+  var box = document.querySelector('.wl-draw');
+  if (!box) return;
+  var rows = [];
+  var secs = document.querySelectorAll('section.wl-cat');
+  for (var s = 0; s < secs.length; s++) {
+    var h = secs[s].querySelector('h2');
+    var th = secs[s].querySelectorAll('thead th');
+    var tr = secs[s].querySelectorAll('tbody tr');
+    for (var r = 0; r < tr.length; r++) {
+      var td = tr[r].querySelectorAll('td');
+      if (td.length < 3 || !td[0].textContent) continue;
+      rows.push({ list: h ? h.textContent : '', word: td[0].textContent, easy: td[1].textContent, hard: td[2].textContent,
+        easyLabel: th[1] ? th[1].textContent : '', hardLabel: th[2] ? th[2].textContent : '' });
+    }
+  }
+  if (!rows.length) return;
+  var out = box.querySelector('.wl-draw-out');
+  var last = -1;
+  function line(label, text) {
+    var p = document.createElement('p');
+    if (label) { var b = document.createElement('strong'); b.textContent = label + ': '; p.appendChild(b); }
+    p.appendChild(document.createTextNode(text));
+    return p;
+  }
+  box.querySelector('button').addEventListener('click', function () {
+    var i;
+    do { i = Math.floor(Math.random() * rows.length); } while (rows.length > 1 && i === last);
+    last = i;
+    var w = rows[i];
+    while (out.firstChild) out.removeChild(out.firstChild);
+    var top = document.createElement('p');
+    var big = document.createElement('strong');
+    big.textContent = w.word;
+    top.appendChild(big);
+    top.appendChild(document.createTextNode(' (' + w.list + ')'));
+    out.appendChild(top);
+    if (w.easy) out.appendChild(line(w.easyLabel, w.easy));
+    if (w.hard) out.appendChild(line(w.hardLabel, w.hard));
+  });
+  box.hidden = false;
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "66eb3dccc88d447ba345b48a8d5e2bb3"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

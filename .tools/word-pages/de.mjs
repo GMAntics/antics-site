@@ -14,19 +14,19 @@ export default {
   htmlLang: 'de', path: '/de/imposter-woerter/', dir: 'de/imposter-woerter',
   ogLocale: 'de_DE',
   title: 'Imposter-Wörter mit Tipp: Liste zum Ausdrucken | Antics',
-  desc: 'Wörter für das Imposter-Spiel, jedes mit einem Tipp für den Imposter, in vier Kategorien. Zum Ausdrucken, für Runden ohne Handy und zu dritt. Kostenlos.',
-  ogTitle: 'Wörter für das Imposter-Spiel, jedes mit Tipp',
+  desc: 'Imposter-Wörter mit leichtem und schwerem Tipp: Essen, Promis, Orte, Alltagsgegenstände, Marken, Sport und Weihnachten. Zum Ausdrucken und für Runden ohne Handy.',
+  ogTitle: 'Imposter-Wörter, jedes mit leichtem und schwerem Tipp',
   crumbLabel: 'Navigationspfad', langHome: '/de/', langName: 'Deutsch',
   crumbGame: 'Imposter-Spiel online', gamePath: '/de/imposter-spiel/', crumbHere: 'Wörter',
   ldGame: 'Imposter-Spiel online', ldHere: 'Wörter für das Imposter-Spiel',
   h1: 'Wörter für das Imposter-Spiel, mit Tipp',
-  standfirst: 'Vier komplette Kategorien für das Imposter-Spiel, jedes Wort mit dem Tipp, den der Imposter dafür bekommt. Damit könnt ihr auf Papier spielen, ganz ohne Handy, und beim Ausdrucken kommt jede Kategorie auf ein eigenes Blatt.',
+  standfirst: 'Sechs komplette Kategorien für das Imposter-Spiel und dazu die Weihnachtskategorie, mit einem leichten und meist auch einem schweren Tipp für den Imposter zu jedem Wort. Damit könnt ihr auf Papier spielen, ganz ohne Handy, und beim Ausdrucken kommt jede Kategorie auf ein eigenes Blatt.',
   note: 'Wollt ihr gleich loslegen? <a class="inline" href="/de/imposter-spiel/">Verteilt die Wörter mit einem Handy</a>, kostenlos und ohne Download.',
   ilangLabel: 'Sprache',
   tocLabel: 'Auf dieser Seite',
   tocAfter: [['ohne-handy', 'Ohne Handy'], ['zu-dritt', 'Zu dritt']],
   wordsH2: 'Die Wörter und der Tipp für den Imposter',
-  wordsP: 'Jedes Wort auf dieser Seite kommt in der App Antics auf Deutsch vor, mit demselben Tipp. In der App heißt er Imposter-Hinweis: Der Imposter sieht ihn statt des Wortes, und er hilft ihm, ohne die Lösung zu verraten. Auf Papier entscheidet ihr selbst, ob ihr ihn mitgebt.',
+  wordsP: 'Jedes Wort auf dieser Seite kommt in der App Antics auf Deutsch vor, mit denselben Tipps. In der App heißt der Tipp Imposter-Hinweis: Der Imposter sieht ihn statt des Wortes, und er hilft ihm, ohne die Lösung zu verraten. Der leichte Tipp liegt auf der Hand, der schwere dreht sich eher um den Moment oder die Stimmung, also muss der Imposter mehr bluffen. Ist der schwere Tipp leer, gibt die App den leichten. Auf Papier entscheidet ihr selbst, welchen Tipp der Imposter bekommt, oder ob er gar keinen bekommt.',
   printTip: 'Zum Ausdrucken: am Computer auf Drucken gehen (Strg+P, am Mac Cmd+P). Jede Kategorie kommt auf ein eigenes Blatt.',
   thWord: 'Geheimes Wort', thHint: 'Tipp für den Imposter',
   paperId: 'ohne-handy',
@@ -81,5 +81,25 @@ export default {
   <p><strong>Antics</strong><span>Partyspiele</span></p>
   <a class="btn btn--sm" href="/get/?c=site-de-woerter-bar">Gratis laden</a>
 </aside>`,
+  // The fuller page (31 Oct 2026, FINAL.md item 15's second wave in the app
+  // repo's ops/research/seo-route-2026-10-29/, the es/pt `more` block of 30
+  // Oct): both hint tiers, Brands, Sports and Christmas, and the hard-words
+  // section. The {word:...} and {name:...} tokens are filled from the mirror
+  // by the generator, never typed here. See the generator's header.
+  more: {
+    thEasy: 'Leichter Tipp', thHard: 'Schwerer Tipp',
+    follow: 'In der App Antics schaltet ihr diese Kategorie kostenlos frei, wenn ihr Antics auf TikTok oder Instagram folgt.',
+    christmasLine: 'Kostenlos in der App Antics vom 1. Dezember bis 1. Januar.',
+    christmasToc: 'Weihnachten',
+    draw: 'Zufälliges Wort ziehen',
+    hard: {
+      id: 'schwere-woerter', h2: 'Schwere Imposter-Wörter', toc: 'Schwere Wörter',
+      p: [
+        'Ein schweres Wort ist sehr speziell: Zu {word:sports:5}, {word:sports:11}, {word:brands:16} oder {word:sports:34} gibt es nur wenige naheliegende Details. Wer das Wort kennt, hat die sicheren Details deshalb schnell aufgebraucht.',
+        'Wer gleich mit schweren Wörtern starten will: {name:everyday-objects}, die Liste direkt darunter. Diese Dinge hat jeder zu Hause, aber keiner hat sie je laut beschrieben.',
+        'Jedes Wort auf dieser Seite wird schwerer, wenn ihr dem Imposter den schweren Tipp gebt statt des leichten. Das klappt am besten mit Leuten, die schon ein paarmal gespielt haben.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-de-woerter-qr',
 };

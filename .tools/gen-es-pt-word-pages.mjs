@@ -56,7 +56,8 @@
 // that stays an app feature and never reaches these pages.
 // EXCEPT A PAGE WHOSE CONFIG CARRIES `more` (es and pt from 30 Oct 2026, the
 // app repo's ops/research/seo-route-2026-10-29/FINAL.md item 12, ruled by Guy
-// 29 Oct "yes to all"). Such a page also shows:
+// 29 Oct "yes to all"; de, it, nl, pl and cs from 31 Oct 2026, item 15's
+// second wave). Such a page also shows:
 //   - the hard hint beside the easy one in every table (the app's own
 //     <deck>HintsHard arrays at the same index; a blank hard hint renders
 //     blank, and the app serves the easy hint there);
@@ -67,7 +68,10 @@
 //     free decks are, word, easy hint and hard hint; a language whose mirror
 //     lacks the Christmas deck simply gets no Christmas section;
 //   - a "hard words" section just before Everyday objects, the category the
-//     English hub calls the sneaky hard one;
+//     English hub calls the sneaky hard one; its paragraphs (more.hard.p) may
+//     carry {word:<deck id>:<index>} and {name:<deck id>} tokens, filled from
+//     the mirror at every run (de, it, nl, pl and cs use them; es and pt name
+//     their example words in plain text);
 //   - a draw-one-word button (more.draw) under the words intro: a small
 //     inline script picks a random row from the tables already on the page
 //     and shows the word, its list and both hints. No new data, hidden until
@@ -340,6 +344,7 @@ for (const lang of LANGS) {
 const MORE_LANGS = LANGS.filter((l) => CONFIGS[l].more);
 const HARD_OUT = {}; // lang -> deck id -> hard hints, aligned with OUT[lang]'s list
 const EXTRA_OUT = {}; // lang -> [{ id, name, kind, words: [[word, easy, hard]] }]
+const HARD_P = {}; // lang -> more.hard.p with its tokens filled from the mirror
 const MORE_NOTES = [];
 if (MORE_LANGS.length) {
   const emittedX = new Map();
@@ -431,6 +436,27 @@ if (MORE_LANGS.length) {
       if (blank) MORE_NOTES.push(`${lang} ${d.id}: ${blank} blank hard hint(s), rendered blank`);
       EXTRA_OUT[lang].push({ id: d.id, name: nm[1], kind: d.kind, words: list });
     }
+    // more.hard.p tokens (31 Oct 2026, wave 2): the hard section's example
+    // words are read from this language's mirror BY INDEX at every run, never
+    // typed into a config, and a list is named exactly as its heading shows it.
+    //   {word:<deck id>:<source index>}  the mirror's word at that index; the
+    //       index must be one this page publishes (English-published, not
+    //       retired) in a list this page carries
+    //   {name:<deck id>}  that list's localized name (its h2)
+    // A paragraph without tokens renders exactly as written (es, pt).
+    const ALL = [...DECKS, ...EXTRA_DECKS];
+    const onPage = Object.fromEntries([...OUT[lang], ...EXTRA_OUT[lang]].map((d) => [d.id, d.name]));
+    HARD_P[lang] = CONFIGS[lang].more.hard.p.map((p) => p.replace(/\{(word|name):([a-z-]+)(?::(\d+))?\}/g, (tok, kind, id, n) => {
+      const d = ALL.find((x) => x.id === id);
+      if (!d || !onPage[id]) { problems.push(`${lang} more.hard.p: ${tok} names no list on this page`); return tok; }
+      if (kind === 'name') { if (n !== undefined) problems.push(`${lang} more.hard.p: ${tok} takes no index`); return onPage[id]; }
+      const i = Number(n);
+      if (n === undefined || !(emitted.get(id) || emittedX.get(id) || []).includes(i)) { problems.push(`${lang} more.hard.p: ${tok} is not a published index of ${id}`); return tok; }
+      const w = L[d.from][d.words][i];
+      if (LIVE && LIVE[lang][d.from][d.words][i] !== w) problems.push(`${lang} more.hard.p: ${tok} "${w}" is not what ${LIVE_COMMIT} deals`);
+      return w;
+    }));
+    for (const p of HARD_P[lang]) if (/[{}]/.test(p)) problems.push(`${lang} more.hard.p: unresolved token in "${p}"`);
   }
 }
 if (problems.length) { console.error('Refusing to write:\n  ' + problems.join('\n  ')); process.exit(1); }
@@ -468,11 +494,11 @@ function moreBlocks(lang) {
   let n = 0;
   return order.map((b) => (b.type === 'deck' ? { ...b, anchor: slugify(b.name, lang), tone: TONES[n++ % TONES.length] } : b));
 }
-function moreTables(cats, C) {
+function moreTables(cats, C, lang) {
   return cats.map((c) => (c.type === 'hard'
     ? `      <section class="section tone-lime wl-after" id="${c.anchor}">
         <h2>${esc(C.more.hard.h2)}</h2>
-${C.more.hard.p.map((p) => `        <p>${esc(p)}</p>`).join('\n')}
+${HARD_P[lang].map((p) => `        <p>${esc(p)}</p>`).join('\n')}
       </section>`
     : `      <section class="section ${c.tone} wl-cat${c.app ? ' wl-app' : ''}" id="${c.anchor}">
         <h2>${esc(c.name)}</h2>
@@ -572,7 +598,7 @@ function render(lang) {
   };
   const toc = [...cats.map((c) => [c.anchor, c.tocLabel || c.name]), ...C.tocAfter]
     .map(([id, label], n) => `        <li class="${['tone-lime', ...TONES][n % 5]}"><a href="#${id}">${esc(label)}</a></li>`).join('\n');
-  const tables = C.more ? moreTables(cats, C) : cats.map((c) => `      <section class="section ${c.tone} wl-cat" id="${c.anchor}">
+  const tables = C.more ? moreTables(cats, C, lang) : cats.map((c) => `      <section class="section ${c.tone} wl-cat" id="${c.anchor}">
         <h2>${esc(c.name)}</h2>
         <div class="table-wrap">
           <table class="wl-table">

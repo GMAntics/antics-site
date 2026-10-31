@@ -12,19 +12,19 @@ export default {
   htmlLang: 'it', path: '/it/parole-gioco-dell-impostore/', dir: 'it/parole-gioco-dell-impostore',
   ogLocale: 'it_IT',
   title: 'Parole per il gioco dell\'impostore: lista da stampare',
-  desc: 'Parole per il gioco dell\'impostore con l\'indizio di ognuna, in quattro categorie. Da stampare, per giocare senza telefono e anche in tre. Gratis.',
-  ogTitle: 'Parole per il gioco dell\'impostore, con l\'indizio di ognuna',
+  desc: 'Parole per il gioco dell\'impostore, con indizi facili e difficili: cibo, persone famose, luoghi, oggetti, marchi, sport e Natale. Da stampare, anche senza telefono.',
+  ogTitle: 'Parole per il gioco dell\'impostore, facili e difficili',
   crumbLabel: 'Percorso di navigazione', langHome: '/it/', langName: 'Italiano',
   crumbGame: 'Gioco dell\'impostore online', gamePath: '/it/gioco-dell-impostore/', crumbHere: 'Parole',
   ldGame: 'Gioco dell\'impostore online', ldHere: 'Parole per il gioco dell\'impostore',
   h1: 'Parole per il gioco dell\'impostore',
-  standfirst: 'Quattro categorie complete del gioco dell\'impostore, con l\'indizio che riceve l\'impostore per ogni parola. Servono per giocare su carta, senza telefono, e si stampano con una categoria per foglio.',
+  standfirst: 'Sei categorie complete del gioco dell\'impostore e quella di Natale, con l\'indizio facile e quello difficile che riceve l\'impostore per ogni parola. Servono per giocare su carta, senza telefono, e si stampano con una categoria per foglio.',
   note: 'Volete giocare subito? <a class="inline" href="/it/gioco-dell-impostore/">Distribuite le parole su un solo telefono</a>, gratis e senza scaricare niente.',
   ilangLabel: 'Lingua',
   tocLabel: 'In questa pagina',
   tocAfter: [['senza-telefono', 'Senza telefono'], ['in-tre', 'In tre']],
   wordsH2: 'Le parole e l\'indizio dell\'impostore',
-  wordsP: 'Ogni parola di questa pagina c\'è anche nell\'app Antics in italiano, con lo stesso indizio. L\'indizio è quello che vede l\'impostore al posto della parola: qualcosa che lo avvicina senza regalargli la risposta. Su carta, decidete voi se darglielo o no.',
+  wordsP: 'Ogni parola di questa pagina c\'è anche nell\'app Antics in italiano, con gli stessi indizi. L\'indizio è quello che vede l\'impostore al posto della parola: qualcosa che lo avvicina senza regalargli la risposta. Quello facile salta all\'occhio; quello difficile parla più del momento o dell\'atmosfera, quindi l\'impostore deve bluffare di più. Se quello difficile è vuoto, l\'app dà quello facile. Su carta, decidete voi quale dargli, o se non dargliene nessuno.',
   printTip: 'Per stampare: al computer, usate Stampa (Ctrl+P, o Cmd+P su Mac). Ogni categoria esce su un foglio a parte.',
   thWord: 'Parola segreta', thHint: 'Indizio dell\'impostore',
   paperId: 'senza-telefono',
@@ -79,5 +79,25 @@ export default {
   <p><strong>Antics</strong><span>Giochi di gruppo</span></p>
   <a class="btn btn--sm" href="/get/?c=site-it-parole-bar">Scarica gratis</a>
 </aside>`,
+  // The fuller page (31 Oct 2026, FINAL.md item 15's second wave in the app
+  // repo's ops/research/seo-route-2026-10-29/, the es/pt `more` block of 30
+  // Oct): both hint tiers, Brands, Sports and Christmas, and the hard-words
+  // section. The {word:...} and {name:...} tokens are filled from the mirror
+  // by the generator, never typed here. See the generator's header.
+  more: {
+    thEasy: 'Indizio facile', thHard: 'Indizio difficile',
+    follow: 'Nell\'app Antics questa categoria si sblocca gratis seguendo Antics su TikTok o Instagram.',
+    christmasLine: 'Gratis nell\'app Antics dal 1° dicembre al 1° gennaio.',
+    christmasToc: 'Natale',
+    draw: 'Pesca una parola a caso',
+    hard: {
+      id: 'parole-difficili', h2: 'Parole difficili per il gioco dell\'impostore', toc: 'Parole difficili',
+      p: [
+        'Una parola difficile è molto specifica: per «{word:sports:5}», «{word:sports:11}», «{word:brands:16}» o «{word:sports:34}» ci sono pochi dettagli ovvi, quindi chi conosce la parola esaurisce presto quelli sicuri.',
+        'Per partire subito con le difficili: {name:everyday-objects}, la lista qui sotto. Sono cose che tutti hanno in casa, ma che nessuno ha mai descritto ad alta voce.',
+        'Ogni parola di questa pagina diventa più difficile se all\'impostore date l\'indizio difficile invece di quello facile. Funziona meglio con chi ha già fatto qualche partita.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-it-parole-qr',
 };

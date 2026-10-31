@@ -13,19 +13,19 @@ export default {
   htmlLang: 'nl', path: '/nl/imposter-woorden/', dir: 'nl/imposter-woorden',
   ogLocale: 'nl_NL',
   title: 'Imposter spel woorden: lijst met hints om te printen',
-  desc: 'Imposter woorden met de hint bij elk woord, per categorie. Om te printen, om zonder telefoon te spelen en om met z’n drieën te spelen. Gratis.',
-  ogTitle: 'Woorden voor het imposter spel, met de hint bij elk woord',
+  desc: 'Imposter woorden met een makkelijke en een moeilijke hint: eten, beroemdheden, locaties, voorwerpen, merken, sport en kerst. Om te printen en zonder telefoon te spelen.',
+  ogTitle: 'Woorden voor het imposter spel, met makkelijke en moeilijke hints',
   crumbLabel: 'Kruimelpad', langHome: '/nl/', langName: 'Nederlands',
   crumbGame: 'Imposter spel online', gamePath: '/nl/imposter-spel/', crumbHere: 'Woorden',
   ldGame: 'Imposter spel online', ldHere: 'Woorden voor het imposter spel',
   h1: 'Woorden voor het imposter spel',
-  standfirst: 'Vier volledige categorieën voor het imposter spel, met de hint die de imposter bij elk woord krijgt. Je kunt er ook op papier mee spelen, zonder telefoon, en je print ze met één categorie per pagina.',
+  standfirst: 'Zes volledige categorieën voor het imposter spel en de kerstcategorie, met bij elk woord een makkelijke en meestal ook een moeilijke hint voor de imposter. Je kunt er ook op papier mee spelen, zonder telefoon, en je print ze met één categorie per pagina.',
   note: 'Spelen jullie meteen? <a class="inline" href="/nl/imposter-spel/">Deel de woorden uit op één telefoon</a>, gratis en zonder iets te downloaden.',
   ilangLabel: 'Taal',
   tocLabel: 'Op deze pagina',
   tocAfter: [['zonder-telefoon', 'Zonder telefoon'], ['met-3-spelers', 'Met 3 spelers']],
   wordsH2: 'De woorden en de hint voor de imposter',
-  wordsP: 'Elk woord op deze pagina staat in de app Antics in het Nederlands, met dezelfde hint. In de app heet het spel Bedrieger. De hint is wat de imposter ziet in plaats van het woord: iets wat in de buurt komt, zonder het antwoord weg te geven. Op papier bepalen jullie zelf of de imposter de hint krijgt.',
+  wordsP: 'Elk woord op deze pagina staat in de app Antics in het Nederlands, met dezelfde hints. In de app heet het spel Bedrieger. De hint is wat de imposter ziet in plaats van het woord: iets wat in de buurt komt, zonder het antwoord weg te geven. De makkelijke hint ligt voor de hand; de moeilijke gaat meer over het moment of de sfeer, dus de imposter moet meer bluffen. Is de moeilijke hint leeg, dan geeft de app de makkelijke. Op papier bepalen jullie zelf welke hint de imposter krijgt, of helemaal geen.',
   printTip: 'Printen: kies op je computer Afdrukken (Ctrl+P, of Cmd+P op een Mac). Elke categorie komt op een eigen pagina.',
   thWord: 'Geheim woord', thHint: 'Hint voor de imposter',
   paperId: 'zonder-telefoon',
@@ -80,5 +80,25 @@ export default {
   <p><strong>Antics</strong><span>Feestspellen</span></p>
   <a class="btn btn--sm" href="/get/?c=site-nl-woorden-bar">Gratis downloaden</a>
 </aside>`,
+  // The fuller page (31 Oct 2026, FINAL.md item 15's second wave in the app
+  // repo's ops/research/seo-route-2026-10-29/, the es/pt `more` block of 30
+  // Oct): both hint tiers, Brands, Sports and Christmas, and the hard-words
+  // section. The {word:...} and {name:...} tokens are filled from the mirror
+  // by the generator, never typed here. See the generator's header.
+  more: {
+    thEasy: 'Makkelijke hint', thHard: 'Moeilijke hint',
+    follow: 'In de app Antics ontgrendel je deze categorie gratis door Antics te volgen op TikTok of Instagram.',
+    christmasLine: 'Gratis in de app Antics van 1 december tot en met 1 januari.',
+    christmasToc: 'Kerst',
+    draw: 'Trek een willekeurig woord',
+    hard: {
+      id: 'moeilijke-woorden', h2: 'Moeilijke imposter woorden', toc: 'Moeilijke woorden',
+      p: [
+        'Een moeilijk woord is heel specifiek. Bij ‘{word:sports:5}’, ‘{word:sports:11}’, ‘{word:brands:16}’ of ‘{word:sports:34}’ zijn er maar weinig voor de hand liggende details, dus wie het woord kent, heeft de veilige details snel opgebruikt.',
+        'Meteen moeilijk beginnen? Neem {name:everyday-objects}, de lijst hieronder. Iedereen heeft die dingen in huis, maar niemand heeft ze ooit hardop beschreven.',
+        'Elk woord op deze pagina wordt moeilijker als jullie de imposter de moeilijke hint geven in plaats van de makkelijke. Dat werkt het best bij groepen die al een paar keer gespeeld hebben.',
+      ],
+    },
+  },
   qr: 'https://anticsapp.com/get/?c=site-nl-woorden-qr',
 };
