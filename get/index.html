@@ -164,10 +164,18 @@
       if (offer && EXTENDED.indexOf(offer) !== -1 && new Date() >= new Date('2026-10-31T00:00:00Z')) {
         offer = offer + 'X';
       }
+      // Free-MONTH codes (GUY_MONTH_2026: Guy's own card and the new hires
+      // from 31 Oct 2026). Every other offer code is a free week. A new
+      // month-code promoter joins this list when their page is made.
+      var MONTH = ['GUYMONTH','PORTS2','KEELE2','KCL2'];
+      var freeLen = offer && MONTH.indexOf(offer) !== -1 ? 'month' : 'week';
       if (offer && ios) {
         APPLE = 'https://apps.apple.com/redeem?ctx=offercodes&id=6787743558&code=' + offer;
         var reassure = document.getElementById('reassure');
-        if (reassure) reassure.hidden = false;
+        if (reassure) {
+          if (freeLen === 'month') reassure.textContent = 'Your free month ends by itself. Nothing renews and there\u2019s nothing to cancel.';
+          reassure.hidden = false;
+        }
       }
 
       // Scan/visit beacon into our own sink (same privacy contract as the
@@ -228,7 +236,7 @@
           // through Apple's sheet on the phone, so say that rather than
           // hand over a QR that would drop the offer.
           qr.querySelector('img').hidden = true;
-          document.getElementById('qr-text').textContent = 'Open this link on your iPhone to claim the free week.';
+          document.getElementById('qr-text').textContent = 'Open this link on your iPhone to claim the free ' + freeLen + '.';
         }
       }
       btn.textContent = 'App Store';
