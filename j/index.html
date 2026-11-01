@@ -497,6 +497,14 @@
     // carries a player name, a room code, a token, the word or the hint.
     var RULED = ['room_created', 'room_joined', 'room_join_failed', 'room_started', 'room_reveal_viewed', 'room_install_tapped'];
     var SID = 'web-' + Math.random().toString(36).slice(2, 10);
+    // How this tab arrived (the 1.1.5 delta for web= arrivals). The 1.1.4 app
+    // cannot open a room link, so it hands /j/ links to the browser with
+    // web=1 added (app repo src/navigation/roomLinkFallback.ts); 404.html
+    // carries the query through. 'app_fallback' means a phone with Antics on
+    // it was sent here by the app; 'direct' is every other arrival. Rides
+    // room_created, room_joined and room_join_failed only, and is read once
+    // from the address this page was opened at.
+    var ARRIVAL = /[?&]web=1(&|$)/.test(location.search) ? 'app_fallback' : 'direct';
     function track(name, props) {
       if (RULED.indexOf(name) === -1 || !USE_PROD || LOCAL) return;
       try {
@@ -845,8 +853,8 @@
     $('btn-join').addEventListener('click', function () {
       var method = prefilled && $('in-code').value.toUpperCase() === prefilled ? 'link' : 'code';
       busy(this, api('join', joinKey ? { code: $('in-code').value, name: $('in-name').value, joinKey: joinKey } : { code: $('in-code').value, name: $('in-name').value })).then(function (r) {
-        if (take(r, 'join-error')) track('room_joined', { via: 'web', method: method, players_n: view.players.length });
-        else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown' });
+        if (take(r, 'join-error')) track('room_joined', { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
+        else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown', arrival: ARRIVAL });
       });
     });
     $('btn-create').addEventListener('click', function () {
@@ -856,7 +864,7 @@
       };
       busy(this, api('create', { name: $('host-name').value, settings: settings })).then(function (r) {
         if (take(r, 'host-error')) {
-          track('room_created', { host: 'web', categories_n: view.settings.categories.length, two_imposters: settings.twoImposters ? 'yes' : 'no', mischief: settings.mischief ? 'yes' : 'no', difficulty: view.settings.difficulty, hint: settings.hintOn ? 'on' : 'off' });
+          track('room_created', { host: 'web', categories_n: view.settings.categories.length, two_imposters: settings.twoImposters ? 'yes' : 'no', mischief: settings.mischief ? 'yes' : 'no', difficulty: view.settings.difficulty, hint: settings.hintOn ? 'on' : 'off', arrival: ARRIVAL });
         }
       });
     });
