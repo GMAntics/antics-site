@@ -736,8 +736,8 @@
       show('reveal');
       var r = view.reveal;
       if (r.mischief) {
-        $('reveal-kicker').textContent = 'Mischief round';
-        $('reveal-names').textContent = 'You were ALL the imposter';
+        $('reveal-kicker').textContent = 'Nobody was the imposter';
+        $('reveal-names').textContent = 'Nobody had it. You did all that to each other for nothing.';
       } else {
         $('reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
         $('reveal-names').textContent = r.imposterNames.join(' and ');
@@ -1119,8 +1119,8 @@
         $('tv-reveal-word').textContent = 'Check your phones';
         $('tv-reveal-hint').textContent = '';
       } else if (r.mischief) {
-        $('tv-reveal-kicker').textContent = 'Mischief round';
-        $('tv-reveal-names').textContent = 'You were ALL the imposter';
+        $('tv-reveal-kicker').textContent = 'Nobody was the imposter';
+        $('tv-reveal-names').textContent = 'Nobody had it. You did all that to each other for nothing.';
       } else {
         $('tv-reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
         $('tv-reveal-names').textContent = r.imposterNames.join(' and ');
