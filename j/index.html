@@ -447,8 +447,10 @@
     var ERRORS = {
       room_not_found: 'No room with that code. Check it with the host.',
       name_taken: 'Someone in the room already has that name.',
-      room_full: 'That room is full (12 players).',
-      invalid_name: 'Type a name first.',
+      room_full: 'That room is full (12 players). Ask the host to remove someone, then try again.',
+      // The server's invalid_name: a name its filter refused. An empty name gets
+      // its own line in say(), from the form's own field.
+      invalid_name: 'Try a different name.',
       rate_limited: 'Too many tries. Give it a minute.',
       rooms_busy: 'Lots of rooms are open right now. Try again later.',
       web_host_disabled: 'Hosting from the browser is switched off.',
@@ -606,7 +608,11 @@
         });
       }, function () { return { ok: false, status: 0, data: { error: 'network' } }; });
     }
-    function say(id, r) { $(id).textContent = r ? (ERRORS[r.data.error] || 'Something went wrong. Try again.') : ''; }
+    var NAME_FIELDS = { 'join-error': 'in-name', 'host-error': 'host-name' };
+    function say(id, r) {
+      var blank = r && r.data.error === 'invalid_name' && NAME_FIELDS[id] && !$(NAME_FIELDS[id]).value.trim();
+      $(id).textContent = r ? (blank ? 'Type a name first.' : (ERRORS[r.data.error] || 'Something went wrong. Try again.')) : '';
+    }
     function mine(extra) {
       var b = { code: session.code, token: session.token };
       for (var k in extra || {}) b[k] = extra[k];
@@ -714,7 +720,7 @@
           $('secret-kicker').textContent = categoryLabel(c.categoryId).toUpperCase();
           $('secret-big').className = 'big';
           $('secret-big').textContent = c.word;
-          $('secret-sub').textContent = c.categoryKind === 'place' ? 'This is where you all are. One of you has no idea.' : 'This is the secret word. One of you has no idea.';
+          $('secret-sub').textContent = c.categoryKind === 'place' ? 'This is where you all are. Not everyone here knows it.' : 'This is the secret word. Not everyone here knows it.';
           $('secret-hint').textContent = '';
         }
         var dealt = dealtIn(view.players);
@@ -887,7 +893,7 @@
       if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggleCard(); }
     });
     $('btn-reveal').addEventListener('click', function () {
-      if (!confirm('Reveal the imposter to everyone? Do this after the vote.')) return;
+      if (!confirm('End the round for everyone? Wait until the room has voted.')) return;
       busy(this, api('reveal', mine())).then(function (r) { take(r, 'card-error'); });
     });
     function leave() {
