@@ -254,8 +254,8 @@
     </section>
 
     <section id="screen-gone" hidden>
-      <h1>That room has ended</h1>
-      <p class="lead">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
+      <h1 id="gone-title">That room has ended</h1>
+      <p class="lead" id="gone-body">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
       <button id="btn-rejoin" class="primary">Join another room</button>
     </section>
 
@@ -452,7 +452,7 @@
       // its own line in say(), from the form's own field.
       invalid_name: 'Try a different name.',
       rate_limited: 'Too many tries. Give it a minute.',
-      rooms_busy: 'Lots of rooms are open right now. Try again later.',
+      rooms_busy: 'Rooms are busy right now. Try again in a minute.',
       web_host_disabled: 'Hosting from the browser is switched off.',
       not_enough_players: 'You need at least 3 players.',
       host_only: 'Only the host can do that.',
@@ -643,7 +643,10 @@
         if (canKick && p.id !== view.you.id) {
           var k = document.createElement('button');
           k.className = 'kick'; k.textContent = 'Remove';
-          k.addEventListener('click', function () { api('kick', mine({ playerId: p.id })).then(take); });
+          k.addEventListener('click', function () {
+            if (!confirm('Remove ' + p.name + ' from the room?')) return;
+            api('kick', mine({ playerId: p.id })).then(take);
+          });
           li.appendChild(k);
         }
         ul.appendChild(li);
@@ -761,9 +764,14 @@
         return true;
       }
       if (r.status === 404 && session.token) {
-        // The server says GONE for both, so the room's own clock decides
-        // which: past its expiry it ended, before it the host removed us.
-        if (view) track('room_left', { via: 'web', reason: Date.parse(view.expiresAt) <= Date.now() ? 'ended' : 'removed', round_n: view.round });
+        // The 1.1.5 server answers a removed seat 404 'removed' (design
+        // question 12, ruled 1 Nov 2026), and the screen says so as the app
+        // does. Any other 404 lets the room's own clock decide: past its
+        // expiry it ended, before it the host removed us.
+        var removed = r.data.error === 'removed';
+        if (view) track('room_left', { via: 'web', reason: removed || Date.parse(view.expiresAt) > Date.now() ? 'removed' : 'ended', round_n: view.round });
+        $('gone-title').textContent = removed ? 'The host took you out of the room' : 'That room has ended';
+        $('gone-body').textContent = removed ? 'Ask them for the code if you want back in.' : 'Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.';
         disconnect(); clearSession(); show('gone'); return false;
       }
       if (errorId) say(errorId, r);
@@ -897,7 +905,8 @@
       busy(this, api('reveal', mine())).then(function (r) { take(r, 'card-error'); });
     });
     function leave() {
-      if (!confirm('Leave this room?')) return;
+      var others = !!view && view.players.some(function (p) { return p.id !== view.you.id; });
+      if (!confirm(view && view.you.isHost && others ? 'Leave the room?\n\nThe next person in becomes the host.' : 'Leave the room?')) return;
       if (view) track('room_left', { via: 'web', reason: 'leave', round_n: view.round });
       api('leave', mine());
       disconnect(); clearSession(); start();
