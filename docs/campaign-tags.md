@@ -84,6 +84,17 @@ left on a content page.
 | `site-imposter-play` | `/imposter-game/` | the wall's "Get Antics free" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
 | `site-imposter-play-qr` | `/imposter-game/` | the wall's QR, shown on wide screens only (`/qr-imposter-play.png`) |
 | `site-imposter-play-bar` | `/imposter-game/` | the phone install bar |
+| `site-imposter-rooms` | `/imposter-online-with-friends/` | the two store buttons in the closing box (added 7 Nov 2026, SEO batch 4) |
+| `site-imposter-rooms-laptop` | `/imposter-online-with-friends/` | the "On a laptop?" line |
+| `site-imposter-rooms-footer` | `/imposter-online-with-friends/` | footer "Get the app" |
+| `site-imposter-rooms-bar` | `/imposter-online-with-friends/` | the phone install bar |
+| `site-imposter-rooms-es` | `/es/impostor-online-con-amigos/` | the two store buttons in the closing box ("Descárgala en el App Store", "Disponible en Google Play"; added 7 Nov 2026, SEO batch 4) |
+| `site-imposter-rooms-es-laptop` | `/es/impostor-online-con-amigos/` | the "¿Estás en la computadora?" line |
+| `site-imposter-rooms-es-footer` | `/es/impostor-online-con-amigos/` | footer "Descarga la app" |
+| `site-imposter-rooms-es-bar` | `/es/impostor-online-con-amigos/` | the phone install bar |
+| `site-imposter-rooms-pt` | `/pt/impostor-online-com-amigos/` | the closing box's one button, "Baixe o Antics grátis" (added 7 Nov 2026, SEO batch 4; the pt footer carries no Get link, so there is no `-footer` tag) |
+| `site-imposter-rooms-pt-laptop` | `/pt/impostor-online-com-amigos/` | the "Está no computador?" line |
+| `site-imposter-rooms-pt-bar` | `/pt/impostor-online-com-amigos/` | the phone install bar |
 | `site-fourkings` | `/four-kings-online/` | the two store buttons in the closing box |
 | `site-fourkings-qr` | `/four-kings-online/` | the closing box QR, laptops and tablets only (`/four-kings-online/qr.png`) |
 | `site-fourkings-bar` | `/four-kings-online/` | the phone install bar |
