@@ -235,12 +235,55 @@ async function splits(box, rows, s) {
   return out;
 }
 
+// Grouped vertical bars, each group with its own dashed reference line
+// (Halloween 2026, 7 Nov 2026). groups: [{ name, ref, refLabel, rows: [{ label, v, key }] }]
+// The key (top right) names the reference line; each group's own reference
+// value is printed under its name, so a cropped image still carries it.
+async function gbars(box, groups, s, fmt, refKey) {
+  const { x, y, w, h } = box;
+  const gap = Math.round(w * 0.06);
+  const labelH = s.label * 1.25 + 14 + s.group * 1.5 + s.label * 1.4;
+  const valueH = s.value + 14 + s.label + 24;
+  const lw = await measure(refKey, s.label);
+  const kx = x + w - lw - 56;
+  let out = `<line x1="${kx}" x2="${kx + 40}" y1="${y + s.label * 0.62}" y2="${y + s.label * 0.62}" stroke="${C.text1}" stroke-opacity="0.8" stroke-width="2" stroke-dasharray="8 8"/>` +
+    t(kx + 56, y + s.label, s.label, C.text1, lawCheck(refKey));
+  const base = y + h - labelH;
+  const top = y + valueH;
+  const max = Math.max(...groups.flatMap((g) => [g.ref, ...g.rows.map((r) => r.v)]));
+  const gw = (w - gap * (groups.length - 1)) / groups.length;
+  const knock = `stroke="#120C27" stroke-width="10" stroke-linejoin="round" paint-order="stroke"`;
+  groups.forEach((g, gi) => {
+    const gx = x + gi * (gw + gap);
+    const slot = gw / g.rows.length;
+    const bw = Math.min(slot * 0.62, 120);
+    // the reference line first: bars sit over it and the values' knockout masks it
+    const ry = base - ((base - top) * g.ref) / max;
+    out += `<line x1="${gx.toFixed(1)}" x2="${(gx + gw).toFixed(1)}" y1="${ry.toFixed(1)}" y2="${ry.toFixed(1)}" stroke="${C.text1}" stroke-opacity="0.75" stroke-width="2.5" stroke-dasharray="8 8"/>`;
+    g.rows.forEach((r, i) => {
+      const cx = gx + slot * i + slot / 2;
+      const bh = Math.max(4, ((base - top) * r.v) / max);
+      out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="8" fill="${r.key ? C.pink : C.bar}"/>`;
+      out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - Math.min(bh, 8)).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.min(bh, 8).toFixed(1)}" fill="${r.key ? C.pink : C.bar}"/>`;
+      out += t(cx.toFixed(1), (base - bh - 14).toFixed(1), s.value, r.key ? C.white : C.text2, fmt(r.v), `text-anchor="middle" ${knock}`);
+      out += t(cx.toFixed(1), (base + 14 + s.label * 1.2).toFixed(1), s.label, r.key ? C.white : C.text2, lawCheck(r.label), 'text-anchor="middle"');
+    });
+    out += `<rect x="${gx.toFixed(1)}" y="${base}" width="${gw.toFixed(1)}" height="2" fill="${C.line}"/>`;
+    const ny = base + 14 + s.label * 1.25 + 10 + s.group;
+    out += t((gx + gw / 2).toFixed(1), ny.toFixed(1), s.group, C.white, lawCheck(g.name), 'text-anchor="middle"');
+    out += t((gx + gw / 2).toFixed(1), (ny + s.label * 1.4).toFixed(1), s.label, C.text3, lawCheck(g.refLabel), 'text-anchor="middle"');
+  });
+  return out;
+}
+
 // ------------------------------------------------------------------ the frame
 const FORMATS = {
   land: { W: 1600, H: 900, P: 110, word: 28, kick: 19, head: 62, headStep: 70, sub: 30, subStep: 40, cap: 19, note: 20, noteStep: 27, src: 22,
-    bars: { value: 26, label: 22 }, hb: { label: 27, value: 26 }, sp: { label: 24, value: 25 } },
+    bars: { value: 26, label: 22 }, hb: { label: 27, value: 26 }, sp: { label: 24, value: 25 },
+    gb: { value: 28, label: 22, group: 27 } },
   port: { W: 1080, H: 1350, P: 80, word: 28, kick: 18, head: 62, headStep: 70, sub: 30, subStep: 40, cap: 18, note: 20, noteStep: 27, src: 21,
-    bars: { value: 23, label: 20 }, hb: { label: 26, value: 25 }, sp: { label: 24, value: 25 } },
+    bars: { value: 23, label: 20 }, hb: { label: 26, value: 25 }, sp: { label: 24, value: 25 },
+    gb: { value: 24, label: 19, group: 24 } },
 };
 
 async function render(chart, fmtName) {
@@ -250,12 +293,12 @@ async function render(chart, fmtName) {
   const head = await balance(lawCheck(chart.headline), F.head, inner);
   const sub = await wrap(lawCheck(chart.sub), F.sub, inner);
   const notes = await wrap(lawCheck(chart.note), F.note, inner);
-  const source = lawCheck(`Source: Antics party data, anticsapp.com/party-data, ${chart.window}`);
+  const source = lawCheck(`Source: Antics party data, ${chart.sourceUrl || 'anticsapp.com/party-data'}, ${chart.window}`);
   let svg = '';
   // wordmark and kicker
   let y = fmtName === 'land' ? 92 : 104;
   svg += `<text x="${P}" y="${y}" font-family="${FONT}" font-weight="700" font-size="${F.word}" letter-spacing="7"><tspan fill="${C.pink}">ANT</tspan><tspan fill="${C.white}">ICS</tspan></text>`;
-  const kicker = lawCheck(`PARTY DATA · ${chart.window.toUpperCase()}`);
+  const kicker = lawCheck(`${chart.kicker || 'PARTY DATA'} · ${chart.window.toUpperCase()}`);
   if (fmtName === 'land') svg += t(W - 90, y, F.kick, C.text3, kicker, 'text-anchor="end" letter-spacing="3"');
   else { y += 46; svg += t(P, y, F.kick, C.text3, kicker, 'letter-spacing="3"'); }
   // headline
@@ -386,15 +429,65 @@ const CHARTS = [
   },
 ];
 
+// ------------------------------------------------------------------ the sets
+// --set=halloween-2026 (7 Nov 2026) draws the Halloween 2026 release's chart
+// from ITS CSV (party-data/halloween-2026/antics-halloween-data-2026.csv) into
+// party-data/halloween-2026/charts/, rewrites only that page's charts list, and
+// leaves the first release's charts, its two pages and the press wordmarks
+// alone. With no --set the script does exactly what it did before.
+const SET = (process.argv.find((a) => a.startsWith('--set=')) || '--set=main').slice(6);
+const SETS = { main: { charts: CHARTS, out: OUT, base: '/party-data/charts', pages: PAGES } };
+{
+  const HDIR = join(ROOT, 'party-data', 'halloween-2026');
+  const HCSV = join(HDIR, 'antics-halloween-data-2026.csv');
+  if (existsSync(HCSV)) {
+    const H = parseCsv(readFileSync(HCSV, 'utf8'));
+    for (const r of H) if (!/^(%|times)/.test(r.unit)) throw new Error(`unexpected unit in the Halloween CSV: ${r.unit}`);
+    const hv = (section, measure) => {
+      const row = H.find((r) => r.section === section && r.measure === measure);
+      if (!row) throw new Error(`not in the Halloween CSV: ${section} / ${measure}`);
+      const v = Number(row.value);
+      if (!Number.isFinite(v)) throw new Error(`not a number: ${section} / ${measure}`);
+      return v;
+    };
+    const HW = '17 Oct to 1 Nov 2026';
+    const stages = [['1st to 3rd Halloween card', '1st to 3rd'], ['4th to 8th Halloween card', '4th to 8th'], ['9th Halloween card or later', '9th or later']];
+    const game = (g) => {
+      const ref = hv('first_and_later', `${g}: everyday cards, same groups`);
+      return { name: g, ref, refLabel: `Everyday cards: ${ref.toFixed(1)}%`,
+        rows: stages.map(([m, label], i) => ({ label, v: hv('first_and_later', `${g}: a group's ${m}`), key: i === 2 })) };
+    };
+    const wear = [game('Never Have I Ever'), game('Most Likely To')];
+    const f1 = (v) => `${v.toFixed(1)}%`;
+    const [n, m] = wear;
+    SETS['halloween-2026'] = {
+      out: join(HDIR, 'charts'), base: '/party-data/halloween-2026/charts', pages: ['party-data/halloween-2026/index.html'],
+      charts: [{
+        slug: 'halloween-theme-wore-out',
+        title: 'The theme wore out, not the cards',
+        headline: 'The theme wore out, not the cards',
+        sub: 'A group’s first three Halloween cards were skipped about as often as its everyday cards. From the ninth on, one in three.',
+        caption: 'Halloween cards skipped, by how many the group had met in that game',
+        note: 'Dashed line: everyday cards in the same groups’ games. A skip is a card on screen for under two seconds.',
+        window: HW, kicker: 'HALLOWEEN PARTY DATA', sourceUrl: 'anticsapp.com/party-data/halloween-2026',
+        alt: `Grouped bar chart of Halloween cards skipped by how many the group had met in that game. Never Have I Ever: ${f1(n.rows[0].v)} for the 1st to 3rd, ${f1(n.rows[1].v)} for the 4th to 8th, ${f1(n.rows[2].v)} from the 9th, against ${f1(n.ref)} for everyday cards in the same groups' games. Most Likely To: ${f1(m.rows[0].v)}, ${f1(m.rows[1].v)} and ${f1(m.rows[2].v)}, against ${f1(m.ref)} for everyday cards. Source: Antics party data, Halloween 2026, ${HW}.`,
+        draw: (box, F) => gbars(box, wear, F.gb, f1, 'Everyday cards, same groups'),
+      }],
+    };
+  }
+}
+const S = SETS[SET];
+if (!S) throw new Error(`no such set: ${SET} (sets: ${Object.keys(SETS).join(', ')})`);
+
 // ------------------------------------------------------------------ write
-mkdirSync(join(OUT, 'thumbs'), { recursive: true });
+mkdirSync(join(S.out, 'thumbs'), { recursive: true });
 const kb = (file) => `${Math.max(1, Math.round(statSync(file).size / 1024))} KB`;
 const items = [];
-for (const c of CHARTS) {
+for (const c of S.charts) {
   lawCheck(c.title); lawCheck(c.alt);
-  const land = join(OUT, `${c.slug}.png`);
-  const port = join(OUT, `${c.slug}-portrait.png`);
-  const thumb = join(OUT, 'thumbs', `${c.slug}.webp`);
+  const land = join(S.out, `${c.slug}.png`);
+  const port = join(S.out, `${c.slug}-portrait.png`);
+  const thumb = join(S.out, 'thumbs', `${c.slug}.webp`);
   const landBuf = await render(c, 'land');
   writeFileSync(land, landBuf);
   writeFileSync(port, await render(c, 'port'));
@@ -411,6 +504,7 @@ for (const c of CHARTS) {
 //   press/antics-banner.png               2400 x 1260, on the brand background
 //   press/antics-wordmark-white.png       2000 x 560, transparent, for dark pages
 //   press/antics-wordmark-dark.png        2000 x 560, transparent, for light pages
+if (SET === 'main') {
 const PRESS = join(ROOT, 'press');
 mkdirSync(PRESS, { recursive: true });
 function wordmark(cx, base, size, ink) {
@@ -433,6 +527,7 @@ for (const [file, ink] of [['antics-wordmark-white.png', C.white], ['antics-word
   await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile(join(PRESS, file));
 }
 for (const f of ['antics-banner.png', 'antics-wordmark-white.png', 'antics-wordmark-dark.png']) console.log(`press/${f}: ${kb(join(PRESS, f))}`);
+}
 
 // ------------------------------------------------------------------ the list on the pages
 const attr = (s) => esc(s).replace(/"/g, '&quot;');
@@ -441,15 +536,15 @@ const list = [
   '<ul class="chart-dl">',
   ...items.map((c) => [
     '            <li>',
-    `              <a class="chart-dl-img" href="/party-data/charts/${c.slug}.png"><img src="/party-data/charts/thumbs/${c.slug}.webp" alt="${attr(c.alt)}" width="800" height="450" loading="lazy"></a>`,
+    `              <a class="chart-dl-img" href="${S.base}/${c.slug}.png"><img src="${S.base}/thumbs/${c.slug}.webp" alt="${attr(c.alt)}" width="800" height="450" loading="lazy"></a>`,
     `              <strong>${html(c.title)}</strong>`,
-    `              <a href="/party-data/charts/${c.slug}.png" download>Landscape PNG, 1600 x 900 (${c.landKb})</a>`,
-    `              <a href="/party-data/charts/${c.slug}-portrait.png" download>Portrait PNG, 1080 x 1350 (${c.portKb})</a>`,
+    `              <a href="${S.base}/${c.slug}.png" download>Landscape PNG, 1600 x 900 (${c.landKb})</a>`,
+    `              <a href="${S.base}/${c.slug}-portrait.png" download>Portrait PNG, 1080 x 1350 (${c.portKb})</a>`,
     '            </li>',
   ].join('\n')),
   '          </ul>',
 ].join('\n');
-for (const rel of process.argv.includes('--no-pages') ? [] : PAGES) {
+for (const rel of process.argv.includes('--no-pages') ? [] : S.pages) {
   const file = join(ROOT, rel);
   if (!existsSync(file)) { console.log(`skip ${rel} (not there)`); continue; }
   const src = readFileSync(file, 'utf8');
