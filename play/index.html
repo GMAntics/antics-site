@@ -53,107 +53,287 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
   <style>
+    /* Section 1 below is pasted verbatim from css/site.css on origin/main (6c664af,
+       7 Nov 2026) so /play/ speaks the site's token names; re-sync it, never fork it. */
+    /* --------------------------------------------------------------------------
+       1. Tokens
+       -------------------------------------------------------------------------- */
     :root {
-      --bg: #0E0A1F; --surface: #1C1535; --card1: #241a45; --card2: #17112f;
-      --pink: #FF2E7E; --action: #EA0059; --white: #FFFFFF; --dim: #9C92C7; --body: #D8D3EE;
+      /* Brand */
+      --bg: #0E0A1F;
+      --surface: #1C1535;
+      --pink: #FF2E7E;
+      --action: #EA0059;
+      --orange: #FFB02E;
+      --lime: #B8FF3D;
+      --cyan: #25E5FF;
+      --purple: #9D6BFF;
+
+      /* Derived surfaces: three steps up from the background, used by role */
+      --surface-1: #150F2B;          /* quiet containers: tier stacks, rules */
+      --surface-2: #1C1535;          /* raised: the generator panel, bars */
+      --surface-3: #261D47;          /* hover and pressed */
+      --well: #09061A;               /* sunken: code, embeds */
+      --row-alt: rgba(255, 255, 255, 0.035);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.16);
+
+      /* Text: every step passes WCAG AA on --bg and on --surface */
+      --text-0: #FFFFFF;             /* headings, prompts, questions */
+      --text-1: #D8D3EE;             /* running text, about 13:1 on --bg */
+      --text-2: #BDB6E0;             /* standfirsts, intros, notes, about 10:1 */
+      --text-3: #9C92C7;             /* small labels and metadata only */
+      --on-tone: #0E0A1F;            /* text sitting on a brand colour */
+
+      /* Section tone: each section sets one brand colour, default pink */
+      --tone: var(--pink);
+
+      /* Type */
+      --font-display: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+      /* Type scale: mobile values, lifted with clamp() towards 1280px */
+      --step--2: 0.75rem;                                    /* 12: labels */
+      --step--1: 0.875rem;                                   /* 14: meta, crumbs */
+      --step-0: 1.0625rem;                                   /* 17: body */
+      --step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);  /* 18 to 20: standfirst, h3 */
+      --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);        /* 24 to 32: h2 */
+      --step-3: clamp(2.125rem, 1.5rem + 3vw, 3.5rem);       /* 34 to 56: h1 */
+      --step-card: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem); /* 22 to 28: dealt card */
+
+      --leading-tight: 1.08;
+      --leading-snug: 1.35;
+      --leading-body: 1.65;
+      --tracking-label: 0.16em;
+
+      /* Spacing scale (4px base) */
+      --space-3xs: 0.25rem;  /*  4 */
+      --space-2xs: 0.5rem;   /*  8 */
+      --space-xs: 0.75rem;   /* 12 */
+      --space-s: 1rem;       /* 16 */
+      --space-m: 1.5rem;     /* 24 */
+      --space-l: 2rem;       /* 32 */
+      --space-xl: 3rem;      /* 48 */
+      --space-2xl: 4.5rem;   /* 72 */
+      --space-3xl: 6rem;     /* 96 */
+
+      /* Layout */
+      --gutter: 20px;
+      --page-max: 1160px;
+      /* About 75 characters a line in the system font at any size. This was
+         68ch until 5 Oct 2026, which ran to about 100 characters a line at 17px
+         (a "0" in SF Pro is 0.63em wide, so ch is generous). */
+      --measure: 34em;
+      --rail: 420px;                 /* the tool column on wide screens */
+      --toc: 220px;
+
+      /* Shape: radius is spent by role, not sprinkled */
+      --r-card: 24px;                /* dealt cards and stacks */
+      --r-control: 16px;             /* buttons and inputs */
+      --r-chip: 999px;               /* toggles and chips */
+      --r-small: 8px;                /* inline code */
+
+      /* The deck: two card edges peeking out below a dealt card */
+      --deck-edge: 0 6px 0 -2px #1A1333, 0 12px 0 -5px #140E29;
+
+      --tap: 48px;                   /* comfortable tap target */
+      --tap-min: 44px;               /* the floor: nothing tappable is smaller */
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { background: var(--bg); }
+
+    @media (min-width: 768px) {
+      :root { --gutter: 32px; }
+    }
+
+    /* /play/ (Direction A, 7 Nov 2026): every rule below uses the section 1 names. */
+    :root { color-scheme: dark; }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    html { background: var(--bg); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; --tone: var(--pink); }
     body {
-      color: var(--body); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.5; padding: 28px 18px 56px; min-height: 100vh;
+      background: var(--bg); color: var(--text-1); font-family: var(--font-body);
+      font-size: 16px; line-height: 1.5; padding: 20px var(--gutter) 56px; min-height: 100vh;
+      overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
     }
     main { max-width: 560px; margin: 0 auto; }
-    .crumb { font-size: 14px; margin-bottom: 20px; }
-    .crumb a { color: var(--dim); text-decoration: none; }
-    .crumb a:hover { color: var(--white); }
-    h1 { color: var(--white); font-size: 30px; font-weight: 900; line-height: 1.15; margin-bottom: 10px; }
-    h2 { color: var(--white); font-size: 24px; font-weight: 900; line-height: 1.2; margin-bottom: 10px; }
-    .lead { font-size: 16px; color: var(--dim); margin-bottom: 26px; }
     [hidden] { display: none !important; }
+    p { text-wrap: pretty; }
+    :focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; border-radius: 4px; }
+    h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
+    .crumb { font-size: var(--step--1); margin-bottom: var(--space-s); }
+    .crumb a { display: inline-block; padding-block: 12px; margin-block: -12px; color: var(--text-3); text-decoration: none; }
+    .crumb a:hover { color: var(--text-0); }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 800; color: var(--text-0); text-wrap: balance; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.4rem, 6.5vw, 4.25rem); line-height: 0.98; margin-bottom: var(--space-s); }
+    h2 { font-size: var(--step-2); line-height: 1.05; margin-bottom: var(--space-xs); }
+    .lead { font-size: 16px; color: var(--text-2); margin-bottom: var(--space-m); max-width: var(--measure); }
 
-    /* --- game picker: the app's home tiles --- */
-    .picker { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 8px; }
+    /* --- picker: the app's home tiles --- */
+    .picker { display: grid; grid-template-columns: 1fr; gap: 12px; margin: var(--space-l) 0 var(--space-2xs); }
     .pick-btn {
-      display: flex; align-items: center; gap: 14px; width: 100%;
-      color: var(--white); border: 0; border-radius: 18px; padding: 16px 16px 16px 14px;
+      position: relative; isolation: isolate; display: flex; align-items: center; gap: 14px;
+      width: 100%; min-height: 76px; padding: 16px 16px 16px 14px;
+      background: var(--surface-2); color: var(--text-0); border: 0; border-radius: var(--r-control);
       cursor: pointer; text-align: left; font-family: inherit; text-decoration: none;
-      box-shadow: 0 10px 26px rgba(0,0,0,0.35);
-      transition: transform 120ms ease, filter 120ms ease;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
     }
-    .pick-btn:hover, .pick-btn:focus-visible { transform: translateY(-1px); filter: brightness(1.06); outline: none; }
-    .pick-btn:active { transform: scale(0.99); }
+    /* A18: a navy layer over the app's gradient, at the least alpha per end that keeps
+       white text 4.5:1 everywhere (table: site-design-2026-11-06/build/PLAY.md) */
+    .pick-btn::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+      background: linear-gradient(135deg, rgba(14, 10, 31, var(--scrim-1, 0)), rgba(14, 10, 31, var(--scrim-2, 0)));
+    }
+    .pick-btn[data-game="antics"]         { --scrim-1: 0.02; --scrim-2: 0.17; }
+    .pick-btn[data-game="neverHaveIEver"] { --scrim-1: 0.37; --scrim-2: 0.18; }
+    .pick-btn[data-game="mostLikelyTo"]   { --scrim-1: 0.29; --scrim-2: 0.18; }
+    .pick-btn[data-game="wouldYouRather"] { --scrim-1: 0.23; --scrim-2: 0.51; }
+    .pick-btn[href="/four-kings-online/"] { --scrim-1: 0.17; --scrim-2: 0.44; }
     .pick-btn.pick-dark { color: #14102A; }
+    .pick-btn.pick-dark::before { content: none; }
+    .pick-btn:hover { box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45); }
+    .pick-btn:focus-visible { border-radius: var(--r-control); }
     .pick-emoji { font-size: 30px; line-height: 1; width: 40px; text-align: center; flex: 0 0 auto; }
-    .pick-text { display: flex; flex-direction: column; gap: 2px; flex: 1 1 auto; min-width: 0; }
-    .pick-name { font-size: 18px; font-weight: 900; line-height: 1.15; }
-    .pick-blurb { font-size: 13px; font-weight: 600; opacity: 0.88; line-height: 1.3; }
+    .pick-text { display: flex; flex-direction: column; gap: 3px; flex: 1 1 auto; min-width: 0; }
+    .pick-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; }
+    .pick-blurb { font-size: 14px; font-weight: 600; line-height: 1.3; }
     .pick-chev { font-size: 26px; font-weight: 800; opacity: 0.8; flex: 0 0 auto; }
 
-    /* --- players screen --- */
-    .step-label { color: var(--white); font-size: 14px; font-weight: 800; letter-spacing: 0.4px; text-transform: uppercase; margin: 26px 0 8px; }
+    /* --- what each game plays like: each sample is a small dealt card --- */
+    h2.step-label { margin: var(--space-2xl) 0 var(--space-xs); }
+    h3.step-label { font-size: var(--step-1); line-height: 1.15; margin: var(--space-xl) 0 var(--space-2xs); }
+    #screen-intro > p:not(.lead) { max-width: var(--measure); }
+    #screen-intro > p.forfeit-line {
+      max-width: 560px; margin: var(--space-s) 0 18px; padding: var(--space-m) 20px;
+      background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--r-card); box-shadow: var(--deck-edge);
+      font-family: var(--font-display); font-size: var(--step-card); font-weight: 800; line-height: 1.18;
+      letter-spacing: -0.01em; color: var(--text-0); text-align: left; text-wrap: balance;
+    }
+    #screen-intro > p.forfeit-line strong { font-weight: 800; }
+
+    /* --- players --- */
+    p.step-label { color: var(--text-2); font-size: var(--step--2); font-weight: 800; letter-spacing: var(--tracking-label); text-transform: uppercase; margin: 26px 0 8px; }
     textarea, input[type="text"] {
-      width: 100%; background: var(--surface); color: var(--white); border: 1px solid rgba(255,255,255,0.14);
-      border-radius: 12px; padding: 14px; font-size: 16px; font-family: inherit; resize: vertical;
+      width: 100%; background: var(--surface-2); color: var(--text-0); border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: var(--r-control); padding: 14px; font-size: 16px; font-family: inherit; resize: vertical;
     }
-    textarea::placeholder, input::placeholder { color: var(--dim); }
+    textarea::placeholder, input::placeholder { color: var(--text-3); }
     textarea { min-height: 100px; }
-    .hint { font-size: 13px; color: var(--dim); margin-top: 8px; }
+    textarea:focus-visible { outline-offset: 2px; }
+    .hint { font-size: var(--step--1); color: var(--text-3); margin-top: 8px; }
     .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .btn-row > button { flex: 1 1 auto; }
 
-    .btn-primary {
-      display: inline-block; background: var(--action); color: var(--white); border: 0;
-      border-radius: 999px; padding: 15px 26px; font-size: 16px; font-weight: 800;
-      cursor: pointer; text-decoration: none; text-align: center; font-family: inherit;
+    /* --- buttons: the site's control shape; pink only for the one "do this" --- */
+    .btn-primary, .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 var(--space-m);
+      border-radius: var(--r-control); font-family: var(--font-body); font-size: var(--step-0); font-weight: 800; line-height: 1.2;
+      cursor: pointer; text-decoration: none; text-align: center; touch-action: manipulation;
     }
+    .btn-primary { background: var(--action); color: var(--text-0); border: 0; }
     .btn-primary:hover { filter: brightness(1.08); }
-    .btn-ghost {
-      display: inline-block; background: transparent; color: var(--body); border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 999px; padding: 14px 24px; font-size: 15px; font-weight: 700;
-      cursor: pointer; text-decoration: none; text-align: center; font-family: inherit;
-    }
-    .btn-ghost:hover { border-color: var(--pink); color: var(--white); }
+    .btn-ghost { background: var(--surface-2); color: var(--text-0); border: 1px solid var(--line-strong); }
+    .btn-ghost:hover { background: var(--surface-3); }
     .link-btn {
-      background: none; border: 0; color: var(--dim); font-size: 14px; text-decoration: underline;
-      cursor: pointer; font-family: inherit; padding: 6px 0;
+      display: inline-flex; align-items: center; min-height: var(--tap-min); padding: 0 16px; background: transparent;
+      border: 1px solid var(--line-strong); border-radius: var(--r-chip); color: var(--text-2);
+      font-family: inherit; font-size: var(--step--1); font-weight: 700; cursor: pointer;
     }
-    .link-btn:hover { color: var(--white); }
+    .link-btn:hover { color: var(--text-0); background: var(--surface-2); }
 
-    /* --- round screen --- */
-    .progress { color: var(--dim); font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 14px; }
+    /* --- the round: the dealt card fills the phone --- */
+    /* The game's tone is the lighter end of its own gradient (4.5:1 or more on its card) */
+    html[data-game="neverHaveIEver"] { --tone: #37B6FF; }
+    html[data-game="truthOrDare"]    { --tone: var(--lime); }
+    html[data-game="mostLikelyTo"]   { --tone: #FF5AC8; }
+    html[data-game="wouldYouRather"] { --tone: var(--cyan); }
+    html[data-game="odds"]           { --tone: #FFB627; }
+    #screen-round:not([hidden]) {
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto auto;
+      align-items: center; column-gap: var(--space-s); min-height: calc(100vh - 110px); min-height: calc(100svh - 110px);
+    }
+    .progress { grid-area: 1 / 1; color: var(--text-2); font-size: var(--step--1); font-weight: 700; }
+    .end-early { grid-area: 1 / 2; }
+    .deck { grid-area: 2 / 1 / 3 / -1; align-self: stretch; position: relative; display: grid; margin: var(--space-xs) 0 12px; }
+    .controls { grid-area: 3 / 1 / 4 / -1; }
+    #forfeit-line { grid-area: 4 / 1 / 5 / -1; }
+    /* Navy card (.tier-card surface), the game's two colours washed in from opposite corners */
     .card-box {
-      background: linear-gradient(160deg, var(--g1, var(--card1)), var(--g2, var(--card2)));
-      border: 1px solid rgba(255,255,255,0.10); border-radius: 22px; padding: 34px 24px;
-      min-height: 200px; display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 12px; text-align: center;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.40);
+      position: relative; z-index: 1; grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center;
+      align-items: flex-start; gap: var(--space-s); min-height: 300px; padding: var(--space-l) var(--space-m);
+      background: var(--surface-1);
+      background:
+        radial-gradient(140% 80% at 0% 0%, color-mix(in srgb, var(--g1, var(--surface-1)) 22%, transparent), transparent 75%),
+        radial-gradient(120% 70% at 100% 100%, color-mix(in srgb, var(--g2, var(--surface-1)) 14%, transparent), transparent 75%),
+        var(--surface-1);
+      border: 1px solid var(--line); border-radius: var(--r-card); box-shadow: var(--deck-edge), 0 24px 50px rgba(0, 0, 0, 0.35);
     }
-    .card-label { color: var(--cardfg, #FFFFFF); opacity: 0.85; font-size: 13px; font-weight: 900; letter-spacing: 1px; }
-    .card-text { color: var(--cardfg, #FFFFFF); font-size: 22px; font-weight: 800; line-height: 1.35; }
-    .card-or { color: var(--dim); font-size: 13px; font-weight: 700; letter-spacing: 1px; }
-    .card-sub { color: var(--dim); font-size: 13.5px; margin-top: 2px; }
-    .controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: 20px 0 4px; }
-    .controls .btn-primary, .controls .btn-ghost { flex: 1 1 auto; min-width: 140px; }
+    .card-label { color: var(--tone); font-size: clamp(0.8125rem, 3.4vw, 1rem); font-weight: 800; letter-spacing: var(--tracking-label); line-height: 1.3; }
+    .card-text {
+      color: var(--text-0); font-family: var(--font-display); font-weight: 800; font-size: clamp(1.75rem, 7.5vw, 2.6rem);
+      line-height: 1.1; letter-spacing: -0.015em; text-wrap: balance; max-width: 100%;
+    }
+    .card-box.is-long .card-text { font-size: clamp(1.5rem, 6.4vw, 2.25rem); }
+    .card-or { color: var(--tone); font-size: var(--step--1); font-weight: 800; letter-spacing: var(--tracking-label); text-transform: uppercase; }
+    .card-sub { color: var(--text-2); font-size: 15px; line-height: 1.45; margin-top: 2px; max-width: 32em; }
+    .card-box.is-choice .card-text { color: var(--text-2); }
+    /* Tap anywhere on the card: a real button laid over it */
+    .card-hit {
+      grid-area: 1 / 1; position: relative; z-index: 3; background: transparent; border: 0; border-radius: var(--r-card);
+      cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+    }
+    .card-hit:focus-visible { outline-offset: 4px; border-radius: var(--r-card); }
+    .card-ghost { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+    .controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin: var(--space-s) 0 4px; }
+    .controls .btn-primary, .controls .btn-ghost { flex: 1 1 0; min-width: 140px; }
+    .controls .btn-choice { font-family: var(--font-display); font-size: var(--step-1); min-height: 60px; }
     .forfeit-line {
-      margin-top: 16px; background: var(--surface); border: 1px solid rgba(255,255,255,0.10);
-      border-radius: 12px; padding: 12px 16px; color: var(--white); font-size: 14.5px; font-weight: 700; text-align: center;
+      margin-top: var(--space-s); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: var(--r-control);
+      padding: 14px 16px; color: var(--text-0); font-size: 15px; font-weight: 700;
     }
-    .end-early { text-align: center; margin-top: 22px; }
 
-    /* --- wall screen --- */
-    .wall { text-align: center; padding: 12px 0; }
-    .wall h2 { margin-bottom: 12px; }
-    .wall p { color: var(--body); font-size: 16px; margin-bottom: 26px; }
-    .wall .btn-primary { font-size: 17px; padding: 17px 34px; margin-bottom: 14px; }
+    /* --- the wall: the page's one loud card (site.css .cta-block) --- */
+    .wall {
+      text-align: center; padding: var(--space-xl) var(--space-m) var(--space-l); background: var(--surface-2);
+      border: 1px solid rgba(255, 46, 126, 0.35); border-radius: var(--r-card); box-shadow: var(--deck-edge);
+    }
+    .wall h2, #screen-players h2 { font-size: clamp(2rem, 8vw, 2.75rem); line-height: 1; margin-bottom: var(--space-s); }
+    .wall p { color: var(--text-1); font-size: 16px; margin: 0 auto 26px; max-width: 30em; }
+    .wall .btn-primary { min-height: 56px; padding: 0 34px; margin-bottom: 14px; font-size: 17px; }
+    .wall p.hint { margin: 0 auto 14px; }
     .qr-box { display: none; margin: 24px auto; }
-    .qr-box img { width: 160px; height: 160px; border-radius: 12px; background: var(--white); padding: 8px; }
-    .qr-box p { font-size: 13px; color: var(--dim); margin-top: 10px; }
+    .qr-box img { width: 160px; height: 160px; border-radius: 12px; background: var(--text-0); padding: 8px; margin: 0 auto; }
+    .qr-box p { font-size: var(--step--1); color: var(--text-3); margin: 10px auto 0; }
     @media (min-width: 820px) { .qr-box { display: block; } }
     .wall .btn-ghost { margin-top: 8px; }
+    .foot { margin-top: 40px; font-size: var(--step--1); color: var(--text-3); text-align: center; }
+    .foot a { color: var(--text-2); text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    .foot a:hover { color: var(--text-0); }
 
-    .foot { margin-top: 40px; font-size: 14px; color: var(--dim); text-align: center; }
-    .foot a { color: var(--dim); }
+    /* --- A21: tablets and laptops use the width --- */
+    @media (min-width: 768px) {
+      body { padding-top: 28px; }
+      main { max-width: 880px; }
+      main:has(> #screen-intro[hidden]) { max-width: 560px; }
+      .picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .pick-btn[data-game="antics"] { grid-column: 1 / -1; }
+      .pick-btn { min-height: 104px; padding: 20px 20px 20px 18px; }
+      .pick-name { font-size: 1.5rem; }
+      .pick-blurb { font-size: 15px; }
+      #screen-players, #screen-round, #screen-wall { max-width: 560px; margin-inline: auto; }
+      #screen-round:not([hidden]) { min-height: min(calc(100vh - 150px), 760px); min-height: min(calc(100svh - 150px), 760px); }
+      .card-box { max-width: 560px; width: 100%; margin-inline: auto; padding: var(--space-xl) var(--space-l); }
+    }
+
+    /* --- motion: lifts only, and none under reduced motion (the flick lives in the script) --- */
+    @media (prefers-reduced-motion: no-preference) {
+      .pick-btn { transition: transform 120ms ease, box-shadow 120ms ease; }
+      .pick-btn:hover { transform: translateY(-1px); }
+      .pick-btn:active { transform: scale(0.99); }
+    }
   </style>
 </head>
 <body>
@@ -235,12 +415,16 @@
     <!-- Screen 3: the round -->
     <section id="screen-round" hidden>
       <p class="progress" id="progress"></p>
-      <div class="card-box" id="card-box">
-        <p class="card-label" id="card-label" hidden></p>
-        <p class="card-text" id="card-text"></p>
-        <p class="card-or" id="card-or" hidden>&middot; or &middot;</p>
-        <p class="card-text" id="card-text-b" hidden></p>
-        <p class="card-sub" id="card-sub" hidden></p>
+      <!-- The dealt card, with a real button over it: a tap deals the next card. -->
+      <div class="deck" id="deck">
+        <div class="card-box" id="card-box" aria-live="polite" aria-atomic="true">
+          <p class="card-label" id="card-label" hidden></p>
+          <p class="card-text" id="card-text"></p>
+          <p class="card-or" id="card-or" hidden>&middot; or &middot;</p>
+          <p class="card-text" id="card-text-b" hidden></p>
+          <p class="card-sub" id="card-sub" hidden></p>
+        </div>
+        <button type="button" class="card-hit" id="card-hit" aria-label="Next card"></button>
       </div>
       <div class="controls" id="controls"></div>
       <div class="forfeit-line" id="forfeit-line" hidden></div>
@@ -350,9 +534,30 @@
       round: document.getElementById('screen-round'),
       wall: document.getElementById('screen-wall')
     };
+    // A19 (7 Nov 2026): after every switch but the first, focus moves to the
+    // new screen's heading, or on the round to the card (or its first button).
+    var firstShow = true;
     function show(name) {
       for (var k in screens) screens[k].hidden = (k !== name);
       window.scrollTo(0, 0);
+      if (firstShow) { firstShow = false; return; }
+      if (name === 'round') dealIn();
+      settleFocus(name);
+    }
+    function focusQuietly(el) {
+      if (!el) return;
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+    }
+    function settleFocus(name) {
+      if (name === 'round') {
+        var hit = document.getElementById('card-hit');
+        focusQuietly(hit && !hit.hidden ? hit : document.querySelector('#controls button'));
+        return;
+      }
+      var h = screens[name].querySelector('h1, h2');
+      if (!h) return;
+      h.setAttribute('tabindex', '-1');
+      focusQuietly(h);
     }
 
     // --- state ---------------------------------------------------------
@@ -430,6 +635,8 @@
       document.documentElement.style.setProperty('--g2', g.g2);
       document.documentElement.style.setProperty('--accent', g.g2);
       document.documentElement.style.setProperty('--cardfg', g.dark ? '#14102A' : '#FFFFFF');
+      // Presentation hook only: the stylesheet picks the game's tone from it.
+      document.documentElement.setAttribute('data-game', key);
       document.getElementById('chosen-emoji').textContent = g.emoji;
       document.getElementById('chosen-game-name').textContent = name;
       document.getElementById('players-input').value = state.players.join('\n');
@@ -462,6 +669,78 @@
     var controls = document.getElementById('controls');
     var forfeitLine = document.getElementById('forfeit-line');
 
+    // --- the dealt card (7 Nov 2026, presentation only) ------------------
+    // A tap on the card runs the same function as the screen's "Next card"
+    // (nextAction), so counts and beacons are unchanged. Hidden on ToD's choice.
+    var deck = document.getElementById('deck');
+    var cardHit = document.getElementById('card-hit');
+    var nextAction = null;
+    var EASE = 'cubic-bezier(.2,.8,.2,1)';
+    var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    function motionOK() {
+      return !(reduceMotion && reduceMotion.matches) && typeof cardBox.animate === 'function';
+    }
+    function setNext(fn) {
+      nextAction = fn;
+      cardHit.hidden = !fn;
+    }
+    cardHit.addEventListener('click', function () { if (nextAction) dealWith(nextAction)(); });
+
+    // Long cards step the type down a size.
+    function fitCard() {
+      var n = cardText.textContent.length + (cardTextB.hidden ? 0 : cardTextB.textContent.length);
+      cardBox.className = cardBox.className.replace(/\s*is-long/g, '') + (n > 95 ? ' is-long' : '');
+    }
+
+    // A still copy of the old card (no ids, aria-hidden) to flick away.
+    function snapshot() {
+      if (!motionOK() || screens.round.hidden) return null;
+      var ghost = cardBox.cloneNode(true);
+      ghost.removeAttribute('id');
+      ghost.removeAttribute('aria-live');
+      ghost.removeAttribute('aria-atomic');
+      var withId = ghost.querySelectorAll('[id]');
+      for (var i = 0; i < withId.length; i++) withId[i].removeAttribute('id');
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.className += ' card-ghost';
+      return ghost;
+    }
+    // The flick (260ms, once per deal) and the deal-in. Off under reduced motion.
+    function flick(ghost) {
+      if (!ghost) return;
+      deck.appendChild(ghost);
+      var out = ghost.animate(
+        [{ transform: 'none', opacity: 1 }, { opacity: 1, offset: 0.65 }, { transform: 'translateX(-112%) rotate(-9deg)', opacity: 0 }],
+        { duration: 260, easing: EASE, fill: 'forwards' }
+      );
+      var drop = function () { if (ghost.parentNode) ghost.parentNode.removeChild(ghost); };
+      out.onfinish = out.oncancel = drop;
+      setTimeout(drop, 600);   // also when no frame is drawn (a hidden tab)
+      dealIn();
+    }
+    function dealIn() {
+      if (!motionOK()) return;
+      cardBox.animate(
+        [{ transform: 'translateY(10px) rotate(1.5deg) scale(0.985)', opacity: 0.35 }, { transform: 'none', opacity: 1 }],
+        { duration: 260, easing: EASE }
+      );
+    }
+    // Wraps every card-changing action: runs it untouched, animates, then puts
+    // focus back on the card or the first new button (the old one is gone).
+    function dealWith(fn) {
+      return function () {
+        var ae = document.activeElement;
+        var fromHit = ae === cardHit;
+        var fromControls = !!ae && controls.contains(ae);
+        var ghost = snapshot();
+        fn();
+        if (screens.round.hidden) return;
+        flick(ghost);
+        if (fromHit && !cardHit.hidden) return;
+        if (fromHit || fromControls) focusQuietly(controls.querySelector('button'));
+      };
+    }
+
     function startRound() {
       beacon('play_started', { game: state.gameKey, names: state.players.length > 0 ? 'yes' : 'no', code: promo.code || 'none' });
       state.count = 0;
@@ -487,6 +766,7 @@
     }
 
     function resetCardBox() {
+      cardBox.className = cardBox.className.replace(/\s*is-choice/g, '');
       cardLabel.hidden = true;
       cardOr.hidden = true;
       cardTextB.hidden = true;
@@ -524,12 +804,14 @@
       }
 
       renderControls();
+      fitCard();
     }
 
     function renderControls() {
       controls.innerHTML = '';
+      setNext(drawNext);
       if (state.gameKey === 'antics') {
-        var nextBtn = mkBtn('Next card', 'btn-primary', drawNext);
+        var nextBtn = mkBtn('Next card', 'btn-primary', dealWith(drawNext));
         var forfeitBtn = mkBtn('Draw a forfeit', 'btn-ghost', function () {
           forfeitLine.hidden = false;
           forfeitLine.textContent = 'Forfeit: ' + nextForfeit();
@@ -537,7 +819,7 @@
         controls.appendChild(nextBtn);
         controls.appendChild(forfeitBtn);
       } else {
-        controls.appendChild(mkBtn('Next card', 'btn-primary', drawNext));
+        controls.appendChild(mkBtn('Next card', 'btn-primary', dealWith(drawNext)));
       }
     }
 
@@ -555,9 +837,13 @@
       if (endIfDone()) return;
       resetCardBox();
       cardText.textContent = state.count === 0 ? 'Pick Truth or Dare to begin.' : 'Pick Truth or Dare for the next card.';
+      cardBox.className += ' is-choice';
+      fitCard();
+      setNext(null);
       controls.innerHTML = '';
-      controls.appendChild(mkBtn('🤭 Truth', 'btn-primary', function () { drawTod('truth'); }));
-      controls.appendChild(mkBtn('😈 Dare', 'btn-ghost', function () { drawTod('dare'); }));
+      // Two equal choices: neither wears the pink "do this" fill.
+      controls.appendChild(mkBtn('🤭 Truth', 'btn-ghost btn-choice', dealWith(function () { drawTod('truth'); })));
+      controls.appendChild(mkBtn('😈 Dare', 'btn-ghost btn-choice', dealWith(function () { drawTod('dare'); })));
       // The choice screen sits BEFORE the card it leads to, so it names that card.
       progressEl.textContent = 'Card ' + Math.min(state.count + 1, ROUND_LEN) + ' of ' + ROUND_LEN;
     }
@@ -576,8 +862,10 @@
       cardLabel.hidden = false;
       cardLabel.textContent = which === 'truth' ? '🤭 TRUTH' : '😈 DARE';
       cardText.textContent = fillPlayer(card);
+      fitCard();
+      setNext(showChoice);
       controls.innerHTML = '';
-      controls.appendChild(mkBtn('Next card', 'btn-primary', showChoice));
+      controls.appendChild(mkBtn('Next card', 'btn-primary', dealWith(showChoice)));
     }
 
     // Ending early shows the same wall, so it is counted too (30 Sep 2026,
