@@ -68,6 +68,16 @@ left on a content page.
 | `site-best-imposter-footer` | `/best-imposter-game-apps/` | footer "Get the app" |
 | `site-best-imposter-bar` | `/best-imposter-game-apps/` | the phone install bar |
 | `site-best-imposter-pick` | `/best-imposter-game-apps/` | the "Get Antics free" button under "Why Antics is our pick" (5 Oct 2026, revision 2; it sat at the end of the Antics section in revision 1) |
+| `site-best-tod` | `/best-truth-or-dare-apps/` | the two store buttons in the closing box (added 6 Nov 2026, SEO batch 3) |
+| `site-best-tod-qr` | `/best-truth-or-dare-apps/` | the closing box QR, laptops and tablets only (`/best-truth-or-dare-apps/qr.png`) |
+| `site-best-tod-footer` | `/best-truth-or-dare-apps/` | footer "Get the app" |
+| `site-best-tod-bar` | `/best-truth-or-dare-apps/` | the phone install bar |
+| `site-best-tod-pick` | `/best-truth-or-dare-apps/` | the "Get Antics free" button under "Why Antics is our pick" |
+| `site-best-nhie` | `/best-never-have-i-ever-apps/` | the two store buttons in the closing box (added 6 Nov 2026, SEO batch 3) |
+| `site-best-nhie-qr` | `/best-never-have-i-ever-apps/` | the closing box QR, laptops and tablets only (`/best-never-have-i-ever-apps/qr.png`) |
+| `site-best-nhie-footer` | `/best-never-have-i-ever-apps/` | footer "Get the app" |
+| `site-best-nhie-bar` | `/best-never-have-i-ever-apps/` | the phone install bar |
+| `site-best-nhie-pick` | `/best-never-have-i-ever-apps/` | the "Get Antics free" button under "Why Antics is our pick" |
 | `site-imposter` | `/how-to-play-imposter/` | the two store buttons |
 | `site-imposter-inline` | `/how-to-play-imposter/` | "Open Imposter in Antics" in the steps |
 | `site-imposter-laptop` | `/how-to-play-imposter/` | the "On a laptop?" line |
@@ -236,3 +246,13 @@ The pages, and `<w>` for each word page:
 - `challenge.html` is in `.gitignore` (an unpublished draft kept local only),
   so its direct App Store link was left as it is. If it is ever published,
   route it through `/get/?c=site-challenge`.
+
+## Best drinking game apps (added 6 November 2026, SEO batch 3)
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-best-drinking` | `/best-drinking-game-apps/` | the two store buttons in the closing box |
+| `site-best-drinking-qr` | `/best-drinking-game-apps/` | the closing box QR, laptops and tablets only (`/best-drinking-game-apps/qr.png`) |
+| `site-best-drinking-footer` | `/best-drinking-game-apps/` | footer "Get the app" |
+| `site-best-drinking-bar` | `/best-drinking-game-apps/` | the phone install bar |
+| `site-best-drinking-pick` | `/best-drinking-game-apps/` | the "Get Antics free" button under "Why Antics is our pick" |
