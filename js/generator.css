@@ -8,11 +8,15 @@
 }
 /* Calmer card (30 Sep 2026, Guy: the old one "hurts my eyes"): flat surface,
    no glow, less padding, and the empty-state prompt reads as a hint, not a headline. */
+/* The dealt card reads left-aligned, as the home hero and /play/ cards do,
+   so one card style runs through the site (7 Nov 2026 review, IT-3); the
+   switch, the buttons and the count under it stay centred. */
 .agen-card {
   background: var(--agen-surface);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px; padding: 26px 24px; min-height: 124px;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+  text-align: left;
 }
 .agen-q {
   color: var(--agen-white); font-size: 20px; font-weight: 700;

@@ -8,7 +8,9 @@ source ~/.nvm/nvm.sh >/dev/null 2>&1 || true
 cd "$(dirname "$0")/.."
 node .tools/head-font.mjs        # A11 head: Google font links -> preload, color-scheme meta
 node .tools/main-skip.mjs        # A25: <main id="main">, skip link
-node .tools/h1-nbsp.mjs          # A24
+node .tools/landmarks.mjs        # review A11Y-4, P-7: breadcrumb before <main>, site footer after it (after main-skip)
+node .tools/h1-nbsp.mjs          # A24, revised for review P-5 and IT-10: nowrap span, H1 text bytes unchanged
+node .tools/crumb-glue.mjs       # review IT-14: each separator glued to the crumb after it
 node .tools/wl-draw-scroll.mjs   # A23
 node .tools/drinking-table.mjs   # A10 (markup half)
 node .tools/inline-sync.mjs      # integrator: index.html and play/ font, tokens re-synced from css/site.css, comments out

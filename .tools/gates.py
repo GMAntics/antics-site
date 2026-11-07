@@ -11,7 +11,10 @@ For EVERY page that differs:
      script passes `node --check`;
   5. tag nesting is well formed in the new file (stack check, so a mis-paired </main> or </div> fails) and the sequence of tags
      in <body> is the old sequence with the skip link added and div.page renamed main;
-  6. exactly one <main>, exactly one id="main", the skip link is the first element in <body>.
+  6. exactly one <main>, exactly one id="main", the skip link is the first element in <body>;
+  7. (review fixer, 7 Nov) the breadcrumb sits before <main>, the h1 inside it, the site footer after it (tool-layout pages
+     keep theirs inside .tool-body), every breadcrumb separator is glued to its crumb. Checks 5 and the pairing run on
+     unfix(new), which undoes exactly the h1 nowrap span, the crumb steps and the landmark moves.
 Usage: gates.py [--base REV]   (run from the worktree; needs git and node on PATH)
 """
 import argparse, html, json, os, re, subprocess, sys, tempfile
@@ -78,6 +81,37 @@ class Nest(HTMLParser):
 def body_events(s):
     p = Nest(); p.feed(s); return p
 
+# Review fixer, 7 Nov 2026: three structural edits that move or wrap tags without touching a word or a link
+# (.tools/h1-nbsp.mjs's nowrap span, .tools/crumb-glue.mjs's crumb steps, .tools/landmarks.mjs's crumb/footer moves).
+# unfix() undoes exactly those edits, so the body tag sequence and the div.page/main.page pairing are compared with the
+# base precisely as before; text, links, JSON-LD and scripts are still compared on the REAL file, and landmarks() checks
+# the new structure itself.
+CRUMB_RE = r'<nav class="crumb(?: [^"]*)?"[^>]*>[\s\S]*?</nav>'
+FOOT_RE = r'<footer class="site-foot">[\s\S]*?</footer>'
+def unfix(s):
+    s = re.sub(r'(<h1\b[^>]*>[^<]*)<span style="white-space:nowrap">([^<]*)</span>', r'\1\2', s)
+    s = re.sub(r'<span class="crumb-step">(<span aria-hidden="true">(?:›|&rsaquo;)</span>)&nbsp;(<a\b[^>]*>[^<]*</a>|[^<]*?)</span>', r'\1 \2', s)
+    m = re.search(r'<div class="page">(\s*)(' + CRUMB_RE + r')(\s*)<main id="main" tabindex="-1">(\s*)<article>', s)
+    if m and re.search(r'</article>\s*</main>\s*' + FOOT_RE + r'\s*</div>', s):          # landmarks.mjs case A
+        s = s[:m.start()] + '<main class="page" id="main" tabindex="-1">\n<article>\n' + m.group(2) + s[m.end():]
+        s = re.sub(r'</article>(\s*)</main>(\s*)(' + FOOT_RE + r')(\s*)</div>', r'\3\n</article>\n</main>', s, count=1)
+    else:                                                                                  # case B
+        s = re.sub(r'(<div class="page">)(\s*)(' + CRUMB_RE + r')(\s*)(<main\b[^>]*\bid="main"[^>]*>)', r'\1\2\5\4\3', s, count=1)
+        s = re.sub(r'</main>(\s*)(' + FOOT_RE + r')(\s*)</div>', r'\2\1</main>\3</div>', s, count=1)
+    return s
+
+def landmarks(p, new):
+    if 'id="main"' not in new: return
+    a, b = new.find('<main'), new.find('</main>')
+    c = re.search(CRUMB_RE, new)
+    if c and not c.end() <= a: fail(p, 'breadcrumb is inside <main> (the skip link would not skip it)')
+    h = new.find('<h1')
+    if h != -1 and not a < h < b: fail(p, 'the h1 is not inside <main>')
+    f = new.find('<footer class="site-foot">')
+    if f != -1 and 'class="tool-layout"' not in new and not f > b: fail(p, 'site footer is inside <main>')
+    if c and '<span aria-hidden="true">' in c.group(0) and re.search(r'(?<!crumb-step">)<span aria-hidden="true">', c.group(0)):
+        fail(p, 'a breadcrumb separator is not glued to its crumb (crumb-glue.mjs)')
+
 # Integrator, 7 Nov 2026 (merged Direction A tree): pages another builder rebuilt ON PURPOSE. This gate was written for
 # the PAGES builder's scripted edits; these two are gated by their own builders' checks and by the whole-site
 # preserve.mjs run (report: ops/research/site-design-2026-11-06/build/preserve-report.txt). Here they still get the
@@ -134,15 +168,18 @@ for p in pages:
         with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as f: f.write(b)
         r = subprocess.run(['node', '--check', f.name], capture_output=True, text=True); os.unlink(f.name)
         if r.returncode: fail(p, f'node --check failed on inline script {k}: {r.stderr.strip()[:200]}')
-    # 5. nesting and body tag sequence
-    eo, en = body_events(o), body_events(new)
+    # 5. nesting and body tag sequence (the sequence on unfix(new): see unfix above)
+    landmarks(p, new)
+    nu = unfix(new)
+    eo, en, enu = body_events(o), body_events(new), body_events(nu)
     if en.bad: fail(p, f'tag nesting broken in new file: {en.bad[:2]}')
+    if enu.bad: fail(p, f'tag nesting broken in the unfixed copy (unfix() did not undo cleanly): {enu.bad[:2]}')
     seq_o = eo.body
-    seq_n = [t for t in en.body]
+    seq_n = [t for t in enu.body]
     # remove the skip link (a start + end) and map main.page back to div
     if 'class="skip"' in new:
         i = seq_n.index('a'); assert seq_n[i + 1] == '/a'; del seq_n[i:i + 2]
-    if '<main class="page" id="main"' in new:
+    if '<main class="page" id="main"' in nu:
         seq_n = ['div' if t == 'main' else ('/div' if t == '/main' else t) for t in seq_n]
         # the converted pair must also be the SAME pair: compare the nesting of the old file's div.page with the new main
     if 'compare' in new and p == 'drinking-games/index.html':
@@ -180,7 +217,7 @@ def pair_index(s, start_tag_re, name):
 
 pairs = 0
 for p in pages:
-    new = open(p, encoding='utf-8').read(); o = old(p)
+    new = unfix(open(p, encoding='utf-8').read()); o = old(p)
     if o and '<main class="page" id="main"' in new:
         a = pair_index(o, r'\bpage\b', 'div'); b = pair_index(new, r'\bpage\b', 'main')
         # the new file has the skip link (2 more events before the pair): shift by 2

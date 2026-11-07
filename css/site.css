@@ -383,11 +383,17 @@ h1 { overflow-wrap: anywhere; }
 
 /* Long compounds (German, Dutch, Polish, Czech) at poster size on a 360px
    phone: hyphenate a long word at the line end rather than split it bare.
-   Only words of 12 letters or more, so short words never break. */
-:is(:lang(de), :lang(nl), :lang(pl), :lang(cs)) :is(h1, h2) {
-  -webkit-hyphens: auto;
-  hyphens: auto;
-  hyphenate-limit-chars: 12 5 5;
+   Only words of 12 letters or more, so short words never break. Phones and
+   tablets only: from 1024 every de, nl, pl and cs h1 and h2 word fits its
+   column whole (measured 7 Nov 2026, tightest 17px spare at 1024), and at
+   poster size a balanced headline hyphenated its key word to save a line
+   ("najprawdopo- / dobniej", review L5). */
+@media (max-width: 1023px) {
+  :is(:lang(de), :lang(nl), :lang(pl), :lang(cs)) :is(h1, h2) {
+    -webkit-hyphens: auto;
+    hyphens: auto;
+    hyphenate-limit-chars: 12 5 5;
+  }
 }
 
 .standfirst,
@@ -432,6 +438,19 @@ h1 { overflow-wrap: anywhere; }
   .hero:not(:has(> :nth-child(2))) > .page-head {
     max-width: calc(100% - var(--toc) - var(--rail-gap));
   }
+}
+/* A tool hero: the note and the language chips sit under the standfirst,
+   so the header column is not empty beside a tall generator (7 Nov 2026,
+   review IT-4). Scoped to tool heroes: rows on a bare .hero would add two
+   empty row gaps to every hero without a tool. */
+@media (min-width: 1024px) {
+  .hero:has(> .tool) { grid-template-rows: auto auto 1fr; }
+  .hero > .tool { display: contents; }
+  .hero > .tool > #antics-gen { grid-column: 2; grid-row: 1 / span 3; }
+  .hero > .tool > .tool-note,
+  .hero > .tool > .ilang { grid-column: 1; margin-top: 0; }
+  .hero > .tool > .tool-note { text-align: start; }
+  .hero > .tool > .ilang { justify-content: flex-start; }
 }
 
 
@@ -498,6 +517,17 @@ p.copy {
   line-height: 1.2;
   color: var(--text-3);
 }
+/* A byline (blog posts) is a credit, not a kicker: plain case, so it sets
+   in two lines on a phone, and the author's name never splits (review IT-5) */
+.page-head > .label:has(a) {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--text-3);
+}
+.page-head > .label:has(a) a { white-space: nowrap; }
 
 
 /* --------------------------------------------------------------------------
@@ -1175,6 +1205,11 @@ tbody tr:nth-child(even) td { background: var(--row-alt); }
 @media (max-width: 359px) {
   .installbar p span { display: none; }
 }
+/* The English line needs 368px of screen at 13px and was cut to "The party
+   games ..." at 360 (review IT-8); the translated lines are shorter and fit */
+@media (max-width: 374px) {
+  .installbar p span:lang(en) { display: none; }
+}
 
 /* Room for the bar so it never covers the footer */
 body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
@@ -1228,9 +1263,15 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
     left: auto;
     right: 24px;
     bottom: 24px;
-    width: 340px;
+    width: auto;
+    max-width: 340px;
     margin: 0;
   }
+  /* The card is the icon, the name and the button, sized to fit them: the
+     subline was cut to "The party game..." at 340px (review IT-7), and the
+     narrower card clears the right edge of a full-width table at 1280
+     (review W3, where the 340px card sat 11px over it) */
+  .installbar p span { display: none; }
   body.has-installbar { padding-bottom: 106px; }
 }
 /* A rail of 14 entries or more (/forfeit-ideas/ has 16) reaches the corner
@@ -1516,9 +1557,12 @@ body.embed .tool-wrap { position: static; margin: 0; }
 /* --------------------------------------------------------------------------
    24. Motion and print
    -------------------------------------------------------------------------- */
-/* The deal-in (Direction A, motion 2): a tier card rises 12px and settles
+/* The deal-in (Direction A, motion 2): a tier card rises 10px and settles
    from a slight tilt, once, the first time it comes into view; the closing
-   box rises onto its band. The motion lives ONLY on .is-dealt, which the
+   box rises onto its band. The card starts at 0.6 opacity, not 0, and
+   settles in 0.36s: a phone's tier card can be 4,000px of questions, and a
+   fade from nothing left a fast scroller reading dimmed rows (review IT-9).
+   The motion lives ONLY on .is-dealt, which the
    shared page script adds when the card first enters the viewport. Without
    the class (no script, an old browser, a card already on screen at load)
    every card is fully visible and still; the class only adds the motion and
@@ -1527,21 +1571,21 @@ body.embed .tool-wrap { position: static; margin: 0; }
    to a card when it first intersects, but NOT to one already intersecting
    on the observer's first callback (it was on screen at load: dealing it
    again would blink it); then unobserve it.
-   The tilt is a 1.5deg shear (skewY), not a rotation: a tier card can be
+   The tilt is a 1deg shear (skewY), not a rotation: a tier card can be
    4,300px tall on a phone, and rotating that by even 0.6deg swings its
    corners past the 20px gutter into a sideways scroll. A shear moves
    points only up and down, so nothing ever leaves the column.
    The closing box rises with `top`, not a transform: a transform would make
    it a stacking context and pull its band (section 16) in front of it. */
 @media (prefers-reduced-motion: no-preference) {
-  .tier-card.is-dealt { animation: deck-deal-in 0.52s var(--ease-deal) backwards; }
+  .tier-card.is-dealt { animation: deck-deal-in 0.36s var(--ease-deal) backwards; }
   .cta-block.is-dealt { animation: deck-rise-in 0.52s var(--ease-deal) backwards; }
   /* the band is drawn by the box's own ::before, so it is held still by
      the opposite motion on the same clock: only the card moves */
   .cta-block.is-dealt::before { animation: deck-band-hold 0.52s var(--ease-deal) backwards; }
 }
 @keyframes deck-deal-in {
-  from { opacity: 0; transform: translateY(12px) skewY(-1.5deg); }
+  from { opacity: 0.6; transform: translateY(10px) skewY(-1deg); }
 }
 @keyframes deck-rise-in {
   from { top: 12px; }

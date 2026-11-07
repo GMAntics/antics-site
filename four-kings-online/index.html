@@ -65,6 +65,10 @@
        and the two counters are drawn here, after the app's own card
        (src/screens/RingOfFireScreen.tsx: white face, pink back, corners). */
     .fk-hint { color: var(--text-2); font-size: var(--step--1); line-height: 1.4; text-wrap: balance; }
+    /* The note on what the app calls this game sits under the table on a
+       phone, so the card opens the first screen; on a laptop it still reads
+       under the lead (7 Nov 2026 review, IT-6) */
+    .tool-body > .note:first-child { margin: var(--space-s) 0 0; }
     .fk-card {
       position: relative;
       width: min(290px, 100%, 40vh);
@@ -152,12 +156,11 @@
 <body class="has-installbar">
 <a class="skip" href="#main">Skip to content</a>
   <div class="page">
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;<a href="/the-four-kings/">The Four Kings</a></span> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;Play online</span></nav>
   <main class="tool-layout" id="main" tabindex="-1">
-    <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">&rsaquo;</span> <a href="/the-four-kings/">The Four Kings</a> <span aria-hidden="true">&rsaquo;</span> Play online</nav>
     <header class="page-head">
       <h1>Ring of Fire online: play it free in your browser</h1>
       <p class="lead">A shuffled 52-card deck with a rule on every card, dealt right here. Pass the phone round the circle and tap to draw. Free, no download, no sign-up.</p>
-      <p class="note">In the Antics app this game is The Four Kings: the same circle card game people call Ring of Fire or Kings Cup. Every card is a forfeit or a challenge, so it works with or without drinks.</p>
     </header>
 
     <div class="tool-wrap">
@@ -203,6 +206,7 @@
     </div>
 
     <div class="tool-body prose">
+      <p class="note">In the Antics app this game is The Four Kings: the same circle card game people call Ring of Fire or Kings Cup. Every card is a forfeit or a challenge, so it works with or without drinks.</p>
       <section class="section tone-cyan" id="how-to-play">
         <h2>How to play The Four Kings online</h2>
         <ol class="stack steps">
@@ -381,6 +385,9 @@
     // --- beacon, the /play/ shape: no identifiers, one random id per visit ----
     var PLAY_SID = 'web-' + Math.random().toString(36).slice(2, 10);
     function beacon(name, props) {
+      // Only the live site reports: a local or preview copy of the page
+      // sends nothing, so test runs never reach the production sink (W6).
+      if (!/(^|\.)anticsapp\.com$/.test(location.hostname)) return;
       try {
         fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
           method: 'POST',

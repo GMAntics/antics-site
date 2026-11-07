@@ -50,7 +50,9 @@ for (const pg of PAGES) {
     if (!SHEET.test(t)) throw new Error(pg.rel + ': Google sheet not in the standard shape');
     t = t.replace(PRE1, '').replace(PRE2, '').replace(SHEET, (m, ind) => ind + PRELOAD + '\n');
   }
-  if (!t.includes(PRELOAD)) throw new Error(pg.rel + ': no preload after the head edit');
+  // The preload may carry a media attribute (PLAY review fix, 7 Nov: /play/ preloads the face only from 481px), so accept
+  // any attributes after crossorigin rather than the exact tag.
+  if (!/<link rel="preload" href="\/fonts\/bricolage-800-latin\.woff2" as="font" type="font\/woff2" crossorigin[^>]*>/.test(t)) throw new Error(pg.rel + ': no preload after the head edit');
   if (!/name="color-scheme"/.test(t)) t = t.replace(VIEWPORT, (m, ind) => m + ind + '<meta name="color-scheme" content="dark">\n');
   // 2 to 4. the one inline <style>
   const open = t.indexOf('<style>'), close = t.indexOf('</style>', open);

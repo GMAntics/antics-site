@@ -203,6 +203,7 @@ p{text-wrap:pretty}
 a{color:var(--text-0);text-decoration:underline;text-decoration-color:var(--tone);text-decoration-thickness:2px;text-underline-offset:0.2em;transition:color 0.15s ease}
 a:hover{color:var(--tone)}
 .visually-hidden{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none !important}
 .display{font-family:var(--font-display);font-weight:800}
 .label{display:block;font-family:var(--font-body);font-size:var(--step--2);font-weight:800;letter-spacing:var(--tracking-label);text-transform:uppercase;line-height:1.2;color:var(--text-3)}
 .band{padding-block:var(--space-xl)}
@@ -214,7 +215,7 @@ a:hover{color:var(--tone)}
 h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,1.35rem + 2.6vw,3.5rem);line-height:1;letter-spacing:-0.02em;color:var(--text-0);text-wrap:balance;margin:0 0 var(--space-s)}
 .section-lead{font-size:var(--step-1);line-height:1.5;color:var(--text-2);max-width:36em}
 .cta{display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2xs);min-height:52px;padding:0 var(--space-m);border-radius:var(--r-control);background:var(--action);color:#FFFFFF;font-family:var(--font-body);font-size:var(--step-0);font-weight:800;letter-spacing:0.01em;line-height:1.25;text-align:center;text-decoration:none;border:0;cursor:pointer;transition:filter 0.15s ease,transform 0.15s ease}
-.cta:hover{color:#FFFFFF;filter:brightness(1.1)}
+.cta:hover{color:#FFFFFF;filter:brightness(0.9)}
 .cta:active{transform:scale(0.98)}
 .cta.outline{background:transparent;color:var(--text-0);border:2px solid var(--line-control)}
 .cta.outline:hover{border-color:var(--text-0);filter:none}
@@ -229,6 +230,7 @@ h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,1.35rem 
 h1{font-family:var(--font-display);font-weight:800;color:var(--text-0);font-size:clamp(3rem,9vw,7rem);line-height:0.92;letter-spacing:-0.025em;text-wrap:balance}
 h1 em{font-style:normal;color:var(--pink);display:block}
 .sub{margin-top:var(--space-l);font-size:var(--step-1);line-height:1.5;color:var(--text-1);max-width:30em}
+.hero .wrap>.sub{order:1}.hero .wrap>.qr-card{order:2}
 .ctas{display:flex;flex-wrap:wrap;gap:var(--space-2xs);margin-top:var(--space-m)}
 .ctas .cta{flex:1 1 100%}
 .note{margin-top:var(--space-s);color:var(--text-3);font-size:var(--step--1)}
@@ -252,22 +254,23 @@ h1 em{font-style:normal;color:var(--pink);display:block}
 .card.ghost{z-index:4;pointer-events:none}
 .card.is-out{transform:translate(-70%,4%) rotate(-12deg);opacity:0}
 .card.is-out-r{transform:translate(70%,4%) rotate(12deg);opacity:0}
-.card.ghost.is-home{z-index:0;transform:translateY(22px) scale(0.9);background:#140E29}
-.card.ghost.is-home>*{opacity:0}
 .kind{font-size:var(--step--2);font-weight:800;letter-spacing:var(--tracking-label);text-transform:uppercase;line-height:1.2;color:var(--tone)}
 .q{font-family:var(--font-display);font-weight:800;color:var(--text-0);font-size:clamp(1.75rem,7vw,2.5rem);line-height:1.08;letter-spacing:-0.015em;text-wrap:balance}
 .q .or{display:block;margin-block:0.3em;font-size:0.55em;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--tone)}
 .q>span:not(.or){display:block}
-.deal-bar{display:flex;align-items:center;gap:var(--space-s)}
-.deal-bar .deal-next{flex:none}
-.deal-bar .tap{color:var(--text-3);font-size:var(--step--1);line-height:1.35}
+.deal-bar{display:flex;align-items:center;justify-content:center;gap:var(--space-s)}
+.deal-bar .deal-next,.deal-bar .deal-pause{flex:none}
+.deal-bar .deal-pause{width:44px;min-width:44px;padding:0;display:inline-grid;place-items:center}
  [data-game="antics"],[data-game="tod"]{--tone:var(--lime)}
 [data-game="nhie"],[data-game="imposter"]{--tone:var(--purple)}
 [data-game="mlt"],[data-game="spicy"]{--tone:var(--pink)}
 [data-game="wyr"]{--tone:var(--cyan)}
 [data-game="kings"],[data-game="odds"]{--tone:var(--orange)}
+@media (max-width: 359px){.card{min-height:17.5rem}
+}
 @media (min-width: 560px){.ctas .cta{flex:0 1 auto}
-.deal{max-width:34rem}
+.deal{max-width:30rem}
+.card{aspect-ratio:5 / 4}
 }
 @media (min-width: 1024px){.hero{padding-block:var(--space-xl) var(--space-2xl)}
 .hero .wrap{grid-template-columns:minmax(0,1.08fr) minmax(0,0.92fr);column-gap:var(--space-2xl);grid-template-areas:". deal" "brand deal" "h1 deal" "sub deal" "ctas deal" "note deal" "qr deal" ". deal";grid-template-rows:1fr repeat(6,auto) 1fr}
@@ -285,17 +288,18 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
 .card .q{font-size:clamp(1.75rem,2.6vw,2.5rem)}
 .card.p1{transform:rotate(-8deg) translate(-7%,1%);background:#1A1333}
 .card.p2{transform:rotate(7deg) translate(7%,2%);background:#140E29}
-.card.ghost.is-home{transform:rotate(7deg) translate(7%,2%)}
 .pile{margin-bottom:var(--space-xl)}
-.deal-bar{justify-content:center}
 }
-.steps-band{padding-block:var(--space-xl)}
+@media (min-width: 1024px) and (max-width: 1199px){.ctas .cta{padding-inline:var(--space-xs)}
+}
+@media (min-width: 1600px){.hero .wrap{max-width:1400px}
+.deal{width:min(100%,36rem,calc((100svh - 260px) * 0.8 + 4rem))}
+h1{font-size:clamp(3rem,7.4vw,8rem)}
+}
+.steps-band{--tone:var(--lime);padding-block:var(--space-xl)}
 .steps{list-style:none;counter-reset:s;display:grid;gap:var(--space-s);margin-top:var(--space-s)}
 .steps li{counter-increment:s;display:flex;align-items:baseline;gap:var(--space-s);font-family:var(--font-display);font-weight:800;font-size:var(--step-2);line-height:1.1;letter-spacing:-0.015em;color:var(--text-0)}
 .steps li::before{content:counter(s);flex:none;min-width:0.7em;font:800 3rem/0.9 var(--font-display);color:var(--tone);font-variant-numeric:tabular-nums}
-.steps li:nth-child(1){--tone:var(--lime)}
-.steps li:nth-child(2){--tone:var(--cyan)}
-.steps li:nth-child(3){--tone:var(--orange)}
 @media (min-width: 768px){.steps{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-l)}
 .steps li{flex-direction:column;gap:var(--space-xs);border-top:1px solid var(--line-strong);padding-top:var(--space-m)}
 .steps li::before{font-size:4.5rem}
@@ -306,7 +310,7 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
 .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .tile{position:relative;display:flex;flex-direction:column;gap:6px;padding:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:26px;transition:translate 0.18s ease,background-color 0.18s ease}
 .tile:hover{translate:0 -6px;background:var(--surface-3)}
-.flip{position:relative;aspect-ratio:1 / 1;perspective:900px}
+.flip{position:relative;order:-1;aspect-ratio:1 / 1;perspective:900px}
 .flip>.back,.flip>.face{position:absolute;inset:0;border-radius:20px;-webkit-backface-visibility:hidden;backface-visibility:hidden;transition:transform 0.42s var(--ease-deal)}
 .back{display:grid;place-items:center;font-size:64px;line-height:1;background:linear-gradient(140deg,var(--a),var(--b))}
  .back::after{content:"";position:absolute;inset:8px;border:2px solid rgba(255,255,255,0.35);border-radius:14px}
@@ -325,10 +329,11 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
 .tile-link p{color:var(--text-1);font-size:14px;line-height:1.35;margin-top:7px}
 @media (min-width: 1024px){.flip{aspect-ratio:3 / 2}
 .face{padding:22px 22px}
+.back{font-size:88px}
 }
  @media (max-width: 559px){.tiles-wrap{margin-inline:calc(-1 * var(--gutter))}
 .tiles-wrap::after{content:"";position:absolute;top:0;right:0;bottom:16px;width:56px;pointer-events:none;background:linear-gradient(90deg,rgba(14,10,31,0),var(--bg) 85%)}
-.tiles{display:flex;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding:8px 56px 16px var(--gutter);scroll-padding-inline:var(--gutter);scrollbar-width:none}
+.tiles{display:flex;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;padding:8px 56px 16px var(--gutter);scroll-padding-inline:var(--gutter) 56px;scrollbar-width:none}
 .tiles::-webkit-scrollbar{display:none}
 .tile{flex:0 0 216px;scroll-snap-align:start}
 .tile:hover{translate:none}
@@ -374,6 +379,10 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
 .ix-guides{grid-area:guides}
 .ix-gens{grid-area:gens}
 .ix-blog{grid-area:blog}
+}
+@media (min-width: 1200px){.index{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-areas:"start guides guides gens" "blog guides guides gens"}
+.ix-guides .link-list{columns:2;column-gap:var(--space-xl)}
+.ix-guides .link-list li{break-inside:avoid}
 }
 .faq{margin-top:var(--space-m)}
 .faq h3{font-family:var(--font-body);font-weight:700;font-size:var(--step-1);line-height:var(--leading-snug);color:var(--text-0);text-wrap:balance;padding-top:var(--space-m);border-top:1px solid var(--line)}
@@ -421,12 +430,13 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
       <div class="wrap">
         <div class="brand display"><img src="/img/icon-192.png" alt="" width="40" height="40"><span>ANTICS</span></div>
         <h1 class="display">One phone. <em>Everyone&rsquo;s problem.</em></h1>
+        <p class="sub">Antics: Party Games &amp; Dares. Nine pass-the-phone party games in one app, for iPhone and Android. Tap, read it out, deal with it, pass it on.</p>
 
         <!-- The deal (Direction A): real free cards, verbatim by index; the first is in the HTML so it reads without JS.
              The list is in #deal-cards; .tools/home-cards-verify.mjs proves every card against the app's decks. -->
         <div class="deal">
           <div class="pile">
-            <div class="card p0" data-game="nhie" aria-live="polite" data-where="hero" data-d="neverHaveIEver" data-i="5">
+            <div class="card p0" data-game="nhie" aria-live="polite" aria-atomic="true" data-where="hero" data-d="neverHaveIEver" data-i="5">
               <p class="kind">Never Have I Ever</p>
               <p class="q" data-f="t">Sent a message to the group chat that was meant for one person.</p>
             </div>
@@ -435,7 +445,7 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
           </div>
           <div class="deal-bar">
             <button type="button" class="btn-ghost deal-next" hidden>Next card</button>
-            <p class="tap">Tap for the next card &middot; pass the phone whenever</p>
+            <button type="button" class="btn-ghost deal-pause" hidden aria-label="Pause the deal"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="3" y="2" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="9.5" y="2" width="3.5" height="12" rx="1" fill="currentColor"/></svg></button>
           </div>
         </div>
 
@@ -444,7 +454,6 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
           <a class="cta outline" href="/play/">Play a free round in your browser</a>
         </div>
         <p class="note">18+ &middot; No ads, ever</p>
-        <p class="sub">Antics: Party Games &amp; Dares. Nine pass-the-phone party games in one app, for iPhone and Android. Tap, read it out, deal with it, pass it on.</p>
         <div class="qr-card">
           <img src="qr-get.png" alt="QR code: scan to download Antics" width="96" height="96" loading="lazy">
           <p>On your laptop? Point your phone camera here.</p>
@@ -470,67 +479,67 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
         <div class="tiles-wrap">
         <div class="tiles">
           <div class="tile" data-game="antics" style="--a:#7A3CFF;--b:#FF2E7E">
+            <a class="tile-link" href="/antics-mode/"><span class="go" aria-hidden="true">&#8599;</span><h3>Antics</h3><p>A bit of everything, one card at a time</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🎲</div>
-              <div class="face" data-where="tile" data-d="antics" data-i="11"><p class="kind">Antics mode</p><p class="q" data-f="t">Everyone swap seats. Last one seated takes the forfeit.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="antics" data-i="11"><p class="kind">Antics mode</p><p class="q" data-f="t">Everyone swap seats. Last one seated takes the forfeit.</p></div>
             </div>
-            <a class="tile-link" href="/antics-mode/"><span class="go" aria-hidden="true">&#8599;</span><h3>Antics</h3><p>A bit of everything, one card at a time</p></a>
           </div>
           <div class="tile" data-game="spicy" style="--a:#8A1242;--b:#FF4E2E">
+            <a class="tile-link" href="/spicy/"><span class="go" aria-hidden="true">&#8599;</span><h3>Spicy</h3><p>The after dark deck. Strictly 18+</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🌶️</div>
-              <div class="face"><p class="kind">Spicy</p><p class="q">18+, text only</p></div>
+              <div class="face" aria-hidden="true"><p class="kind">Spicy</p><p class="q">18+, text only</p></div>
             </div>
-            <a class="tile-link" href="/spicy/"><span class="go" aria-hidden="true">&#8599;</span><h3>Spicy</h3><p>The after dark deck. Strictly 18+</p></a>
           </div>
           <div class="tile" data-game="imposter" style="--a:#FF5C5C;--b:#C13BFF">
+            <a class="tile-link" href="/how-to-play-imposter/"><span class="go" aria-hidden="true">&#8599;</span><h3>Imposter</h3><p>One of you is lying</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🕵️</div>
-              <div class="face" data-where="tile" data-d="imposterEverydayObjects" data-i="2"><p class="kind">Imposter</p><p class="q" data-f="w">Wheelie Bin</p><p class="meta">Easy hint: <b data-f="h">Outdoors</b></p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="imposterEverydayObjects" data-i="2"><p class="kind">Imposter</p><p class="q" data-f="w">Wheelie Bin</p><p class="meta">Easy hint: <b data-f="h">Outdoors</b></p></div>
             </div>
-            <a class="tile-link" href="/how-to-play-imposter/"><span class="go" aria-hidden="true">&#8599;</span><h3>Imposter</h3><p>One of you is lying</p></a>
           </div>
           <div class="tile" data-game="nhie" style="--a:#37B6FF;--b:#9D6BFF">
+            <a class="tile-link" href="/never-have-i-ever-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Never Have I Ever</h3><p>The secrets WILL come out</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🙊</div>
-              <div class="face" data-where="tile" data-d="neverHaveIEver" data-i="9"><p class="kind">Never Have I Ever</p><p class="q" data-f="t">Ghosted someone and then bumped into them in person.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="neverHaveIEver" data-i="9"><p class="kind">Never Have I Ever</p><p class="q" data-f="t">Ghosted someone and then bumped into them in person.</p></div>
             </div>
-            <a class="tile-link" href="/never-have-i-ever-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Never Have I Ever</h3><p>The secrets WILL come out</p></a>
           </div>
           <div class="tile" data-game="tod" style="--a:#B8FF3D;--b:#3DFFC0">
+            <a class="tile-link" href="/truth-or-dare-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Truth or Dare</h3><p>Choose your fate</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">😈</div>
-              <div class="face" data-where="tile" data-d="dares" data-i="4"><p class="kind">Truth or Dare</p><p class="q" data-f="t">Read out the last thing you typed in your notes app.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="dares" data-i="4"><p class="kind">Truth or Dare</p><p class="q" data-f="t">Read out the last thing you typed in your notes app.</p></div>
             </div>
-            <a class="tile-link" href="/truth-or-dare-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Truth or Dare</h3><p>Choose your fate</p></a>
           </div>
           <div class="tile" data-game="mlt" style="--a:#FF5AC8;--b:#9D6BFF">
+            <a class="tile-link" href="/most-likely-to-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Most Likely To</h3><p>Point fingers. Ruin friendships</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">👉</div>
-              <div class="face" data-where="tile" data-d="mostLikelyTo" data-i="7"><p class="kind">Most Likely To</p><p class="q" data-f="t">Be lying in this game right now.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="mostLikelyTo" data-i="7"><p class="kind">Most Likely To</p><p class="q" data-f="t">Be lying in this game right now.</p></div>
             </div>
-            <a class="tile-link" href="/most-likely-to-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Most Likely To</h3><p>Point fingers. Ruin friendships</p></a>
           </div>
           <div class="tile" data-game="wyr" style="--a:#2E8CFF;--b:#25E5FF">
+            <a class="tile-link" href="/would-you-rather-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Would You Rather</h3><p>Impossible choices, real consequences</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🤔</div>
-              <div class="face" data-where="tile" data-d="wouldYouRather" data-i="2"><p class="kind">Would You Rather</p><p class="q"><span data-f="a">Your group chat leaks</span> <span class="or">or</span> <span data-f="b">Your camera roll leaks</span></p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="wouldYouRather" data-i="2"><p class="kind">Would You Rather</p><p class="q"><span data-f="a">Your group chat leaks</span> <span class="or">or</span> <span data-f="b">Your camera roll leaks</span></p></div>
             </div>
-            <a class="tile-link" href="/would-you-rather-questions/"><span class="go" aria-hidden="true">&#8599;</span><h3>Would You Rather</h3><p>Impossible choices, real consequences</p></a>
           </div>
           <div class="tile" data-game="kings" style="--a:#FF2E7E;--b:#FFB02E">
+            <a class="tile-link" href="/the-four-kings/"><span class="go" aria-hidden="true">&#8599;</span><h3>The Four Kings</h3><p>The classic circle game, 52 cards of chaos</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🔥</div>
-              <div class="face" data-where="tile" data-d="ringOfFire" data-i="6"><p class="kind">The Four Kings</p><p class="meta"><b data-f="r">7</b> &middot; <span data-f="title">Heaven</span></p><p class="q" data-f="t">Reach for the sky! Last player to raise a hand takes a forfeit.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="ringOfFire" data-i="6"><p class="kind">The Four Kings</p><p class="meta"><b data-f="r">7</b> &middot; <span data-f="title">Heaven</span></p><p class="q" data-f="t">Reach for the sky! Last player to raise a hand takes a forfeit.</p></div>
             </div>
-            <a class="tile-link" href="/the-four-kings/"><span class="go" aria-hidden="true">&#8599;</span><h3>The Four Kings</h3><p>The classic circle game, 52 cards of chaos</p></a>
           </div>
           <div class="tile" data-game="odds" style="--a:#FFB627;--b:#FF5C5C">
+            <a class="tile-link" href="/what-are-the-odds/"><span class="go" aria-hidden="true">&#8599;</span><h3>What Are The Odds</h3><p>Shout the same number, do the thing</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">🎯</div>
-              <div class="face" data-where="tile" data-d="odds" data-i="0"><p class="kind">What Are The Odds</p><p class="q" data-f="t">You talk to a wall for one minute. Sincerely.</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="odds" data-i="0"><p class="kind">What Are The Odds</p><p class="q" data-f="t">You talk to a wall for one minute. Sincerely.</p></div>
             </div>
-            <a class="tile-link" href="/what-are-the-odds/"><span class="go" aria-hidden="true">&#8599;</span><h3>What Are The Odds</h3><p>Shout the same number, do the thing</p></a>
           </div>
         </div>
         </div>
@@ -572,7 +581,7 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
       </div>
     </section>
 
-    <nav class="band band--quiet" aria-label="Guides and free games">
+    <section class="band band--quiet" aria-label="Guides and free games">
       <div class="wrap index">
         <div class="ix-start">
           <h2 id="start-h">Start here</h2>
@@ -621,7 +630,7 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
           </ul>
         </div>
       </div>
-    </nav>
+    </section>
 
     <section class="band band--well" aria-labelledby="brief-h">
       <div class="wrap">
@@ -677,27 +686,28 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
   </footer>
   <script type="application/json" id="deal-cards">
 [{"g":"nhie","d":"neverHaveIEver","i":5,"t":"Sent a message to the group chat that was meant for one person."},
-{"g":"antics","d":"antics","i":113,"t":"Everyone point at the ceiling NOW. Last person takes the forfeit."},
-{"g":"mlt","d":"mostLikelyTo","i":54,"t":"Accidentally join a cult."},
 {"g":"tod","d":"truths","i":78,"t":"Who in this room survives longest in a horror film, and who goes first?"},
+{"g":"mlt","d":"mostLikelyTo","i":54,"t":"Accidentally join a cult."},
+{"g":"antics","d":"antics","i":113,"t":"Everyone point at the ceiling NOW. Last person takes the forfeit."},
 {"g":"wyr","d":"wouldYouRather","i":60,"a":"Lick a bus pole","b":"Eat a crisp off the club floor"},
-{"g":"antics","d":"antics","i":28,"t":"Take the forfeit if your battery is below 50%."},
-{"g":"nhie","d":"neverHaveIEver","i":66,"t":"Blocked someone, then unblocked them just to have a look."},
 {"g":"tod","d":"dares","i":69,"t":"The group picks one word you can’t say for the rest of the game."},
+{"g":"nhie","d":"neverHaveIEver","i":66,"t":"Blocked someone, then unblocked them just to have a look."},
+{"g":"antics","d":"antics","i":28,"t":"Take the forfeit if your battery is below 50%."},
 {"g":"mlt","d":"mostLikelyTo","i":8,"t":"End up on Love Island."},
-{"g":"antics","d":"antics","i":20,"t":"Anyone wearing odd socks takes the forfeit. Check properly."},
+{"g":"tod","d":"truths","i":155,"t":"If you got cancelled tomorrow, what would it most likely be for?"},
 {"g":"wyr","d":"wouldYouRather","i":67,"a":"Ten grand right now","b":"A hundred a week for life"},
-{"g":"tod","d":"truths","i":155,"t":"If you got cancelled tomorrow, what would it most likely be for?"}]
+{"g":"antics","d":"antics","i":20,"t":"Anyone wearing odd socks takes the forfeit. Check properly."}]
   </script>
   <script>
     // The deal (Direction A). The top card (.p0) is one fixed element with
     // aria-live, so its text changes in place; the two cards under it are
     // empty shells (the deck's edges on a phone, a fan on a laptop). A deal
-    // flicks a copy of the old card away (260ms), the top card rises from the
-    // deck with the next card, and the copy lands at the bottom. Tap, drag or
-    // flick the card, or press "Next card". Idle auto-deal every 5 s only on
-    // screen and without reduced motion, silent to screen readers, one lap at
-    // most, stopped for good by the first tap or focus.
+    // flicks a copy of the old card away (260ms) and removes it once it is
+    // gone, while the top card rises from the deck with the next card. Tap,
+    // drag or flick the card, or press "Next card". Idle auto-deal every 5 s
+    // only on screen and without reduced motion, silent to screen readers, one
+    // lap at most, held while a mouse is over the deal, and stopped for good by
+    // the first tap, focus or the pause button (WCAG 2.2.2).
     (() => {
       const deal = document.querySelector('.deal');
       const list = document.getElementById('deal-cards');
@@ -707,6 +717,8 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
       const pile = deal.querySelector('.pile');
       const top = pile.querySelector('.p0');
       const next = deal.querySelector('.deal-next');
+      const pause = deal.querySelector('.deal-pause');
+      let hover = false;
       const motion = matchMedia('(prefers-reduced-motion: no-preference)');
       let n = 0, busy = false, auto = 0, dealt = 0, onScreen = false;
 
@@ -732,7 +744,7 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
         const ghost = top.cloneNode(true);
         ghost.className = 'card ghost';
         ghost.setAttribute('aria-hidden', 'true');
-        ['aria-live', 'data-where', 'data-d', 'data-i'].forEach((a) => ghost.removeAttribute(a));
+        ['aria-live', 'aria-atomic', 'data-where', 'data-d', 'data-i'].forEach((a) => ghost.removeAttribute(a));
         ghost.querySelectorAll('[data-f]').forEach((e) => e.removeAttribute('data-f'));
         ghost.style.transform = top.style.transform;
         pile.append(ghost);
@@ -742,16 +754,17 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
         void top.offsetWidth;
         top.className = 'card p0';
         ghost.classList.add(dir > 0 ? 'is-out-r' : 'is-out');
-        setTimeout(() => {
-          ghost.className = 'card ghost is-home';
-          busy = false;
-          setTimeout(() => ghost.remove(), 300);
-        }, 260);
+        setTimeout(() => { ghost.remove(); busy = false; }, 260);
       }
 
       function stop() {
         if (auto) { clearInterval(auto); auto = 0; }
         top.setAttribute('aria-live', 'polite');
+        if (!pause.hidden) {
+          const had = document.activeElement === pause;
+          pause.hidden = true;
+          if (had) next.focus();
+        }
       }
 
       let x0 = 0, t0 = 0, dx = 0, held = false;
@@ -782,19 +795,26 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
       next.hidden = false;
       next.addEventListener('click', () => go(-1, true));
       deal.addEventListener('focusin', stop);
+      pause.addEventListener('click', stop);
+      deal.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
+      deal.addEventListener('pointerleave', () => { hover = false; });
 
       if (motion.matches && 'IntersectionObserver' in window) {
         top.setAttribute('aria-live', 'off');
+        pause.hidden = false;
         new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; }, { threshold: 0.6 }).observe(pile);
         auto = setInterval(() => {
-          if (!onScreen || document.hidden || busy) return;
+          if (!onScreen || document.hidden || busy || hover) return;
           go(-1, false);
           if (++dealt >= cards.length - 1) stop();
         }, 5000);
       }
     })();
 
-    document.querySelectorAll('.flip').forEach((f) => {
+    // Flip buttons sit before their face in the DOM, so the revealed card is
+    // the next thing a screen reader reads; while flipped the face also
+    // describes the button.
+    document.querySelectorAll('.flip').forEach((f, k) => {
       const face = f.querySelector('.face');
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -802,12 +822,22 @@ h1{font-size:clamp(3rem,7.4vw,7rem)}
       btn.setAttribute('aria-pressed', 'false');
       btn.setAttribute('aria-label', 'Flip a card: ' + f.parentNode.querySelector('h3').textContent);
       face.setAttribute('aria-hidden', 'true');
-      f.append(btn);
+      face.id = 'tile-face-' + k;
+      f.insertBefore(btn, face);
       btn.addEventListener('click', () => {
         const on = f.classList.toggle('is-flipped');
         btn.setAttribute('aria-pressed', String(on));
-        if (on) face.removeAttribute('aria-hidden'); else face.setAttribute('aria-hidden', 'true');
+        if (on) { face.removeAttribute('aria-hidden'); btn.setAttribute('aria-describedby', face.id); }
+        else { face.setAttribute('aria-hidden', 'true'); btn.removeAttribute('aria-describedby'); }
       });
+    });
+
+    // Keyboard focus in the phone swipe row brings the whole tile into view
+    // (scroll-padding keeps it clear of the edge fade). No smooth scroll.
+    const tileRow = document.querySelector('.tiles');
+    if (tileRow) tileRow.addEventListener('focusin', (e) => {
+      const t = e.target.closest('.tile');
+      if (t && tileRow.scrollWidth > tileRow.clientWidth) t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
   </script>
     <script>

@@ -54,7 +54,7 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
-  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 481px)">
   <style>
     @font-face {
       font-family: "Bricolage Grotesque";
@@ -156,9 +156,13 @@
     p { text-wrap: pretty; }
     :focus-visible { outline: 3px solid var(--lime); outline-offset: 3px; border-radius: 4px; }
     h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
-    .crumb { font-size: var(--step--1); margin-bottom: var(--space-s); }
-    .crumb a { display: inline-block; padding-block: 12px; margin-block: -12px; color: var(--text-3); text-decoration: none; }
+    .crumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs); font-size: var(--step--1); margin-bottom: var(--space-s); }
+    .crumb a { display: inline-flex; align-items: center; gap: var(--space-xs); padding-block: 12px; margin-block: -12px; color: var(--text-3); text-decoration: none; }
     .crumb a:hover { color: var(--text-0); }
+    .crumb img { width: 32px; height: 32px; border-radius: 9px; flex: none; }
+    @media (max-width: 559px) {
+      .crumb a:first-child { min-width: var(--tap-min); justify-content: center; gap: 0; font-size: 0; }
+    }
     h1, h2, h3 { font-family: var(--font-display); font-weight: 800; color: var(--text-0); text-wrap: balance; letter-spacing: -0.02em; }
     h1 { font-size: clamp(2.4rem, 6.5vw, 4.25rem); line-height: 0.98; margin-bottom: var(--space-s); }
     h2 { font-size: var(--step-2); line-height: 1.05; margin-bottom: var(--space-xs); }
@@ -166,7 +170,7 @@
     .picker { display: grid; grid-template-columns: 1fr; gap: 12px; margin: var(--space-l) 0 var(--space-2xs); }
     .pick-btn {
       position: relative; isolation: isolate; display: flex; align-items: center; gap: 14px;
-      width: 100%; min-height: 76px; padding: 16px 16px 16px 14px;
+      width: 100%; min-height: 94px; padding: 16px 16px 16px 14px;
       background: var(--surface-2); color: var(--text-0); border: 0; border-radius: var(--r-control);
       cursor: pointer; text-align: left; font-family: inherit; text-decoration: none;
       box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
@@ -291,6 +295,7 @@
       body { padding-top: 28px; }
       main { max-width: 880px; }
       main:has(> #screen-intro[hidden]) { max-width: 560px; }
+      #screen-intro > h1 { margin-inline-end: -24px; }
       .picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
       .pick-btn[data-game="antics"] { grid-column: 1 / -1; }
       .pick-btn { min-height: 104px; padding: 20px 20px 20px 18px; }
@@ -309,7 +314,7 @@
 </head>
 <body>
   <main>
-    <nav class="crumb"><a href="/">Antics: the party games app</a> &rsaquo; Play party games online</nav>
+    <nav class="crumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> &rsaquo; Play party games online</nav>
 
     <!-- Screen 1: intro + game picker -->
     <section id="screen-intro">
@@ -395,7 +400,7 @@
           <p class="card-text" id="card-text-b" hidden></p>
           <p class="card-sub" id="card-sub" hidden></p>
         </div>
-        <button type="button" class="card-hit" id="card-hit" aria-label="Next card"></button>
+        <button type="button" class="card-hit" id="card-hit" aria-label="Next card" aria-describedby="card-box"></button>
       </div>
       <div class="controls" id="controls"></div>
       <div class="forfeit-line" id="forfeit-line" hidden></div>

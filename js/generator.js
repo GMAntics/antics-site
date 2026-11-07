@@ -273,8 +273,9 @@
 
   // INSTALL BAR (7 Nov 2026, PLAN A1): while a generator is 40 percent or
   // more in view the floating install bar tucks away (.is-tucked, css/site.css
-  // section 21), so "Next card" is never under it and the panel's own
-  // "Get Antics free" is the one pink install button on screen. The same
+  // section 21), so "Next card" is never under it and the bar adds no pink
+  // of its own beside the tool's (pink is the ONE thing to do on a screen;
+  // css/site.css section 22 decides which of the panel's buttons carry it). The same
   // rule runs in /imposter-game/dealer.js and on /four-kings-online/. No bar
   // (an embed) or no IntersectionObserver: the bar behaves as it always did.
   // The bar has other owners (/js/deal.js tucks it at the closing box): each

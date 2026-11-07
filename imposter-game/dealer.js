@@ -295,6 +295,9 @@
   // --- beacon, the /play/ shape: no identifiers, one random id per visit ----
   var PLAY_SID = 'web-' + Math.random().toString(36).slice(2, 10);
   function beacon(name, props) {
+    // Only the live site reports: a local or preview copy of the page sends
+    // nothing, so test runs never reach the production sink (review W6).
+    if (!/(^|\.)anticsapp\.com$/.test(location.hostname)) return;
     try {
       fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
         method: 'POST',
@@ -444,17 +447,49 @@
   // reveal are set large (css/site.css section 25). A word too long for the
   // card at that size (a German compound, "l'IMPOSTEUR") steps down until
   // its longest word fits on one line, rather than breaking mid-word.
+  // 7 Nov 2026 review (L2): the floor is 16px, not 22px ("Ein
+  // Junggesellinnenabschied" broke as "...abschie / d" at 22px on a 360px
+  // phone; it sets at 19.2px there), and the test is splitsAWord below. The
+  // old test (scrollWidth more than 1px past clientWidth) passed 20 of the
+  // 227 long words in the nine decks at 360px that the browser then broke
+  // mid-word ("Kohlensäur / e", "La bibliothèqu / e"): those widths are
+  // whole pixels, and a word a fraction too wide still breaks. A word that
+  // fits stops at its first size, so no word that fitted has moved.
   function fitBig(el) {
     el.style.fontSize = '';
     if (!el.clientWidth) return;
-    el.classList.add('is-fitting');            // no wrapping inside a word
     var size = parseFloat(getComputedStyle(el).fontSize);
-    var floor = 22;
-    while (el.scrollWidth > el.clientWidth + 1 && size > floor) {
+    var floor = 16;
+    while (size > floor && splitsAWord(el)) {
       size -= 2;
       el.style.fontSize = size + 'px';
     }
+  }
+  // True when a word is too wide for the line: first measured with breaking
+  // inside words switched off (.is-fitting), then, for the fraction of a
+  // pixel that test cannot see, by finding a line that starts inside a word.
+  function splitsAWord(el) {
+    el.classList.add('is-fitting');
+    var over = el.scrollWidth > el.clientWidth;
     el.classList.remove('is-fitting');
+    if (over) return true;
+    var t = el.firstChild;
+    if (!t || t.nodeType !== 3) return false;
+    var range = document.createRange(), top = null, prev = '';
+    for (var i = 0; i < t.length; i++) {
+      var ch = t.data.charAt(i);
+      range.setStart(t, i);
+      range.setEnd(t, i + 1);
+      var box = range.getClientRects()[0];
+      if (box) {
+        // a new line is a drop of a whole line; half a glyph's height
+        // ignores sub-pixel jitter within one line
+        if (top !== null && box.top - top > box.height / 2 && !/[\s-]/.test(prev) && !/\s/.test(ch)) return true;
+        if (!/\s/.test(ch)) top = box.top;
+      }
+      prev = ch;
+    }
+    return false;
   }
   function show(name, focusId) {
     shownAt = Date.now();
@@ -625,7 +660,24 @@
     hintEl.textContent = r.hint ? COPY.hintWas(r.hint) : '';
     show('result', 'idl-res-name');
     fitBig($('idl-res-word'));
+    turnOver($('idl-res-name'), 0);
+    turnOver($('idl-res-word'), 120);
   });
+
+  // THE REVEAL TURNS OVER (7 Nov 2026 review, IT-12): the imposter's name,
+  // then the word, turn in the way the role card does (idl-flip, 0.3s, the
+  // same curve). Run here rather than from CSS, so under reduced motion the
+  // check below keeps them still, as the CSS rule keeps the role card.
+  function turnOver(el, delay) {
+    if (!el || typeof el.animate !== 'function') return;
+    try {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      el.animate(
+        [{ transform: 'perspective(900px) rotateY(-90deg)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+        { duration: 300, delay: delay, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)', fill: 'backwards' }
+      );
+    } catch (e) {}
+  }
 
   // Every way to the next deal goes through here, so "Change settings" after
   // the third round cannot step round the wall.
