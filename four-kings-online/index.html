@@ -71,6 +71,7 @@
     .tool-body > .note:first-child { margin: var(--space-s) 0 0; }
     .fk-card {
       position: relative;
+      container-type: inline-size;
       width: min(290px, 100%, 40vh);
       aspect-ratio: 100 / 145;
       margin: 0 auto 12px;
@@ -111,7 +112,9 @@
       border-radius: 14px;
       pointer-events: none;
     }
-    .fk-back-emoji { font-size: 64px; line-height: 1; }
+    /* The emoji scales with the card, as the home tile's does (32cqi there),
+       so the laptop back is not a small emoji on a big card (7 Nov 2026, R-5) */
+    .fk-back-emoji { font-size: 64px; font-size: clamp(56px, 30cqi, 96px); line-height: 1; }
     .fk-back-logo { margin-top: 10px; color: var(--on-tone); font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: 4px; }
     .fk-back-hint { margin-top: 18px; color: var(--on-tone); font-size: 12px; font-weight: 700; letter-spacing: 2px; }
     .fk-face { position: relative; background: #FDF9FF; border: 2px solid transparent; }
