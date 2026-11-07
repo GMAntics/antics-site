@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Juego del impostor online con amigos en varios celulares</title>
   <meta name="description" content="Juega al impostor online con amigos, cada quien en su celular. Crea una sala gratis en Antics, comparte el código y todos se unen desde el navegador.">
@@ -42,14 +43,15 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/deal.js" defer></script>
 </head>
 <body class="has-installbar">
+<a class="skip" href="#main">Saltar al contenido</a>
 <div class="page">
+  <nav class="crumb" aria-label="Ruta de navegación"><a href="/es/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: juegos de fiesta</a> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;<a href="/es/juego-del-impostor/">Juego del impostor</a></span> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;Online con amigos</span></nav>
+<main id="main" tabindex="-1">
 <article>
-  <nav class="crumb" aria-label="Ruta de navegación"><a href="/es/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: juegos de fiesta</a> <span aria-hidden="true">&rsaquo;</span> <a href="/es/juego-del-impostor/">Juego del impostor</a> <span aria-hidden="true">&rsaquo;</span> Online con amigos</nav>
 
   <header class="page-head">
     <h1>Juega al impostor online con amigos, cada quien en su celular</h1>
@@ -181,12 +183,13 @@
       </nav>
     </div>
   </div>
+</article>
+</main>
 
   <footer class="site-foot">
     <a href="/es/">Antics: juegos de fiesta</a> · <a href="/get/?c=site-imposter-rooms-es-footer">Descarga la app</a> · <a href="/privacy.html" hreflang="en">Privacidad (en inglés)</a><br>
     Una app de juegos de fiesta para iPhone y Android. Nueve juegos, miles de cartas, sin anuncios. 18+ · Cuiden a sus amigos.
   </footer>
-</article>
 </div>
 
 <aside class="installbar" aria-label="Descarga la app">

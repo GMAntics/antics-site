@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Jogo do impostor online com amigos, cada um no seu celular</title>
   <meta name="description" content="Jogue o impostor online com amigos, cada um no seu celular. Abra uma sala grátis no Antics, mande o código e a galera entra pelo navegador. Sem cadastro.">
@@ -43,14 +44,15 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/deal.js" defer></script>
 </head>
 <body class="has-installbar">
+<a class="skip" href="#main">Pular para o conteúdo</a>
 <div class="page">
+  <nav class="crumb" aria-label="Caminho de navegação"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics</a> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;<a href="/pt/">Português</a></span> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;<a href="/pt/jogo-do-impostor/">Jogo do impostor online</a></span> <span class="crumb-step"><span aria-hidden="true">&rsaquo;</span>&nbsp;Com amigos</span></nav>
+<main id="main" tabindex="-1">
 <article>
-  <nav class="crumb" aria-label="Caminho de navegação"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics</a> <span aria-hidden="true">&rsaquo;</span> <a href="/pt/">Português</a> <span aria-hidden="true">&rsaquo;</span> <a href="/pt/jogo-do-impostor/">Jogo do impostor online</a> <span aria-hidden="true">&rsaquo;</span> Com amigos</nav>
 
   <header class="page-head">
     <h1>Jogo do impostor online com amigos, cada um no seu celular</h1>
@@ -179,12 +181,13 @@
       </nav>
     </div>
   </div>
+</article>
+</main>
 
   <footer class="site-foot">
     <a href="/pt/">Antics: jogos de festa</a> · <a href="/privacy.html" hreflang="en">Privacidade (em inglês)</a><br>
     18+ · Cuidem dos amigos.
   </footer>
-</article>
 </div>
 
 <aside class="installbar" aria-label="Baixe o app">
