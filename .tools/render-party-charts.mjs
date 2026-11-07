@@ -265,7 +265,10 @@ async function gbars(box, groups, s, fmt, refKey) {
       const bh = Math.max(4, ((base - top) * r.v) / max);
       out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="8" fill="${r.key ? C.pink : C.bar}"/>`;
       out += `<rect x="${(cx - bw / 2).toFixed(1)}" y="${(base - Math.min(bh, 8)).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.min(bh, 8).toFixed(1)}" fill="${r.key ? C.pink : C.bar}"/>`;
-      out += t(cx.toFixed(1), (base - bh - 14).toFixed(1), s.value, r.key ? C.white : C.text2, fmt(r.v), `text-anchor="middle" ${knock}`);
+      // a value label the dashed line would run through sits just above the line instead
+      let vy = base - bh - 14;
+      if (ry > vy - s.value * 0.72 - 6 && ry < vy + 8) vy = ry - 12;
+      out += t(cx.toFixed(1), vy.toFixed(1), s.value, r.key ? C.white : C.text2, fmt(r.v), `text-anchor="middle" ${knock}`);
       out += t(cx.toFixed(1), (base + 14 + s.label * 1.2).toFixed(1), s.label, r.key ? C.white : C.text2, lawCheck(r.label), 'text-anchor="middle"');
     });
     out += `<rect x="${gx.toFixed(1)}" y="${base}" width="${gw.toFixed(1)}" height="2" fill="${C.line}"/>`;
