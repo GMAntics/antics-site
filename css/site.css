@@ -2078,6 +2078,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
 }
 .game-tiles li { display: flex; min-width: 0; }
 .game-tiles a {
+  min-width: 0;
   flex: 1;
   display: flex;
   align-items: center;
