@@ -147,6 +147,7 @@
     }
     .games { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
     .chip {
+      display: inline-flex; align-items: center; min-height: 44px;
       background: var(--surface); border-radius: 999px;
       padding: 9px 17px; font-size: 14px; font-weight: 700;
     }
@@ -165,13 +166,11 @@
       background: var(--surface); border-radius: 16px; padding: 16px 20px;
       max-width: 280px; font-size: 14px; line-height: 1.5; color: #D8D3EE;
     }
+    .fact a { padding-block: max(0.75em, calc(23px - 0.6em)); }
     .fact strong { color: var(--white); display: block; margin-bottom: 4px; font-size: 15px; }
     /* A .fact used on its own (QR card, signup) must self-centre. */
     .fact.solo { margin-left: auto; margin-right: auto; max-width: 360px; }
 
-    /* A QR code is pointless if you are already on a phone: the store
-       buttons above do that job. Desktop keeps it. */
-    @media (max-width: 720px) { .qr-card, .hero .qr-card { display: none; } }
 
     .socials { margin-top: 52px; font-size: 15px; }
     .socials a {
@@ -200,6 +199,9 @@
     .hero .qr-card { margin: 22px 0 0; text-align: left; display: flex; align-items: center; gap: 14px; max-width: 360px; }
     .hero .qr-card img { width: 96px; height: 96px; border-radius: 10px; background: #fff; padding: 6px; flex: none; }
     .hero .qr-card p { margin: 0; font-size: 14px; opacity: .85; }
+    /* A12: after the .hero .qr-card rule, so it wins. A QR code is pointless if you are already on a phone: the store
+       buttons above do that job. Desktop keeps it. */
+    @media (max-width: 720px) { .qr-card, .hero .qr-card { display: none; } }
     .stage { position: relative; display: grid; place-items: center; min-height: 560px; }
     .glow {
       position: absolute; inset: 8% 4%;
@@ -290,6 +292,7 @@
         background: linear-gradient(90deg, rgba(14, 10, 31, 0), var(--bg) 85%); pointer-events: none;
       }
       .tiles {
+        padding-top: 8px; scroll-padding-inline: 20px;
         display: flex; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
         padding-inline: 20px 56px; padding-bottom: 16px; scrollbar-width: none;
       }
@@ -297,6 +300,8 @@
       .tiles::-webkit-scrollbar { display: none; }
       .tile { flex: 0 0 200px; scroll-snap-align: start; }
     }
+    @media (min-width: 560px) and (max-width: 820px) { .ctas .cta { flex: 0 1 auto; } .tiles-wrap { margin-inline: 0; } .tiles-wrap::after, .swipe { display: none; } .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; padding-inline: 0; } }
+    #signup input::placeholder { color: #9C92C7; }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -468,8 +473,8 @@
       <strong>📬 First to know</strong>
       The best new cards and updates, straight to your inbox. No spam, ever.
       <form id="signup" style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-        <input type="email" name="email" required placeholder="your@email.com" autocomplete="email"
-          style="padding:12px 16px;border-radius:10px;border:1px solid #3a2f5e;background:#171132;color:#fff;font-size:16px;min-width:220px;">
+        <input type="email" name="email" required placeholder="your@email.com" autocomplete="email" aria-label="Email address"
+          style="padding:12px 16px;border-radius:10px;border:1px solid #7c72a8;background:#171132;color:#fff;font-size:16px;min-width:220px;">
         <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-5000px;" aria-hidden="true">
         <button type="submit"
           style="padding:12px 20px;border-radius:10px;border:0;background:#EA0059;color:#fff;font-weight:700;font-size:16px;cursor:pointer;">
