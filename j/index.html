@@ -159,57 +159,57 @@
     <div class="brand">ANTICS</div>
 
     <section id="screen-join" hidden>
-      <h1>Join the Imposter room</h1>
-      <p class="lead">Everyone plays on their own phone. One of you is bluffing.</p>
-      <label for="in-code">ROOM CODE</label>
+      <h1 data-t="joinTitle">Join the Imposter room</h1>
+      <p class="lead" data-t="joinLead">Everyone plays on their own phone. One of you is bluffing.</p>
+      <label for="in-code" data-t="codeLabel">ROOM CODE</label>
       <input id="in-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
-      <label for="in-name">NICKNAME</label>
-      <input id="in-name" type="text" autocomplete="nickname" maxlength="16" placeholder="What the room calls you">
-      <button id="btn-join" class="primary">Join the room</button>
+      <label for="in-name" data-t="nameLabel">YOUR NAME</label>
+      <input id="in-name" type="text" autocomplete="nickname" maxlength="16" placeholder="Your name" data-t-ph="namePlaceholder">
+      <button id="btn-join" class="primary" data-t="joinRoom">Join the room</button>
       <p id="join-error" class="error" role="alert"></p>
-      <p class="small">No sign-up, no app needed. <a class="plain" href="/privacy.html#rooms">Privacy</a></p>
+      <p class="small"><span data-t="noSignup">No sign-up, no app needed.</span> <a class="plain" href="/privacy.html#rooms" data-t="privacy">Privacy</a></p>
     </section>
 
     <section id="screen-host" hidden>
-      <h1>Host an Imposter room</h1>
-      <p class="lead">You get a code. Everyone else joins on their own phone.</p>
-      <label for="host-name">NICKNAME</label>
-      <input id="host-name" type="text" autocomplete="nickname" maxlength="16" placeholder="What the room calls you">
+      <h1 data-t="hostTitle">Host an Imposter room</h1>
+      <p class="lead" data-t="hostLead">You get a code. Everyone else joins on their own phone.</p>
+      <label for="host-name" data-t="nameLabel">YOUR NAME</label>
+      <input id="host-name" type="text" autocomplete="nickname" maxlength="16" placeholder="Your name" data-t-ph="namePlaceholder">
       <div class="panel">
-        <h2>ROUND SETTINGS</h2>
-        <label class="check"><input id="set-hint" type="checkbox" checked> Imposter gets a hint</label>
-        <label class="check"><input id="set-hard" type="checkbox"> Hard hints</label>
-        <label class="check"><input id="set-two" type="checkbox"> Two imposters (six or more players)</label>
-        <label class="check"><input id="set-mischief" type="checkbox"> Mischief mode</label>
+        <h2 data-t="roundSettings">ROUND SETTINGS</h2>
+        <label class="check"><input id="set-hint" type="checkbox" checked> <span data-t="setHint">Imposter gets a hint</span></label>
+        <label class="check" id="row-hard"><input id="set-hard" type="checkbox"> <span data-t="setHard">Hard hints</span></label>
+        <label class="check"><input id="set-two" type="checkbox"> <span data-t="twoImposters">Two imposters (six or more players)</span></label>
+        <label class="check"><input id="set-mischief" type="checkbox"> <span data-t="mischief">Mischief mode</span></label>
       </div>
-      <button id="btn-create" class="primary">Create the room</button>
+      <button id="btn-create" class="primary" data-t="createRoom">Create the room</button>
       <p id="host-error" class="error" role="alert"></p>
-      <p class="small">No sign-up, no app needed. <a class="plain" href="/privacy.html#rooms">Privacy</a></p>
+      <p class="small"><span data-t="noSignup">No sign-up, no app needed.</span> <a class="plain" href="/privacy.html#rooms" data-t="privacy">Privacy</a></p>
     </section>
 
     <section id="screen-lobby" hidden>
-      <p class="lead" style="margin-bottom:0">Room code</p>
+      <p class="lead" style="margin-bottom:0" data-t="roomCode">Room code</p>
       <div class="code" id="lobby-code"></div>
       <p class="small" style="margin-top:0" id="lobby-link"></p>
       <div class="tvslot" id="tvslot-lobby"></div>
-      <button id="btn-share" class="ghost">Share the join link</button>
+      <button id="btn-share" class="ghost" data-t="share">Share the join link</button>
       <div class="panel">
         <h2 id="lobby-count">IN THE ROOM</h2>
         <ul class="players" id="lobby-players"></ul>
       </div>
-      <button id="btn-start" class="primary" hidden>Deal the round</button>
+      <button id="btn-start" class="primary" hidden data-t="deal">Deal the round</button>
       <p id="lobby-wait" class="small"></p>
       <p id="lobby-error" class="error" role="alert"></p>
-      <button id="btn-leave" class="link">Leave the room</button>
+      <button id="btn-leave" class="link" data-t="leave">Leave the room</button>
     </section>
 
     <section id="screen-card" hidden>
       <p class="lead" id="card-round" style="margin-bottom:0"></p>
       <div class="secret" id="secret" role="button" tabindex="0" aria-expanded="false">
         <div id="secret-closed">
-          <div class="kicker">YOUR CARD</div>
-          <div class="big">Tap to look</div>
-          <div class="sub">Keep your screen to yourself.</div>
+          <div class="kicker" data-t="yourCard">YOUR CARD</div>
+          <div class="big" data-t="tapToLook">Tap to look</div>
+          <div class="sub" data-t="keepItHidden">Keep your screen to yourself.</div>
         </div>
         <div id="secret-open" hidden>
           <div class="kicker" id="secret-kicker"></div>
@@ -218,16 +218,16 @@
           <div class="hintline" id="secret-hint"></div>
         </div>
       </div>
-      <p class="small" id="card-tip">Tap the card again to hide it.</p>
+      <p class="small" id="card-tip" data-t="tapToHide">Tap the card again to hide it.</p>
       <div class="panel">
         <h2 id="card-ready">WHO HAS LOOKED</h2>
         <ul class="players" id="card-players"></ul>
       </div>
       <p class="lead" id="card-starter" style="margin-top:18px"></p>
-      <button id="btn-reveal" class="primary">Reveal the imposter</button>
+      <button id="btn-reveal" class="primary" data-t="reveal">Reveal the imposter</button>
       <p id="card-error" class="error" role="alert"></p>
       <p class="roomline" id="card-code"></p>
-      <button id="btn-share-card" class="ghost">Share the join link</button>
+      <button id="btn-share-card" class="ghost" data-t="share">Share the join link</button>
       <div class="tvslot" id="tvslot-card"></div>
     </section>
 
@@ -239,24 +239,24 @@
         <div class="big" id="reveal-word"></div>
         <div class="sub" id="reveal-hint"></div>
       </div>
-      <button id="btn-again" class="primary" hidden>Deal the next round</button>
+      <button id="btn-again" class="primary" hidden data-t="nextRound">Deal the next round</button>
       <p id="reveal-wait" class="small"></p>
       <p id="reveal-error" class="error" role="alert"></p>
       <p class="roomline" id="reveal-code"></p>
-      <button id="btn-share-reveal" class="ghost">Share the join link</button>
+      <button id="btn-share-reveal" class="ghost" data-t="share">Share the join link</button>
       <div class="tvslot" id="tvslot-reveal"></div>
       <div class="wall" id="wall">
-        <p class="lead" style="margin-bottom:0">This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.</p>
-        <a class="cta" id="wall-get" href="/get/?c=web-room">Get Antics free</a>
-        <p class="small">iPhone and Android. Thousands of cards, no ads.</p>
+        <p class="lead" style="margin-bottom:0" data-t="wallBody">This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.</p>
+        <a class="cta" id="wall-get" href="/get/?c=web-room" data-t="wallCta">Get Antics free</a>
+        <p class="small" data-t="wallSmall">iPhone and Android. Thousands of cards, no ads.</p>
       </div>
-      <button id="btn-leave2" class="link">Leave the room</button>
+      <button id="btn-leave2" class="link" data-t="leave">Leave the room</button>
     </section>
 
     <section id="screen-gone" hidden>
-      <h1 id="gone-title">That room has ended</h1>
-      <p class="lead" id="gone-body">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
-      <button id="btn-rejoin" class="primary">Join another room</button>
+      <h1 id="gone-title" data-t="goneTitle">That room has ended</h1>
+      <p class="lead" id="gone-body" data-t="goneBody">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
+      <button id="btn-rejoin" class="primary" data-t="rejoin">Join another room</button>
     </section>
 
     <!-- One "TV connected" line, moved into the slot of whichever player
@@ -268,9 +268,9 @@
          fix M1), and the mirror warning sits here, where a screen is
          actually involved. -->
     <div class="tvbar" id="tvbar" hidden>
-      <p class="tvon" aria-live="polite">TV connected</p>
-      <p class="tvmirror">Never mirror a phone that is playing: it would show your card.</p>
-      <button id="btn-tv-off" class="link" hidden>Disconnect the TV</button>
+      <p class="tvon" aria-live="polite" data-t="tvConnected">TV connected</p>
+      <p class="tvmirror" data-t="tvMirror">Never mirror a phone that is playing: it would show your card.</p>
+      <button id="btn-tv-off" class="link" hidden data-t="disconnectTv">Disconnect the TV</button>
     </div>
 
     <!-- THE TV VIEW (?tv=1). It is sent only what a player who joined late is
@@ -279,24 +279,24 @@
     <section id="screen-tv" hidden>
       <div class="tv-entry" id="tv-entry">
         <div class="brand">ANTICS</div>
-        <h1 id="tv-entry-title">Put the room on the TV</h1>
-        <p class="lead" id="tv-entry-lead">Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.</p>
-        <label for="tv-in-code">ROOM CODE</label>
+        <h1 id="tv-entry-title" data-t="tvEntryTitle">Put the room on the TV</h1>
+        <p class="lead" id="tv-entry-lead" data-t="tvEntryLead">Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.</p>
+        <label for="tv-in-code" data-t="codeLabel">ROOM CODE</label>
         <input id="tv-in-code" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="4" placeholder="····">
-        <button id="btn-tv-watch" class="primary">Show the room</button>
+        <button id="btn-tv-watch" class="primary" data-t="tvShow">Show the room</button>
         <p id="tv-error" class="error" role="alert"></p>
-        <p class="small">Open this on a laptop, tablet or smart TV, or on a spare laptop or iPad you AirPlay to the TV. Never mirror a phone that is playing: it would show that phone's card.</p>
+        <p class="small" data-t="tvEntrySmall">Open this on a laptop, tablet or smart TV, or on a spare laptop or iPad you AirPlay to the TV. Never mirror a phone that is playing: it would show that phone's card.</p>
       </div>
 
       <div id="tv-room" hidden>
         <div class="tv-head">
-          <span>ANTICS · IMPOSTER</span>
+          <span data-t="tvHead">ANTICS · IMPOSTER</span>
           <span class="tv-join" id="tv-head-join"></span>
         </div>
 
         <div id="tv-lobby" class="tv-grid" hidden>
           <div>
-            <div class="tv-kicker">Join the room</div>
+            <div class="tv-kicker" data-t="joinRoom">Join the room</div>
             <div class="tv-code" id="tv-code"></div>
             <div class="tv-url" id="tv-url"></div>
             <ul class="tv-chips" id="tv-lobby-players"></ul>
@@ -311,11 +311,11 @@
 
         <div id="tv-dealt" hidden>
           <div class="tv-kicker" id="tv-round"></div>
-          <div class="tv-big">Everyone, check your phone.</div>
+          <div class="tv-big" data-t="tvCheckPhone">Everyone, check your phone.</div>
           <ul class="tv-chips" id="tv-dealt-players"></ul>
           <p class="tv-small" id="tv-looked"></p>
           <p class="tv-line" id="tv-starter"></p>
-          <p class="tv-line">Vote, then anyone can reveal on their phone.</p>
+          <p class="tv-line" data-t="tvVote">Vote, then anyone can reveal on their phone.</p>
         </div>
 
         <div id="tv-revealed" hidden>
@@ -327,13 +327,13 @@
               <div class="big" id="tv-reveal-word"></div>
               <div class="sub" id="tv-reveal-hint"></div>
             </div>
-            <p class="tv-small" id="tv-reveal-wait">Waiting for the host to deal the next round.</p>
+            <p class="tv-small" id="tv-reveal-wait" data-t="waitingNext">Waiting for the host to deal the next round.</p>
           </div>
           <div class="tv-qr tv-corner" id="tv-qr-corner">
             <div class="qrbox" id="tv-qr-corner-box"></div>
-            <p>Late? Scan to join the next round</p>
+            <p data-t="tvLate">Late? Scan to join the next round</p>
           </div>
-          <p class="tv-get">Get Antics: <a id="tv-get" href="/get/?c=web-room">anticsapp.com/get</a></p>
+          <p class="tv-get"><span data-t="tvGet">Get Antics:</span> <a id="tv-get" href="/get/?c=web-room">anticsapp.com/get</a></p>
         </div>
 
         <p class="tv-foot" id="tv-foot"></p>
@@ -440,30 +440,1524 @@
     var HOLD_FIRST_MS = 2000;
     var HOLD_MAX_MS = 60000;
 
+    // --- language (7 Nov 2026, Guy's yes at about 00:40) ----------------------
+    // The page speaks the app's eleven languages, picked ONCE at load the way
+    // the app picks (app repo src/i18n/index.ts detectSystem): the browser's
+    // FIRST language only; es plus region ES is es-ES, pt plus region PT is
+    // pt-PT, any other es or pt (es-419, es-MX, pt-BR, no region) is the bare
+    // code, the other languages by bare code, and anything else is English.
+    // Lines the app also shows are the app's own ruled strings, verbatim, from
+    // the app dictionaries (imposterRoom, imposter and errors); the page-only
+    // lines are translated in each dictionary's register. {0} and {1} are
+    // filled by fmt(). A room HOSTED here deals in this language (the server's
+    // r.lang, English for a language it has no deck in); Hard hints are
+    // English only (ruling 7), so the Hard option shows only in English.
+    var LANGS = ['en', 'es', 'es-ES', 'pt', 'pt-PT', 'de', 'fr', 'it', 'nl', 'pl', 'cs'];
+    var STRINGS = {
+      "en": {
+        codeLabel: "ROOM CODE",
+        nameLabel: "YOUR NAME",
+        namePlaceholder: "Your name",
+        joinRoom: "Join the room",
+        privacy: "Privacy",
+        twoImposters: "Two imposters (six or more players)",
+        mischief: "Mischief mode",
+        roomCode: "Room code",
+        share: "Share the join link",
+        inTheRoom: "IN THE ROOM ({0} OF {1})",
+        deal: "Deal the round",
+        leave: "Leave the room",
+        you: "(you)",
+        host: "HOST",
+        looked: "LOOKED",
+        nextRoundTag: "NEXT ROUND",
+        remove: "Remove",
+        removeConfirm: "Remove {0} from the room?",
+        needThree: "You need at least 3 players to deal.",
+        dealWhenReady: "Deal when everyone is in.",
+        waitingForHost: "Waiting for the host to deal.",
+        round: "Round {0}",
+        tapToLook: "Tap to look",
+        keepItHidden: "Keep your screen to yourself.",
+        tapToHide: "Tap the card again to hide it.",
+        youAreImposter: "You are the imposter",
+        imposterOne: "Everyone else knows the secret. Blend in and work it out.",
+        imposterTwo: "There are two of you. Blend in and work out the secret.",
+        yourHint: "Your hint: {0}",
+        crewPlace: "This is where you all are. Not everyone here knows it.",
+        crewWord: "This is the secret word. Not everyone here knows it.",
+        nextOne: "You are in the next one",
+        nextOneBody: "You joined after the cards went out. Watch this one.",
+        whoLooked: "WHO HAS LOOKED ({0} OF {1})",
+        starts: "{0} starts. Go round, one clue each, then vote.",
+        reveal: "Reveal the imposter",
+        revealConfirm: "End the round for everyone? Wait until the room has voted.",
+        imposterWas: "The imposter was",
+        impostersWere: "The imposters were",
+        mischiefResultLabel: "Nobody was the imposter",
+        mischiefResultBody: "Nobody had it. You did all that to each other for nothing.",
+        thePlace: "The place",
+        theWord: "The secret word",
+        thePlaceCaps: "THE PLACE",
+        theWordCaps: "THE SECRET WORD",
+        hintWas: "The hint was: {0}",
+        nextRound: "Deal the next round",
+        waitingNext: "Waiting for the host to deal the next round.",
+        leaveConfirm: "Leave the room?",
+        leaveConfirmHost: "The next person in becomes the host.",
+        goneTitle: "That room has ended",
+        goneBody: "Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.",
+        removedTitle: "The host took you out of the room",
+        removedBody: "Ask them for the code if you want back in.",
+        tvConnected: "TV connected",
+        tvMirror: "Never mirror a phone that is playing: it would show your card.",
+        disconnectTv: "Disconnect the TV",
+        scanToJoin: "Scan to join, or go to {0}",
+        retrying: "No connection. Trying again.",
+        shareText: "Join our Imposter room on Antics. Code {0}",
+        shareTitle: "Antics Imposter",
+        tvHead: "ANTICS · IMPOSTER",
+        cat_locations: "Locations",
+        cat_everydayObjects: "Everyday Objects",
+        cat_famousPeople: "Famous People",
+        cat_foodAndDrinks: "Food and Drinks",
+        cat_brandsAndLogos: "Brands and Logos",
+        cat_sports: "Sports",
+        err_room_not_found: "No room with that code. Check it with the host.",
+        err_name_taken: "Someone in the room already has that name.",
+        err_room_full: "That room is full (12 players). Ask the host to remove someone, then try again.",
+        err_invalid_name: "Try a different name.",
+        err_rate_limited: "Too many tries. Give it a minute.",
+        err_rooms_busy: "Rooms are busy right now. Try again in a minute.",
+        err_not_enough_players: "You need at least 3 players.",
+        err_round_in_progress: "Wait for the round to end.",
+        err_network: "No connection. Try again.",
+        err_generic: "Something went wrong. Try again.",
+        title: "Join an Imposter room | Antics",
+        metaDesc: "Join your mates' Imposter room on Antics. Everyone plays on their own phone. No download, no sign-up.",
+        tvTitle: "Imposter on the big screen | Antics",
+        joinTitle: "Join the Imposter room",
+        joinLead: "Everyone plays on their own phone. One of you is bluffing.",
+        noSignup: "No sign-up, no app needed.",
+        hostTitle: "Host an Imposter room",
+        hostLead: "You get a code. Everyone else joins on their own phone.",
+        roundSettings: "ROUND SETTINGS",
+        setHint: "Imposter gets a hint",
+        setHard: "Hard hints",
+        createRoom: "Create the room",
+        yourCard: "YOUR CARD",
+        roundInProgress: "ROUND IN PROGRESS",
+        and: "and",
+        wallBody: "This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.",
+        wallCta: "Get Antics free",
+        wallSmall: "iPhone and Android. Thousands of cards, no ads.",
+        rejoin: "Join another room",
+        tvEntryTitle: "Put the room on the TV",
+        tvEntryLead: "Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.",
+        tvShow: "Show the room",
+        tvEntrySmall: "Open this on a laptop, tablet or smart TV, or on a spare laptop or iPad you AirPlay to the TV. Never mirror a phone that is playing: it would show that phone's card.",
+        tvCheckPhone: "Everyone, check your phone.",
+        tvVote: "Vote, then anyone can reveal on their phone.",
+        tvLate: "Late? Scan to join the next round",
+        tvGet: "Get Antics:",
+        live: "Live",
+        polling: "Updating every few seconds",
+        tvReconnecting: "Reconnecting",
+        roomLine: "Room code {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Join: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Waiting for players.",
+        tvWaitThree: "Waiting for at least 3 players.",
+        tvDecks: "Decks: {0}",
+        tvLooked: "{0} of {1} have looked",
+        tvStarter: "{0} starts. One clue each, round the room.",
+        tvClues: "One clue each, round the room.",
+        tvRoundOver: "Round over",
+        tvCheckPhones: "Check your phones",
+        tvTypeCode: "Type the four character code from the host's phone.",
+        tvGoneTitle: "This screen is no longer showing the room",
+        tvGoneBody: "The host disconnected it, or the room has ended. Show it again with the code, or ask for a fresh one.",
+        qrAria: "QR code: {0}",
+        linkCopied: "Link copied",
+        typeNameFirst: "Type a name first.",
+        mystery: "Mystery deck",
+        err_web_host_disabled: "Hosting from the browser is switched off.",
+        err_host_only: "Only the host can do that.",
+        err_not_in_round: "You joined mid-round. You are in the next one.",
+        err_screens_full: "Two screens are already showing this room. The host can disconnect them from their phone."
+      },
+      "es": {
+        codeLabel: "CÓDIGO DE LA SALA",
+        nameLabel: "TU NOMBRE",
+        namePlaceholder: "Tu nombre",
+        joinRoom: "Unirme a la sala",
+        privacy: "Privacidad",
+        twoImposters: "Dos impostores (seis jugadores o más)",
+        mischief: "Modo travesura",
+        roomCode: "Código de la sala",
+        share: "Compartir el enlace",
+        inTheRoom: "EN LA SALA ({0} DE {1})",
+        deal: "Repartir la ronda",
+        leave: "Salir de la sala",
+        you: "(tú)",
+        host: "ANFITRIÓN",
+        looked: "YA VIO",
+        nextRoundTag: "SIGUIENTE RONDA",
+        remove: "Quitar",
+        removeConfirm: "¿Quitar a {0} de la sala?",
+        needThree: "Se necesitan al menos 3 jugadores para repartir.",
+        dealWhenReady: "Reparte cuando estén todos.",
+        waitingForHost: "Esperando a que el anfitrión reparta.",
+        round: "Ronda {0}",
+        tapToLook: "Toca para ver",
+        keepItHidden: "Que nadie vea tu pantalla.",
+        tapToHide: "Toca la carta otra vez para ocultarla.",
+        youAreImposter: "Eres el impostor",
+        imposterOne: "Todos los demás saben el secreto. Disimula y descúbrelo.",
+        imposterTwo: "Son dos impostores. Disimulen y descubran el secreto.",
+        yourHint: "Tu pista: {0}",
+        crewPlace: "Aquí es donde están todos. No todos aquí lo saben.",
+        crewWord: "Esta es la palabra secreta. No todos aquí la saben.",
+        nextOne: "Entras en la siguiente",
+        nextOneBody: "Llegaste después de repartir las cartas. Mira esta ronda.",
+        whoLooked: "QUIÉN YA VIO SU CARTA ({0} DE {1})",
+        starts: "Empieza {0}. Una pista cada quien, en ronda, y luego voten.",
+        reveal: "Revelar al impostor",
+        revealConfirm: "¿Terminar la ronda para todos? Espera a que todos hayan votado.",
+        imposterWas: "El impostor era",
+        impostersWere: "Los impostores eran",
+        mischiefResultLabel: "Nadie era el impostor",
+        mischiefResultBody: "Nadie lo tenía. Se hicieron todo eso entre ustedes para nada.",
+        thePlace: "El lugar",
+        theWord: "La palabra secreta",
+        thePlaceCaps: "EL LUGAR",
+        theWordCaps: "LA PALABRA SECRETA",
+        hintWas: "La pista era: {0}",
+        nextRound: "Repartir la siguiente ronda",
+        waitingNext: "Esperando a que el anfitrión reparta la siguiente ronda.",
+        leaveConfirm: "¿Salir de la sala?",
+        leaveConfirmHost: "La siguiente persona pasa a ser el anfitrión.",
+        goneTitle: "Esa sala terminó",
+        goneBody: "Las salas se cierran unas horas después de la última ronda, o cuando el anfitrión te quita. Pide un código nuevo.",
+        removedTitle: "El anfitrión te sacó de la sala",
+        removedBody: "Pídele el código si quieres volver a entrar.",
+        tvConnected: "Tele conectada",
+        tvMirror: "Nunca dupliques la pantalla de un celular que está jugando: mostraría su carta.",
+        disconnectTv: "Desconectar la tele",
+        scanToJoin: "Escanea para unirte, o entra en {0}",
+        retrying: "Sin conexión. Reintentando.",
+        shareText: "Únete a nuestra sala de Impostor en Antics. Código {0}",
+        shareTitle: "Antics Impostor",
+        tvHead: "ANTICS · IMPOSTOR",
+        cat_locations: "Lugares",
+        cat_everydayObjects: "Objetos cotidianos",
+        cat_famousPeople: "Personas famosas",
+        cat_foodAndDrinks: "Comida y bebida",
+        cat_brandsAndLogos: "Marcas y logos",
+        cat_sports: "Deportes",
+        err_room_not_found: "No hay ninguna sala con ese código. Confírmalo con el anfitrión.",
+        err_name_taken: "Alguien en la sala ya tiene ese nombre.",
+        err_room_full: "Esa sala está llena (12 jugadores). Pide al anfitrión que quite a alguien y vuelve a intentarlo.",
+        err_invalid_name: "Prueba con otro nombre.",
+        err_rate_limited: "Demasiados intentos. Espera un minuto.",
+        err_rooms_busy: "Las salas están muy ocupadas ahora. Inténtalo de nuevo en un minuto.",
+        err_not_enough_players: "Se necesitan al menos 3 jugadores.",
+        err_round_in_progress: "Espera a que termine la ronda.",
+        err_network: "Sin conexión. Inténtalo de nuevo.",
+        err_generic: "Algo salió mal. Inténtalo de nuevo.",
+        title: "Únete a una sala de Impostor | Antics",
+        metaDesc: "Únete a la sala de Impostor de tus amigos en Antics. Cada quien juega en su celular. Sin descargas ni registro.",
+        tvTitle: "Impostor en la pantalla grande | Antics",
+        joinTitle: "Únete a la sala de Impostor",
+        joinLead: "Cada quien juega en su celular. Uno de ustedes está mintiendo.",
+        noSignup: "Sin registro y sin descargar la app.",
+        hostTitle: "Abre una sala de Impostor",
+        hostLead: "Te damos un código. Los demás se unen desde su celular.",
+        roundSettings: "AJUSTES DE LA RONDA",
+        setHint: "El impostor recibe una pista",
+        setHard: "Pistas difíciles",
+        createRoom: "Crear la sala",
+        yourCard: "TU CARTA",
+        roundInProgress: "RONDA EN CURSO",
+        and: "y",
+        wallBody: "Esta sala reparte los mazos gratis. La app de Antics tiene más mazos de Impostor y ocho juegos de fiesta más para el mismo grupo.",
+        wallCta: "Descarga Antics gratis",
+        wallSmall: "iPhone y Android. Miles de cartas, sin anuncios.",
+        rejoin: "Unirse a otra sala",
+        tvEntryTitle: "Pon la sala en la tele",
+        tvEntryLead: "Escribe el código de la sala que aparece en el celular del anfitrión. La tele muestra quién está, la ronda y la revelación. Nunca la carta de nadie.",
+        tvShow: "Mostrar la sala",
+        tvEntrySmall: "Ábrelo en una laptop, tablet o smart TV, o en una laptop o iPad de sobra que proyectes a la tele con AirPlay. Nunca dupliques la pantalla de un celular que está jugando: mostraría su carta.",
+        tvCheckPhone: "Todos, miren su celular.",
+        tvVote: "Voten, y luego cualquiera puede revelar desde su celular.",
+        tvLate: "¿Llegaste tarde? Escanea para unirte a la próxima ronda",
+        tvGet: "Descarga Antics:",
+        live: "En vivo",
+        polling: "Actualizando cada pocos segundos",
+        tvReconnecting: "Reconectando",
+        roomLine: "Código de la sala {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Únete: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Esperando jugadores.",
+        tvWaitThree: "Esperando al menos 3 jugadores.",
+        tvDecks: "Mazos: {0}",
+        tvLooked: "{0} de {1} ya vieron su carta",
+        tvStarter: "Empieza {0}. Una pista cada quien, en ronda.",
+        tvClues: "Una pista cada quien, en ronda.",
+        tvRoundOver: "Se acabó la ronda",
+        tvCheckPhones: "Miren sus celulares",
+        tvTypeCode: "Escribe el código de cuatro caracteres del celular del anfitrión.",
+        tvGoneTitle: "Esta pantalla ya no muestra la sala",
+        tvGoneBody: "El anfitrión la desconectó o la sala terminó. Vuelve a mostrarla con el código o pide uno nuevo.",
+        qrAria: "Código QR: {0}",
+        linkCopied: "Enlace copiado",
+        typeNameFirst: "Primero escribe un nombre.",
+        mystery: "Mazo misterioso",
+        err_web_host_disabled: "Abrir salas desde el navegador está desactivado.",
+        err_host_only: "Solo el anfitrión puede hacer eso.",
+        err_not_in_round: "Entraste a mitad de ronda. Juegas en la próxima.",
+        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su celular."
+      },
+      "es-ES": {
+        codeLabel: "CÓDIGO DE LA SALA",
+        nameLabel: "TU NOMBRE",
+        namePlaceholder: "Tu nombre",
+        joinRoom: "Unirme a la sala",
+        privacy: "Privacidad",
+        twoImposters: "Dos impostores (seis jugadores o más)",
+        mischief: "Modo gamberro",
+        roomCode: "Código de la sala",
+        share: "Compartir el enlace",
+        inTheRoom: "EN LA SALA ({0} DE {1})",
+        deal: "Repartir la ronda",
+        leave: "Salir de la sala",
+        you: "(tú)",
+        host: "ANFITRIÓN",
+        looked: "YA LA HA VISTO",
+        nextRoundTag: "SIGUIENTE RONDA",
+        remove: "Quitar",
+        removeConfirm: "¿Quitar a {0} de la sala?",
+        needThree: "Hacen falta al menos 3 jugadores para repartir.",
+        dealWhenReady: "Reparte cuando estéis todos.",
+        waitingForHost: "Esperando a que el anfitrión reparta.",
+        round: "Ronda {0}",
+        tapToLook: "Toca para verla",
+        keepItHidden: "Que nadie vea tu pantalla.",
+        tapToHide: "Toca la carta otra vez para ocultarla.",
+        youAreImposter: "Eres el impostor",
+        imposterOne: "Todos los demás saben el secreto. Disimula y descúbrelo.",
+        imposterTwo: "Sois dos impostores. Disimulad y descubrid el secreto.",
+        yourHint: "Tu pista: {0}",
+        crewPlace: "Aquí es donde estáis todos. No todos aquí lo saben.",
+        crewWord: "Esta es la palabra secreta. No todos aquí la saben.",
+        nextOne: "Entras en la siguiente",
+        nextOneBody: "Has llegado después de repartir las cartas. Mira esta ronda.",
+        whoLooked: "QUIÉN HA VISTO SU CARTA ({0} DE {1})",
+        starts: "Empieza {0}. Una pista cada uno, por turnos, y luego votad.",
+        reveal: "Revelar al impostor",
+        revealConfirm: "¿Terminar la ronda para todos? Espera a que todos hayan votado.",
+        imposterWas: "El impostor era",
+        impostersWere: "Los impostores eran",
+        mischiefResultLabel: "Nadie era el impostor",
+        mischiefResultBody: "Nadie lo tenía. Os habéis hecho todo eso entre vosotros para nada.",
+        thePlace: "El lugar",
+        theWord: "La palabra secreta",
+        thePlaceCaps: "EL LUGAR",
+        theWordCaps: "LA PALABRA SECRETA",
+        hintWas: "La pista era: {0}",
+        nextRound: "Repartir la siguiente ronda",
+        waitingNext: "Esperando a que el anfitrión reparta la siguiente ronda.",
+        leaveConfirm: "¿Salir de la sala?",
+        leaveConfirmHost: "La siguiente persona pasa a ser el anfitrión.",
+        goneTitle: "Esa sala ha terminado",
+        goneBody: "Las salas se cierran unas horas después de la última ronda, o cuando el anfitrión te quita. Pide un código nuevo.",
+        removedTitle: "El anfitrión te ha sacado de la sala",
+        removedBody: "Pídele el código si quieres volver a entrar.",
+        tvConnected: "Tele conectada",
+        tvMirror: "Nunca dupliques la pantalla de un móvil que está jugando: mostraría su carta.",
+        disconnectTv: "Desconectar la tele",
+        scanToJoin: "Escanea para unirte, o entra en {0}",
+        retrying: "Sin conexión. Reintentando.",
+        shareText: "Únete a nuestra sala de Impostor en Antics. Código {0}",
+        shareTitle: "Antics Impostor",
+        tvHead: "ANTICS · IMPOSTOR",
+        cat_locations: "Lugares",
+        cat_everydayObjects: "Objetos cotidianos",
+        cat_famousPeople: "Personas famosas",
+        cat_foodAndDrinks: "Comida y bebida",
+        cat_brandsAndLogos: "Marcas y logos",
+        cat_sports: "Deportes",
+        err_room_not_found: "No hay ninguna sala con ese código. Compruébalo con el anfitrión.",
+        err_name_taken: "Alguien en la sala ya tiene ese nombre.",
+        err_room_full: "Esa sala está llena (12 jugadores). Pide al anfitrión que quite a alguien y vuelve a intentarlo.",
+        err_invalid_name: "Prueba con otro nombre.",
+        err_rate_limited: "Demasiados intentos. Espera un minuto.",
+        err_rooms_busy: "Las salas están muy ocupadas ahora. Inténtalo otra vez en un minuto.",
+        err_not_enough_players: "Hacen falta al menos 3 jugadores.",
+        err_round_in_progress: "Espera a que termine la ronda.",
+        err_network: "Sin conexión. Inténtalo otra vez.",
+        err_generic: "Algo ha salido mal. Inténtalo otra vez.",
+        title: "Únete a una sala de Impostor | Antics",
+        metaDesc: "Únete a la sala de Impostor de tus amigos en Antics. Cada uno juega en su móvil. Sin descargas ni registro.",
+        tvTitle: "Impostor en la pantalla grande | Antics",
+        joinTitle: "Únete a la sala de Impostor",
+        joinLead: "Cada uno juega en su móvil. Uno de vosotros está mintiendo.",
+        noSignup: "Sin registro y sin descargar la app.",
+        hostTitle: "Abre una sala de Impostor",
+        hostLead: "Te damos un código. Los demás se unen desde su móvil.",
+        roundSettings: "AJUSTES DE LA RONDA",
+        setHint: "El impostor recibe una pista",
+        setHard: "Pistas difíciles",
+        createRoom: "Crear la sala",
+        yourCard: "TU CARTA",
+        roundInProgress: "RONDA EN CURSO",
+        and: "y",
+        wallBody: "Esta sala reparte los mazos gratis. La app de Antics tiene más mazos de Impostor y ocho juegos de fiesta más para el mismo grupo.",
+        wallCta: "Consigue Antics gratis",
+        wallSmall: "iPhone y Android. Miles de cartas, sin anuncios.",
+        rejoin: "Unirse a otra sala",
+        tvEntryTitle: "Pon la sala en la tele",
+        tvEntryLead: "Escribe el código de la sala que aparece en el móvil del anfitrión. La tele muestra quién está, la ronda y la revelación. Nunca la carta de nadie.",
+        tvShow: "Mostrar la sala",
+        tvEntrySmall: "Ábrelo en un portátil, una tablet o una smart TV, o en un portátil o iPad de sobra que proyectes a la tele con AirPlay. Nunca dupliques la pantalla de un móvil que está jugando: mostraría su carta.",
+        tvCheckPhone: "Todos, mirad el móvil.",
+        tvVote: "Votad, y luego cualquiera puede revelar desde su móvil.",
+        tvLate: "¿Llegas tarde? Escanea para unirte a la siguiente ronda",
+        tvGet: "Consigue Antics:",
+        live: "En directo",
+        polling: "Actualizando cada pocos segundos",
+        tvReconnecting: "Reconectando",
+        roomLine: "Código de la sala {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Únete: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Esperando jugadores.",
+        tvWaitThree: "Esperando al menos 3 jugadores.",
+        tvDecks: "Mazos: {0}",
+        tvLooked: "{0} de {1} han visto su carta",
+        tvStarter: "Empieza {0}. Una pista cada uno, por turnos.",
+        tvClues: "Una pista cada uno, por turnos.",
+        tvRoundOver: "Se acabó la ronda",
+        tvCheckPhones: "Mirad los móviles",
+        tvTypeCode: "Escribe el código de cuatro caracteres del móvil del anfitrión.",
+        tvGoneTitle: "Esta pantalla ya no muestra la sala",
+        tvGoneBody: "El anfitrión la ha desconectado o la sala ha terminado. Vuelve a mostrarla con el código o pide uno nuevo.",
+        qrAria: "Código QR: {0}",
+        linkCopied: "Enlace copiado",
+        typeNameFirst: "Primero escribe un nombre.",
+        mystery: "Mazo misterioso",
+        err_web_host_disabled: "Abrir salas desde el navegador está desactivado.",
+        err_host_only: "Solo el anfitrión puede hacer eso.",
+        err_not_in_round: "Has entrado a mitad de ronda. Juegas en la siguiente.",
+        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su móvil."
+      },
+      "pt": {
+        codeLabel: "CÓDIGO DA SALA",
+        nameLabel: "SEU NOME",
+        namePlaceholder: "Seu nome",
+        joinRoom: "Entrar na sala",
+        privacy: "Privacidade",
+        twoImposters: "Dois impostores (seis jogadores ou mais)",
+        mischief: "Modo travessura",
+        roomCode: "Código da sala",
+        share: "Compartilhar o link",
+        inTheRoom: "NA SALA ({0} DE {1})",
+        deal: "Distribuir a rodada",
+        leave: "Sair da sala",
+        you: "(você)",
+        host: "ANFITRIÃO",
+        looked: "JÁ VIU",
+        nextRoundTag: "PRÓXIMA RODADA",
+        remove: "Tirar",
+        removeConfirm: "Tirar {0} da sala?",
+        needThree: "É preciso pelo menos 3 jogadores para distribuir.",
+        dealWhenReady: "Distribua quando todo mundo tiver entrado.",
+        waitingForHost: "Esperando o anfitrião distribuir.",
+        round: "Rodada {0}",
+        tapToLook: "Toque para ver",
+        keepItHidden: "Não deixe ninguém ver sua tela.",
+        tapToHide: "Toque na carta de novo para esconder.",
+        youAreImposter: "Você é o impostor",
+        imposterOne: "Todo mundo sabe o segredo, menos você. Disfarce e descubra.",
+        imposterTwo: "Vocês são dois. Disfarcem e descubram o segredo.",
+        yourHint: "Sua dica: {0}",
+        crewPlace: "É aqui que vocês estão. Nem todo mundo aqui sabe.",
+        crewWord: "Esta é a palavra secreta. Nem todo mundo aqui sabe.",
+        nextOne: "Você entra na próxima",
+        nextOneBody: "Você chegou depois que as cartas saíram. Assista a esta.",
+        whoLooked: "QUEM JÁ VIU ({0} DE {1})",
+        starts: "{0} começa. Uma dica cada um, na roda, e depois votem.",
+        reveal: "Revelar o impostor",
+        revealConfirm: "Encerrar a rodada para todo mundo? Espere todo mundo votar.",
+        imposterWas: "O impostor era",
+        impostersWere: "Os impostores eram",
+        mischiefResultLabel: "Ninguém era o impostor",
+        mischiefResultBody: "Ninguém tinha. Vocês fizeram tudo isso uns com os outros à toa.",
+        thePlace: "O lugar",
+        theWord: "A palavra secreta",
+        thePlaceCaps: "O LUGAR",
+        theWordCaps: "A PALAVRA SECRETA",
+        hintWas: "A dica era: {0}",
+        nextRound: "Distribuir a próxima rodada",
+        waitingNext: "Esperando o anfitrião distribuir a próxima rodada.",
+        leaveConfirm: "Sair da sala?",
+        leaveConfirmHost: "A próxima pessoa vira o anfitrião.",
+        goneTitle: "Essa sala acabou",
+        goneBody: "As salas fecham algumas horas depois da última rodada, ou quando o anfitrião tira você. Peça um código novo.",
+        removedTitle: "O anfitrião tirou você da sala",
+        removedBody: "Peça o código se quiser voltar.",
+        tvConnected: "TV conectada",
+        tvMirror: "Nunca espelhe um celular que está jogando: ia mostrar a carta dele.",
+        disconnectTv: "Desconectar a TV",
+        scanToJoin: "Escaneie para entrar, ou acesse {0}",
+        retrying: "Sem conexão. Tentando de novo.",
+        shareText: "Entra na nossa sala de Impostor no Antics. Código {0}",
+        shareTitle: "Antics Impostor",
+        tvHead: "ANTICS · IMPOSTOR",
+        cat_locations: "Lugares",
+        cat_everydayObjects: "Objetos do dia a dia",
+        cat_famousPeople: "Pessoas famosas",
+        cat_foodAndDrinks: "Comida e bebida",
+        cat_brandsAndLogos: "Marcas e logos",
+        cat_sports: "Esportes",
+        err_room_not_found: "Nenhuma sala com esse código. Confira com o anfitrião.",
+        err_name_taken: "Alguém na sala já tem esse nome.",
+        err_room_full: "Essa sala está cheia (12 jogadores). Peça ao anfitrião para tirar alguém e tente de novo.",
+        err_invalid_name: "Tente outro nome.",
+        err_rate_limited: "Tentativas demais. Espere um minuto.",
+        err_rooms_busy: "As salas estão lotadas agora. Tente de novo em um minuto.",
+        err_not_enough_players: "É preciso pelo menos 3 jogadores.",
+        err_round_in_progress: "Espere a rodada acabar.",
+        err_network: "Sem conexão. Tente de novo.",
+        err_generic: "Algo deu errado. Tente de novo.",
+        title: "Entre numa sala de Impostor | Antics",
+        metaDesc: "Entre na sala de Impostor dos seus amigos no Antics. Cada um joga no próprio celular. Sem download, sem cadastro.",
+        tvTitle: "Impostor na tela grande | Antics",
+        joinTitle: "Entre na sala de Impostor",
+        joinLead: "Cada um joga no próprio celular. Um de vocês está blefando.",
+        noSignup: "Sem cadastro, sem precisar do app.",
+        hostTitle: "Abra uma sala de Impostor",
+        hostLead: "Você recebe um código. Os outros entram pelo próprio celular.",
+        roundSettings: "AJUSTES DA RODADA",
+        setHint: "O impostor recebe uma dica",
+        setHard: "Dicas difíceis",
+        createRoom: "Criar a sala",
+        yourCard: "SUA CARTA",
+        roundInProgress: "RODADA EM ANDAMENTO",
+        and: "e",
+        wallBody: "Esta sala usa os baralhos grátis. O app Antics tem mais baralhos de Impostor e mais oito jogos de festa para a mesma galera.",
+        wallCta: "Baixe o Antics grátis",
+        wallSmall: "iPhone e Android. Milhares de cartas, sem anúncios.",
+        rejoin: "Entrar em outra sala",
+        tvEntryTitle: "Coloque a sala na TV",
+        tvEntryLead: "Digite o código da sala que aparece no celular do anfitrião. A TV mostra quem está na sala, a rodada e a revelação. Nunca a carta de ninguém.",
+        tvShow: "Mostrar a sala",
+        tvEntrySmall: "Abra isto num notebook, tablet ou smart TV, ou num notebook ou iPad sobrando que você espelha na TV por AirPlay. Nunca espelhe um celular que está jogando: ele mostraria a carta dele.",
+        tvCheckPhone: "Pessoal, olhem o celular.",
+        tvVote: "Votem, e depois qualquer um pode revelar pelo celular.",
+        tvLate: "Chegou tarde? Escaneie para entrar na próxima rodada",
+        tvGet: "Baixe o Antics:",
+        live: "Ao vivo",
+        polling: "Atualizando a cada poucos segundos",
+        tvReconnecting: "Reconectando",
+        roomLine: "Código da sala {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Entre: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Esperando jogadores.",
+        tvWaitThree: "Esperando pelo menos 3 jogadores.",
+        tvDecks: "Baralhos: {0}",
+        tvLooked: "{0} de {1} já viram",
+        tvStarter: "{0} começa. Uma dica cada um, na roda.",
+        tvClues: "Uma dica cada um, na roda.",
+        tvRoundOver: "Fim da rodada",
+        tvCheckPhones: "Olhem os celulares",
+        tvTypeCode: "Digite o código de quatro caracteres do celular do anfitrião.",
+        tvGoneTitle: "Esta tela não está mais mostrando a sala",
+        tvGoneBody: "O anfitrião desconectou a tela ou a sala acabou. Mostre de novo com o código ou peça um novo.",
+        qrAria: "QR code: {0}",
+        linkCopied: "Link copiado",
+        typeNameFirst: "Digite um nome primeiro.",
+        mystery: "Baralho surpresa",
+        err_web_host_disabled: "Abrir salas pelo navegador está desativado.",
+        err_host_only: "Só o anfitrião pode fazer isso.",
+        err_not_in_round: "Você entrou no meio da rodada. Você joga na próxima.",
+        err_screens_full: "Duas telas já estão mostrando esta sala. O anfitrião pode desconectá-las pelo celular."
+      },
+      "pt-PT": {
+        codeLabel: "CÓDIGO DA SALA",
+        nameLabel: "O TEU NOME",
+        namePlaceholder: "O teu nome",
+        joinRoom: "Entrar na sala",
+        privacy: "Privacidade",
+        twoImposters: "Dois impostores (seis jogadores ou mais)",
+        mischief: "Modo travessura",
+        roomCode: "Código da sala",
+        share: "Partilhar o link",
+        inTheRoom: "NA SALA ({0} DE {1})",
+        deal: "Distribuir a ronda",
+        leave: "Sair da sala",
+        you: "(tu)",
+        host: "ANFITRIÃO",
+        looked: "JÁ VIU",
+        nextRoundTag: "PRÓXIMA RONDA",
+        remove: "Tirar",
+        removeConfirm: "Tirar {0} da sala?",
+        needThree: "São precisos pelo menos 3 jogadores para distribuir.",
+        dealWhenReady: "Distribui quando estiverem todos.",
+        waitingForHost: "À espera que o anfitrião distribua.",
+        round: "Ronda {0}",
+        tapToLook: "Toca para ver",
+        keepItHidden: "Não deixes ninguém ver o teu ecrã.",
+        tapToHide: "Toca outra vez na carta para a esconder.",
+        youAreImposter: "És o impostor",
+        imposterOne: "Toda a gente sabe o segredo, menos tu. Disfarça e descobre.",
+        imposterTwo: "São dois impostores. Disfarcem e descubram o segredo.",
+        yourHint: "A tua pista: {0}",
+        crewPlace: "É aqui que estão todos. Nem todos aqui sabem.",
+        crewWord: "Esta é a palavra secreta. Nem todos aqui sabem.",
+        nextOne: "Entras na próxima",
+        nextOneBody: "Chegaste depois de as cartas saírem. Assiste a esta.",
+        whoLooked: "QUEM JÁ VIU ({0} DE {1})",
+        starts: "{0} começa. Uma pista cada um, à vez, e depois votem.",
+        reveal: "Revelar o impostor",
+        revealConfirm: "Terminar a ronda para todos? Espera até todos terem votado.",
+        imposterWas: "O impostor era",
+        impostersWere: "Os impostores eram",
+        mischiefResultLabel: "Ninguém era o impostor",
+        mischiefResultBody: "Ninguém tinha. Fizeram tudo isso uns aos outros à toa.",
+        thePlace: "O lugar",
+        theWord: "A palavra secreta",
+        thePlaceCaps: "O LUGAR",
+        theWordCaps: "A PALAVRA SECRETA",
+        hintWas: "A pista era: {0}",
+        nextRound: "Distribuir a próxima ronda",
+        waitingNext: "À espera que o anfitrião distribua a próxima ronda.",
+        leaveConfirm: "Sair da sala?",
+        leaveConfirmHost: "A pessoa seguinte passa a ser o anfitrião.",
+        goneTitle: "Essa sala terminou",
+        goneBody: "As salas fecham umas horas depois da última ronda, ou quando o anfitrião te tira. Pede um código novo.",
+        removedTitle: "O anfitrião tirou-te da sala",
+        removedBody: "Pede-lhe o código se quiseres voltar.",
+        tvConnected: "TV ligada",
+        tvMirror: "Nunca espelhes um telemóvel que está a jogar: mostrava a carta dele.",
+        disconnectTv: "Desligar a TV",
+        scanToJoin: "Lê o código para entrar, ou vai a {0}",
+        retrying: "Sem ligação. A tentar outra vez.",
+        shareText: "Entra na nossa sala de Impostor no Antics. Código {0}",
+        shareTitle: "Antics Impostor",
+        tvHead: "ANTICS · IMPOSTOR",
+        cat_locations: "Lugares",
+        cat_everydayObjects: "Objetos do dia a dia",
+        cat_famousPeople: "Pessoas famosas",
+        cat_foodAndDrinks: "Comida e bebida",
+        cat_brandsAndLogos: "Marcas e logótipos",
+        cat_sports: "Desporto",
+        err_room_not_found: "Não há nenhuma sala com esse código. Confirma com o anfitrião.",
+        err_name_taken: "Alguém na sala já tem esse nome.",
+        err_room_full: "Essa sala está cheia (12 jogadores). Pede ao anfitrião para tirar alguém e tenta outra vez.",
+        err_invalid_name: "Experimenta outro nome.",
+        err_rate_limited: "Demasiadas tentativas. Espera um minuto.",
+        err_rooms_busy: "As salas estão muito ocupadas agora. Tenta outra vez daqui a um minuto.",
+        err_not_enough_players: "São precisos pelo menos 3 jogadores.",
+        err_round_in_progress: "Espera que a ronda acabe.",
+        err_network: "Sem ligação. Tenta outra vez.",
+        err_generic: "Algo correu mal. Tenta outra vez.",
+        title: "Entra numa sala de Impostor | Antics",
+        metaDesc: "Entra na sala de Impostor dos teus amigos no Antics. Cada um joga no seu telemóvel. Sem descargas, sem registo.",
+        tvTitle: "Impostor no ecrã grande | Antics",
+        joinTitle: "Entra na sala de Impostor",
+        joinLead: "Cada um joga no seu telemóvel. Um de vocês está a fazer bluff.",
+        noSignup: "Sem registo, sem precisar da app.",
+        hostTitle: "Abre uma sala de Impostor",
+        hostLead: "Recebes um código. Os outros entram no seu telemóvel.",
+        roundSettings: "DEFINIÇÕES DA RONDA",
+        setHint: "O impostor recebe uma pista",
+        setHard: "Pistas difíceis",
+        createRoom: "Criar a sala",
+        yourCard: "A TUA CARTA",
+        roundInProgress: "RONDA A DECORRER",
+        and: "e",
+        wallBody: "Esta sala usa os baralhos grátis. A app Antics tem mais baralhos de Impostor e mais oito jogos de festa para o mesmo grupo.",
+        wallCta: "Descarrega o Antics grátis",
+        wallSmall: "iPhone e Android. Milhares de cartas, sem anúncios.",
+        rejoin: "Entrar noutra sala",
+        tvEntryTitle: "Põe a sala na televisão",
+        tvEntryLead: "Escreve o código da sala que está no telemóvel do anfitrião. A televisão mostra quem está na sala, a ronda e a revelação. Nunca a carta de ninguém.",
+        tvShow: "Mostrar a sala",
+        tvEntrySmall: "Abre isto num portátil, tablet ou smart TV, ou num portátil ou iPad que tenhas a mais e que espelhes na televisão por AirPlay. Nunca espelhes um telemóvel que está a jogar: mostraria a carta desse telemóvel.",
+        tvCheckPhone: "Pessoal, vejam o telemóvel.",
+        tvVote: "Votem, e depois qualquer um pode revelar no telemóvel.",
+        tvLate: "Chegaste tarde? Lê o código para entrar na próxima ronda",
+        tvGet: "Descarrega o Antics:",
+        live: "Em direto",
+        polling: "A atualizar a cada poucos segundos",
+        tvReconnecting: "A ligar outra vez",
+        roomLine: "Código da sala {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Entra: anticsapp.com/j/{0}",
+        tvWaitPlayers: "À espera de jogadores.",
+        tvWaitThree: "À espera de pelo menos 3 jogadores.",
+        tvDecks: "Baralhos: {0}",
+        tvLooked: "{0} de {1} já viram",
+        tvStarter: "{0} começa. Uma pista cada um, à vez.",
+        tvClues: "Uma pista cada um, à vez.",
+        tvRoundOver: "Fim da ronda",
+        tvCheckPhones: "Vejam os telemóveis",
+        tvTypeCode: "Escreve o código de quatro caracteres do telemóvel do anfitrião.",
+        tvGoneTitle: "Este ecrã já não está a mostrar a sala",
+        tvGoneBody: "O anfitrião desligou-o ou a sala terminou. Mostra-a outra vez com o código ou pede um novo.",
+        qrAria: "Código QR: {0}",
+        linkCopied: "Link copiado",
+        typeNameFirst: "Escreve primeiro um nome.",
+        mystery: "Baralho surpresa",
+        err_web_host_disabled: "Abrir salas no browser está desligado.",
+        err_host_only: "Só o anfitrião pode fazer isso.",
+        err_not_in_round: "Entraste a meio da ronda. Jogas na próxima.",
+        err_screens_full: "Já há dois ecrãs a mostrar esta sala. O anfitrião pode desligá-los no telemóvel."
+      },
+      "de": {
+        codeLabel: "RAUMCODE",
+        nameLabel: "DEIN NAME",
+        namePlaceholder: "Dein Name",
+        joinRoom: "Raum beitreten",
+        privacy: "Datenschutz",
+        twoImposters: "Zwei Imposter (ab sechs Leuten)",
+        mischief: "Trollmodus",
+        roomCode: "Raumcode",
+        share: "Beitrittslink teilen",
+        inTheRoom: "IM RAUM ({0} VON {1})",
+        deal: "Runde austeilen",
+        leave: "Raum verlassen",
+        you: "(du)",
+        host: "GASTGEBER",
+        looked: "HAT GESCHAUT",
+        nextRoundTag: "NÄCHSTE RUNDE",
+        remove: "Entfernen",
+        removeConfirm: "{0} aus dem Raum entfernen?",
+        needThree: "Zum Austeilen braucht ihr mindestens 3 Leute.",
+        dealWhenReady: "Teil aus, wenn alle da sind.",
+        waitingForHost: "Warten, bis der Gastgeber austeilt.",
+        round: "Runde {0}",
+        tapToLook: "Zum Anschauen tippen",
+        keepItHidden: "Lass niemanden auf deinen Bildschirm schauen.",
+        tapToHide: "Tipp nochmal auf die Karte, um sie zu verstecken.",
+        youAreImposter: "Du bist der Imposter",
+        imposterOne: "Alle anderen kennen das Geheimnis. Tarn dich und find es heraus.",
+        imposterTwo: "Ihr seid zu zweit. Tarnt euch und findet das Geheimnis heraus.",
+        yourHint: "Dein Hinweis: {0}",
+        crewPlace: "Hier seid ihr alle. Nicht alle hier wissen es.",
+        crewWord: "Das ist das geheime Wort. Nicht alle hier kennen es.",
+        nextOne: "Du bist in der nächsten Runde dabei",
+        nextOneBody: "Du kamst, nachdem die Karten verteilt waren. Schau diese Runde zu.",
+        whoLooked: "WER SCHON GESCHAUT HAT ({0} VON {1})",
+        starts: "{0} fängt an. Reihum ein Hinweis pro Person, dann abstimmen.",
+        reveal: "Imposter enttarnen",
+        revealConfirm: "Die Runde für alle beenden? Warte, bis alle abgestimmt haben.",
+        imposterWas: "Der Imposter war",
+        impostersWere: "Die Imposter waren",
+        mischiefResultLabel: "Niemand war der Imposter",
+        mischiefResultBody: "Niemand hatte es. Ihr habt euch das alles umsonst angetan.",
+        thePlace: "Der Ort",
+        theWord: "Das geheime Wort",
+        thePlaceCaps: "DER ORT",
+        theWordCaps: "DAS GEHEIME WORT",
+        hintWas: "Der Hinweis war: {0}",
+        nextRound: "Nächste Runde austeilen",
+        waitingNext: "Warten, bis der Gastgeber die nächste Runde austeilt.",
+        leaveConfirm: "Raum verlassen?",
+        leaveConfirmHost: "Die nächste Person wird Gastgeber.",
+        goneTitle: "Dieser Raum ist zu Ende",
+        goneBody: "Räume schließen ein paar Stunden nach der letzten Runde, oder wenn der Gastgeber dich entfernt. Frag nach einem neuen Code.",
+        removedTitle: "Der Gastgeber hat dich aus dem Raum entfernt",
+        removedBody: "Frag nach dem Code, wenn du wieder rein willst.",
+        tvConnected: "Fernseher verbunden",
+        tvMirror: "Spiegle nie ein Handy, auf dem gespielt wird: Es würde seine Karte zeigen.",
+        disconnectTv: "Fernseher trennen",
+        scanToJoin: "Scannen zum Beitreten, oder geh auf {0}",
+        retrying: "Keine Verbindung. Neuer Versuch läuft.",
+        shareText: "Komm in unseren Imposter-Raum bei Antics. Code {0}",
+        shareTitle: "Antics Imposter",
+        tvHead: "ANTICS · IMPOSTER",
+        cat_locations: "Orte",
+        cat_everydayObjects: "Alltagsgegenstände",
+        cat_famousPeople: "Promis",
+        cat_foodAndDrinks: "Essen und Trinken",
+        cat_brandsAndLogos: "Marken und Logos",
+        cat_sports: "Sportarten",
+        err_room_not_found: "Kein Raum mit diesem Code. Frag beim Gastgeber nach.",
+        err_name_taken: "Jemand im Raum hat schon diesen Namen.",
+        err_room_full: "Dieser Raum ist voll (12 Spieler). Bitte den Gastgeber, jemanden zu entfernen, und versuch es dann noch mal.",
+        err_invalid_name: "Versuch einen anderen Namen.",
+        err_rate_limited: "Zu viele Versuche. Warte kurz.",
+        err_rooms_busy: "Gerade ist in den Räumen viel los. Versuch es in einer Minute nochmal.",
+        err_not_enough_players: "Ihr braucht mindestens 3 Leute.",
+        err_round_in_progress: "Warte, bis die Runde vorbei ist.",
+        err_network: "Keine Verbindung. Versuch es nochmal.",
+        err_generic: "Etwas ist schiefgelaufen. Versuch es nochmal.",
+        title: "Einem Imposter-Raum beitreten | Antics",
+        metaDesc: "Tritt dem Imposter-Raum deiner Freunde bei Antics bei. Alle spielen auf dem eigenen Handy. Kein Download, keine Anmeldung.",
+        tvTitle: "Imposter auf dem großen Bildschirm | Antics",
+        joinTitle: "Dem Imposter-Raum beitreten",
+        joinLead: "Alle spielen auf dem eigenen Handy. Einer von euch blufft.",
+        noSignup: "Keine Anmeldung, keine App nötig.",
+        hostTitle: "Einen Imposter-Raum eröffnen",
+        hostLead: "Du bekommst einen Code. Alle anderen treten auf dem eigenen Handy bei.",
+        roundSettings: "EINSTELLUNGEN FÜR DIE RUNDE",
+        setHint: "Imposter bekommt einen Hinweis",
+        setHard: "Schwere Hinweise",
+        createRoom: "Raum erstellen",
+        yourCard: "DEINE KARTE",
+        roundInProgress: "RUNDE LÄUFT",
+        and: "und",
+        wallBody: "Dieser Raum spielt mit den kostenlosen Decks. Die Antics-App hat mehr Imposter-Decks und acht weitere Partyspiele für dieselbe Gruppe.",
+        wallCta: "Antics kostenlos holen",
+        wallSmall: "iPhone und Android. Tausende Karten, keine Werbung.",
+        rejoin: "Einem anderen Raum beitreten",
+        tvEntryTitle: "Den Raum auf den Fernseher bringen",
+        tvEntryLead: "Gib den Raumcode vom Handy des Gastgebers ein. Der Fernseher zeigt, wer dabei ist, die Runde und die Auflösung. Nie die Karte von jemandem.",
+        tvShow: "Raum anzeigen",
+        tvEntrySmall: "Öffne das auf einem Laptop, Tablet oder Smart-TV, oder auf einem freien Laptop oder iPad, das du per AirPlay auf den Fernseher bringst. Spiegle nie ein Handy, mit dem gespielt wird: Es würde seine Karte zeigen.",
+        tvCheckPhone: "Alle, schaut auf euer Handy.",
+        tvVote: "Stimmt ab, dann kann jeder auf dem Handy auflösen.",
+        tvLate: "Zu spät? Scannen und in der nächsten Runde mitspielen",
+        tvGet: "Hol dir Antics:",
+        live: "Live",
+        polling: "Aktualisiert alle paar Sekunden",
+        tvReconnecting: "Verbinde neu",
+        roomLine: "Raumcode {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Beitreten: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Warte auf Spieler.",
+        tvWaitThree: "Warte auf mindestens 3 Spieler.",
+        tvDecks: "Decks: {0}",
+        tvLooked: "{0} von {1} haben geschaut",
+        tvStarter: "{0} fängt an. Reihum ein Hinweis pro Person.",
+        tvClues: "Reihum ein Hinweis pro Person.",
+        tvRoundOver: "Runde vorbei",
+        tvCheckPhones: "Schaut auf eure Handys",
+        tvTypeCode: "Gib den vierstelligen Code vom Handy des Gastgebers ein.",
+        tvGoneTitle: "Dieser Bildschirm zeigt den Raum nicht mehr",
+        tvGoneBody: "Der Gastgeber hat ihn getrennt, oder der Raum ist vorbei. Zeig ihn mit dem Code wieder an oder frag nach einem neuen.",
+        qrAria: "QR-Code: {0}",
+        linkCopied: "Link kopiert",
+        typeNameFirst: "Gib zuerst einen Namen ein.",
+        mystery: "Überraschungsdeck",
+        err_web_host_disabled: "Räume im Browser zu eröffnen ist ausgeschaltet.",
+        err_host_only: "Das kann nur der Gastgeber.",
+        err_not_in_round: "Du bist mitten in der Runde beigetreten. In der nächsten bist du dabei.",
+        err_screens_full: "Zwei Bildschirme zeigen diesen Raum schon. Der Gastgeber kann sie auf seinem Handy trennen."
+      },
+      "fr": {
+        codeLabel: "CODE DU SALON",
+        nameLabel: "TON PRÉNOM",
+        namePlaceholder: "Ton prénom",
+        joinRoom: "Rejoindre le salon",
+        privacy: "Confidentialité",
+        twoImposters: "Deux imposteurs (six joueurs ou plus)",
+        mischief: "Mode malice",
+        roomCode: "Code du salon",
+        share: "Partager le lien",
+        inTheRoom: "DANS LE SALON ({0} SUR {1})",
+        deal: "Distribuer la manche",
+        leave: "Quitter le salon",
+        you: "(toi)",
+        host: "HÔTE",
+        looked: "A REGARDÉ",
+        nextRoundTag: "MANCHE SUIVANTE",
+        remove: "Retirer",
+        removeConfirm: "Retirer {0} du salon ?",
+        needThree: "Il faut au moins 3 joueurs pour distribuer.",
+        dealWhenReady: "Distribue quand tout le monde est là.",
+        waitingForHost: "On attend que l’hôte distribue.",
+        round: "Manche {0}",
+        tapToLook: "Touche pour regarder",
+        keepItHidden: "Garde ton écran pour toi.",
+        tapToHide: "Touche encore la carte pour la cacher.",
+        youAreImposter: "Tu es l’imposteur",
+        imposterOne: "Tous les autres connaissent le secret. Fonds-toi dans la masse et devine-le.",
+        imposterTwo: "Vous êtes deux. Fondez-vous dans la masse et devinez le secret.",
+        yourHint: "Ton indice : {0}",
+        crewPlace: "Voici où vous êtes tous. Tout le monde ici ne le sait pas.",
+        crewWord: "Voici le mot secret. Tout le monde ici ne le connaît pas.",
+        nextOne: "Tu joues à la prochaine",
+        nextOneBody: "Les cartes étaient déjà distribuées. Regarde cette manche.",
+        whoLooked: "QUI A REGARDÉ ({0} SUR {1})",
+        starts: "{0} commence. Un indice chacun, à tour de rôle, puis on vote.",
+        reveal: "Révéler l’imposteur",
+        revealConfirm: "Terminer la manche pour tout le monde ? Attends que tout le monde ait voté.",
+        imposterWas: "L’imposteur était",
+        impostersWere: "Les imposteurs étaient",
+        mischiefResultLabel: "Personne n’était l’imposteur",
+        mischiefResultBody: "Personne ne l’avait. Vous vous êtes fait tout ça pour rien.",
+        thePlace: "Le lieu",
+        theWord: "Le mot secret",
+        thePlaceCaps: "LE LIEU",
+        theWordCaps: "LE MOT SECRET",
+        hintWas: "L’indice était : {0}",
+        nextRound: "Distribuer la manche suivante",
+        waitingNext: "On attend que l’hôte distribue la manche suivante.",
+        leaveConfirm: "Quitter le salon ?",
+        leaveConfirmHost: "La personne suivante devient l’hôte.",
+        goneTitle: "Ce salon est terminé",
+        goneBody: "Les salons ferment quelques heures après la dernière manche, ou quand l’hôte te retire. Demande un nouveau code.",
+        removedTitle: "L’hôte t’a fait sortir du salon",
+        removedBody: "Demande-lui le code si tu veux revenir.",
+        tvConnected: "Télé connectée",
+        tvMirror: "Ne duplique jamais l’écran d’un téléphone qui joue : sa carte s’afficherait.",
+        disconnectTv: "Déconnecter la télé",
+        scanToJoin: "Scanne pour rejoindre, ou va sur {0}",
+        retrying: "Pas de connexion. Nouvel essai en cours.",
+        shareText: "Rejoins notre salon Imposteur sur Antics. Code {0}",
+        shareTitle: "Antics Imposteur",
+        tvHead: "ANTICS · IMPOSTEUR",
+        cat_locations: "Lieux",
+        cat_everydayObjects: "Objets du quotidien",
+        cat_famousPeople: "Personnes célèbres",
+        cat_foodAndDrinks: "Nourriture et boissons",
+        cat_brandsAndLogos: "Marques et logos",
+        cat_sports: "Sports",
+        err_room_not_found: "Aucun salon avec ce code. Vérifie auprès de l’hôte.",
+        err_name_taken: "Quelqu’un dans le salon a déjà ce prénom.",
+        err_room_full: "Ce salon est complet (12 joueurs). Demande à l’hôte de retirer quelqu’un, puis réessaie.",
+        err_invalid_name: "Essaie un autre prénom.",
+        err_rate_limited: "Trop d’essais. Attends une minute.",
+        err_rooms_busy: "Les salons sont très demandés en ce moment. Réessaie dans une minute.",
+        err_not_enough_players: "Il faut au moins 3 joueurs.",
+        err_round_in_progress: "Attends la fin de la manche.",
+        err_network: "Pas de connexion. Réessaie.",
+        err_generic: "Un problème est survenu. Réessaie.",
+        title: "Rejoindre un salon Imposteur | Antics",
+        metaDesc: "Rejoins le salon Imposteur de tes potes sur Antics. Chacun joue sur son téléphone. Rien à télécharger, pas d’inscription.",
+        tvTitle: "Imposteur sur grand écran | Antics",
+        joinTitle: "Rejoins le salon Imposteur",
+        joinLead: "Chacun joue sur son téléphone. L’un de vous bluffe.",
+        noSignup: "Pas d’inscription, pas besoin de l’appli.",
+        hostTitle: "Ouvre un salon Imposteur",
+        hostLead: "Tu reçois un code. Les autres rejoignent sur leur propre téléphone.",
+        roundSettings: "RÉGLAGES DE LA MANCHE",
+        setHint: "L’imposteur reçoit un indice",
+        setHard: "Indices difficiles",
+        createRoom: "Créer le salon",
+        yourCard: "TA CARTE",
+        roundInProgress: "MANCHE EN COURS",
+        and: "et",
+        wallBody: "Ce salon distribue les paquets gratuits. L’appli Antics a d’autres paquets Imposteur et huit autres jeux de soirée pour le même groupe.",
+        wallCta: "Télécharge Antics gratuitement",
+        wallSmall: "iPhone et Android. Des milliers de cartes, sans pub.",
+        rejoin: "Rejoindre un autre salon",
+        tvEntryTitle: "Mets le salon sur la télé",
+        tvEntryLead: "Tape le code du salon affiché sur le téléphone de l’hôte. La télé montre qui est là, la manche et la révélation. Jamais la carte de quelqu’un.",
+        tvShow: "Afficher le salon",
+        tvEntrySmall: "Ouvre cette page sur un ordinateur, une tablette ou une smart TV, ou sur un ordinateur ou un iPad libre que tu diffuses sur la télé avec AirPlay. Ne duplique jamais l’écran d’un téléphone qui joue : il montrerait sa carte.",
+        tvCheckPhone: "Tout le monde, regardez votre téléphone.",
+        tvVote: "Votez, puis n’importe qui peut révéler sur son téléphone.",
+        tvLate: "En retard ? Scanne pour jouer la prochaine manche",
+        tvGet: "Télécharge Antics :",
+        live: "En direct",
+        polling: "Mise à jour toutes les quelques secondes",
+        tvReconnecting: "Reconnexion",
+        roomLine: "Code du salon {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Rejoindre : anticsapp.com/j/{0}",
+        tvWaitPlayers: "En attente de joueurs.",
+        tvWaitThree: "En attente d’au moins 3 joueurs.",
+        tvDecks: "Paquets : {0}",
+        tvLooked: "{0} sur {1} ont regardé",
+        tvStarter: "{0} commence. Un indice chacun, à tour de rôle.",
+        tvClues: "Un indice chacun, à tour de rôle.",
+        tvRoundOver: "Manche terminée",
+        tvCheckPhones: "Regardez vos téléphones",
+        tvTypeCode: "Tape le code à quatre caractères affiché sur le téléphone de l’hôte.",
+        tvGoneTitle: "Cet écran n’affiche plus le salon",
+        tvGoneBody: "L’hôte l’a déconnecté, ou le salon est terminé. Affiche-le à nouveau avec le code, ou demande un nouveau code.",
+        qrAria: "Code QR : {0}",
+        linkCopied: "Lien copié",
+        typeNameFirst: "Tape d’abord un prénom.",
+        mystery: "Paquet mystère",
+        err_web_host_disabled: "Ouvrir un salon depuis le navigateur est désactivé.",
+        err_host_only: "Seul l’hôte peut faire ça.",
+        err_not_in_round: "Tu as rejoint en pleine manche. Tu joues la prochaine.",
+        err_screens_full: "Deux écrans affichent déjà ce salon. L’hôte peut les déconnecter depuis son téléphone."
+      },
+      "it": {
+        codeLabel: "CODICE DELLA STANZA",
+        nameLabel: "IL TUO NOME",
+        namePlaceholder: "Il tuo nome",
+        joinRoom: "Entra nella stanza",
+        privacy: "Privacy",
+        twoImposters: "Due impostori (da sei giocatori in su)",
+        mischief: "Modalità scherzo",
+        roomCode: "Codice della stanza",
+        share: "Condividi il link",
+        inTheRoom: "NELLA STANZA ({0} SU {1})",
+        deal: "Distribuisci i ruoli",
+        leave: "Esci dalla stanza",
+        you: "(tu)",
+        host: "HOST",
+        looked: "HA GUARDATO",
+        nextRoundTag: "PROSSIMO ROUND",
+        remove: "Togli",
+        removeConfirm: "Togliere {0} dalla stanza?",
+        needThree: "Servono almeno 3 giocatori per distribuire.",
+        dealWhenReady: "Distribuisci quando ci sono tutti.",
+        waitingForHost: "In attesa che l’host distribuisca.",
+        round: "Round {0}",
+        tapToLook: "Tocca per guardare",
+        keepItHidden: "Non far vedere il tuo schermo a nessuno.",
+        tapToHide: "Tocca di nuovo la carta per nasconderla.",
+        youAreImposter: "Sei l’impostore",
+        imposterOne: "Tutti gli altri conoscono il segreto. Mimetizzati e scoprilo.",
+        imposterTwo: "Siete in due. Mimetizzatevi e scoprite il segreto.",
+        yourHint: "Il tuo indizio: {0}",
+        crewPlace: "Ecco dove siete tutti. Non tutti qui lo sanno.",
+        crewWord: "Ecco la parola segreta. Non tutti qui la conoscono.",
+        nextOne: "Giochi dal prossimo round",
+        nextOneBody: "Le carte erano già state distribuite. Guarda questo round.",
+        whoLooked: "CHI HA GUARDATO ({0} SU {1})",
+        starts: "Inizia {0}. Un indizio a testa, a turno, poi si vota.",
+        reveal: "Rivela l’impostore",
+        revealConfirm: "Chiudere il round per tutti? Aspetta che tutti abbiano votato.",
+        imposterWas: "L’impostore era",
+        impostersWere: "Gli impostori erano",
+        mischiefResultLabel: "Nessuno era l’impostore",
+        mischiefResultBody: "Nessuno ce l’aveva. Vi siete sospettati a vicenda per niente.",
+        thePlace: "Il luogo",
+        theWord: "La parola segreta",
+        thePlaceCaps: "IL LUOGO",
+        theWordCaps: "LA PAROLA SEGRETA",
+        hintWas: "L’indizio era: {0}",
+        nextRound: "Distribuisci i nuovi ruoli",
+        waitingNext: "In attesa che l’host distribuisca i nuovi ruoli.",
+        leaveConfirm: "Uscire dalla stanza?",
+        leaveConfirmHost: "La persona successiva diventa l’host.",
+        goneTitle: "Quella stanza è finita",
+        goneBody: "Le stanze chiudono qualche ora dopo l’ultimo round, o quando l’host ti toglie. Chiedi un codice nuovo.",
+        removedTitle: "L’host ti ha tolto dalla stanza",
+        removedBody: "Chiedi il codice all’host se vuoi rientrare.",
+        tvConnected: "TV collegata",
+        tvMirror: "Non duplicare mai lo schermo di un telefono che sta giocando: mostrerebbe la sua carta.",
+        disconnectTv: "Scollega la TV",
+        scanToJoin: "Scansiona per entrare, oppure vai su {0}",
+        retrying: "Nessuna connessione. Riprovo.",
+        shareText: "Entra nella nostra stanza di Impostore su Antics. Codice {0}",
+        shareTitle: "Antics Impostore",
+        tvHead: "ANTICS · IMPOSTORE",
+        cat_locations: "Luoghi",
+        cat_everydayObjects: "Oggetti quotidiani",
+        cat_famousPeople: "Persone famose",
+        cat_foodAndDrinks: "Cibo e bevande",
+        cat_brandsAndLogos: "Marchi e loghi",
+        cat_sports: "Sport",
+        err_room_not_found: "Nessuna stanza con quel codice. Controlla con l’host.",
+        err_name_taken: "Qualcuno nella stanza ha già quel nome.",
+        err_room_full: "Quella stanza è piena (12 giocatori). Chiedi all’host di togliere qualcuno, poi riprova.",
+        err_invalid_name: "Prova un altro nome.",
+        err_rate_limited: "Troppi tentativi. Aspetta un minuto.",
+        err_rooms_busy: "Le stanze sono molto affollate ora. Riprova tra un minuto.",
+        err_not_enough_players: "Servono almeno 3 giocatori.",
+        err_round_in_progress: "Aspetta che finisca il round.",
+        err_network: "Nessuna connessione. Riprova.",
+        err_generic: "Qualcosa è andato storto. Riprova.",
+        title: "Entra in una stanza di Impostore | Antics",
+        metaDesc: "Entra nella stanza di Impostore dei tuoi amici su Antics. Ognuno gioca sul proprio telefono. Niente download, niente registrazione.",
+        tvTitle: "Impostore sul grande schermo | Antics",
+        joinTitle: "Entra nella stanza di Impostore",
+        joinLead: "Ognuno gioca sul proprio telefono. Uno di voi sta bluffando.",
+        noSignup: "Niente registrazione, niente app.",
+        hostTitle: "Apri una stanza di Impostore",
+        hostLead: "Ricevi un codice. Gli altri entrano dal proprio telefono.",
+        roundSettings: "IMPOSTAZIONI DEL ROUND",
+        setHint: "L’impostore riceve un indizio",
+        setHard: "Indizi difficili",
+        createRoom: "Crea la stanza",
+        yourCard: "LA TUA CARTA",
+        roundInProgress: "ROUND IN CORSO",
+        and: "e",
+        wallBody: "Questa stanza usa i mazzi gratuiti. L’app Antics ha altri mazzi di Impostore e altri otto giochi da festa per lo stesso gruppo.",
+        wallCta: "Scarica Antics gratis",
+        wallSmall: "iPhone e Android. Migliaia di carte, niente pubblicità.",
+        rejoin: "Entra in un’altra stanza",
+        tvEntryTitle: "Metti la stanza sulla TV",
+        tvEntryLead: "Scrivi il codice della stanza dal telefono dell’host. La TV mostra chi c’è, il round e la rivelazione. Mai la carta di qualcuno.",
+        tvShow: "Mostra la stanza",
+        tvEntrySmall: "Aprilo su un portatile, un tablet o una smart TV, oppure su un portatile o un iPad libero che trasmetti alla TV con AirPlay. Non duplicare mai lo schermo di un telefono che sta giocando: mostrerebbe la sua carta.",
+        tvCheckPhone: "Tutti, guardate il telefono.",
+        tvVote: "Votate, poi chiunque può fare la rivelazione dal telefono.",
+        tvLate: "In ritardo? Scansiona per entrare nel prossimo round",
+        tvGet: "Scarica Antics:",
+        live: "In diretta",
+        polling: "Si aggiorna ogni pochi secondi",
+        tvReconnecting: "Riconnessione",
+        roomLine: "Codice della stanza {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Entra: anticsapp.com/j/{0}",
+        tvWaitPlayers: "In attesa di giocatori.",
+        tvWaitThree: "In attesa di almeno 3 giocatori.",
+        tvDecks: "Mazzi: {0}",
+        tvLooked: "{0} su {1} hanno guardato",
+        tvStarter: "Inizia {0}. Un indizio a testa, a turno.",
+        tvClues: "Un indizio a testa, a turno.",
+        tvRoundOver: "Round finito",
+        tvCheckPhones: "Guardate i telefoni",
+        tvTypeCode: "Scrivi il codice di quattro caratteri dal telefono dell’host.",
+        tvGoneTitle: "Questo schermo non mostra più la stanza",
+        tvGoneBody: "L’host l’ha scollegato, oppure la stanza è finita. Mostrala di nuovo con il codice o chiedine uno nuovo.",
+        qrAria: "Codice QR: {0}",
+        linkCopied: "Link copiato",
+        typeNameFirst: "Prima scrivi un nome.",
+        mystery: "Mazzo misterioso",
+        err_web_host_disabled: "Aprire stanze dal browser è disattivato.",
+        err_host_only: "Solo l’host può farlo.",
+        err_not_in_round: "Il round è già iniziato. Giochi al prossimo.",
+        err_screens_full: "Due schermi stanno già mostrando questa stanza. L’host può scollegarli dal suo telefono."
+      },
+      "nl": {
+        codeLabel: "KAMERCODE",
+        nameLabel: "JE NAAM",
+        namePlaceholder: "Je naam",
+        joinRoom: "Doe mee",
+        privacy: "Privacy",
+        twoImposters: "Twee bedriegers (vanaf zes spelers)",
+        mischief: "Chaosmodus",
+        roomCode: "Kamercode",
+        share: "Deel de link",
+        inTheRoom: "IN DE KAMER ({0} VAN {1})",
+        deal: "Deel de ronde",
+        leave: "Kamer verlaten",
+        you: "(jij)",
+        host: "HOST",
+        looked: "GEKEKEN",
+        nextRoundTag: "VOLGENDE RONDE",
+        remove: "Verwijderen",
+        removeConfirm: "{0} uit de kamer verwijderen?",
+        needThree: "Je hebt minstens 3 spelers nodig om te delen.",
+        dealWhenReady: "Deel als iedereen er is.",
+        waitingForHost: "Wachten tot de host deelt.",
+        round: "Ronde {0}",
+        tapToLook: "Tik om te kijken",
+        keepItHidden: "Laat niemand op je scherm kijken.",
+        tapToHide: "Tik nog een keer op de kaart om hem te verbergen.",
+        youAreImposter: "Jij bent de bedrieger",
+        imposterOne: "De rest kent het geheim. Val niet op en kom erachter.",
+        imposterTwo: "Jullie zijn met z’n tweeën. Val niet op en kom achter het geheim.",
+        yourHint: "Jouw hint: {0}",
+        crewPlace: "Hier zijn jullie allemaal. Niet iedereen hier weet het.",
+        crewWord: "Dit is het geheime woord. Niet iedereen hier kent het.",
+        nextOne: "Je doet mee in de volgende",
+        nextOneBody: "Je kwam binnen na het delen. Kijk deze ronde mee.",
+        whoLooked: "WIE HEEFT GEKEKEN ({0} VAN {1})",
+        starts: "{0} begint. Om de beurt één hint, daarna stemmen.",
+        reveal: "Onthul de bedrieger",
+        revealConfirm: "De ronde voor iedereen beëindigen? Wacht tot iedereen heeft gestemd.",
+        imposterWas: "De bedrieger was",
+        impostersWere: "De bedriegers waren",
+        mischiefResultLabel: "Niemand was de bedrieger",
+        mischiefResultBody: "Niemand had het. Jullie hebben elkaar dat allemaal voor niets aangedaan.",
+        thePlace: "De plek",
+        theWord: "Het geheime woord",
+        thePlaceCaps: "DE PLEK",
+        theWordCaps: "HET GEHEIME WOORD",
+        hintWas: "De hint was: {0}",
+        nextRound: "Deel de volgende ronde",
+        waitingNext: "Wachten tot de host de volgende ronde deelt.",
+        leaveConfirm: "Kamer verlaten?",
+        leaveConfirmHost: "De volgende persoon wordt de host.",
+        goneTitle: "Die kamer is gestopt",
+        goneBody: "Kamers sluiten een paar uur na de laatste ronde, of als de host je verwijdert. Vraag om een nieuwe code.",
+        removedTitle: "De host heeft je uit de kamer gehaald",
+        removedBody: "Vraag de code als je weer mee wilt doen.",
+        tvConnected: "Tv verbonden",
+        tvMirror: "Spiegel nooit een telefoon waarop gespeeld wordt: dan zie je die kaart.",
+        disconnectTv: "Tv loskoppelen",
+        scanToJoin: "Scan om mee te doen, of ga naar {0}",
+        retrying: "Geen verbinding. We proberen het opnieuw.",
+        shareText: "Doe mee in onze Bedrieger-kamer op Antics. Code {0}",
+        shareTitle: "Antics Bedrieger",
+        tvHead: "ANTICS · BEDRIEGER",
+        cat_locations: "Locaties",
+        cat_everydayObjects: "Alledaagse voorwerpen",
+        cat_famousPeople: "Beroemdheden",
+        cat_foodAndDrinks: "Eten en drinken",
+        cat_brandsAndLogos: "Merken en logo’s",
+        cat_sports: "Sporten",
+        err_room_not_found: "Geen kamer met die code. Check het bij de host.",
+        err_name_taken: "Iemand in de kamer heeft die naam al.",
+        err_room_full: "Die kamer zit vol (12 spelers). Vraag de host iemand te verwijderen en probeer het dan opnieuw.",
+        err_invalid_name: "Probeer een andere naam.",
+        err_rate_limited: "Te vaak geprobeerd. Wacht even.",
+        err_rooms_busy: "Het is nu erg druk in de kamers. Probeer het over een minuut opnieuw.",
+        err_not_enough_players: "Je hebt minstens 3 spelers nodig.",
+        err_round_in_progress: "Wacht tot de ronde voorbij is.",
+        err_network: "Geen verbinding. Probeer het opnieuw.",
+        err_generic: "Er ging iets mis. Probeer het opnieuw.",
+        title: "Doe mee in een Bedrieger-kamer | Antics",
+        metaDesc: "Doe mee in de Bedrieger-kamer van je vrienden op Antics. Iedereen speelt op de eigen telefoon. Geen download, geen account.",
+        tvTitle: "Bedrieger op het grote scherm | Antics",
+        joinTitle: "Doe mee in de Bedrieger-kamer",
+        joinLead: "Iedereen speelt op de eigen telefoon. Een van jullie bluft.",
+        noSignup: "Geen account, geen app nodig.",
+        hostTitle: "Open een Bedrieger-kamer",
+        hostLead: "Jij krijgt een code. De rest doet mee op de eigen telefoon.",
+        roundSettings: "INSTELLINGEN VOOR DE RONDE",
+        setHint: "Bedrieger krijgt een hint",
+        setHard: "Moeilijke hints",
+        createRoom: "Maak de kamer",
+        yourCard: "JOUW KAART",
+        roundInProgress: "RONDE BEZIG",
+        and: "en",
+        wallBody: "Deze kamer deelt de gratis stapels. De Antics-app heeft meer Bedrieger-stapels en nog acht partyspellen voor dezelfde groep.",
+        wallCta: "Download Antics gratis",
+        wallSmall: "iPhone en Android. Duizenden kaarten, geen advertenties.",
+        rejoin: "Doe mee in een andere kamer",
+        tvEntryTitle: "Zet de kamer op de tv",
+        tvEntryLead: "Typ de kamercode van de telefoon van de host. De tv laat zien wie er meedoet, de ronde en de onthulling. Nooit iemands kaart.",
+        tvShow: "Toon de kamer",
+        tvEntrySmall: "Open dit op een laptop, tablet of smart-tv, of op een losse laptop of iPad die je via AirPlay op de tv zet. Spiegel nooit een telefoon waarmee gespeeld wordt: die zou zijn kaart laten zien.",
+        tvCheckPhone: "Iedereen, kijk op je telefoon.",
+        tvVote: "Stem, daarna kan iedereen het op de eigen telefoon onthullen.",
+        tvLate: "Te laat? Scan om mee te doen in de volgende ronde",
+        tvGet: "Download Antics:",
+        live: "Live",
+        polling: "Wordt om de paar seconden bijgewerkt",
+        tvReconnecting: "Opnieuw verbinden",
+        roomLine: "Kamercode {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Meedoen: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Wachten op spelers.",
+        tvWaitThree: "Wachten op minstens 3 spelers.",
+        tvDecks: "Stapels: {0}",
+        tvLooked: "{0} van {1} hebben gekeken",
+        tvStarter: "{0} begint. Om de beurt één hint.",
+        tvClues: "Om de beurt één hint.",
+        tvRoundOver: "Ronde voorbij",
+        tvCheckPhones: "Kijk op jullie telefoons",
+        tvTypeCode: "Typ de code van vier tekens van de telefoon van de host.",
+        tvGoneTitle: "Dit scherm toont de kamer niet meer",
+        tvGoneBody: "De host heeft het losgekoppeld, of de kamer is afgelopen. Toon de kamer opnieuw met de code, of vraag om een nieuwe.",
+        qrAria: "QR-code: {0}",
+        linkCopied: "Link gekopieerd",
+        typeNameFirst: "Typ eerst een naam.",
+        mystery: "Verrassingsstapel",
+        err_web_host_disabled: "Een kamer openen in de browser staat uit.",
+        err_host_only: "Alleen de host kan dat.",
+        err_not_in_round: "Je deed mee tijdens de ronde. Je speelt de volgende mee.",
+        err_screens_full: "Twee schermen tonen deze kamer al. De host kan ze loskoppelen op de eigen telefoon."
+      },
+      "pl": {
+        codeLabel: "KOD POKOJU",
+        nameLabel: "TWOJE IMIĘ",
+        namePlaceholder: "Twoje imię",
+        joinRoom: "Dołącz do pokoju",
+        privacy: "Prywatność",
+        twoImposters: "Dwoje impostorów (od sześciu graczy)",
+        mischief: "Tryb psikusa",
+        roomCode: "Kod pokoju",
+        share: "Udostępnij link",
+        inTheRoom: "W POKOJU ({0} Z {1})",
+        deal: "Rozdaj rundę",
+        leave: "Wyjdź z pokoju",
+        you: "(ty)",
+        host: "GOSPODARZ",
+        looked: "OBEJRZANE",
+        nextRoundTag: "NASTĘPNA RUNDA",
+        remove: "Usuń",
+        removeConfirm: "Usunąć osobę {0} z pokoju?",
+        needThree: "Do rozdania potrzeba co najmniej 3 graczy.",
+        dealWhenReady: "Rozdaj, gdy wszyscy dołączą.",
+        waitingForHost: "Czekamy, aż gospodarz rozda.",
+        round: "Runda {0}",
+        tapToLook: "Dotknij, żeby zobaczyć",
+        keepItHidden: "Nie pokazuj nikomu ekranu.",
+        tapToHide: "Dotknij karty jeszcze raz, żeby ją ukryć.",
+        youAreImposter: "Jesteś impostorem",
+        imposterOne: "Wszyscy inni znają sekret. Nie daj się złapać i go odgadnij.",
+        imposterTwo: "Jest was dwoje. Nie dajcie się złapać i odgadnijcie sekret.",
+        yourHint: "Twoja podpowiedź: {0}",
+        crewPlace: "Tu wszyscy jesteście. Nie wszyscy tutaj o tym wiedzą.",
+        crewWord: "To jest tajne słowo. Nie wszyscy tutaj je znają.",
+        nextOne: "Grasz od następnej rundy",
+        nextOneBody: "Karty zostały już rozdane. Obejrzyj tę rundę.",
+        whoLooked: "KTO JUŻ ZOBACZYŁ ({0} Z {1})",
+        starts: "Zaczyna {0}. Po kolei jedna wskazówka na osobę, potem głosowanie.",
+        reveal: "Ujawnij impostora",
+        revealConfirm: "Zakończyć rundę dla wszystkich? Poczekaj, aż wszyscy zagłosują.",
+        imposterWas: "Impostorem jest",
+        impostersWere: "Impostorami są",
+        mischiefResultLabel: "Nikt nie był impostorem",
+        mischiefResultBody: "Nikt tego nie miał. Oskarżaliście się nawzajem zupełnie bez powodu.",
+        thePlace: "Miejsce",
+        theWord: "Tajne słowo",
+        thePlaceCaps: "MIEJSCE",
+        theWordCaps: "TAJNE SŁOWO",
+        hintWas: "Podpowiedź brzmiała: {0}",
+        nextRound: "Rozdaj następną rundę",
+        waitingNext: "Czekamy, aż gospodarz rozda następną rundę.",
+        leaveConfirm: "Wyjść z pokoju?",
+        leaveConfirmHost: "Następna osoba zostanie gospodarzem.",
+        goneTitle: "Ten pokój się skończył",
+        goneBody: "Pokoje zamykają się kilka godzin po ostatniej rundzie albo gdy gospodarz cię usunie. Poproś o nowy kod.",
+        removedTitle: "Gospodarz usunął cię z pokoju",
+        removedBody: "Poproś o kod, jeśli chcesz wrócić.",
+        tvConnected: "Telewizor połączony",
+        tvMirror: "Nigdy nie wyświetlaj ekranu telefonu, na którym ktoś gra: pokazałby jego kartę.",
+        disconnectTv: "Odłącz telewizor",
+        scanToJoin: "Zeskanuj, żeby dołączyć, albo wejdź na {0}",
+        retrying: "Brak połączenia. Próbuję ponownie.",
+        shareText: "Wbijaj do naszego pokoju Impostora w Antics. Kod {0}",
+        shareTitle: "Antics Impostor",
+        tvHead: "ANTICS · IMPOSTOR",
+        cat_locations: "Miejsca",
+        cat_everydayObjects: "Codzienne przedmioty",
+        cat_famousPeople: "Znane osoby",
+        cat_foodAndDrinks: "Jedzenie i napoje",
+        cat_brandsAndLogos: "Marki i logotypy",
+        cat_sports: "Sporty",
+        err_room_not_found: "Nie ma pokoju z tym kodem. Sprawdź u gospodarza.",
+        err_name_taken: "Ktoś w pokoju ma już to imię.",
+        err_room_full: "Ten pokój jest pełny (12 graczy). Poproś gospodarza, żeby kogoś usunął, i spróbuj ponownie.",
+        err_invalid_name: "Spróbuj innego imienia.",
+        err_rate_limited: "Za dużo prób. Poczekaj chwilę.",
+        err_rooms_busy: "Teraz jest duży ruch w pokojach. Spróbuj ponownie za minutę.",
+        err_not_enough_players: "Potrzeba co najmniej 3 graczy.",
+        err_round_in_progress: "Poczekaj, aż runda się skończy.",
+        err_network: "Brak połączenia. Spróbuj ponownie.",
+        err_generic: "Coś poszło nie tak. Spróbuj ponownie.",
+        title: "Dołącz do pokoju Impostora | Antics",
+        metaDesc: "Dołącz do pokoju Impostora znajomych w Antics. Każdy gra na swoim telefonie. Bez pobierania, bez rejestracji.",
+        tvTitle: "Impostor na dużym ekranie | Antics",
+        joinTitle: "Dołącz do pokoju Impostora",
+        joinLead: "Każdy gra na swoim telefonie. Ktoś z was blefuje.",
+        noSignup: "Bez rejestracji, bez aplikacji.",
+        hostTitle: "Otwórz pokój Impostora",
+        hostLead: "Dostajesz kod. Reszta dołącza na swoich telefonach.",
+        roundSettings: "USTAWIENIA RUNDY",
+        setHint: "Impostor dostaje podpowiedź",
+        setHard: "Trudne podpowiedzi",
+        createRoom: "Utwórz pokój",
+        yourCard: "TWOJA KARTA",
+        roundInProgress: "RUNDA TRWA",
+        and: "i",
+        wallBody: "Ten pokój rozdaje darmowe talie. Aplikacja Antics ma więcej talii Impostora i osiem innych gier imprezowych dla tej samej ekipy.",
+        wallCta: "Pobierz Antics za darmo",
+        wallSmall: "iPhone i Android. Tysiące kart, bez reklam.",
+        rejoin: "Dołącz do innego pokoju",
+        tvEntryTitle: "Wyświetl pokój na telewizorze",
+        tvEntryLead: "Wpisz kod pokoju z telefonu gospodarza. Telewizor pokazuje, kto jest w pokoju, rundę i odkrycie. Nigdy niczyjej karty.",
+        tvShow: "Pokaż pokój",
+        tvEntrySmall: "Otwórz to na laptopie, tablecie albo smart TV, albo na wolnym laptopie lub iPadzie, który wyświetlasz na telewizorze przez AirPlay. Nigdy nie dubluj ekranu telefonu, na którym ktoś gra: pokazałby jego kartę.",
+        tvCheckPhone: "Wszyscy, zerknijcie na telefony.",
+        tvVote: "Zagłosujcie, potem każdy może odkryć wynik na swoim telefonie.",
+        tvLate: "Spóźnienie? Zeskanuj i dołącz w następnej rundzie",
+        tvGet: "Pobierz Antics:",
+        live: "Na żywo",
+        polling: "Odświeżanie co kilka sekund",
+        tvReconnecting: "Ponowne łączenie",
+        roomLine: "Kod pokoju {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Dołącz: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Czekamy na graczy.",
+        tvWaitThree: "Czekamy na co najmniej 3 graczy.",
+        tvDecks: "Talie: {0}",
+        tvLooked: "Zobaczyło już: {0} z {1}",
+        tvStarter: "Zaczyna {0}. Po kolei jedna wskazówka na osobę.",
+        tvClues: "Po kolei jedna wskazówka na osobę.",
+        tvRoundOver: "Koniec rundy",
+        tvCheckPhones: "Zerknijcie na telefony",
+        tvTypeCode: "Wpisz czteroznakowy kod z telefonu gospodarza.",
+        tvGoneTitle: "Ten ekran już nie pokazuje pokoju",
+        tvGoneBody: "Gospodarz go odłączył albo pokój się zakończył. Pokaż go ponownie z kodem albo poproś o nowy.",
+        qrAria: "Kod QR: {0}",
+        linkCopied: "Link skopiowany",
+        typeNameFirst: "Najpierw wpisz imię.",
+        mystery: "Talia niespodzianka",
+        err_web_host_disabled: "Otwieranie pokoi w przeglądarce jest wyłączone.",
+        err_host_only: "Tylko gospodarz może to zrobić.",
+        err_not_in_round: "Dołączasz w trakcie rundy. Grasz w następnej.",
+        err_screens_full: "Ten pokój pokazują już dwa ekrany. Gospodarz może je odłączyć na swoim telefonie."
+      },
+      "cs": {
+        codeLabel: "KÓD MÍSTNOSTI",
+        nameLabel: "TVOJE JMÉNO",
+        namePlaceholder: "Tvoje jméno",
+        joinRoom: "Připojit se",
+        privacy: "Soukromí",
+        twoImposters: "Dva podvodníci (od šesti hráčů)",
+        mischief: "Rošťácký režim",
+        roomCode: "Kód místnosti",
+        share: "Sdílet odkaz",
+        inTheRoom: "V MÍSTNOSTI ({0} Z {1})",
+        deal: "Rozdat kolo",
+        leave: "Odejít z místnosti",
+        you: "(ty)",
+        host: "HOSTITEL",
+        looked: "VIDĚNO",
+        nextRoundTag: "DALŠÍ KOLO",
+        remove: "Odebrat",
+        removeConfirm: "Odebrat osobu {0} z místnosti?",
+        needThree: "K rozdání potřebujete aspoň 3 hráče.",
+        dealWhenReady: "Rozdej, až budou všichni uvnitř.",
+        waitingForHost: "Čeká se, až hostitel rozdá.",
+        round: "Kolo {0}",
+        tapToLook: "Klepni a podívej se",
+        keepItHidden: "Nikomu neukazuj svou obrazovku.",
+        tapToHide: "Klepni na kartu znovu a schovej ji.",
+        youAreImposter: "Jsi podvodník",
+        imposterOne: "Všichni ostatní znají tajemství. Nenápadně splyň a přijď na něj.",
+        imposterTwo: "Jste dva. Nenápadně splyňte a přijďte na tajemství.",
+        yourHint: "Tvoje nápověda: {0}",
+        crewPlace: "Tady všichni jste. Ne všichni tady to vědí.",
+        crewWord: "Tohle je tajné slovo. Ne všichni tady ho znají.",
+        nextOne: "Hraješ od dalšího kola",
+        nextOneBody: "Karty už jsou rozdané. Tohle kolo sleduj.",
+        whoLooked: "KDO UŽ SE PODÍVAL ({0} Z {1})",
+        starts: "Začíná {0}. Popořadě jedna nápověda každý, pak hlasujte.",
+        reveal: "Odhalit podvodníka",
+        revealConfirm: "Ukončit kolo pro všechny? Počkej, až všichni odhlasují.",
+        imposterWas: "Podvodník:",
+        impostersWere: "Podvodníci:",
+        mischiefResultLabel: "Nikdo nebyl podvodník",
+        mischiefResultBody: "Nikdo to neměl. Celou dobu jste se podezírali úplně zbytečně.",
+        thePlace: "Místo",
+        theWord: "Tajné slovo",
+        thePlaceCaps: "MÍSTO",
+        theWordCaps: "TAJNÉ SLOVO",
+        hintWas: "Nápověda byla: {0}",
+        nextRound: "Rozdat další kolo",
+        waitingNext: "Čeká se, až hostitel rozdá další kolo.",
+        leaveConfirm: "Odejít z místnosti?",
+        leaveConfirmHost: "Hostitelem se stane další v pořadí.",
+        goneTitle: "Ta místnost skončila",
+        goneBody: "Místnosti se zavírají pár hodin po posledním kole, nebo když tě hostitel odebere. Požádej o nový kód.",
+        removedTitle: "Hostitel tě odebral z místnosti",
+        removedBody: "Požádej o kód, jestli se chceš vrátit.",
+        tvConnected: "Televize připojena",
+        tvMirror: "Nikdy nezrcadli telefon, na kterém se hraje: ukázal by jeho kartu.",
+        disconnectTv: "Odpojit televizi",
+        scanToJoin: "Naskenuj a připoj se, nebo jdi na {0}",
+        retrying: "Bez připojení. Zkouším to znovu.",
+        shareText: "Přidej se do naší místnosti Podvodníka v Antics. Kód {0}",
+        shareTitle: "Antics Podvodník",
+        tvHead: "ANTICS · PODVODNÍK",
+        cat_locations: "Místa",
+        cat_everydayObjects: "Běžné předměty",
+        cat_famousPeople: "Slavné osobnosti",
+        cat_foodAndDrinks: "Jídlo a pití",
+        cat_brandsAndLogos: "Značky a loga",
+        cat_sports: "Sporty",
+        err_room_not_found: "Místnost s tímhle kódem neexistuje. Ověř si ho u hostitele.",
+        err_name_taken: "Někdo v místnosti už to jméno má.",
+        err_room_full: "Ta místnost je plná (12 hráčů). Požádej hostitele, ať někoho odebere, a zkus to znovu.",
+        err_invalid_name: "Zkus jiné jméno.",
+        err_rate_limited: "Moc pokusů. Chvilku počkej.",
+        err_rooms_busy: "Místnosti jsou teď vytížené. Zkus to znovu za minutu.",
+        err_not_enough_players: "Potřebujete aspoň 3 hráče.",
+        err_round_in_progress: "Počkej, až kolo skončí.",
+        err_network: "Bez připojení. Zkus to znovu.",
+        err_generic: "Něco se pokazilo. Zkus to znovu.",
+        title: "Připoj se do místnosti Podvodníka | Antics",
+        metaDesc: "Připoj se do místnosti Podvodníka svých kamarádů v Antics. Každý hraje na svém telefonu. Bez stahování, bez registrace.",
+        tvTitle: "Podvodník na velké obrazovce | Antics",
+        joinTitle: "Připoj se do místnosti Podvodníka",
+        joinLead: "Každý hraje na svém telefonu. Jeden z vás blafuje.",
+        noSignup: "Bez registrace, bez aplikace.",
+        hostTitle: "Otevři místnost Podvodníka",
+        hostLead: "Dostaneš kód. Ostatní se připojí na svých telefonech.",
+        roundSettings: "NASTAVENÍ KOLA",
+        setHint: "Podvodník dostane nápovědu",
+        setHard: "Těžké nápovědy",
+        createRoom: "Vytvořit místnost",
+        yourCard: "TVOJE KARTA",
+        roundInProgress: "KOLO PROBÍHÁ",
+        and: "a",
+        wallBody: "Tahle místnost rozdává bezplatné balíčky. Aplikace Antics má další balíčky Podvodníka a osm dalších párty her pro stejnou partu.",
+        wallCta: "Stáhni Antics zdarma",
+        wallSmall: "iPhone a Android. Tisíce karet, bez reklam.",
+        rejoin: "Připojit se do jiné místnosti",
+        tvEntryTitle: "Dej místnost na televizi",
+        tvEntryLead: "Napiš kód místnosti z telefonu hostitele. Televize ukazuje, kdo je v místnosti, kolo a odhalení. Nikdy ničí kartu.",
+        tvShow: "Zobrazit místnost",
+        tvEntrySmall: "Otevři to na notebooku, tabletu nebo chytré televizi, nebo na volném notebooku či iPadu, který přes AirPlay pouštíš na televizi. Nikdy nezrcadli telefon, na kterém se hraje: ukázal by svou kartu.",
+        tvCheckPhone: "Všichni, mrkněte do telefonu.",
+        tvVote: "Hlasujte, pak může kdokoli odhalit výsledek na svém telefonu.",
+        tvLate: "Jdeš pozdě? Naskenuj a hraj v dalším kole",
+        tvGet: "Stáhni Antics:",
+        live: "Živě",
+        polling: "Aktualizace každých pár sekund",
+        tvReconnecting: "Znovu se připojuji",
+        roomLine: "Kód místnosti {0} · anticsapp.com/j/{0}",
+        tvJoinLine: "Připoj se: anticsapp.com/j/{0}",
+        tvWaitPlayers: "Čekáme na hráče.",
+        tvWaitThree: "Čekáme aspoň na 3 hráče.",
+        tvDecks: "Balíčky: {0}",
+        tvLooked: "Podívalo se: {0} z {1}",
+        tvStarter: "Začíná {0}. Popořadě jedna nápověda každý.",
+        tvClues: "Popořadě jedna nápověda každý.",
+        tvRoundOver: "Konec kola",
+        tvCheckPhones: "Mrkněte do telefonů",
+        tvTypeCode: "Napiš čtyřznakový kód z telefonu hostitele.",
+        tvGoneTitle: "Tahle obrazovka už místnost neukazuje",
+        tvGoneBody: "Hostitel ji odpojil, nebo místnost skončila. Zobraz ji znovu s kódem, nebo si řekni o nový.",
+        qrAria: "QR kód: {0}",
+        linkCopied: "Odkaz zkopírován",
+        typeNameFirst: "Nejdřív napiš jméno.",
+        mystery: "Tajný balíček",
+        err_web_host_disabled: "Otevírání místností v prohlížeči je vypnuté.",
+        err_host_only: "To může jen hostitel.",
+        err_not_in_round: "Přidáváš se uprostřed kola. Hraješ až v dalším.",
+        err_screens_full: "Tuhle místnost už ukazují dvě obrazovky. Hostitel je může odpojit na svém telefonu."
+      }
+    };
+    function pickLang() {
+      var first = '';
+      try {
+        var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+        first = String(list[0] || '');
+      } catch (e) {}
+      var parts = first.split(/[-_]/);
+      var code = (parts[0] || '').toLowerCase();
+      var region = null;
+      for (var i = 1; i < parts.length; i++) if (/^[A-Za-z]{2}$/.test(parts[i])) { region = parts[i].toUpperCase(); break; }
+      if (code === 'es' && region === 'ES') return 'es-ES';
+      if (code === 'pt' && region === 'PT') return 'pt-PT';
+      return LANGS.indexOf(code) !== -1 ? code : 'en';
+    }
+    var LANG = pickLang();
+    /** One line in this page's language; English if a line is ever missing. */
+    function tr(key) {
+      var v = STRINGS[LANG] && STRINGS[LANG][key];
+      return typeof v === 'string' ? v : STRINGS.en[key];
+    }
+    function fmt(key, a, b) {
+      return tr(key).replace(/\{0\}/g, function () { return String(a); }).replace(/\{1\}/g, function () { return String(b); });
+    }
+    // The static lines, placeholders, title and description, once at load.
+    try {
+      if (document.documentElement) document.documentElement.lang = LANG === 'en' ? 'en-GB' : LANG;
+      document.title = tr('title');
+      if (document.querySelectorAll) {
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = tr(el.getAttribute('data-t')); });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-t-ph]'), function (el) { el.setAttribute('placeholder', tr(el.getAttribute('data-t-ph'))); });
+        var desc = document.querySelector('meta[name="description"]');
+        if (desc) desc.setAttribute('content', tr('metaDesc'));
+      }
+    } catch (e) {}
+    // Hard hints exist in English only (ruling 7), as in the app's setup.
+    var HARD_OK = LANG === 'en';
+    $('row-hard').hidden = !HARD_OK;
+
     var CATEGORY_NAMES = {
-      locations: 'Locations', everydayObjects: 'Everyday Objects', famousPeople: 'Famous People',
-      foodAndDrinks: 'Food and Drinks', brandsAndLogos: 'Brands and Logos', sports: 'Sports'
+      locations: tr('cat_locations'), everydayObjects: tr('cat_everydayObjects'), famousPeople: tr('cat_famousPeople'),
+      foodAndDrinks: tr('cat_foodAndDrinks'), brandsAndLogos: tr('cat_brandsAndLogos'), sports: tr('cat_sports')
     };
     var ERRORS = {
-      room_not_found: 'No room with that code. Check it with the host.',
-      name_taken: 'Someone in the room already has that name.',
-      room_full: 'That room is full (12 players). Ask the host to remove someone, then try again.',
+      room_not_found: tr('err_room_not_found'),
+      name_taken: tr('err_name_taken'),
+      room_full: tr('err_room_full'),
       // The server's invalid_name: a name its filter refused. An empty name gets
       // its own line in say(), from the form's own field.
-      invalid_name: 'Try a different name.',
-      rate_limited: 'Too many tries. Give it a minute.',
-      rooms_busy: 'Rooms are busy right now. Try again in a minute.',
-      web_host_disabled: 'Hosting from the browser is switched off.',
-      not_enough_players: 'You need at least 3 players.',
-      host_only: 'Only the host can do that.',
-      not_in_round: 'You joined mid-round. You are in the next one.',
-      round_in_progress: 'Wait for the round to end.',
-      screens_full: 'Two screens are already showing this room. The host can disconnect them from their phone.',
+      invalid_name: tr('err_invalid_name'),
+      rate_limited: tr('err_rate_limited'),
+      rooms_busy: tr('err_rooms_busy'),
+      web_host_disabled: tr('err_web_host_disabled'),
+      not_enough_players: tr('err_not_enough_players'),
+      host_only: tr('err_host_only'),
+      not_in_round: tr('err_not_in_round'),
+      round_in_progress: tr('err_round_in_progress'),
+      screens_full: tr('err_screens_full'),
       // A button press that failed: nothing retries it, so say what to do (L8).
-      network: 'No connection. Try again.'
+      network: tr('err_network')
     };
     // Only the TV's watch and the polls retry on their own, so only they say so.
-    var RETRYING = 'No connection. Trying again.';
+    var RETRYING = tr('retrying');
 
     function $(id) { return document.getElementById(id); }
     var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv'];
@@ -611,7 +2105,7 @@
     var NAME_FIELDS = { 'join-error': 'in-name', 'host-error': 'host-name' };
     function say(id, r) {
       var blank = r && r.data.error === 'invalid_name' && NAME_FIELDS[id] && !$(NAME_FIELDS[id]).value.trim();
-      $(id).textContent = r ? (blank ? 'Type a name first.' : (ERRORS[r.data.error] || 'Something went wrong. Try again.')) : '';
+      $(id).textContent = r ? (blank ? tr('typeNameFirst') : (ERRORS[r.data.error] || tr('err_generic'))) : '';
     }
     function mine(extra) {
       var b = { code: session.code, token: session.token };
@@ -635,16 +2129,16 @@
         var li = document.createElement('li');
         var name = document.createElement('span');
         name.className = 'name';
-        name.textContent = p.name + (p.id === view.you.id ? ' (you)' : '');
+        name.textContent = p.name + (p.id === view.you.id ? ' ' + tr('you') : '');
         li.appendChild(name);
-        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = 'HOST'; li.appendChild(h); }
-        if (showReady && p.ready) { var r = document.createElement('span'); r.className = 'tag ready'; r.textContent = 'LOOKED'; li.appendChild(r); }
-        if (sitsOut(view.status, p)) { var w = document.createElement('span'); w.className = 'tag next'; w.textContent = 'NEXT ROUND'; li.appendChild(w); }
+        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = tr('host'); li.appendChild(h); }
+        if (showReady && p.ready) { var r = document.createElement('span'); r.className = 'tag ready'; r.textContent = tr('looked'); li.appendChild(r); }
+        if (sitsOut(view.status, p)) { var w = document.createElement('span'); w.className = 'tag next'; w.textContent = tr('nextRoundTag'); li.appendChild(w); }
         if (canKick && p.id !== view.you.id) {
           var k = document.createElement('button');
-          k.className = 'kick'; k.textContent = 'Remove';
+          k.className = 'kick'; k.textContent = tr('remove');
           k.addEventListener('click', function () {
-            if (!confirm('Remove ' + p.name + ' from the room?')) return;
+            if (!confirm(fmt('removeConfirm', p.name))) return;
             api('kick', mine({ playerId: p.id })).then(take);
           });
           li.appendChild(k);
@@ -653,8 +2147,8 @@
       });
     }
 
-    function categoryLabel(id) { return CATEGORY_NAMES[id] || 'Mystery deck'; }
-    function roomLine(code) { return 'Room code ' + code + ' · anticsapp.com/j/' + code; }
+    function categoryLabel(id) { return CATEGORY_NAMES[id] || tr('mystery'); }
+    function roomLine(code) { return fmt('roomLine', code); }
 
     /** "TV connected" on every player screen while a TV watches the room
      *  (`view.screens`, absent on a phase 0 server, so it reads as none). */
@@ -685,20 +2179,20 @@
         show('lobby');
         $('lobby-code').textContent = view.code;
         $('lobby-link').textContent = 'anticsapp.com/j/' + view.code;
-        $('lobby-count').textContent = 'IN THE ROOM (' + n + ' OF 12)';
+        $('lobby-count').textContent = fmt('inTheRoom', n, 12);
         playerList($('lobby-players'), false, view.you.isHost);
         $('btn-start').hidden = !view.you.isHost;
         $('btn-start').disabled = !view.canStart;
         $('lobby-wait').textContent = view.you.isHost
-          ? (n < 3 ? 'You need at least 3 players to deal.' : 'Deal when everyone is in.')
-          : 'Waiting for the host to deal.';
+          ? (n < 3 ? tr('needThree') : tr('dealWhenReady'))
+          : tr('waitingForHost');
         return;
       }
 
       if (view.status === 'dealt') {
         show('card');
         var c = view.card || { role: 'waiting' };
-        $('card-round').textContent = 'Round ' + view.round;
+        $('card-round').textContent = fmt('round', view.round);
         // The code and Share on every screen, so a latecomer can be let in (H1).
         $('card-code').textContent = roomLine(view.code);
         $('secret').setAttribute('aria-expanded', cardOpen && c.role !== 'waiting' ? 'true' : 'false');
@@ -706,31 +2200,31 @@
         $('secret-open').hidden = !cardOpen && c.role !== 'waiting';
         $('card-tip').hidden = c.role === 'waiting';
         if (c.role === 'waiting') {
-          $('secret-kicker').textContent = 'ROUND IN PROGRESS';
+          $('secret-kicker').textContent = tr('roundInProgress');
           $('secret-big').className = 'big';
-          $('secret-big').textContent = 'You are in the next one';
-          $('secret-sub').textContent = 'You joined after the cards went out. Watch this one.';
+          $('secret-big').textContent = tr('nextOne');
+          $('secret-sub').textContent = tr('nextOneBody');
           $('secret-hint').textContent = '';
         } else if (c.role === 'imposter') {
           $('secret-kicker').textContent = categoryLabel(c.categoryId).toUpperCase();
           $('secret-big').className = 'big imposter';
-          $('secret-big').textContent = 'You are the imposter';
+          $('secret-big').textContent = tr('youAreImposter');
           $('secret-sub').textContent = c.twoImposters
-            ? 'There are two of you. Blend in and work out the secret.'
-            : 'Everyone else knows the secret. Blend in and work it out.';
-          $('secret-hint').textContent = c.hint ? 'Your hint: ' + c.hint : '';
+            ? tr('imposterTwo')
+            : tr('imposterOne');
+          $('secret-hint').textContent = c.hint ? fmt('yourHint', c.hint) : '';
         } else {
           $('secret-kicker').textContent = categoryLabel(c.categoryId).toUpperCase();
           $('secret-big').className = 'big';
           $('secret-big').textContent = c.word;
-          $('secret-sub').textContent = c.categoryKind === 'place' ? 'This is where you all are. Not everyone here knows it.' : 'This is the secret word. Not everyone here knows it.';
+          $('secret-sub').textContent = c.categoryKind === 'place' ? tr('crewPlace') : tr('crewWord');
           $('secret-hint').textContent = '';
         }
         var dealt = dealtIn(view.players);
         var looked = dealt.filter(function (p) { return p.ready; }).length;
-        $('card-ready').textContent = 'WHO HAS LOOKED (' + looked + ' OF ' + dealt.length + ')';
+        $('card-ready').textContent = fmt('whoLooked', looked, dealt.length);
         playerList($('card-players'), true, false);
-        $('card-starter').textContent = view.starterName ? view.starterName + ' starts. Go round, one clue each, then vote.' : '';
+        $('card-starter').textContent = view.starterName ? fmt('starts', view.starterName) : '';
         $('btn-reveal').hidden = c.role === 'waiting';
         return;
       }
@@ -739,19 +2233,19 @@
       show('reveal');
       var r = view.reveal;
       if (r.mischief) {
-        $('reveal-kicker').textContent = 'Nobody was the imposter';
-        $('reveal-names').textContent = 'Nobody had it. You did all that to each other for nothing.';
+        $('reveal-kicker').textContent = tr('mischiefResultLabel');
+        $('reveal-names').textContent = tr('mischiefResultBody');
       } else {
-        $('reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
-        $('reveal-names').textContent = r.imposterNames.join(' and ');
+        $('reveal-kicker').textContent = r.imposterNames.length === 2 ? tr('impostersWere') : tr('imposterWas');
+        $('reveal-names').textContent = r.imposterNames.join(' ' + tr('and') + ' ');
       }
-      $('reveal-word-kicker').textContent = (r.categoryKind === 'place' ? 'THE PLACE' : 'THE SECRET WORD') + ' · ' + categoryLabel(r.categoryId).toUpperCase();
+      $('reveal-word-kicker').textContent = (r.categoryKind === 'place' ? tr('thePlaceCaps') : tr('theWordCaps')) + ' · ' + categoryLabel(r.categoryId).toUpperCase();
       $('reveal-word').textContent = r.word;
-      $('reveal-hint').textContent = r.hint ? 'The hint was: ' + r.hint : '';
+      $('reveal-hint').textContent = r.hint ? fmt('hintWas', r.hint) : '';
       $('reveal-code').textContent = roomLine(view.code);
       $('btn-again').hidden = !view.you.isHost;
       $('btn-again').disabled = !view.canStart;
-      $('reveal-wait').textContent = view.you.isHost ? '' : 'Waiting for the host to deal the next round.';
+      $('reveal-wait').textContent = view.you.isHost ? '' : tr('waitingNext');
     }
 
     /** Every response goes through here, so the screen always follows the server. */
@@ -770,8 +2264,8 @@
         // expiry it ended, before it the host removed us.
         var removed = r.data.error === 'removed';
         if (view) track('room_left', { via: 'web', reason: removed || Date.parse(view.expiresAt) > Date.now() ? 'removed' : 'ended', round_n: view.round });
-        $('gone-title').textContent = removed ? 'The host took you out of the room' : 'That room has ended';
-        $('gone-body').textContent = removed ? 'Ask them for the code if you want back in.' : 'Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.';
+        $('gone-title').textContent = removed ? tr('removedTitle') : tr('goneTitle');
+        $('gone-body').textContent = removed ? tr('removedBody') : tr('goneBody');
         disconnect(); clearSession(); show('gone'); return false;
       }
       if (errorId) say(errorId, r);
@@ -819,8 +2313,8 @@
         if (!document.hidden) refresh();
         schedule();
       }, bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS);
-      $('live').textContent = bellUp ? 'Live' : 'Updating every few seconds';
-      if (TV) $('tv-foot').textContent = trouble ? 'Reconnecting' : '';
+      $('live').textContent = bellUp ? tr('live') : tr('polling');
+      if (TV) $('tv-foot').textContent = trouble ? tr('tvReconnecting') : '';
     }
     /** The room's doorbell id, from this tab's own view (review fix M4): the
      *  topic is never the room code. Null until a view has arrived, or from a
@@ -873,8 +2367,8 @@
     });
     $('btn-create').addEventListener('click', function () {
       var settings = {
-        hintOn: $('set-hint').checked, difficulty: $('set-hard').checked ? 'hard' : 'easy',
-        twoImposters: $('set-two').checked, mischief: $('set-mischief').checked, lang: 'en'
+        hintOn: $('set-hint').checked, difficulty: HARD_OK && $('set-hard').checked ? 'hard' : 'easy',
+        twoImposters: $('set-two').checked, mischief: $('set-mischief').checked, lang: LANG
       };
       busy(this, api('create', { name: $('host-name').value, settings: settings })).then(function (r) {
         if (take(r, 'host-error')) {
@@ -901,12 +2395,12 @@
       if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); toggleCard(); }
     });
     $('btn-reveal').addEventListener('click', function () {
-      if (!confirm('End the round for everyone? Wait until the room has voted.')) return;
+      if (!confirm(tr('revealConfirm'))) return;
       busy(this, api('reveal', mine())).then(function (r) { take(r, 'card-error'); });
     });
     function leave() {
       var others = !!view && view.players.some(function (p) { return p.id !== view.you.id; });
-      if (!confirm(view && view.you.isHost && others ? 'Leave the room?\n\nThe next person in becomes the host.' : 'Leave the room?')) return;
+      if (!confirm(view && view.you.isHost && others ? tr('leaveConfirm') + '\n\n' + tr('leaveConfirmHost') : tr('leaveConfirm'))) return;
       if (view) track('room_left', { via: 'web', reason: 'leave', round_n: view.round });
       api('leave', mine());
       disconnect(); clearSession(); start();
@@ -920,10 +2414,10 @@
       // found". The line people TYPE stays anticsapp.com/j/CODE.
       if (!view) return;
       var url = 'https://anticsapp.com/j/?room=' + view.code;
-      var text = 'Join our Imposter room on Antics. Code ' + view.code;
+      var text = fmt('shareText', view.code);
       track('room_link_shared', { via: 'web' });
-      if (navigator.share) navigator.share({ title: 'Antics Imposter', text: text, url: url }).catch(function () {});
-      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { btn.textContent = 'Link copied'; });
+      if (navigator.share) navigator.share({ title: tr('shareTitle'), text: text, url: url }).catch(function () {});
+      else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { btn.textContent = tr('linkCopied'); });
     }
     // Share from the lobby, a round and the reveal (H1): the server seats a
     // latecomer at any point, so the way in is on every screen.
@@ -947,7 +2441,7 @@
       show('tv');
       $('tv-room').hidden = true;
       $('tv-entry').hidden = false;
-      $('tv-entry-title').textContent = title || 'Put the room on the TV';
+      $('tv-entry-title').textContent = title || tr('tvEntryTitle');
       $('tv-error').textContent = message || '';
       if (code) $('tv-in-code').value = code;
       $('tv-in-code').focus();
@@ -992,7 +2486,7 @@
     function watchRoom(raw, auto) {
       clearTimeout(watchRetry);
       var code = String(raw || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-      if (code.length !== 4) { tvEntry(code, null, 'Type the four character code from the host\'s phone.'); return; }
+      if (code.length !== 4) { tvEntry(code, null, tr('tvTypeCode')); return; }
       // One room per TV tab: drop any earlier screen's poll and doorbell first,
       // so an old room can never draw over the one asked for now. Its stored
       // slot is kept: the server still holds it until the host frees it.
@@ -1016,7 +2510,7 @@
           try { localStorage.removeItem(tvSlotKey(code)); } catch (e) {}
           if (auto) {
             $('btn-tv-watch').disabled = false;
-            tvEntry(code, 'This screen is no longer showing the room', 'The host disconnected it, or the room has ended. Show it again with the code, or ask for a fresh one.');
+            tvEntry(code, tr('tvGoneTitle'), tr('tvGoneBody'));
             return;
           }
         }
@@ -1028,7 +2522,7 @@
             return;
           }
           if (r.status === 0 || r.status >= 500) { retryWatch(code); return; }
-          tvEntry(code, null, ERRORS[r.data.error] || 'Something went wrong. Try again.');
+          tvEntry(code, null, ERRORS[r.data.error] || tr('err_generic'));
         });
       });
     }
@@ -1050,7 +2544,7 @@
         // disconnected this TV, putting it straight back would undo them.
         var code = tv.code;
         disconnect(); clearTv();
-        tvEntry(code, 'This screen is no longer showing the room', 'The host disconnected it, or the room has ended. Show it again with the code, or ask for a fresh one.');
+        tvEntry(code, tr('tvGoneTitle'), tr('tvGoneBody'));
         return false;
       }
       // No connection, a server hiccup or a rate limit: keep the last picture
@@ -1069,8 +2563,8 @@
           var t = document.createElement('span'); t.className = 'tick'; t.textContent = '✓'; li.appendChild(t);
         }
         var name = document.createElement('span'); name.className = 'name'; name.textContent = p.name; li.appendChild(name);
-        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = 'HOST'; li.appendChild(h); }
-        if (sitsOut(screenView.status, p)) { var w = document.createElement('span'); w.className = 'tag'; w.textContent = 'NEXT ROUND'; li.appendChild(w); }
+        if (p.isHost) { var h = document.createElement('span'); h.className = 'tag'; h.textContent = tr('host'); li.appendChild(h); }
+        if (sitsOut(screenView.status, p)) { var w = document.createElement('span'); w.className = 'tag'; w.textContent = tr('nextRoundTag'); li.appendChild(w); }
         ul.appendChild(li);
       });
     }
@@ -1086,7 +2580,7 @@
       $('tv-lobby').hidden = status !== 'lobby';
       $('tv-dealt').hidden = status !== 'dealt';
       $('tv-revealed').hidden = status !== 'revealed';
-      $('tv-head-join').textContent = status === 'lobby' ? '' : 'Join: anticsapp.com/j/' + v.code;
+      $('tv-head-join').textContent = status === 'lobby' ? '' : fmt('tvJoinLine', v.code);
       if (status !== 'revealed') {
         // The last reveal was public, but it is not this round's: the TV's
         // page holds only what the room is showing now.
@@ -1098,46 +2592,46 @@
         $('tv-url').textContent = 'anticsapp.com/j/' + v.code;
         tvChips($('tv-lobby-players'), false);
         $('tv-lobby-wait').textContent = n < 3
-          ? (n === 0 ? 'Waiting for players.' : 'Waiting for at least 3 players.')
-          : 'Waiting for the host to deal.';
+          ? (n === 0 ? tr('tvWaitPlayers') : tr('tvWaitThree'))
+          : tr('waitingForHost');
         var decks = (v.categories || []).map(categoryLabel);
-        $('tv-decks').textContent = decks.length ? 'Decks: ' + decks.join(', ') : '';
-        $('tv-qr-lobby-caption').textContent = 'Scan to join, or go to anticsapp.com/j/' + v.code;
+        $('tv-decks').textContent = decks.length ? fmt('tvDecks', decks.join(', ')) : '';
+        $('tv-qr-lobby-caption').textContent = fmt('scanToJoin', 'anticsapp.com/j/' + v.code);
         drawQr($('tv-qr-lobby-box'), $('tv-qr-lobby'), v.code);
         return;
       }
 
       if (status === 'dealt') {
-        $('tv-round').textContent = 'Round ' + v.round;
+        $('tv-round').textContent = fmt('round', v.round);
         tvChips($('tv-dealt-players'), true);
         var dealt = dealtIn(v.players);
         var looked = dealt.filter(function (p) { return p.ready; }).length;
-        $('tv-looked').textContent = looked + ' of ' + dealt.length + ' have looked';
+        $('tv-looked').textContent = fmt('tvLooked', looked, dealt.length);
         // Nothing about how many imposters there are: in a Mischief round
         // that line would be a lie, and it is not the TV's to say.
-        $('tv-starter').textContent = v.starterName ? v.starterName + ' starts. One clue each, round the room.' : 'One clue each, round the room.';
+        $('tv-starter').textContent = v.starterName ? fmt('tvStarter', v.starterName) : tr('tvClues');
         return;
       }
 
       // revealed: the reveal block is read ONLY here, after the status says so.
       var r = v.reveal;
       if (!r) {
-        $('tv-reveal-kicker').textContent = 'Round over';
+        $('tv-reveal-kicker').textContent = tr('tvRoundOver');
         $('tv-reveal-names').textContent = '';
         $('tv-reveal-word-kicker').textContent = '';
-        $('tv-reveal-word').textContent = 'Check your phones';
+        $('tv-reveal-word').textContent = tr('tvCheckPhones');
         $('tv-reveal-hint').textContent = '';
       } else if (r.mischief) {
-        $('tv-reveal-kicker').textContent = 'Nobody was the imposter';
-        $('tv-reveal-names').textContent = 'Nobody had it. You did all that to each other for nothing.';
+        $('tv-reveal-kicker').textContent = tr('mischiefResultLabel');
+        $('tv-reveal-names').textContent = tr('mischiefResultBody');
       } else {
-        $('tv-reveal-kicker').textContent = r.imposterNames.length === 2 ? 'The imposters were' : 'The imposter was';
-        $('tv-reveal-names').textContent = r.imposterNames.join(' and ');
+        $('tv-reveal-kicker').textContent = r.imposterNames.length === 2 ? tr('impostersWere') : tr('imposterWas');
+        $('tv-reveal-names').textContent = r.imposterNames.join(' ' + tr('and') + ' ');
       }
       if (r) {
-        $('tv-reveal-word-kicker').textContent = (r.categoryKind === 'place' ? 'The place' : 'The secret word') + ' · ' + categoryLabel(r.categoryId);
+        $('tv-reveal-word-kicker').textContent = (r.categoryKind === 'place' ? tr('thePlace') : tr('theWord')) + ' · ' + categoryLabel(r.categoryId);
         $('tv-reveal-word').textContent = r.word;
-        $('tv-reveal-hint').textContent = r.hint ? 'The hint was: ' + r.hint : '';
+        $('tv-reveal-hint').textContent = r.hint ? fmt('hintWas', r.hint) : '';
       }
       drawQr($('tv-qr-corner-box'), $('tv-qr-corner'), v.code);
     }
@@ -1176,7 +2670,7 @@
         svg.setAttribute('viewBox', '0 0 ' + all + ' ' + all);
         svg.setAttribute('shape-rendering', 'crispEdges');
         svg.setAttribute('role', 'img');
-        svg.setAttribute('aria-label', 'QR code: ' + joinUrl(code));
+        svg.setAttribute('aria-label', fmt('qrAria', joinUrl(code)));
         var path = document.createElementNS(NS, 'path');
         path.setAttribute('d', d);
         path.setAttribute('fill', '#0E0A1F');
@@ -1208,7 +2702,7 @@
 
     function bootTv() {
       document.body.classList.add('tv');
-      document.title = 'Imposter on the big screen | Antics';
+      document.title = tr('tvTitle');
       $('tv-get').href = $('wall-get').href;
       // A refresh, a reopened tab or a TV browser that lost its session all
       // arrive with the code in the address (watchRoom put it there), and
