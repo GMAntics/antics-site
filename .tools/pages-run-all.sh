@@ -11,5 +11,7 @@ node .tools/main-skip.mjs        # A25: <main id="main">, skip link
 node .tools/h1-nbsp.mjs          # A24
 node .tools/wl-draw-scroll.mjs   # A23
 node .tools/drinking-table.mjs   # A10 (markup half)
+node .tools/inline-sync.mjs      # integrator: index.html and play/ font, tokens re-synced from css/site.css, comments out
+node .tools/deal-js-tag.mjs      # integrator: <script src="/js/deal.js" defer> on tier-card / cta-block / installbar pages
 echo "--- gates"
 python3 .tools/gates.py "$@"

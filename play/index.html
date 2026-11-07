@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <meta name="robots" content="index,follow">
   <title>Play Party Games Online Free: Never Have I Ever and More</title>
@@ -53,17 +54,27 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    /* Section 1 below is pasted verbatim from css/site.css on origin/main (6c664af,
-       7 Nov 2026) so /play/ speaks the site's token names; re-sync it, never fork it. */
-    /* --------------------------------------------------------------------------
-       1. Tokens
-       -------------------------------------------------------------------------- */
+    @font-face {
+      font-family: "Bricolage Grotesque";
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: url(/fonts/bricolage-800-latin.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Bricolage Fallback";
+      font-style: normal;
+      font-weight: 800;
+      src: local("Arial Bold"), local("Arial-BoldMT"), local("Arial");
+      size-adjust: 97.92%;
+      ascent-override: 94.97%;
+      descent-override: 27.57%;
+      line-gap-override: 0%;
+    }
     :root {
-      /* Brand */
       --bg: #0E0A1F;
       --surface: #1C1535;
       --pink: #FF2E7E;
@@ -72,84 +83,65 @@
       --lime: #B8FF3D;
       --cyan: #25E5FF;
       --purple: #9D6BFF;
-
-      /* Derived surfaces: three steps up from the background, used by role */
-      --surface-1: #150F2B;          /* quiet containers: tier stacks, rules */
-      --surface-2: #1C1535;          /* raised: the generator panel, bars */
-      --surface-3: #261D47;          /* hover and pressed */
-      --well: #09061A;               /* sunken: code, embeds */
+      --surface-1: #150F2B;
+      --surface-2: #1C1535;
+      --surface-3: #261D47;
+      --well: #09061A;
       --row-alt: rgba(255, 255, 255, 0.035);
       --line: rgba(255, 255, 255, 0.08);
       --line-strong: rgba(255, 255, 255, 0.16);
-
-      /* Text: every step passes WCAG AA on --bg and on --surface */
-      --text-0: #FFFFFF;             /* headings, prompts, questions */
-      --text-1: #D8D3EE;             /* running text, about 13:1 on --bg */
-      --text-2: #BDB6E0;             /* standfirsts, intros, notes, about 10:1 */
-      --text-3: #9C92C7;             /* small labels and metadata only */
-      --on-tone: #0E0A1F;            /* text sitting on a brand colour */
-
-      /* Section tone: each section sets one brand colour, default pink */
+      --text-0: #FFFFFF;
+      --text-1: #D8D3EE;
+      --text-2: #BDB6E0;
+      --text-3: #9C92C7;
+      --on-tone: #0E0A1F;
       --tone: var(--pink);
-
-      /* Type */
-      --font-display: "Bricolage Grotesque", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+      --font-display: "Bricolage Grotesque", "Bricolage Fallback", "Helvetica Neue", Arial, sans-serif;
       --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-      /* Type scale: mobile values, lifted with clamp() towards 1280px */
-      --step--2: 0.75rem;                                    /* 12: labels */
-      --step--1: 0.875rem;                                   /* 14: meta, crumbs */
-      --step-0: 1.0625rem;                                   /* 17: body */
-      --step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);  /* 18 to 20: standfirst, h3 */
-      --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);        /* 24 to 32: h2 */
-      --step-3: clamp(2.125rem, 1.5rem + 3vw, 3.5rem);       /* 34 to 56: h1 */
-      --step-card: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem); /* 22 to 28: dealt card */
-
+      --step--2: 0.75rem;
+      --step--1: 0.875rem;
+      --step-0: 1.0625rem;
+      --step-1: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+      --step-2: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);
+      --step-3: clamp(2.125rem, 1.5rem + 3vw, 3.5rem);
+      --step-card: clamp(1.375rem, 1.2rem + 0.9vw, 1.75rem);
       --leading-tight: 1.08;
       --leading-snug: 1.35;
       --leading-body: 1.65;
       --tracking-label: 0.16em;
-
-      /* Spacing scale (4px base) */
-      --space-3xs: 0.25rem;  /*  4 */
-      --space-2xs: 0.5rem;   /*  8 */
-      --space-xs: 0.75rem;   /* 12 */
-      --space-s: 1rem;       /* 16 */
-      --space-m: 1.5rem;     /* 24 */
-      --space-l: 2rem;       /* 32 */
-      --space-xl: 3rem;      /* 48 */
-      --space-2xl: 4.5rem;   /* 72 */
-      --space-3xl: 6rem;     /* 96 */
-
-      /* Layout */
+      --space-3xs: 0.25rem;
+      --space-2xs: 0.5rem;
+      --space-xs: 0.75rem;
+      --space-s: 1rem;
+      --space-m: 1.5rem;
+      --space-l: 2rem;
+      --space-xl: 3rem;
+      --space-2xl: 4.5rem;
+      --space-3xl: 6rem;
       --gutter: 20px;
       --page-max: 1160px;
-      /* About 75 characters a line in the system font at any size. This was
-         68ch until 5 Oct 2026, which ran to about 100 characters a line at 17px
-         (a "0" in SF Pro is 0.63em wide, so ch is generous). */
       --measure: 34em;
-      --rail: 420px;                 /* the tool column on wide screens */
+      --rail: 420px;
       --toc: 220px;
-
-      /* Shape: radius is spent by role, not sprinkled */
-      --r-card: 24px;                /* dealt cards and stacks */
-      --r-control: 16px;             /* buttons and inputs */
-      --r-chip: 999px;               /* toggles and chips */
-      --r-small: 8px;                /* inline code */
-
-      /* The deck: two card edges peeking out below a dealt card */
+      --r-card: 24px;
+      --r-control: 16px;
+      --r-chip: 999px;
+      --r-small: 8px;
       --deck-edge: 0 6px 0 -2px #1A1333, 0 12px 0 -5px #140E29;
-
-      --tap: 48px;                   /* comfortable tap target */
-      --tap-min: 44px;               /* the floor: nothing tappable is smaller */
+      --tap: 48px;
+      --tap-min: 44px;
+      --step-h1: clamp(2.4rem, 6.5vw, 4.25rem);
+      --step-h2: clamp(1.625rem, 1.25rem + 1.6vw, 2.5rem);
+      --leading-display: 0.98;
+      --tracking-display: -0.02em;
+      --line-control: rgba(255, 255, 255, 0.45);
+      --rail-gap: var(--space-2xl);
+      --ease-deal: cubic-bezier(.2, .8, .2, 1);
     }
-
     @media (min-width: 768px) {
       :root { --gutter: 32px; }
     }
-
-    /* /play/ (Direction A, 7 Nov 2026): every rule below uses the section 1 names. */
     :root { color-scheme: dark; }
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; padding: 0; }
@@ -171,8 +163,6 @@
     h1 { font-size: clamp(2.4rem, 6.5vw, 4.25rem); line-height: 0.98; margin-bottom: var(--space-s); }
     h2 { font-size: var(--step-2); line-height: 1.05; margin-bottom: var(--space-xs); }
     .lead { font-size: 16px; color: var(--text-2); margin-bottom: var(--space-m); max-width: var(--measure); }
-
-    /* --- picker: the app's home tiles --- */
     .picker { display: grid; grid-template-columns: 1fr; gap: 12px; margin: var(--space-l) 0 var(--space-2xs); }
     .pick-btn {
       position: relative; isolation: isolate; display: flex; align-items: center; gap: 14px;
@@ -181,8 +171,6 @@
       cursor: pointer; text-align: left; font-family: inherit; text-decoration: none;
       box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
     }
-    /* A18: a navy layer over the app's gradient, at the least alpha per end that keeps
-       white text 4.5:1 everywhere (table: site-design-2026-11-06/build/PLAY.md) */
     .pick-btn::before {
       content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
       background: linear-gradient(135deg, rgba(14, 10, 31, var(--scrim-1, 0)), rgba(14, 10, 31, var(--scrim-2, 0)));
@@ -201,8 +189,6 @@
     .pick-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.01em; }
     .pick-blurb { font-size: 14px; font-weight: 600; line-height: 1.3; }
     .pick-chev { font-size: 26px; font-weight: 800; opacity: 0.8; flex: 0 0 auto; }
-
-    /* --- what each game plays like: each sample is a small dealt card --- */
     h2.step-label { margin: var(--space-2xl) 0 var(--space-xs); }
     h3.step-label { font-size: var(--step-1); line-height: 1.15; margin: var(--space-xl) 0 var(--space-2xs); }
     #screen-intro > p:not(.lead) { max-width: var(--measure); }
@@ -213,8 +199,6 @@
       letter-spacing: -0.01em; color: var(--text-0); text-align: left; text-wrap: balance;
     }
     #screen-intro > p.forfeit-line strong { font-weight: 800; }
-
-    /* --- players --- */
     p.step-label { color: var(--text-2); font-size: var(--step--2); font-weight: 800; letter-spacing: var(--tracking-label); text-transform: uppercase; margin: 26px 0 8px; }
     textarea, input[type="text"] {
       width: 100%; background: var(--surface-2); color: var(--text-0); border: 1px solid rgba(255, 255, 255, 0.45);
@@ -226,8 +210,6 @@
     .hint { font-size: var(--step--1); color: var(--text-3); margin-top: 8px; }
     .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
     .btn-row > button { flex: 1 1 auto; }
-
-    /* --- buttons: the site's control shape; pink only for the one "do this" --- */
     .btn-primary, .btn-ghost {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 var(--space-m);
       border-radius: var(--r-control); font-family: var(--font-body); font-size: var(--step-0); font-weight: 800; line-height: 1.2;
@@ -243,9 +225,6 @@
       font-family: inherit; font-size: var(--step--1); font-weight: 700; cursor: pointer;
     }
     .link-btn:hover { color: var(--text-0); background: var(--surface-2); }
-
-    /* --- the round: the dealt card fills the phone --- */
-    /* The game's tone is the lighter end of its own gradient (4.5:1 or more on its card) */
     html[data-game="neverHaveIEver"] { --tone: #37B6FF; }
     html[data-game="truthOrDare"]    { --tone: var(--lime); }
     html[data-game="mostLikelyTo"]   { --tone: #FF5AC8; }
@@ -260,7 +239,6 @@
     .deck { grid-area: 2 / 1 / 3 / -1; align-self: stretch; position: relative; display: grid; margin: var(--space-xs) 0 12px; }
     .controls { grid-area: 3 / 1 / 4 / -1; }
     #forfeit-line { grid-area: 4 / 1 / 5 / -1; }
-    /* Navy card (.tier-card surface), the game's two colours washed in from opposite corners */
     .card-box {
       position: relative; z-index: 1; grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center;
       align-items: flex-start; gap: var(--space-s); min-height: 300px; padding: var(--space-l) var(--space-m);
@@ -280,7 +258,6 @@
     .card-or { color: var(--tone); font-size: var(--step--1); font-weight: 800; letter-spacing: var(--tracking-label); text-transform: uppercase; }
     .card-sub { color: var(--text-2); font-size: 15px; line-height: 1.45; margin-top: 2px; max-width: 32em; }
     .card-box.is-choice .card-text { color: var(--text-2); }
-    /* Tap anywhere on the card: a real button laid over it */
     .card-hit {
       grid-area: 1 / 1; position: relative; z-index: 3; background: transparent; border: 0; border-radius: var(--r-card);
       cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation;
@@ -294,8 +271,6 @@
       margin-top: var(--space-s); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: var(--r-control);
       padding: 14px 16px; color: var(--text-0); font-size: 15px; font-weight: 700;
     }
-
-    /* --- the wall: the page's one loud card (site.css .cta-block) --- */
     .wall {
       text-align: center; padding: var(--space-xl) var(--space-m) var(--space-l); background: var(--surface-2);
       border: 1px solid rgba(255, 46, 126, 0.35); border-radius: var(--r-card); box-shadow: var(--deck-edge);
@@ -312,8 +287,6 @@
     .foot { margin-top: 40px; font-size: var(--step--1); color: var(--text-3); text-align: center; }
     .foot a { color: var(--text-2); text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
     .foot a:hover { color: var(--text-0); }
-
-    /* --- A21: tablets and laptops use the width --- */
     @media (min-width: 768px) {
       body { padding-top: 28px; }
       main { max-width: 880px; }
@@ -327,8 +300,6 @@
       #screen-round:not([hidden]) { min-height: min(calc(100vh - 150px), 760px); min-height: min(calc(100svh - 150px), 760px); }
       .card-box { max-width: 560px; width: 100%; margin-inline: auto; padding: var(--space-xl) var(--space-l); }
     }
-
-    /* --- motion: lifts only, and none under reduced motion (the flick lives in the script) --- */
     @media (prefers-reduced-motion: no-preference) {
       .pick-btn { transition: transform 120ms ease, box-shadow 120ms ease; }
       .pick-btn:hover { transform: translateY(-1px); }

@@ -58,6 +58,7 @@
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
   <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="/js/deal.js" defer></script>
   <style>
     /* The Four Kings table. The panel, buttons, titles and QR reuse the
        Imposter dealer's .idl classes in /css/site.css; only the playing card
@@ -418,21 +419,32 @@
     // /css/site.css section 21), so "Next card" is never under it; scroll
     // past the table and it comes back. /js/generator.js and
     // /imposter-game/dealer.js run the same rule.
+    // The bar has other owners (/js/deal.js tucks it at the closing box):
+    // each writes only its own word in the bar's data-tuck list, "four-kings"
+    // here, and .is-tucked is on while the list is not empty (the same
+    // tuck() as /js/deal.js), so no owner can untuck what another needs.
     (function tuckBar() {
       var bar = document.querySelector('.installbar');
       if (!bar || !('IntersectionObserver' in window)) return;
+      function tuck(on, still) {
+        var list = (bar.getAttribute('data-tuck') || '').split(' ').filter(Boolean);
+        var i = list.indexOf('four-kings');
+        if (on && i < 0) list.push('four-kings');
+        if (!on && i > -1) list.splice(i, 1);
+        if (list.length) bar.setAttribute('data-tuck', list.join(' '));
+        else bar.removeAttribute('data-tuck');
+        if (bar.classList.contains('is-tucked') === list.length > 0) return;
+        if (still) bar.style.transition = 'none';
+        bar.classList.toggle('is-tucked', list.length > 0);
+        if (still) { void bar.offsetWidth; bar.style.transition = ''; }
+      }
       // On arrival the bar starts where it belongs, with no slide.
       var r = $('fk').getBoundingClientRect();
       var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-      if (r.height > 0 && seen / r.height >= 0.4) {
-        bar.style.transition = 'none';
-        bar.classList.add('is-tucked');
-        void bar.offsetWidth;
-        bar.style.transition = '';
-      }
+      if (r.height > 0 && seen / r.height >= 0.4) tuck(true, true);
       new IntersectionObserver(function (entries) {
         var e = entries[entries.length - 1];
-        bar.classList.toggle('is-tucked', e.isIntersecting && e.intersectionRatio >= 0.399);
+        tuck(e.isIntersecting && e.intersectionRatio >= 0.399);
       }, { threshold: [0, 0.4, 1] }).observe($('fk'));
     })();
     function keepInView() {

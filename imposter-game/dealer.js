@@ -411,21 +411,32 @@
   // section 21), so "Deal the round" and every turn's button are never under
   // it; scroll past the dealer and it comes back. The generator
   // (/js/generator.js) and /four-kings-online/ run the same rule.
+  // The bar has other owners (/js/deal.js tucks it at the closing box): each
+  // writes only its own word in the bar's data-tuck list, "imposter" here,
+  // and .is-tucked is on while the list is not empty (the same tuck() as
+  // /js/deal.js), so no owner can untuck what another still needs tucked.
   (function tuckBar() {
     var bar = document.querySelector('.installbar');
     if (!bar || !('IntersectionObserver' in window)) return;
+    function tuck(on, still) {
+      var list = (bar.getAttribute('data-tuck') || '').split(' ').filter(Boolean);
+      var i = list.indexOf('imposter');
+      if (on && i < 0) list.push('imposter');
+      if (!on && i > -1) list.splice(i, 1);
+      if (list.length) bar.setAttribute('data-tuck', list.join(' '));
+      else bar.removeAttribute('data-tuck');
+      if (bar.classList.contains('is-tucked') === list.length > 0) return;
+      if (still) bar.style.transition = 'none';
+      bar.classList.toggle('is-tucked', list.length > 0);
+      if (still) { void bar.offsetWidth; bar.style.transition = ''; }
+    }
     // On arrival the bar starts where it belongs, with no slide.
     var r = root.getBoundingClientRect();
     var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-    if (r.height > 0 && seen / r.height >= 0.4) {
-      bar.style.transition = 'none';
-      bar.classList.add('is-tucked');
-      void bar.offsetWidth;
-      bar.style.transition = '';
-    }
+    if (r.height > 0 && seen / r.height >= 0.4) tuck(true, true);
     new IntersectionObserver(function (entries) {
       var e = entries[entries.length - 1];
-      bar.classList.toggle('is-tucked', e.isIntersecting && e.intersectionRatio >= 0.399);
+      tuck(e.isIntersecting && e.intersectionRatio >= 0.399);
     }, { threshold: [0, 0.4, 1] }).observe(root);
   })();
 

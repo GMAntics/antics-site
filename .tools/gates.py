@@ -26,7 +26,8 @@ SKIP_TEXTS = {'Skip to content', 'Saltar al contenido', 'Pular para o conteúdo'
 CAPTION = {'drinking-games/index.html': 'Drinking games at a glance'}
 GOOGLE = {'https://fonts.googleapis.com', 'https://fonts.gstatic.com',
           'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap'}
-ADDED_OK = {'#main', '/fonts/bricolage-800-latin.woff2', '/fonts/bricolage-800-latin-ext.woff2'}
+ADDED_OK = {'#main', '/fonts/bricolage-800-latin.woff2', '/fonts/bricolage-800-latin-ext.woff2',
+            '/js/deal.js'}   # integrator, 7 Nov 2026: .tools/deal-js-tag.mjs
 A23 = "    if (out.scrollIntoView) out.scrollIntoView({ block: 'nearest' });\n"
 VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 IMPLIED = {'p', 'li', 'td', 'th', 'tr', 'thead', 'tbody', 'tfoot', 'option', 'dt', 'dd', 'colgroup', 'caption'}
@@ -77,11 +78,28 @@ class Nest(HTMLParser):
 def body_events(s):
     p = Nest(); p.feed(s); return p
 
+# Integrator, 7 Nov 2026 (merged Direction A tree): pages another builder rebuilt ON PURPOSE. This gate was written for
+# the PAGES builder's scripted edits; these two are gated by their own builders' checks and by the whole-site
+# preserve.mjs run (report: ops/research/site-design-2026-11-06/build/preserve-report.txt). Here they still get the
+# checks that bind every page: JSON-LD byte-identical and parsing, and every inline script passing node --check.
+OTHER_GATE = {'index.html': 'HOME: .tools/home-diff-vs-main.mjs and .tools/home-cards-verify.mjs',
+              'play/index.html': 'PLAY: its text gate (build/PLAY.md)'}
+# Pages whose inline script another builder owns (TOOLS: A22 and the install bar tuck); node --check still runs.
+SCRIPT_OWNED = {'four-kings-online/index.html'}
+
 n_ok = 0
 for p in pages:
     new = open(p, encoding='utf-8').read(); o = old(p)
     if o is None:
         fail(p, 'new file (no base copy), not gated'); continue
+    if p in OTHER_GATE:
+        if [b for a, b in scripts(o) if 'ld+json' in a] != [b for a, b in scripts(new) if 'ld+json' in a]: fail(p, 'JSON-LD changed')
+        for k, b in enumerate(b for a, b in scripts(new) if 'src=' not in a and 'ld+json' not in a and 'json' not in a):
+            with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as f: f.write(b)
+            r = subprocess.run(['node', '--check', f.name], capture_output=True, text=True); os.unlink(f.name)
+            if r.returncode: fail(p, f'node --check failed on inline script {k}: {r.stderr.strip()[:200]}')
+        print(f'{p}: per-page diff checks left to {OTHER_GATE[p]}; JSON-LD and node --check run here')
+        n_ok += 1; continue
     # 1. visible text
     to, tn = strip_tags(o), strip_tags(new)
     for st in SKIP_TEXTS:
@@ -110,7 +128,7 @@ for p in pages:
     if len(so) != len(sn): fail(p, 'inline script count changed')
     else:
         for x, y in zip(so, sn):
-            if x != y and not (y.replace(A23, '', 1) == x and 'wl-draw-out' in new):
+            if x != y and p not in SCRIPT_OWNED and not (y.replace(A23, '', 1) == x and 'wl-draw-out' in new):
                 fail(p, 'inline script changed beyond the A23 line')
     for k, b in enumerate(sn):
         with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as f: f.write(b)
@@ -167,7 +185,9 @@ for p in pages:
         a = pair_index(o, r'\bpage\b', 'div'); b = pair_index(new, r'\bpage\b', 'main')
         # the new file has the skip link (2 more events before the pair): shift by 2
         extra = 2 if p == 'drinking-games/index.html' else 0   # its table gained a <caption> start and end event inside the pair
-        if None in a or None in b or b[0] - a[0] != 2 or b[1] - a[1] != 2 + extra: fail(p, f'div.page / main.page pairing differs: old {a} new {b}')
+        # integrator, 7 Nov 2026: the head's <script src="/js/deal.js" defer></script> adds a start and end event before the pair
+        head = 2 if ('<script src="/js/deal.js" defer></script>' in new and '/js/deal.js' not in o) else 0
+        if None in a or None in b or b[0] - a[0] != 2 + head or b[1] - a[1] != 2 + head + extra: fail(p, f'div.page / main.page pairing differs: old {a} new {b}')
         else: pairs += 1
 print(f'{n_ok} page(s) passed the per-page checks; {pairs} div.page -> main.page conversions confirmed to close at the same element')
 

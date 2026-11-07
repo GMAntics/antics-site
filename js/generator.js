@@ -277,6 +277,22 @@
   // "Get Antics free" is the one pink install button on screen. The same
   // rule runs in /imposter-game/dealer.js and on /four-kings-online/. No bar
   // (an embed) or no IntersectionObserver: the bar behaves as it always did.
+  // The bar has other owners (/js/deal.js tucks it at the closing box): each
+  // writes only its own word in the bar's data-tuck list, "generator" here,
+  // and .is-tucked is on while the list is not empty (the same tuck() as
+  // /js/deal.js), so no owner can untuck what another still needs tucked.
+  function tuckSet(bar, why, on, still) {
+    var list = (bar.getAttribute('data-tuck') || '').split(' ').filter(Boolean);
+    var i = list.indexOf(why);
+    if (on && i < 0) list.push(why);
+    if (!on && i > -1) list.splice(i, 1);
+    if (list.length) bar.setAttribute('data-tuck', list.join(' '));
+    else bar.removeAttribute('data-tuck');
+    if (bar.classList.contains('is-tucked') === list.length > 0) return;
+    if (still) bar.style.transition = 'none';
+    bar.classList.toggle('is-tucked', list.length > 0);
+    if (still) { void bar.offsetWidth; bar.style.transition = ''; }
+  }
   var tuck = { io: null, bar: null, inView: [] };
   function tuckBarFor(el) {
     if (!tuck.io) {
@@ -289,19 +305,14 @@
           if (on && k < 0) tuck.inView.push(e.target);
           if (!on && k >= 0) tuck.inView.splice(k, 1);
         }
-        tuck.bar.classList.toggle('is-tucked', tuck.inView.length > 0);
+        tuckSet(tuck.bar, 'generator', tuck.inView.length > 0);
       }, { threshold: [0, 0.4, 1] });
     }
     // On arrival the bar starts where it belongs, with no slide: a tool
     // already on the first screen means a bar that was never there.
     var r = el.getBoundingClientRect();
     var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-    if (r.height > 0 && seen / r.height >= 0.4) {
-      tuck.bar.style.transition = 'none';
-      tuck.bar.classList.add('is-tucked');
-      void tuck.bar.offsetWidth;
-      tuck.bar.style.transition = '';
-    }
+    if (r.height > 0 && seen / r.height >= 0.4) tuckSet(tuck.bar, 'generator', true, true);
     tuck.io.observe(el);
   }
 
