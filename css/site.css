@@ -96,6 +96,22 @@
 
   --tap: 48px;                   /* comfortable tap target */
   --tap-min: 44px;               /* the floor: nothing tappable is smaller */
+
+  /* Direction A, "The Deal" (7 Nov 2026). Added, never renamed: the steps
+     above keep their values because the Imposter dealer sizes its names
+     from --step-3 and --step-2. Headings are poster scale and tight. */
+  --step-h1: clamp(2.4rem, 6.5vw, 4.25rem);              /* 38 to 68: h1 */
+  --step-h2: clamp(1.625rem, 1.25rem + 1.6vw, 2.5rem);   /* 26 to 40: h2 */
+  --leading-display: 0.98;
+  --tracking-display: -0.02em;
+  /* The edge of an outlined (secondary) button: white at 45%, about 4.3:1
+     on --bg, so the shape reads without spending the pink */
+  --line-control: rgba(255, 255, 255, 0.45);
+  /* One grid on wide screens: the content column is the page less the
+     "On this page" rail and the gap before it */
+  --rail-gap: var(--space-2xl);
+  /* The deal-in: a card rises and settles, once (section 24) */
+  --ease-deal: cubic-bezier(.2, .8, .2, 1);
 }
 
 @media (min-width: 768px) {
@@ -109,6 +125,10 @@
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; padding: 0; }
 
+/* Dark only, declared: native scrollbars, form controls and autofill draw
+   dark on a light-mode OS too */
+:root { color-scheme: dark; }
+
 html {
   background: var(--bg);
   -webkit-text-size-adjust: 100%;
@@ -118,8 +138,10 @@ html {
   html { scroll-behavior: smooth; }
 }
 
+/* The page colour lives on html alone (it paints the whole canvas), so a
+   full-bleed band drawn behind the content (section 16) shows through */
 body {
-  background: var(--bg);
+  background: transparent;
   color: var(--text-1);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -163,9 +185,30 @@ p.copy a,
 .stack li a,
 .midcta a,
 .tool-note a,
-.note a {
+.note a,
+td a,
+.compare th[scope="row"] a {
   padding-block: max(0.75em, calc(23px - 0.6em));
 }
+
+/* Running text sets without a lone word on its last line */
+p, li { text-wrap: pretty; }
+
+/* Skip link (PLAN A25): the first thing a keyboard reaches on every page,
+   out of sight until it has focus */
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 30;
+  padding: 12px 16px;
+  background: var(--surface-1);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-control);
+  color: var(--text-0);
+  font-weight: 700;
+}
+.skip:focus { top: 12px; }
 
 code {
   font-family: var(--font-mono);
@@ -250,17 +293,48 @@ code {
 /* --------------------------------------------------------------------------
    5. Page header: h1 plus standfirst
    -------------------------------------------------------------------------- */
-.page-head { max-width: 34em; }
+/* The header is a size container, so the headline scales with the column
+   it sits in (a 468px column beside a tool on an iPad Pro gets a smaller
+   h1 than a full-width page does) and a 60-character headline stays at
+   three lines on a 1024 screen instead of four */
+.page-head {
+  max-width: 34em;
+  container-type: inline-size;
+}
 
+/* Poster scale (Direction A): big, tight, balanced. The first font-size is
+   the fallback for browsers without container units. */
 h1 {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--step-3);
-  line-height: 1.02;
-  letter-spacing: -0.022em;
+  font-size: var(--step-h1);
+  font-size: clamp(2.4rem, min(6.5vw, 8.5cqi), 4.25rem);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
   color: var(--text-0);
   text-wrap: balance;
   margin-bottom: var(--space-s);
+}
+/* Pages whose tool shares the first phone screen keep today's phone size,
+   so the tool's button stays above the fold on a 375x667 phone; on wide
+   screens the headline shares its row with the tool, so it runs a step
+   smaller (60px in the 668px column) and a 76-character French or Spanish
+   headline still sets in three lines */
+.hero:has(> .tool) h1,
+.tool-layout h1 {
+  font-size: clamp(2.125rem, 6.5vw, 4.25rem);
+  font-size: clamp(2.125rem, min(6.5vw, 9cqi), 4.25rem);
+}
+/* A byline above the headline (blog posts) never touches it (PLAN A7) */
+.label + h1 { margin-top: var(--space-xs); }
+
+/* Long compounds (German, Dutch, Polish, Czech) at poster size on a 360px
+   phone: hyphenate a long word at the line end rather than split it bare.
+   Only words of 12 letters or more, so short words never break. */
+:is(:lang(de), :lang(nl), :lang(pl), :lang(cs)) :is(h1, h2) {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 12 5 5;
 }
 
 .standfirst,
@@ -289,8 +363,21 @@ h1 {
   .hero {
     grid-template-columns: minmax(0, 1fr) var(--rail);
     align-items: start;
-    column-gap: var(--space-2xl);
+    column-gap: var(--rail-gap);
     margin-bottom: var(--space-2xl);
+  }
+  /* A hero with no tool (the blog, most guides) drops the empty 420px
+     column it used to reserve (PLAN B-0 item 5) */
+  .hero:not(:has(> :nth-child(2))) { grid-template-columns: minmax(0, 1fr); }
+
+  /* One grid: the header fills its column, and on a page with no tool the
+     column is the content column, the page less the rail and its gap, so the
+     headline, the tables and the cards end on one edge. The standfirst keeps
+     its own reading measure. */
+  .page-head { max-width: none; }
+  article > .page-head,
+  .hero:not(:has(> :nth-child(2))) > .page-head {
+    max-width: calc(100% - var(--toc) - var(--rail-gap));
   }
 }
 
@@ -298,12 +385,15 @@ h1 {
 /* --------------------------------------------------------------------------
    6. Section headings and running text
    -------------------------------------------------------------------------- */
+/* Section headings: sentence-case statements in the display face, a step
+   bigger than before (Direction A). A small tracked-caps line above one is
+   a kicker (.label), never a heading. */
 h2 {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: var(--step-2);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.015em;
+  font-size: var(--step-h2);
+  line-height: 1.04;
+  letter-spacing: var(--tracking-display);
   color: var(--text-0);
   text-wrap: balance;
   margin: var(--space-2xl) 0 var(--space-s);
@@ -315,6 +405,7 @@ h3 {
   font-size: var(--step-1);
   line-height: var(--leading-snug);
   color: var(--text-0);
+  text-wrap: balance;
   margin: var(--space-l) 0 var(--space-2xs);
 }
 
@@ -382,10 +473,13 @@ p.copy {
 .btn:hover, .cta:hover { color: #FFFFFF; filter: brightness(1.1); }
 .btn:active, .cta:active { transform: scale(0.98); }
 .btn--sm { min-height: var(--tap); padding: 0 var(--space-s); font-size: var(--step--1); }
+/* Colour is rationed: the pink fill is the one thing to do on a screen.
+   Everything else is an outline, with an edge that reads at 3:1 or more. */
 .btn--ghost {
   background: transparent;
-  border: 1px solid var(--line-strong);
+  border: 1px solid var(--line-control);
 }
+.btn--ghost:hover { background: rgba(255, 255, 255, 0.06); filter: none; }
 
 
 /* --------------------------------------------------------------------------
@@ -400,7 +494,8 @@ p.copy {
   gap: var(--space-2xs);
   overflow-x: auto;
   margin-inline: calc(-1 * var(--gutter));
-  padding: 2px var(--gutter) 6px;
+  padding: 6px var(--gutter);           /* room for the whole focus ring */
+  scroll-padding-inline: var(--gutter);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -455,23 +550,48 @@ p.copy {
   }
   .toc a:hover { color: var(--text-0); background: var(--row-alt); }
 }
+/* A short laptop window: a stuck rail taller than the window would hide
+   its last links, so it scrolls with the page instead */
+@media (min-width: 1024px) and (max-height: 640px) {
+  .toc { position: static; }
+}
 
 
 /* --------------------------------------------------------------------------
    9. Two-column bodies
    -------------------------------------------------------------------------- */
-/* Guide: text column plus the "On this page" rail */
+/* Guide: text column plus the "On this page" rail.
+   Wide screens use ONE grid (PLAN B-0 item 5): a content column and a rail,
+   with a fixed gap, so the header, the running text, the tables, the cards
+   and the rail share their edges at every width from 1024 to 1920. Running
+   text keeps its reading measure inside the column; everything boxed
+   (tables, tier cards, the closing box, link lists) fills the column, so
+   the comparison tables get the full width. On a page whose hero carries a
+   tool, the rail column is the tool's own 420px, so the "On this page" list
+   starts on the tool panel's left edge and the cards end where the header
+   column ends. */
 .guide-body { display: block; }
 .guide-body > .prose { min-width: 0; }
 @media (min-width: 1024px) {
   .guide-body {
     display: grid;
-    grid-template-columns: minmax(0, 760px) var(--toc);
-    justify-content: space-between;
-    column-gap: var(--space-2xl);
+    grid-template-columns: minmax(0, 1fr) var(--toc);
+    column-gap: var(--rail-gap);
   }
   .guide-body > .prose { grid-column: 1; grid-row: 1; }
   .guide-body > .toc { grid-column: 2; grid-row: 1; }
+
+  /* A page with no rail at all (the blog, the language hubs) uses the same
+     content column, so a post and a guide line up */
+  article > .prose { max-width: calc(100% - var(--toc) - var(--rail-gap)); }
+}
+/* From 1280 the column beside a tool is wide enough to read in (668px at
+   the page's full width), so the body below a tool hero takes the tool's
+   grid: the list starts on the tool panel's left edge. Below 1280 it keeps
+   the narrow rail, so the text column does not drop under the measure. */
+@media (min-width: 1280px) {
+  .hero:has(> .tool) + .guide-body { grid-template-columns: minmax(0, 1fr) var(--rail); }
+  .hero:has(> .tool) + .guide-body > .toc { width: var(--toc); }
 }
 
 /* Tool page: text on the left, the generator stays in view on the right */
@@ -496,6 +616,12 @@ p.copy {
     margin: 0;
   }
   .tool-layout > .tool-body { grid-column: 1; grid-row: 3; }
+}
+/* PLAN A9: on a short laptop window the stuck panel (666px at 1366x768)
+   hid its own language row; it scrolls with the page instead. Un-stuck
+   rather than an inner scroll box, so no focus ring is clipped. */
+@media (min-width: 1024px) and (max-height: 720px) {
+  .tool-layout > .tool-wrap { position: static; }
 }
 
 
@@ -647,6 +773,21 @@ ol.stack > li { padding-left: 56px; }
 /* A tier card with no intro goes straight from heading to stack */
 .tier-card > h2 + .stack { margin-top: var(--space-m); }
 
+/* The blog index, whose posts are tier cards: from a tablet up they are
+   dealt two to a row across the whole page, like a spread hand, instead of
+   one narrow column with an empty half beside it */
+@media (min-width: 768px) {
+  .prose:has(> article.tier-card) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-m);
+    max-width: none;
+  }
+  .prose:has(> article.tier-card) > :not(.tier-card) { grid-column: 1 / -1; }
+  .prose > article.tier-card { margin-top: 0; }
+  .prose > article.tier-card > h2 { font-size: var(--step-2); }
+}
+
 /* The corner label takes its colour from the card's tone-* class */
 
 
@@ -714,12 +855,31 @@ ol.stack > li { padding-left: 56px; }
    16. Closing download box: the page's one loud card
    -------------------------------------------------------------------------- */
 .cta-block {
+  position: relative;
+  top: 0;                       /* a number to animate from (section 24) */
   margin-top: var(--space-2xl);
   padding: var(--space-l) var(--space-m) var(--space-m);
   background: var(--surface-2);
   border: 1px solid rgba(255, 46, 126, 0.35);
   border-radius: var(--r-card);
   box-shadow: var(--deck-edge);
+}
+/* The closing box sits on a full-bleed band, a quieter room across the
+   whole window (the end of the night on a 1920 screen is no longer a
+   1160px strip in a dark void). Drawn behind everything (z-index -1 in the
+   page's own layer, which is why body has no background), clipped to 48px
+   above and below the card, and made of a box-shadow, which never adds a
+   sideways scroll. When the card is dealt (section 24) the band is held
+   still, so the card rises onto it. */
+.cta-block::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: var(--surface-1);
+  box-shadow: 0 0 0 100vmax var(--surface-1);
+  clip-path: inset(calc(-1 * var(--space-xl)) -100vmax);
+  pointer-events: none;
 }
 .cta-block .cta-icon {
   width: 56px; height: 56px;
@@ -874,6 +1034,16 @@ td {
 }
 td:first-child { color: var(--text-0); font-weight: 700; }
 tbody tr:nth-child(even) td { background: var(--row-alt); }
+/* Phones: half the side padding, so a three-column word table fits a
+   360px screen without a sideways scroll (PLAN A10, the Christmas words
+   table overran by 19px). The facts and comparison tables set their own. */
+@media (max-width: 559px) {
+  td, th { padding-inline: var(--space-2xs); }
+  /* Headers may take two lines on a phone rather than push the last
+     column off the screen ("Get to know each other" was one unbroken
+     line, so the which-game tables scrolled 290px) */
+  th { white-space: normal; }
+}
 
 
 /* --------------------------------------------------------------------------
@@ -890,15 +1060,17 @@ tbody tr:nth-child(even) td { background: var(--row-alt); }
 }
 .site-foot a,
 .foot a { color: var(--text-1); }
-/* Every footer link is a 44px target. The side padding keeps the gaps even
-   and pulls the first link back to the text edge. */
+/* Every footer link is a 44px target. The side padding widens the hit area
+   and the matching negative margin gives it back, so the text sits exactly
+   where plain text would and a link that wraps to a new line starts on the
+   text edge instead of 8px in. */
 .site-foot a {
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
   padding-inline: var(--space-2xs);
+  margin-inline: calc(-1 * var(--space-2xs));
 }
-.site-foot a:first-child { margin-left: calc(-1 * var(--space-2xs)); }
 .site-foot a:hover,
 .foot a:hover { color: var(--text-0); }
 
@@ -1208,6 +1380,40 @@ body.embed .tool-wrap { position: static; margin: 0; }
 /* --------------------------------------------------------------------------
    24. Motion and print
    -------------------------------------------------------------------------- */
+/* The deal-in (Direction A, motion 2): a tier card rises 12px and settles
+   from a slight tilt, once, the first time it comes into view; the closing
+   box rises onto its band. The motion lives ONLY on .is-dealt, which the
+   shared page script adds when the card first enters the viewport. Without
+   the class (no script, an old browser, a card already on screen at load)
+   every card is fully visible and still; the class only adds the motion and
+   is never needed to see anything.
+   Contract for the script: observe .tier-card and .cta-block; add .is-dealt
+   to a card when it first intersects, but NOT to one already intersecting
+   on the observer's first callback (it was on screen at load: dealing it
+   again would blink it); then unobserve it.
+   The tilt is a 1.5deg shear (skewY), not a rotation: a tier card can be
+   4,300px tall on a phone, and rotating that by even 0.6deg swings its
+   corners past the 20px gutter into a sideways scroll. A shear moves
+   points only up and down, so nothing ever leaves the column.
+   The closing box rises with `top`, not a transform: a transform would make
+   it a stacking context and pull its band (section 16) in front of it. */
+@media (prefers-reduced-motion: no-preference) {
+  .tier-card.is-dealt { animation: deck-deal-in 0.52s var(--ease-deal) backwards; }
+  .cta-block.is-dealt { animation: deck-rise-in 0.52s var(--ease-deal) backwards; }
+  /* the band is drawn by the box's own ::before, so it is held still by
+     the opposite motion on the same clock: only the card moves */
+  .cta-block.is-dealt::before { animation: deck-band-hold 0.52s var(--ease-deal) backwards; }
+}
+@keyframes deck-deal-in {
+  from { opacity: 0; transform: translateY(12px) skewY(-1.5deg); }
+}
+@keyframes deck-rise-in {
+  from { top: 12px; }
+}
+@keyframes deck-band-hold {
+  from { transform: translateY(-12px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     transition: none !important;
@@ -1219,6 +1425,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
 @media print {
   .installbar, .toc, .agen-controls, .agen-cta, .agen-modes, .idl, .ilang { display: none !important; }
   body { background: #FFFFFF; color: #000000; }
+  .cta-block::before { display: none; }
 }
 
 
@@ -1651,6 +1858,10 @@ body.embed .tool-wrap { position: static; margin: 0; }
 }
 @media (min-width: 560px) {
   .game-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xs); }
+  /* An odd count (five on every language hub, nine on two guides) used to
+     leave the last game alone with an empty half beside it: the lead game
+     takes the whole first row instead, and the rest pair up */
+  .game-tiles li:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
 }
 .game-tiles li { display: flex; min-width: 0; }
 .game-tiles a {
@@ -1750,6 +1961,9 @@ body.embed .tool-wrap { position: static; margin: 0; }
   text-transform: none;
 }
 .compare th[scope="row"] a { color: var(--text-0); }
+/* A long column name ("Last App Store update") takes two lines rather than
+   push a six-column comparison 40 to 80px past a tablet's edge */
+.compare thead th { white-space: normal; }
 .compare td { color: var(--text-1); }
 .compare tbody tr:nth-child(even) th[scope="row"] { background: var(--row-alt); }
 .compare tbody tr.is-ours th[scope="row"],
