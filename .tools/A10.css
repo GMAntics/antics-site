@@ -1,0 +1,6 @@
+/* A10 (PAGES builder, 7 Nov 2026): the Christmas word table overran its box by 19px at 360 (LOW).
+   FOR THE COORDINATOR: place inside css/site.css near the table rules (section 29 is fine, after the .compare block).
+   Same rule as PLAN.md A10. The /drinking-games/ table itself is markup, done by .tools/drinking-table.mjs. */
+@media (max-width: 559px) {
+  td, th { padding-inline: var(--space-2xs); }
+}

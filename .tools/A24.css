@@ -1,0 +1,9 @@
+/* A24 safety valve (PAGES builder, 7 Nov 2026). Optional but recommended with the bigger H1 of Direction A.
+   The two H1s that now carry no-break spaces ("Never Have I Ever:" and "Ich hab noch nie:") are one unbreakable run of
+   about 8.7em and 8.1em of Bricolage 800. MEASURED in the built-in browser on /never-have-i-ever-questions/:
+   - today's step-3 H1 (34.8px at 360, 34px at 320, letter-spacing -0.022em): "Never Have I Ever:" is one line, no overflow, at 360 AND 320;
+   - a 38.4px H1 (BUILD-BRIEF's clamp(2.4rem, ...) floor, -0.02em): fine at 360 (it fits the 320px column exactly),
+     but at a 320px viewport the page overflows sideways by 17px (the unbreakable run is 317px in a 281px column).
+   `overflow-wrap: break-word` does NOT fix that (the grid item's min-content still counts the whole run); `anywhere` does
+   (measured: 0px overflow at 320 with the 38.4px H1). It does nothing when the name fits. */
+h1 { overflow-wrap: anywhere; }

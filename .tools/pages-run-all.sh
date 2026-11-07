@@ -1,0 +1,15 @@
+#!/bin/bash
+# PAGES builder (7 Nov 2026): re-run every scripted page edit, in order, then the gates. Safe to run any number of times
+# (each script is idempotent: a second run prints "0 changed"). Run from anywhere; it works on the worktree it lives in.
+# After a rebase onto pages other work added: run this, then `python3 .tools/gates.py --base origin/main`.
+set -e
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+source ~/.nvm/nvm.sh >/dev/null 2>&1 || true
+cd "$(dirname "$0")/.."
+node .tools/head-font.mjs        # A11 head: Google font links -> preload, color-scheme meta
+node .tools/main-skip.mjs        # A25: <main id="main">, skip link
+node .tools/h1-nbsp.mjs          # A24
+node .tools/wl-draw-scroll.mjs   # A23
+node .tools/drinking-table.mjs   # A10 (markup half)
+echo "--- gates"
+python3 .tools/gates.py "$@"

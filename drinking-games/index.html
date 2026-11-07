@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <title>Drinking Games: Classic Rules, With Cards or Without | Antics</title>
   <meta name="description" content="How to play the classic drinking games: Ring of Fire, Kings Cup, Ride the Bus, Higher or Lower, Fuzzy Duck, Paranoia, games for two or three, and Christmas.">
   <link rel="canonical" href="https://anticsapp.com/drinking-games/">
@@ -42,12 +43,11 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 <body class="has-installbar">
-<div class="page">
+<a class="skip" href="#main">Skip to content</a>
+<main class="page" id="main" tabindex="-1">
 <article>
   <nav class="crumb" aria-label="Breadcrumb"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics: the party games app</a> <span aria-hidden="true">›</span> Drinking games</nav>
 
@@ -85,20 +85,21 @@
         <p><strong>Picking fast?</strong> Got a deck of cards → Ring of Fire. Just the two of you → Higher or Lower. Nothing on the table → Fuzzy Duck or Thumb Master. Half the room are strangers → Never Have I Ever. Everyone knows each other far too well → Paranoia.</p>
       </div>
 
-      <div class="table-wrap">
+      <div class="table-wrap compare">
         <table>
-          <thead><tr><th>Game</th><th>Players</th><th>You need</th><th>Ends?</th></tr></thead>
+          <caption class="visually-hidden">Drinking games at a glance</caption>
+          <thead><tr><th scope="col">Game</th><th scope="col">Players</th><th scope="col">You need</th><th scope="col">Ends?</th></tr></thead>
           <tbody>
-            <tr><td>Ring of Fire (Kings Cup)</td><td>3+</td><td>Cards, a cup</td><td>Fourth King</td></tr>
-            <tr><td>Ride the Bus</td><td>2+</td><td>Cards</td><td>Last rider gets off</td></tr>
-            <tr><td>Higher or Lower</td><td>2+</td><td>Cards</td><td>Whenever</td></tr>
-            <tr><td>Snap</td><td>2+</td><td>Cards</td><td>Whenever</td></tr>
-            <tr><td>Thumb Master</td><td>3+</td><td>Nothing</td><td>Runs all night</td></tr>
-            <tr><td>Fuzzy Duck</td><td>3+</td><td>Nothing</td><td>Whenever</td></tr>
-            <tr><td>Paranoia</td><td>3+</td><td>A coin</td><td>Whenever</td></tr>
-            <tr><td>Twenty-one</td><td>2+</td><td>Nothing</td><td>Whenever</td></tr>
-            <tr><td>Never Have I Ever</td><td>2+</td><td>Nothing</td><td>Whenever</td></tr>
-            <tr><td>Imposter</td><td>3 to 12</td><td>A phone</td><td>Per round</td></tr>
+            <tr><th scope="row">Ring of Fire (Kings Cup)</th><td data-label="Players">3+</td><td data-label="You need">Cards, a cup</td><td data-label="Ends?">Fourth King</td></tr>
+            <tr><th scope="row">Ride the Bus</th><td data-label="Players">2+</td><td data-label="You need">Cards</td><td data-label="Ends?">Last rider gets off</td></tr>
+            <tr><th scope="row">Higher or Lower</th><td data-label="Players">2+</td><td data-label="You need">Cards</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Snap</th><td data-label="Players">2+</td><td data-label="You need">Cards</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Thumb Master</th><td data-label="Players">3+</td><td data-label="You need">Nothing</td><td data-label="Ends?">Runs all night</td></tr>
+            <tr><th scope="row">Fuzzy Duck</th><td data-label="Players">3+</td><td data-label="You need">Nothing</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Paranoia</th><td data-label="Players">3+</td><td data-label="You need">A coin</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Twenty-one</th><td data-label="Players">2+</td><td data-label="You need">Nothing</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Never Have I Ever</th><td data-label="Players">2+</td><td data-label="You need">Nothing</td><td data-label="Ends?">Whenever</td></tr>
+            <tr><th scope="row">Imposter</th><td data-label="Players">3 to 12</td><td data-label="You need">A phone</td><td data-label="Ends?">Per round</td></tr>
           </tbody>
         </table>
       </div>
@@ -263,7 +264,7 @@
     18+ · Please drink responsibly and look after your mates.
   </footer>
 </article>
-</div>
+</main>
 
 <aside class="installbar" aria-label="Get the app">
   <img src="/img/icon-192.png" alt="" width="40" height="40">

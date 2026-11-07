@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
   <meta name="apple-itunes-app" content="app-id=6787743558">
   <title>Impostor hra: slova s nápovědou, seznam k vytištění</title>
   <meta name="description" content="Slova do hry Impostor s lehkou i těžkou nápovědou: jídlo, slavné osobnosti, místa, předměty, značky, sporty a Vánoce. K vytištění i na hraní bez telefonu.">
@@ -75,9 +76,8 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#0E0A1F">
   <link rel="stylesheet" href="/css/site.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap">
+  <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/bricolage-800-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
   <style>
     @media screen and (max-width: 559px) {
       .wl-page .wl-table th, .wl-page .wl-table td { padding-left: 10px; padding-right: 10px; -webkit-hyphens: auto; hyphens: auto; }
@@ -89,7 +89,8 @@
   <!-- Word tables generated from the app's src/data/cs Imposter mirrors (free decks plus the follow decks Brands and Sports and the seasonal Christmas deck, retired indexes removed, easy and hard hint) by .tools/gen-es-pt-word-pages.mjs in the site repo. Regenerate rather than hand-edit. -->
 </head>
 <body class="has-installbar wl-page">
-<div class="page">
+<a class="skip" href="#main">Přeskočit na obsah</a>
+<main class="page" id="main" tabindex="-1">
 <article>
   <nav class="crumb" aria-label="Drobečková navigace"><a href="/"><img src="/img/icon-192.png" alt="" width="32" height="32">Antics</a> <span aria-hidden="true">&rsaquo;</span> <a href="/cs/">Čeština</a> <span aria-hidden="true">&rsaquo;</span> <a href="/cs/impostor-hra/">Impostor hra online</a> <span aria-hidden="true">&rsaquo;</span> Slova</nav>
 
@@ -590,7 +591,7 @@
     18+ · Dávejte na sebe pozor.
   </footer>
 </article>
-</div>
+</main>
 
 <aside class="installbar" aria-label="Stáhni si aplikaci">
   <img src="/img/icon-192.png" alt="" width="40" height="40">
@@ -637,6 +638,7 @@
     out.appendChild(top);
     if (w.easy) out.appendChild(line(w.easyLabel, w.easy));
     if (w.hard) out.appendChild(line(w.hardLabel, w.hard));
+    if (out.scrollIntoView) out.scrollIntoView({ block: 'nearest' });
   });
   box.hidden = false;
 })();

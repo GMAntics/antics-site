@@ -1,0 +1,26 @@
+/* A25 (PAGES builder, 7 Nov 2026): skip link and the <main id="main" tabindex="-1"> target.
+   FOR THE COORDINATOR: place in css/site.css after the focus-ring rule (section 2, near line 139). The link is the first
+   element in <body> on the 116 guide-template pages; the text is the page's own language (en, es, pt-BR, de, fr, it, nl, pl, cs).
+   PLAN.md A25 gave the first two rules; the rest are the small things it left out:
+   - 44px target, white on --surface-1 (contrast well above AA), the lime :focus-visible ring still applies;
+   - body.embed hides it (the embedded generator is an iframe with no page chrome);
+   - <main tabindex="-1"> exists so the skip link moves FOCUS (document.activeElement is the main, not BODY) in every browser;
+     it must not draw a ring around the whole page when that happens. */
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--surface-1);
+  color: var(--text-0);
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: var(--r-control);
+}
+.skip:focus { top: 12px; }
+body.embed .skip { display: none; }
+main[tabindex="-1"]:focus { outline: none; }
