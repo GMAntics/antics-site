@@ -121,9 +121,20 @@ OTHER_GATE = {'index.html': 'HOME: .tools/home-diff-vs-main.mjs and .tools/home-
 # Pages whose inline script another builder owns (TOOLS: A22 and the install bar tuck); node --check still runs.
 SCRIPT_OWNED = {'four-kings-online/index.html'}
 
+# Review fix IT-6 (7 Nov 2026): on /four-kings-online/ the "In the Antics app this game is The Four Kings" note moved from the
+# header, under the lead, to the first child of .tool-body, so the card opens the first screen on a phone. Same words, same
+# element; only its position changed. undo_moves() puts it back before the text and tag-sequence comparisons.
+MOVED_NOTE = {'four-kings-online/index.html'}
+def undo_moves(p, s):
+    if p not in MOVED_NOTE: return s
+    m = re.search(r'(<div class="tool-body prose">\s*)(<p class="note">[^<]*</p>)\s*', s)
+    if not m: return s
+    s = s[:m.start()] + m.group(1) + s[m.end():]
+    return re.sub(r'(<p class="lead">[^<]*</p>)', lambda k: k.group(1) + '\n      ' + m.group(2), s, count=1)
+
 n_ok = 0
 for p in pages:
-    new = open(p, encoding='utf-8').read(); o = old(p)
+    new = undo_moves(p, open(p, encoding='utf-8').read()); o = old(p)
     if o is None:
         fail(p, 'new file (no base copy), not gated'); continue
     if p in OTHER_GATE:

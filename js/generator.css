@@ -32,7 +32,7 @@
   border-radius: 12px; padding: 13px 26px; font-size: 16px; font-weight: 700;
   cursor: pointer;
 }
-.agen-next:hover { filter: brightness(1.08); }
+.agen-next:hover { filter: brightness(0.9); }
 .agen-copy {
   background: var(--agen-surface); color: var(--agen-white);
   border: 1px solid rgba(255,255,255,0.12); border-radius: 14px;

@@ -16,7 +16,10 @@
       writes only its own word in the bar's data-tuck list ("page" is this
       script's), and .is-tucked is on while that list is not empty, so one
       owner can never untuck the bar another still needs tucked. All four
-      carry the same small tuck() below. */
+      carry the same small tuck() below.
+
+   3. THE LAPTOP CARD AND THE RAIL (review W1): from 1280x740 the bar also
+      tucks ("rail") while an "On this page" link sits under its corner. */
 (function () {
   'use strict';
   if (!('IntersectionObserver' in window)) return;
@@ -78,5 +81,41 @@
       if (shown(el) >= 0.4) tuck(bar, 'page', true, true);
       watch.observe(el);
     });
+  }
+
+  // 3. The laptop card and the "On this page" rail. From 1280px wide and
+  //    740px tall the bar is a card in the bottom right corner (css/site.css
+  //    section 21). Until the rail sticks it sits lower down in its natural
+  //    place, so on the first screen its last links can pass under the card
+  //    (/forfeit-ideas/ at 1440x900, most rail pages at 1366x768). The bar
+  //    tucks ("rail") while any rail link meets the card's corner. The corner
+  //    comes from layout (offset sizes, computed right and bottom), never from
+  //    the card's own rect, which moves when it tucks.
+  var railLinks = document.querySelectorAll('.toc a');
+  var wide = window.matchMedia && window.matchMedia('(min-width: 1280px) and (min-height: 740px)');
+  if (bar && railLinks.length && wide) {
+    var railQueued = false;
+    var railCheck = function (still) {
+      railQueued = false;
+      var hit = false, w = bar.offsetWidth, h = bar.offsetHeight;
+      if (wide.matches && w && h) {
+        var cs = window.getComputedStyle(bar), root = document.documentElement;
+        var bottom = root.clientHeight - parseFloat(cs.bottom), top = bottom - h - 8;
+        var right = root.clientWidth - parseFloat(cs.right), left = right - w - 8;
+        for (var i = 0; i < railLinks.length && !hit; i++) {
+          var r = railLinks[i].getBoundingClientRect();
+          hit = r.height > 0 && r.bottom > top && r.top < bottom && r.right > left && r.left < right;
+        }
+      }
+      tuck(bar, 'rail', hit, still);
+    };
+    var railQueue = function () {
+      if (railQueued) return;
+      railQueued = true;
+      window.requestAnimationFrame(function () { railCheck(false); });
+    };
+    railCheck(true);
+    window.addEventListener('scroll', railQueue, { passive: true });
+    window.addEventListener('resize', railQueue);
   }
 })();

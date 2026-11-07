@@ -220,7 +220,7 @@
       cursor: pointer; text-decoration: none; text-align: center; touch-action: manipulation;
     }
     .btn-primary { background: var(--action); color: var(--text-0); border: 0; }
-    .btn-primary:hover { filter: brightness(1.08); }
+    .btn-primary:hover { filter: brightness(0.9); }
     .btn-ghost { background: var(--surface-2); color: var(--text-0); border: 1px solid var(--line-strong); }
     .btn-ghost:hover { background: var(--surface-3); }
     .link-btn {
@@ -479,6 +479,9 @@
     // ratio of the two is the number that says whether rounds get finished.
     var PLAY_SID = 'web-' + Math.random().toString(36).slice(2, 10);
     function beacon(name, props) {
+      // Only the live site reports: a local or preview copy of the page
+      // sends nothing, so test runs never reach the production sink (W6).
+      if (!/(^|\.)anticsapp\.com$/.test(location.hostname)) return;
       try {
         fetch('https://amioohsgipjzagmclwle.supabase.co/functions/v1/ingest-events', {
           method: 'POST',
