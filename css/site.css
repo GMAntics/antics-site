@@ -954,9 +954,64 @@ tbody tr:nth-child(even) td { background: var(--row-alt); }
 /* Room for the bar so it never covers the footer */
 body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
 
-@media (min-width: 768px) {
+/* A tool on screen tucks the bar away (7 Nov 2026, PLAN A1). The
+   generator, the Imposter dealer and The Four Kings table each watch their
+   own panel and set .is-tucked while it is 40 percent or more in view, so
+   the tool's own button is never under the bar and only one pink action
+   shows at a time; scroll past the tool and the bar comes back. Pages
+   without a tool never set it. visibility keeps a tucked bar out of the Tab
+   order; section 24 drops the transition under reduced motion. */
+.installbar {
+  transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s, visibility 0.28s;
+}
+.installbar.is-tucked {
+  transform: translateY(calc(100% + 24px + env(safe-area-inset-bottom, 0px)));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Focus and anchor jumps stop clear of the bar (WCAG 2.4.11, PLAN A3), on
+   phones and tablets and wherever the laptop card below shows */
+@media (max-width: 1023px), (min-width: 1280px) and (min-height: 740px) {
+  html:has(body.has-installbar) { scroll-padding-bottom: 106px; }
+}
+
+/* Wide phones and tablets: one centred bar, not a full-width strip. iPads
+   install the iPhone app, so the bar stays up to 1023px (PLAN A4; it was
+   hidden from 768px until 7 Nov 2026). */
+@media (min-width: 560px) {
+  .installbar {
+    left: 0;
+    right: 0;
+    width: min(480px, calc(100% - 24px));
+    margin-inline: auto;
+  }
+}
+@media (min-width: 1024px) {
   .installbar { display: none; }
   body.has-installbar { padding-bottom: 0; }
+}
+/* Laptops and up: the same bar as a small card in the bottom right corner
+   (PLAN A5), with room under the footer so the page's last line can scroll
+   clear of it. Hidden from 1024 to 1279px, where it would sit on the text,
+   and on screens under 740px tall, where it would meet the "On this page"
+   rail (a 13 entry rail ends 48px above it at 1366x768). */
+@media (min-width: 1280px) and (min-height: 740px) {
+  .installbar {
+    display: flex;
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: 340px;
+    margin: 0;
+  }
+  body.has-installbar { padding-bottom: 106px; }
+}
+/* A rail of 14 entries or more (/forfeit-ideas/ has 16) reaches the corner
+   on anything shorter than about 880px: no card on those pages there */
+@media (min-width: 1280px) and (max-height: 879px) {
+  body:has(.toc li:nth-child(14)) .installbar { display: none; }
 }
 
 
@@ -998,7 +1053,9 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
   letter-spacing: 0.02em;
 }
 .agen .agen-mode:hover { color: var(--text-0); }
-.agen .agen-mode.is-on { background: var(--action); color: #FFFFFF; }
+/* The chosen deck is a pale segment, not pink: pink is kept for the one
+   thing to tap ("Next card"), so it always means "do this" (7 Nov 2026) */
+.agen .agen-mode.is-on { background: var(--text-1); color: var(--on-tone); }
 .agen .agen-mode:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
 
 /* The dealt card, as the app draws it */
@@ -1130,13 +1187,39 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
   color: var(--text-2);
 }
 
-/* Phones: a shorter empty card, so "Draw a card" ("Sacar una carta",
-   "Tirar uma carta") sits on the first screen above the install bar */
+/* The deal (7 Nov 2026): the page opens on a dealt card, and each new card
+   settles onto the deck, rising a few pixels out of a slight tilt while its
+   words fade up. generator.js restarts .is-new on every deal; section 24
+   switches it off under reduced motion, leaving the card simply there. */
+@keyframes agen-deal-in {
+  from { transform: translateY(10px) rotate(-1.5deg); }
+}
+@keyframes agen-words-in {
+  from { opacity: 0; }
+}
+.agen .agen-card.is-new { animation: agen-deal-in 0.26s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.agen .agen-card.is-new > * { animation: agen-words-in 0.2s ease-out; }
+
+/* Phones: a shorter card, so "Next card" ("Otra carta", "Outra carta")
+   sits on the first screen. The height holds a four-line card, so the
+   button stays put under the thumb from one card to the next. */
 @media (max-width: 559px) {
   .agen .agen-card {
     min-height: 196px;
     padding: var(--space-l) var(--space-s) var(--space-m);
   }
+}
+/* Short phones (an iPhone SE): tighter again, with the card text a step
+   smaller, so the button is still on the first screen under a long
+   standfirst (PLAN A2; measured 7 Nov 2026 at 375x667, a four-line card
+   leaves the button 18px clear of the bottom edge) */
+@media (max-width: 559px) and (max-height: 700px) {
+  .agen .agen-card {
+    min-height: 156px;
+    gap: var(--space-xs);
+    padding-block: var(--space-s) var(--space-xs);
+  }
+  .agen .agen-q { font-size: 1.25rem; }
 }
 
 /* 22b. The generator in Spanish and Portuguese (/js/generator.js with
@@ -1327,7 +1410,9 @@ body.embed .tool-wrap { position: static; margin: 0; }
 }
 .idl-chip span:hover { color: var(--text-0); border-color: rgba(255, 255, 255, 0.3); }
 .idl-chip:active input:not(:checked) + span { background: var(--surface-3); }
-.idl-chip input:checked + span { background: var(--action); border-color: transparent; color: #FFFFFF; }
+/* The chosen category is a pale chip, not pink: pink is kept for "Deal
+   the round" (7 Nov 2026) */
+.idl-chip input:checked + span { background: var(--text-1); border-color: transparent; color: var(--on-tone); }
 .idl-chip input:focus-visible + span { outline: 3px solid var(--lime); outline-offset: 2px; }
 
 /* Imposter hint: an on/off switch */
@@ -1424,28 +1509,41 @@ body.embed .tool-wrap { position: static; margin: 0; }
   border-radius: var(--r-card);
   box-shadow: var(--deck-edge);
 }
-.idl-card.is-imposter { border-color: rgba(255, 46, 126, 0.6); }
-.idl-word {
+/* The reveal (7 Nov 2026, B-0 item 7). The role card turns over as it is
+   shown, and the word is set big. The imposter's card is drawn exactly like
+   everyone else's: no pink edge, no pink title, no emoji, so nobody across
+   the sofa can read the role from the colour; only the words differ, and
+   both cards are held to one height. */
+@keyframes idl-flip {
+  from { transform: perspective(900px) rotateY(-90deg); }
+}
+.idl-card.is-revealed { animation: idl-flip 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.idl-word,
+.idl-imp {
   font-family: var(--font-display);
-  font-size: clamp(1.75rem, 1.45rem + 1.4vw, 2.5rem);
+  font-size: clamp(2.5rem, 1.8rem + 4vw, 4rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
   color: var(--text-0);
   text-wrap: balance;
 }
-.idl-imp {
-  font-family: var(--font-display);
-  font-size: clamp(1.625rem, 1.35rem + 1.2vw, 2.25rem);
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--pink);
+/* In the 420px laptop rail the card is a phone's width again */
+@media (min-width: 1024px) {
+  .idl-word,
+  .idl-imp { font-size: 3.25rem; }
 }
+/* The imposter's one-word hint sits under the big line, a size down */
+.idl-hint { font-size: var(--step-2); line-height: 1.1; letter-spacing: 0; }
+/* dealer.js measures a word with wrapping inside words switched off, then
+   steps its size down until the longest word fits on one line */
+.idl-word.is-fitting,
+.idl-imp.is-fitting { overflow-wrap: normal; word-break: normal; }
 /* A long word wraps inside the card, never pushes it wider */
 .idl-word,
 .idl-name,
 .idl-title,
 .idl-imp { overflow-wrap: break-word; min-width: 0; max-width: 100%; }
-.idl-emoji { font-size: 2.75rem; line-height: 1; }
 .idl-card .label + .label { margin-top: var(--space-2xs); }
 
 /* The wall: the QR only where there is no phone in hand */
@@ -1526,6 +1624,21 @@ body.embed .tool-wrap { position: static; margin: 0; }
     padding: var(--space-m) var(--space-s);
   }
 }
+/* Taller phones (an iPhone 15 and up): every category on show, wrapped,
+   instead of two of five behind the fade (PLAN A8, 7 Nov 2026). Shorter
+   phones keep the swipe row, so "Deal the round" stays on the first
+   screen. */
+@media (max-width: 559px) and (min-height: 800px) {
+  .idl-chips {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    margin-inline: 0;
+    padding: 6px 0;
+    -webkit-mask-image: none;
+            mask-image: none;
+  }
+  .idl-chip span { white-space: normal; }
+}
 /* The narrowest phones (320px): the stepper goes back under its label */
 @media (max-width: 359px) {
   .idl-players { display: block; padding-left: 0; }
@@ -1536,10 +1649,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
 @media (max-width: 559px) and (max-height: 700px) {
   .idl-screen { gap: var(--space-2xs); }
   .idl-card { min-height: 0; gap: var(--space-2xs); padding: var(--space-s); }
-  .idl-emoji { font-size: 2.25rem; }
   .idl-name { font-size: 2rem; }
-  .idl-word { font-size: 1.625rem; }
-  .idl-imp { font-size: 1.5rem; }
 }
 
 /* Language switcher: under the dealer or the generator on every page with

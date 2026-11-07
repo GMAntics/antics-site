@@ -129,6 +129,11 @@
       .fk-card { width: min(270px, 100%, 40vh); }
       .fk-back, .fk-face { padding: 28px 16px; }
     }
+    /* Short phones (an iPhone SE): a smaller card, so "Next card" stays on
+       the screen after every draw (PLAN A22, 7 Nov 2026) */
+    @media (max-width: 559px) and (max-height: 700px) {
+      .fk-card { width: min(270px, 100%, 34vh); }
+    }
     /* A phone held sideways: the app locks to portrait, the page cannot. A
        wide, short card instead of a tall thin strip under the install bar. */
     @media (orientation: landscape) and (max-height: 500px) {
@@ -400,11 +405,36 @@
       $('fk-play').hidden = name !== 'play';
       $('fk-end').hidden = name !== 'end';
     }
+    // A tucked bar (below) is off the screen and counts as no bar.
     function visibleBottom() {
       var bar = document.querySelector('.installbar');
-      if (bar && bar.getBoundingClientRect().height > 0) return bar.getBoundingClientRect().top - 8;
+      if (bar && !bar.classList.contains('is-tucked') && bar.getBoundingClientRect().height > 0) {
+        return Math.min(bar.getBoundingClientRect().top - 8, window.innerHeight);
+      }
       return window.innerHeight;
     }
+    // INSTALL BAR (7 Nov 2026, PLAN A1): while the table is 40 percent or
+    // more in view the floating install bar tucks away (.is-tucked,
+    // /css/site.css section 21), so "Next card" is never under it; scroll
+    // past the table and it comes back. /js/generator.js and
+    // /imposter-game/dealer.js run the same rule.
+    (function tuckBar() {
+      var bar = document.querySelector('.installbar');
+      if (!bar || !('IntersectionObserver' in window)) return;
+      // On arrival the bar starts where it belongs, with no slide.
+      var r = $('fk').getBoundingClientRect();
+      var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+      if (r.height > 0 && seen / r.height >= 0.4) {
+        bar.style.transition = 'none';
+        bar.classList.add('is-tucked');
+        void bar.offsetWidth;
+        bar.style.transition = '';
+      }
+      new IntersectionObserver(function (entries) {
+        var e = entries[entries.length - 1];
+        bar.classList.toggle('is-tucked', e.isIntersecting && e.intersectionRatio >= 0.399);
+      }, { threshold: [0, 0.4, 1] }).observe($('fk'));
+    })();
     function keepInView() {
       var root = $('fk');
       var r = root.getBoundingClientRect();
