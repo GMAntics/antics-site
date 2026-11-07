@@ -368,11 +368,14 @@ h1 {
    so the tool's button stays above the fold on a 375x667 phone; on wide
    screens the headline shares its row with the tool, so it runs a step
    smaller (60px in the 668px column) and a 76-character French or Spanish
-   headline still sets in three lines */
+   headline still sets in three lines. Under 330px the floor follows the
+   width (10.3vw, 33px at 320), so the no-break "Never Have I Ever:" fits
+   its 280px box (it ran 3px over at 34px, review DQA-4); from 330px up the
+   size is exactly what it was (7 Nov 2026) */
 .hero:has(> .tool) h1,
 .tool-layout h1 {
   font-size: clamp(2.125rem, 6.5vw, 4.25rem);
-  font-size: clamp(2.125rem, min(6.5vw, 9cqi), 4.25rem);
+  font-size: clamp(min(2.125rem, 10.3vw), min(6.5vw, 9cqi), 4.25rem);
 }
 /* An unbreakable run (the no-break "Never Have I Ever:" and "Ich hab noch
    nie:" of PLAN A24) breaks rather than push a 320px page sideways; it does
@@ -1571,10 +1574,10 @@ body.embed .tool-wrap { position: static; margin: 0; }
    -------------------------------------------------------------------------- */
 /* The deal-in (Direction A, motion 2): a tier card rises 10px and settles
    from a slight tilt, once, the first time it comes into view; the closing
-   box rises onto its band. The card starts at 0.6 opacity, not 0, and
-   settles in 0.36s: a phone's tier card can be 4,000px of questions, and a
-   fade from nothing left a fast scroller reading dimmed rows (review IT-9).
-   The motion lives ONLY on .is-dealt, which the
+   box rises onto its band. The tier card moves but never fades: a phone's
+   tier card can be 4,000px of questions, and a fade (from 0, then from 0.6)
+   left a fast scroller reading dimmed rows (review IT-9, polish 2, 7 Nov
+   2026). It settles in 0.36s. The motion lives ONLY on .is-dealt, which the
    shared page script adds when the card first enters the viewport. Without
    the class (no script, an old browser, a card already on screen at load)
    every card is fully visible and still; the class only adds the motion and
@@ -1597,7 +1600,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
   .cta-block.is-dealt::before { animation: deck-band-hold 0.52s var(--ease-deal) backwards; }
 }
 @keyframes deck-deal-in {
-  from { opacity: 0.6; transform: translateY(10px) skewY(-1deg); }
+  from { transform: translateY(10px) skewY(-1deg); }
 }
 @keyframes deck-rise-in {
   from { top: 12px; }

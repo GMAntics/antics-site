@@ -19,7 +19,8 @@
       carry the same small tuck() below.
 
    3. THE LAPTOP CARD AND THE RAIL (review W1): from 1280x740 the bar also
-      tucks ("rail") while an "On this page" link sits under its corner. */
+      tucks ("rail") while an "On this page" link sits under its corner, and
+      so does the phone bar on a screen 600px tall or less (review DQA-1). */
 (function () {
   'use strict';
   if (!('IntersectionObserver' in window)) return;
@@ -91,8 +92,12 @@
   //    tucks ("rail") while any rail link meets the card's corner. The corner
   //    comes from layout (offset sizes, computed right and bottom), never from
   //    the card's own rect, which moves when it tucks.
+  //    A phone 600px tall or less (an iPhone SE of 2016) can start with the
+  //    "On this page" chip row under the bar (/best-party-game-apps/ at
+  //    320x568, review DQA-1): the same rule keeps the bar tucked there until
+  //    the row has scrolled clear of it. Taller phones never meet it at load.
   var railLinks = document.querySelectorAll('.toc a');
-  var wide = window.matchMedia && window.matchMedia('(min-width: 1280px) and (min-height: 740px)');
+  var wide = window.matchMedia && window.matchMedia('(min-width: 1280px) and (min-height: 740px), (max-width: 559px) and (max-height: 600px)');
   if (bar && railLinks.length && wide) {
     var railQueued = false;
     var railCheck = function (still) {

@@ -91,10 +91,29 @@
       border-radius: 20px;
       text-align: center;
     }
-    .fk-back { background: #2A2150; border: 2px solid var(--pink); }
+    /* The back is the site's card back, the home page's face-down game tile
+       (index.html .back): the Four Kings tile's own gradient (.tile-kings in
+       /css/site.css), a white frame inset 8px, the emoji centred. Its words
+       are --on-tone, the token for text on a brand colour (AA at both ends
+       of the gradient, where white is not); pink stays the one thing to do
+       (7 Nov 2026, IT-6). */
+    .fk-back {
+      --a: #FF2E7E;
+      --b: #FFB02E;
+      position: relative;
+      background: linear-gradient(140deg, var(--a), var(--b));
+    }
+    .fk-back::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-radius: 14px;
+      pointer-events: none;
+    }
     .fk-back-emoji { font-size: 64px; line-height: 1; }
-    .fk-back-logo { margin-top: 10px; color: var(--pink); font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: 4px; }
-    .fk-back-hint { margin-top: 18px; color: #9C92C7; font-size: 12px; font-weight: 700; letter-spacing: 2px; }
+    .fk-back-logo { margin-top: 10px; color: var(--on-tone); font-family: var(--font-display); font-size: 24px; font-weight: 800; letter-spacing: 4px; }
+    .fk-back-hint { margin-top: 18px; color: var(--on-tone); font-size: 12px; font-weight: 700; letter-spacing: 2px; }
     .fk-face { position: relative; background: #FDF9FF; border: 2px solid transparent; }
     .fk-face.is-finale { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(255, 176, 46, 0.35); }
     .fk-corner { position: absolute; font-size: 19px; font-weight: 800; line-height: 1; }
@@ -130,12 +149,30 @@
       .fk-face.is-new { animation: fk-flip 260ms ease-out; }
       @keyframes fk-flip { from { transform: perspective(900px) rotateY(80deg); opacity: 0.4; } to { transform: none; opacity: 1; } }
     }
+    /* Phones: the table opens the first screen, under the headline, and the
+       lead reads under the table (visual order only: the lead holds nothing
+       to focus). Until the first draw the back takes the height that is
+       left, so "Draw a card" is on the first screen of a 360x740 or 375x667
+       phone and the back is still a full 270px card from 390x844 up (7 Nov
+       2026, IT-6; it was 196px below the first screen at 375x667). A drawn
+       card keeps the size below: the table scrolls to the top after a draw,
+       so "Next card" stays on the screen (PLAN A22). */
     @media (max-width: 559px) {
+      main.tool-layout { display: flex; flex-direction: column; }
+      main.tool-layout > .page-head { display: contents; }
+      main.tool-layout > .page-head > h1 { order: 0; }
+      main.tool-layout > .tool-wrap { order: 1; margin-top: 0; }
+      main.tool-layout > .page-head > .lead { order: 2; margin-top: var(--space-xs); }
+      main.tool-layout > .tool-body { order: 3; }
       .fk-card { width: min(270px, 100%, 40vh); }
+      .fk-card:has(> .fk-face[hidden]) {
+        width: min(100%, clamp(168px, calc((100vh - 420px) * 0.69), 270px));
+        width: min(100%, clamp(168px, calc((100svh - 420px) * 0.69), 270px));
+      }
       .fk-back, .fk-face { padding: 28px 16px; }
     }
-    /* Short phones (an iPhone SE): a smaller card, so "Next card" stays on
-       the screen after every draw (PLAN A22, 7 Nov 2026) */
+    /* Short phones (an iPhone SE): a smaller drawn card, so "Next card" stays
+       on the screen after every draw (PLAN A22, 7 Nov 2026) */
     @media (max-width: 559px) and (max-height: 700px) {
       .fk-card { width: min(270px, 100%, 34vh); }
     }

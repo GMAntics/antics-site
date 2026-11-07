@@ -31,6 +31,9 @@ GOOGLE = {'https://fonts.googleapis.com', 'https://fonts.gstatic.com',
           'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&display=swap'}
 ADDED_OK = {'#main', '/fonts/bricolage-800-latin.woff2', '/fonts/bricolage-800-latin-ext.woff2',
             '/js/deal.js'}   # integrator, 7 Nov 2026: .tools/deal-js-tag.mjs
+# Polish round 2, DQA-3 (7 Nov 2026): .tools/head-font.mjs keeps the latin-ext preload only where the first phone
+# screen needs it, so it may leave a page that had it.
+REMOVED_OK = {'/fonts/bricolage-800-latin-ext.woff2'}
 A23 = "    if (out.scrollIntoView) out.scrollIntoView({ block: 'nearest' });\n"
 VOID = {'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'}
 IMPLIED = {'p', 'li', 'td', 'th', 'tr', 'thead', 'tbody', 'tfoot', 'option', 'dt', 'dd', 'colgroup', 'caption'}
@@ -132,9 +135,16 @@ def undo_moves(p, s):
     s = s[:m.start()] + m.group(1) + s[m.end():]
     return re.sub(r'(<p class="lead">[^<]*</p>)', lambda k: k.group(1) + '\n      ' + m.group(2), s, count=1)
 
+# Polish round 2 (7 Nov 2026): against a base that already carries the redesign (origin/main from 5c8e3ac: its pages
+# have the skip link, the landmark moves, the nowrap spans and the moved Four Kings note) the transforms above would
+# undo or strip things on ONE side only. Such a page is compared like with like instead: text, link list, JSON-LD, inline
+# scripts and the whole body tag sequence straight against the base, with no transform at all (stricter, not looser).
+def post_redesign(o): return o is not None and 'class="skip"' in o
+
 n_ok = 0
 for p in pages:
-    new = undo_moves(p, open(p, encoding='utf-8').read()); o = old(p)
+    raw = open(p, encoding='utf-8').read(); o = old(p); post = post_redesign(o)
+    new = raw if post else undo_moves(p, raw)
     if o is None:
         fail(p, 'new file (no base copy), not gated'); continue
     if p in OTHER_GATE:
@@ -147,9 +157,9 @@ for p in pages:
         n_ok += 1; continue
     # 1. visible text
     to, tn = strip_tags(o), strip_tags(new)
-    for st in SKIP_TEXTS:
+    for st in (() if post else SKIP_TEXTS):
         tn = tn.replace(' ' + st + ' ', ' ', 1) if (' ' + st + ' ') in tn else (tn[len(st) + 1:] if tn.startswith(st + ' ') else tn)
-    if p in CAPTION: tn = tn.replace(CAPTION[p] + ' ', '', 1)
+    if p in CAPTION and not post: tn = tn.replace(CAPTION[p] + ' ', '', 1)
     if to != tn:
         i = next((k for k in range(min(len(to), len(tn))) if to[k] != tn[k]), min(len(to), len(tn)))
         fail(p, f'VISIBLE TEXT differs near: old "{to[max(0,i-40):i+60]}" new "{tn[max(0,i-40):i+60]}"')
@@ -164,7 +174,7 @@ for p in pages:
     from collections import Counter
     co, cn = Counter(uo), Counter(un)
     for u, k in (co - cn).items():
-        if u not in GOOGLE: fail(p, f'URL removed that is not a Google font URL: {u}')
+        if u not in GOOGLE and u not in REMOVED_OK: fail(p, f'URL removed that is not a Google font URL: {u}')
     for u, k in (cn - co).items():
         if u not in ADDED_OK: fail(p, f'URL added that is not allowed: {u}')
     # 4. inline scripts
@@ -181,16 +191,16 @@ for p in pages:
         if r.returncode: fail(p, f'node --check failed on inline script {k}: {r.stderr.strip()[:200]}')
     # 5. nesting and body tag sequence (the sequence on unfix(new): see unfix above)
     landmarks(p, new)
-    nu = unfix(new)
+    nu = new if post else unfix(new)
     eo, en, enu = body_events(o), body_events(new), body_events(nu)
     if en.bad: fail(p, f'tag nesting broken in new file: {en.bad[:2]}')
     if enu.bad: fail(p, f'tag nesting broken in the unfixed copy (unfix() did not undo cleanly): {enu.bad[:2]}')
     seq_o = eo.body
     seq_n = [t for t in enu.body]
     # remove the skip link (a start + end) and map main.page back to div
-    if 'class="skip"' in new:
+    if 'class="skip"' in new and not post:
         i = seq_n.index('a'); assert seq_n[i + 1] == '/a'; del seq_n[i:i + 2]
-    if '<main class="page" id="main"' in nu:
+    if '<main class="page" id="main"' in nu and not post:
         seq_n = ['div' if t == 'main' else ('/div' if t == '/main' else t) for t in seq_n]
         # the converted pair must also be the SAME pair: compare the nesting of the old file's div.page with the new main
     if 'compare' in new and p == 'drinking-games/index.html':
@@ -229,7 +239,7 @@ def pair_index(s, start_tag_re, name):
 pairs = 0
 for p in pages:
     new = unfix(open(p, encoding='utf-8').read()); o = old(p)
-    if o and '<main class="page" id="main"' in new:
+    if o and not post_redesign(o) and '<main class="page" id="main"' in new:
         a = pair_index(o, r'\bpage\b', 'div'); b = pair_index(new, r'\bpage\b', 'main')
         # the new file has the skip link (2 more events before the pair): shift by 2
         extra = 2 if p == 'drinking-games/index.html' else 0   # its table gained a <caption> start and end event inside the pair
