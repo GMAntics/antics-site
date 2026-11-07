@@ -261,6 +261,50 @@
     }
     return a;
   }
+  // THE DEAL (7 Nov 2026): every generator arrives with its first card
+  // already dealt, and each new card settles in (the agen-deal-in motion in
+  // css/site.css section 22, off under reduced motion). Restarting the class
+  // replays it on every deal.
+  function dealIn(card) {
+    card.classList.remove('is-new');
+    void card.offsetWidth;
+    card.classList.add('is-new');
+  }
+
+  // INSTALL BAR (7 Nov 2026, PLAN A1): while a generator is 40 percent or
+  // more in view the floating install bar tucks away (.is-tucked, css/site.css
+  // section 21), so "Next card" is never under it and the panel's own
+  // "Get Antics free" is the one pink install button on screen. The same
+  // rule runs in /imposter-game/dealer.js and on /four-kings-online/. No bar
+  // (an embed) or no IntersectionObserver: the bar behaves as it always did.
+  var tuck = { io: null, bar: null, inView: [] };
+  function tuckBarFor(el) {
+    if (!tuck.io) {
+      tuck.bar = document.querySelector('.installbar');
+      if (!tuck.bar || !('IntersectionObserver' in window)) return;
+      tuck.io = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          var e = entries[i], k = tuck.inView.indexOf(e.target);
+          var on = e.isIntersecting && e.intersectionRatio >= 0.399;
+          if (on && k < 0) tuck.inView.push(e.target);
+          if (!on && k >= 0) tuck.inView.splice(k, 1);
+        }
+        tuck.bar.classList.toggle('is-tucked', tuck.inView.length > 0);
+      }, { threshold: [0, 0.4, 1] });
+    }
+    // On arrival the bar starts where it belongs, with no slide: a tool
+    // already on the first screen means a bar that was never there.
+    var r = el.getBoundingClientRect();
+    var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+    if (r.height > 0 && seen / r.height >= 0.4) {
+      tuck.bar.style.transition = 'none';
+      tuck.bar.classList.add('is-tucked');
+      void tuck.bar.offsetWidth;
+      tuck.bar.style.transition = '';
+    }
+    tuck.io.observe(el);
+  }
+
   function lc(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
   function phrase(cfg, q) {
     if (!cfg.prefix) return q;
@@ -311,7 +355,9 @@
     var ctaTag = 'site-' + root.getAttribute('data-lang') + '-' + game + '-gen';
     var hostTag = (root.getAttribute('data-cta') || '').toLowerCase();
     if (/^[a-z0-9-]{1,32}$/.test(hostTag)) ctaTag = hostTag;
-    var total = pool.length, order = shuffle(pool), idx = -1, current = '';
+    // idx -1 is the empty "tap the button" card. Pages open on card 1
+    // instead (7 Nov 2026); the -1 branch in render() stays as the fallback.
+    var total = pool.length, order = shuffle(pool), idx = 0, current = '';
 
     root.classList.add('agen');
     root.innerHTML =
@@ -326,6 +372,7 @@
         '<a class="agen-btn agen-btn-get" rel="nofollow"></a>' +
         '<a class="agen-btn agen-btn-alt" rel="nofollow"></a>' +
       '</div>';
+    var cardEl = root.querySelector('.agen-card');
     var kEl = root.querySelector('.agen-k');
     var qEl = root.querySelector('.agen-q');
     var nextBtn = root.querySelector('.agen-next');
@@ -389,6 +436,7 @@
       if (idx >= order.length) { order = shuffle(pool); idx = 0; }
       else idx++;
       render();
+      dealIn(cardEl);
     });
     copyBtn.addEventListener('click', function () {
       if (!current) return;
@@ -400,6 +448,8 @@
       });
     });
     render();
+    dealIn(cardEl);
+    tuckBarFor(root);
   }
 
   function init(root) {
@@ -444,12 +494,16 @@
 
     var pool, order, total, idx, current = '';
 
+    // A deck opens on its first card, dealt (7 Nov 2026): at page load and
+    // when the Party / Clean switch changes deck. idx -1, the empty "tap
+    // below" card, is no longer reached; its branch in render() stays as
+    // the fallback.
     function loadMode(next) {
       mode = next;
       pool = poolFor(mode, game);
       order = shuffle(pool);
       total = pool.length;
-      idx = -1;
+      idx = 0;
       current = '';
     }
     loadMode(mode);
@@ -478,6 +532,7 @@
         '<a class="agen-btn agen-btn-alt" href="' + PLAY + '" rel="nofollow">Play a free round</a>' +
       '</div>';
 
+    var cardEl = root.querySelector('.agen-card');
     var qEl = root.querySelector('.agen-q');
     var nextBtn = root.querySelector('.agen-next');
     var copyBtn = root.querySelector('.agen-copy');
@@ -525,14 +580,15 @@
       qEl.textContent = current;
       copyBtn.style.visibility = 'visible';
       copyBtn.textContent = 'Copy';
+      nextBtn.textContent = 'Next card';
       countEl.textContent = 'Card ' + (idx + 1) + ' of ' + total;
     }
 
     nextBtn.addEventListener('click', function () {
-      if (idx >= order.length) { order = shuffle(pool); idx = 0; nextBtn.textContent = 'Draw a card'; }
+      if (idx >= order.length) { order = shuffle(pool); idx = 0; }
       else idx++;
-      if (idx === 0) nextBtn.textContent = 'Next card';
       render();
+      dealIn(cardEl);
     });
     copyBtn.addEventListener('click', function () {
       if (!current) return;
@@ -551,11 +607,14 @@
         if (!embed) remember(next);
         syncModeBtns();
         render();
+        dealIn(cardEl);
       });
     }
 
     syncModeBtns();
     render();
+    dealIn(cardEl);
+    tuckBarFor(root);
   }
 
   function boot() {

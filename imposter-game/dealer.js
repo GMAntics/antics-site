@@ -397,10 +397,53 @@
   // starts low or runs past the bottom, so every turn (the role card, the
   // reveal) plays without scrolling. On wide screens the panel is pinned in
   // the right rail and never moves. Back on setup only the old rule applies.
+  // A tucked bar (below) is off the screen and counts as no bar.
   function visibleBottom() {
     var bar = document.querySelector('.installbar');
-    if (bar && bar.getBoundingClientRect().height > 0) return bar.getBoundingClientRect().top - 8;
+    if (bar && !bar.classList.contains('is-tucked') && bar.getBoundingClientRect().height > 0) {
+      return Math.min(bar.getBoundingClientRect().top - 8, window.innerHeight);
+    }
     return window.innerHeight;
+  }
+
+  // INSTALL BAR (7 Nov 2026, PLAN A1): while the dealer is 40 percent or more
+  // in view the floating install bar tucks away (.is-tucked, css/site.css
+  // section 21), so "Deal the round" and every turn's button are never under
+  // it; scroll past the dealer and it comes back. The generator
+  // (/js/generator.js) and /four-kings-online/ run the same rule.
+  (function tuckBar() {
+    var bar = document.querySelector('.installbar');
+    if (!bar || !('IntersectionObserver' in window)) return;
+    // On arrival the bar starts where it belongs, with no slide.
+    var r = root.getBoundingClientRect();
+    var seen = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+    if (r.height > 0 && seen / r.height >= 0.4) {
+      bar.style.transition = 'none';
+      bar.classList.add('is-tucked');
+      void bar.offsetWidth;
+      bar.style.transition = '';
+    }
+    new IntersectionObserver(function (entries) {
+      var e = entries[entries.length - 1];
+      bar.classList.toggle('is-tucked', e.isIntersecting && e.intersectionRatio >= 0.399);
+    }, { threshold: [0, 0.4, 1] }).observe(root);
+  })();
+
+  // THE BIG WORD (7 Nov 2026): the secret word, the imposter line and the
+  // reveal are set large (css/site.css section 25). A word too long for the
+  // card at that size (a German compound, "l'IMPOSTEUR") steps down until
+  // its longest word fits on one line, rather than breaking mid-word.
+  function fitBig(el) {
+    el.style.fontSize = '';
+    if (!el.clientWidth) return;
+    el.classList.add('is-fitting');            // no wrapping inside a word
+    var size = parseFloat(getComputedStyle(el).fontSize);
+    var floor = 22;
+    while (el.scrollWidth > el.clientWidth + 1 && size > floor) {
+      size -= 2;
+      el.style.fontSize = size + 'px';
+    }
+    el.classList.remove('is-fitting');
   }
   function show(name, focusId) {
     shownAt = Date.now();
@@ -492,32 +535,51 @@
     return p;
   }
 
-  $('idl-peek').addEventListener('click', function () {
-    if (!settled()) return;
-    var r = state.round;
-    var card = $('idl-card');
+  // FAIR FROM ACROSS THE SOFA (7 Nov 2026, B-0 item 7): the imposter's card
+  // is the same card as everyone else's, same colour, type and order (the
+  // category line first, then one big line), so only the words tell. It was
+  // a pink-edged card with a pink title and a devil emoji on top. Its height
+  // is matched too: before a card is shown, both versions of this round's
+  // card are laid out and the taller sets the card's height for every player.
+  function fillCard(card, r, imp) {
     while (card.firstChild) card.removeChild(card.firstChild);
     var place = r.deck.kind === 'place';
-    if (state.turn === r.imposter) {
-      card.className = 'idl-card is-imposter';
-      var emoji = line('idl-emoji', '😈');
-      emoji.setAttribute('aria-hidden', 'true');
-      card.appendChild(emoji);
+    card.appendChild(line('label', COPY.category(r.deck.name)));
+    if (imp) {
       card.appendChild(line('idl-imp', COPY.impTitle));
-      card.appendChild(line('label', COPY.category(r.deck.name)));
       card.appendChild(line('idl-body', place ? COPY.impBodyPlace : COPY.impBodyWord));
       if (r.hint) {
         card.appendChild(line('label', COPY.hintTitle));
-        card.appendChild(line('idl-word', r.hint));
+        card.appendChild(line('idl-word idl-hint', r.hint));
       }
     } else {
-      card.className = 'idl-card';
-      card.appendChild(line('label', COPY.category(r.deck.name)));
       card.appendChild(line('label', place ? COPY.youreAt : COPY.yourWord));
       card.appendChild(line('idl-word', r.word));
       card.appendChild(line('idl-body', place ? COPY.placeBody : COPY.wordBody));
     }
+    Array.prototype.forEach.call(card.querySelectorAll('.idl-imp, .idl-word'), fitBig);
+  }
+
+  $('idl-peek').addEventListener('click', function () {
+    if (!settled()) return;
+    var r = state.round;
+    var card = $('idl-card');
+    card.className = 'idl-card';
+    card.style.minHeight = '';
+    // Lay both versions out on the (not yet painted) secret screen, keep the
+    // taller height, then deal this player's own card.
+    screens.forEach(function (s) { $('idl-' + s).hidden = (s !== 'secret'); });
+    var tallest = 0;
+    fillCard(card, r, true);
+    tallest = Math.max(tallest, card.offsetHeight);
+    fillCard(card, r, false);
+    tallest = Math.max(tallest, card.offsetHeight);
+    fillCard(card, r, state.turn === r.imposter);
+    if (tallest) card.style.minHeight = tallest + 'px';
     $('idl-next').textContent = state.turn + 1 < state.players ? COPY.next : COPY.allSeen;
+    // The card turns over as it is shown (the idl-flip motion, off under
+    // reduced motion)
+    card.classList.add('is-revealed');
     show('secret', 'idl-card');
   });
 
@@ -527,6 +589,8 @@
     // in the page for the next player.
     var card = $('idl-card');
     while (card.firstChild) card.removeChild(card.firstChild);
+    card.classList.remove('is-revealed');
+    card.style.minHeight = '';
     if (state.turn + 1 < state.players) {
       state.turn++;
       showPass();
@@ -549,6 +613,7 @@
     hintEl.hidden = !r.hint;
     hintEl.textContent = r.hint ? COPY.hintWas(r.hint) : '';
     show('result', 'idl-res-name');
+    fitBig($('idl-res-word'));
   });
 
   // Every way to the next deal goes through here, so "Change settings" after
