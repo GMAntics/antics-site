@@ -1450,6 +1450,12 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
 .agen .agen-btn-alt,
 .agen .agen-btn:last-of-type:not(.agen-btn-get) { background: transparent; border: 1px solid var(--line-strong); }
 .agen .agen-btn:hover { color: #FFFFFF; filter: brightness(0.9); }
+/* The panel's ghost buttons light up on hover, as .btn--ghost does, rather
+   than dim (the embed's Get Antics free stays pink and darkens) */
+.agen:not(.agen-embed) .agen-btn:first-of-type:hover,
+.agen:not(.agen-embed) .agen-btn-get:hover,
+.agen .agen-btn-alt:hover,
+.agen .agen-btn:last-of-type:not(.agen-btn-get):hover { background: rgba(255, 255, 255, 0.06); filter: none; }
 
 /* Small print under the widget */
 .tool-note {
