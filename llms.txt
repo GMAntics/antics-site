@@ -26,6 +26,7 @@
 - [What Are The Odds: rules and dares](https://anticsapp.com/what-are-the-odds/)
 - [How to play Imposter](https://anticsapp.com/how-to-play-imposter/)
 - [Play Imposter online: a free word dealer for one phone](https://anticsapp.com/imposter-game/)
+- [Play Imposter online with friends, everyone on their own phone](https://anticsapp.com/imposter-online-with-friends/): a free Imposter room in the browser for 3 to 12 players. Start one at anticsapp.com/j/?host=1, then join with the code: no download, no sign-up. Rooms deal the four free decks in the language of the browser that starts the room, or in English if that language is not one of the eleven above.
 - [Ring of Fire online (The Four Kings): the whole 52-card deck, free in your browser](https://anticsapp.com/four-kings-online/)
 - [Imposter game words (hub)](https://anticsapp.com/imposter-game-words/): how to pick a good word for Imposter, with a word list for every deck in the app.
 - [Imposter game locations: every place in the deck, with hints](https://anticsapp.com/imposter-game-words/places/)

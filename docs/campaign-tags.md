@@ -84,6 +84,10 @@ left on a content page.
 | `site-imposter-play` | `/imposter-game/` | the wall's "Get Antics free" button (after every third round); a `?c=` on the page URL replaces it, as on `/play/` |
 | `site-imposter-play-qr` | `/imposter-game/` | the wall's QR, shown on wide screens only (`/qr-imposter-play.png`) |
 | `site-imposter-play-bar` | `/imposter-game/` | the phone install bar |
+| `site-imposter-rooms` | `/imposter-online-with-friends/` | the two store buttons in the closing box (added 7 Nov 2026, SEO batch 4) |
+| `site-imposter-rooms-laptop` | `/imposter-online-with-friends/` | the "On a laptop?" line |
+| `site-imposter-rooms-footer` | `/imposter-online-with-friends/` | footer "Get the app" |
+| `site-imposter-rooms-bar` | `/imposter-online-with-friends/` | the phone install bar |
 | `site-fourkings` | `/four-kings-online/` | the two store buttons in the closing box |
 | `site-fourkings-qr` | `/four-kings-online/` | the closing box QR, laptops and tablets only (`/four-kings-online/qr.png`) |
 | `site-fourkings-bar` | `/four-kings-online/` | the phone install bar |
