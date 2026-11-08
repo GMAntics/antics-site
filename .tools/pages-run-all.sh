@@ -15,5 +15,6 @@ node .tools/wl-draw-scroll.mjs   # A23
 node .tools/drinking-table.mjs   # A10 (markup half)
 node .tools/inline-sync.mjs      # integrator: index.html and play/ font, tokens re-synced from css/site.css, comments out
 node .tools/deal-js-tag.mjs      # integrator: <script src="/js/deal.js" defer> on tier-card / cta-block / installbar pages
+node .tools/suffix-nowrap.mjs    # 8 Nov 2026: Polish word(-am) forms in <span class="nw">, text bytes unchanged
 echo "--- gates"
 python3 .tools/gates.py "$@"

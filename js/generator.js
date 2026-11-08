@@ -317,6 +317,27 @@
     tuck.io.observe(el);
   }
 
+  // Appends s to el as text, with each word plus bracketed gender suffix
+  // (Polish "rzygalem(-am)", with a barred l) in a <span class="nw"> (white-space: nowrap in
+  // css/site.css), so a line never breaks after its hyphen. DOM nodes only,
+  // never innerHTML; the text itself is unchanged (8 Nov 2026). The letter
+  // class is the one .tools/suffix-nowrap.mjs uses for the static pages.
+  var SUFFIX_FORM = /[A-Za-z\u00C0-\u024F]+\(-[A-Za-z\u00C0-\u024F]+\)/g;
+  function appendText(el, s) {
+    var last = 0, m;
+    SUFFIX_FORM.lastIndex = 0;
+    while ((m = SUFFIX_FORM.exec(s))) {
+      if (m.index > last) el.appendChild(document.createTextNode(s.slice(last, m.index)));
+      var nw = document.createElement('span');
+      nw.className = 'nw';
+      nw.textContent = m[0];
+      el.appendChild(nw);
+      last = m.index + m[0].length;
+    }
+    if (last < s.length) el.appendChild(document.createTextNode(s.slice(last)));
+  }
+  function setText(el, s) { el.textContent = ''; appendText(el, s); }
+
   function lc(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
   function phrase(cfg, q) {
     if (!cfg.prefix) return q;
@@ -434,10 +455,10 @@
         var or = document.createElement('span');
         or.className = 'agen-or';
         or.textContent = L.or;
-        qEl.appendChild(document.createTextNode(card.a + ' '));
+        appendText(qEl, card.a + ' ');
         qEl.appendChild(or);
-        qEl.appendChild(document.createTextNode(' ' + card.b));
-      } else qEl.textContent = card.t;
+        appendText(qEl, ' ' + card.b);
+      } else setText(qEl, card.t);
       current = card.k + ' ' + card.t;
       copyBtn.style.visibility = 'visible';
       copyBtn.textContent = L.copy;

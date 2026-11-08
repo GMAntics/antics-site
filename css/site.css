@@ -276,6 +276,11 @@ code {
   white-space: nowrap;
 }
 
+/* A word and its bracketed gender suffix, e.g. Polish "rzygałem(-am)", kept on one line: the
+   browser would otherwise break after the hyphen. Wrapped by .tools/suffix-nowrap.mjs in the
+   static pages and by js/generator.js in dealt cards; the text itself is unchanged (8 Nov 2026). */
+.nw { white-space: nowrap; }
+
 /* Section tones: set once on a section, inherited by everything inside */
 .tone-pink   { --tone: var(--pink); }
 .tone-lime   { --tone: var(--lime); }

@@ -15,6 +15,9 @@ For EVERY page that differs:
   7. (review fixer, 7 Nov) the breadcrumb sits before <main>, the h1 inside it, the site footer after it (tool-layout pages
      keep theirs inside .tool-body), every breadcrumb separator is glued to its crumb. Checks 5 and the pairing run on
      unfix(new), which undoes exactly the h1 nowrap span, the crumb steps and the landmark moves.
+  8. (8 Nov 2026) .tools/suffix-nowrap.mjs's <span class="nw"> around a word and its bracketed suffix ("rzygałem(-am)") is
+     unwrapped before checks 1 to 5, so text, links, scripts and the tag sequence are compared exactly as without it; nesting
+     is still checked on the real file, and every nw span must hold exactly one such form and nothing else.
 Usage: gates.py [--base REV]   (run from the worktree; needs git and node on PATH)
 """
 import argparse, html, json, os, re, subprocess, sys, tempfile
@@ -115,6 +118,22 @@ def landmarks(p, new):
     if c and '<span aria-hidden="true">' in c.group(0) and re.search(r'(?<!crumb-step">)<span aria-hidden="true">', c.group(0)):
         fail(p, 'a breadcrumb separator is not glued to its crumb (crumb-glue.mjs)')
 
+# Suffix nowrap (8 Nov 2026): .tools/suffix-nowrap.mjs wraps each word plus bracketed gender suffix in visible body text in
+# <span class="nw">...</span> so the browser cannot break after the hyphen. NW_FORM is the same letter class the script and
+# js/generator.js use. unwrap_nw() removes exactly that wrapper and nothing else, so with it undone the page must be the
+# base page; nw_check() fails any nw span that holds anything but one form (a word change hidden inside one would still
+# fail check 1, since the unwrapped text is compared).
+NW_FORM = r'[A-Za-z\u00C0-\u024F]+\(-[A-Za-z\u00C0-\u024F]+\)'
+def unwrap_nw(s): return re.sub(r'<span class="nw">(' + NW_FORM + r')</span>', r'\1', s)
+def nw_check(p, s):
+    total = s.count('class="nw"')
+    ok = len(re.findall(r'<span class="nw">' + NW_FORM + r'</span>', s))
+    if total != ok: fail(p, f'{total - ok} nw span(s) hold something other than one word(-suffix) form')
+    for a, b in scripts(s):
+        if 'class="nw"' in b: fail(p, 'an nw span sits inside a <script> (JSON-LD or inline code)')
+    hd = s.split('<body', 1)[0]
+    if 'class="nw"' in hd: fail(p, 'an nw span sits in <head>')
+
 # Integrator, 7 Nov 2026 (merged Direction A tree): pages another builder rebuilt ON PURPOSE. This gate was written for
 # the PAGES builder's scripted edits; these two are gated by their own builders' checks and by the whole-site
 # preserve.mjs run (report: ops/research/site-design-2026-11-06/build/preserve-report.txt). Here they still get the
@@ -144,7 +163,8 @@ def post_redesign(o): return o is not None and 'class="skip"' in o
 n_ok = 0
 for p in pages:
     raw = open(p, encoding='utf-8').read(); o = old(p); post = post_redesign(o)
-    new = raw if post else undo_moves(p, raw)
+    nw_check(p, raw); real = raw if post else undo_moves(p, raw)
+    new = unwrap_nw(real)
     if o is None:
         fail(p, 'new file (no base copy), not gated'); continue
     if p in OTHER_GATE:
@@ -192,7 +212,7 @@ for p in pages:
     # 5. nesting and body tag sequence (the sequence on unfix(new): see unfix above)
     landmarks(p, new)
     nu = new if post else unfix(new)
-    eo, en, enu = body_events(o), body_events(new), body_events(nu)
+    eo, en, enu = body_events(o), body_events(real), body_events(nu)   # en: nesting of the real file, nw spans included
     if en.bad: fail(p, f'tag nesting broken in new file: {en.bad[:2]}')
     if enu.bad: fail(p, f'tag nesting broken in the unfixed copy (unfix() did not undo cleanly): {enu.bad[:2]}')
     seq_o = eo.body
