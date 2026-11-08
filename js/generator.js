@@ -601,7 +601,7 @@
 
     function ctaLine() {
       return mode === 'clean'
-        ? 'From Antics: nine party games on one phone, thousands of cards.'
+        ? 'From Antics: nine party games, thousands of cards.'
         : 'Want thousands more cards and a whole stack more games?';
     }
     function deckLine() {
