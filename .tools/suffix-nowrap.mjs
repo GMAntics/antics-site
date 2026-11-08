@@ -8,11 +8,17 @@
 // <title> or <textarea>. The form: letters, "(-", letters, ")" (FORM below, the same class js/generator.js uses).
 // Re-running first unwraps every existing nw span around exactly one form, then wraps again, so the output is fixed.
 // Scan of 8 Nov 2026: 109 forms, all in pl/pytania-nigdy-przenigdy/index.html; no other page and no other language.
+// Spanish slash forms (8 Nov 2026, the same fix): Spanish cards write both genders as "soltero/a", and the browser may break
+// after the slash. The second alternative of FORM is a word, "/", then a one or two letter ending ("/a", "/as") that is not
+// followed by another letter or slash, and the word must not follow a letter, ".", "/" or ":", so a link in visible text
+// ("anticsapp.com/j") is never wrapped. Scan of 8 Nov 2026: 13 forms on four es/ question pages, none anywhere else. The
+// Polish alternative is unchanged, so the Polish page comes out byte for byte as before.
 import { apply } from './lib.mjs';
 const L = 'A-Za-z\\u00C0-\\u024F';                      // Latin letters incl. Latin-1 and Extended-A/B (ą ę ł ś ż č ř ...)
-const FORM = new RegExp(`[${L}]+\\(-[${L}]+\\)`, 'g');
-const WRAPPED = new RegExp(`<span class="nw">([${L}]+\\(-[${L}]+\\))</span>`, 'g');
-const ANY_FORM = /\p{L}\(\s*-\s*\p{L}/u;                 // cross-check: a form FORM would miss (another script, a space)
+const BODY = `[${L}]+(?:\\(-[${L}]+\\)|/[${L}]{1,2})`;     // what an nw span holds: one form of either kind
+const FORM = new RegExp(`[${L}]+\\(-[${L}]+\\)|(?<![${L}./:])[${L}]+/[${L}]{1,2}(?![${L}/])`, 'g');
+const WRAPPED = new RegExp(`<span class="nw">(${BODY})</span>`, 'g');
+const ANY_FORM = /\p{L}\(\s*-\s*\p{L}|(?<![\p{L}./:])\p{L}+\/\p{L}{1,2}(?![\p{L}/])/u; // cross-check: a form FORM would miss (another script, a space)
 const SKIP = /<!--[\s\S]*?-->|<(script|style|title|textarea)\b[^>]*>[\s\S]*?<\/\1\s*>|<[^>]*>/g;
 
 function wrapText(t) { return t.replace(FORM, (m) => `<span class="nw">${m}</span>`); }
@@ -33,7 +39,7 @@ apply('suffix-nowrap', (rel, s) => {
   const tail = body.slice(last); const wt = wrapText(tail); n += (wt.length - tail.length) / '<span class="nw"></span>'.length;
   out = head + out + wt;
   const left = out.replace(WRAPPED, '').replace(SKIP, ' ');
-  counts.push(`${rel}: ${n} form(s) in visible text` + (ANY_FORM.test(left) ? '; UNEXPECTED: a bracketed suffix FORM does not match is left unwrapped' : ''));
+  counts.push(`${rel}: ${n} form(s) in visible text` + (ANY_FORM.test(left) ? '; UNEXPECTED: a gender form FORM does not match is left unwrapped' : ''));
   return out;
 });
 for (const c of counts) console.log('  ' + c);

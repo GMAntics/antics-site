@@ -15,7 +15,7 @@ For EVERY page that differs:
   7. (review fixer, 7 Nov) the breadcrumb sits before <main>, the h1 inside it, the site footer after it (tool-layout pages
      keep theirs inside .tool-body), every breadcrumb separator is glued to its crumb. Checks 5 and the pairing run on
      unfix(new), which undoes exactly the h1 nowrap span, the crumb steps and the landmark moves.
-  8. (8 Nov 2026) .tools/suffix-nowrap.mjs's <span class="nw"> around a word and its bracketed suffix ("rzygałem(-am)") is
+  8. (8 Nov 2026) .tools/suffix-nowrap.mjs's <span class="nw"> around a word and its gender ending ("rzygałem(-am)", "soltero/a") is
      unwrapped before checks 1 to 5, so text, links, scripts and the tag sequence are compared exactly as without it; nesting
      is still checked on the real file, and every nw span must hold exactly one such form and nothing else.
 Usage: gates.py [--base REV]   (run from the worktree; needs git and node on PATH)
@@ -123,7 +123,7 @@ def landmarks(p, new):
 # js/generator.js use. unwrap_nw() removes exactly that wrapper and nothing else, so with it undone the page must be the
 # base page; nw_check() fails any nw span that holds anything but one form (a word change hidden inside one would still
 # fail check 1, since the unwrapped text is compared).
-NW_FORM = r'[A-Za-z\u00C0-\u024F]+\(-[A-Za-z\u00C0-\u024F]+\)'
+NW_FORM = r'[A-Za-z\u00C0-\u024F]+(?:\(-[A-Za-z\u00C0-\u024F]+\)|/[A-Za-z\u00C0-\u024F]{1,2})'  # Polish word(-am), or Spanish word/a (8 Nov 2026)
 def unwrap_nw(s): return re.sub(r'<span class="nw">(' + NW_FORM + r')</span>', r'\1', s)
 def nw_check(p, s):
     total = s.count('class="nw"')

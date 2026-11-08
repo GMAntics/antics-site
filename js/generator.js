@@ -318,11 +318,14 @@
   }
 
   // Appends s to el as text, with each word plus bracketed gender suffix
-  // (Polish "rzygalem(-am)", with a barred l) in a <span class="nw"> (white-space: nowrap in
-  // css/site.css), so a line never breaks after its hyphen. DOM nodes only,
-  // never innerHTML; the text itself is unchanged (8 Nov 2026). The letter
-  // class is the one .tools/suffix-nowrap.mjs uses for the static pages.
-  var SUFFIX_FORM = /[A-Za-z\u00C0-\u024F]+\(-[A-Za-z\u00C0-\u024F]+\)/g;
+  // (Polish "rzygalem(-am)", with a barred l) or slash ending (Spanish
+  // "soltero/a") in a <span class="nw"> (white-space: nowrap in
+  // css/site.css), so a line never breaks after its hyphen or slash. DOM
+  // nodes only, never innerHTML; the text itself is unchanged (8 Nov 2026).
+  // The forms are the ones .tools/suffix-nowrap.mjs wraps on the static
+  // pages; card text carries no links, so the link guard that script needs
+  // (a lookbehind, which older Safari cannot parse) is left out here.
+  var SUFFIX_FORM = /[A-Za-z\u00C0-\u024F]+\(-[A-Za-z\u00C0-\u024F]+\)|[A-Za-z\u00C0-\u024F]+\/[A-Za-z\u00C0-\u024F]{1,2}(?![A-Za-z\u00C0-\u024F\/])/g;
   function appendText(el, s) {
     var last = 0, m;
     SUFFIX_FORM.lastIndex = 0;
