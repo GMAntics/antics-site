@@ -487,6 +487,7 @@
       countEl.textContent = L.count(idx + 1, total);
     }
     window.addEventListener('resize', function () { fitForms(qEl); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { fitForms(qEl); });
     nextBtn.addEventListener('click', function () {
       if (idx >= order.length) { order = shuffle(pool); idx = 0; }
       else idx++;
