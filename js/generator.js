@@ -338,6 +338,26 @@
   }
   function setText(el, s) { el.textContent = ''; appendText(el, s); }
 
+  // A form wider than the card itself (a 20-letter Polish verb on a 320px
+  // phone) would push the page sideways, so that one may break after all;
+  // every form that fits stays on one line. Re-run on resize (8 Nov 2026).
+  // The card can grow to fit a nowrap run, so it is measured with every
+  // form breakable first, then each form kept whole only if the card neither
+  // grows nor overflows.
+  function fitForms(el) {
+    var spans = el.querySelectorAll('.nw, .nw-off');
+    if (!spans.length) return;
+    var i;
+    for (i = 0; i < spans.length; i++) spans[i].className = 'nw-off';
+    var cs = getComputedStyle(el);
+    var w0 = el.clientWidth;
+    var room = w0 - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+    for (i = 0; i < spans.length; i++) {
+      spans[i].className = 'nw';
+      if (el.clientWidth > w0 || spans[i].offsetWidth > room) spans[i].className = 'nw-off';
+    }
+  }
+
   function lc(s) { return s.charAt(0).toLowerCase() + s.slice(1); }
   function phrase(cfg, q) {
     if (!cfg.prefix) return q;
@@ -459,12 +479,14 @@
         qEl.appendChild(or);
         appendText(qEl, ' ' + card.b);
       } else setText(qEl, card.t);
+      fitForms(qEl);
       current = card.k + ' ' + card.t;
       copyBtn.style.visibility = 'visible';
       copyBtn.textContent = L.copy;
       nextBtn.textContent = L.next;
       countEl.textContent = L.count(idx + 1, total);
     }
+    window.addEventListener('resize', function () { fitForms(qEl); });
     nextBtn.addEventListener('click', function () {
       if (idx >= order.length) { order = shuffle(pool); idx = 0; }
       else idx++;
