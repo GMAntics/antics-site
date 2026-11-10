@@ -49,7 +49,9 @@
   <link rel="preload" href="/fonts/bricolage-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <script src="/js/deal.js" defer></script>
   <style>
-    .n3-kicker { margin: 0 0 8px; font-size: 13px; font-weight: 800; letter-spacing: .08em; color: var(--agen-dim, #b9b3d6); }
+    /* The card kicker is the app's own Name 3 label (t.nameThree.label), in
+       site.css's ::before slot that the other generators fill with Everyone or Vote. */
+    .agen[data-game="name3"] .agen-card::before { content: "Name 3\2026"; content: "Name 3\2026" / ""; }
     .n3-clock { margin: 14px 0 0; font-size: 40px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
     .n3-clock.is-warn { color: #FF5C5C; }
     .n3-clock[hidden] { display: none; }
@@ -98,7 +100,6 @@
         <div class="tool-wrap">
           <div id="n3" class="agen" data-game="name3">
             <div class="agen-card" aria-live="polite" aria-atomic="true">
-              <p class="n3-kicker">NAME 3&hellip;</p>
               <p class="agen-q" id="n3-q">Pizza toppings</p>
               <p class="n3-clock" id="n3-clock" hidden>5</p>
             </div>
