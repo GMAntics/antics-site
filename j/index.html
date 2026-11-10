@@ -259,6 +259,10 @@
       <button id="btn-rejoin" class="primary" data-t="rejoin">Join another room</button>
     </section>
 
+    <!-- BLAG (1.1.6): j/blag-v1.js builds this screen when a room's view says
+         kind 'blag'. Empty here, so an Imposter room's page is unchanged. -->
+    <section id="screen-blag" hidden></section>
+
     <!-- THE UNKNOWN-KIND GUARD (Blag spec 7.2, 10 Nov 2026). A room whose
          view names a kind this page cannot play. Published AHEAD of any new
          room kind, so a cached old page meeting a newer game says so plainly
@@ -440,6 +444,8 @@
 
     var POLL_WITH_BELL_MS = 30000;
     var POLL_NO_BELL_MS = 5000;
+    var BLAG_POLL_WITH_BELL_MS = 10000;
+    var BLAG_POLL_NO_BELL_MS = 4000;
     // THE POKE GATE (rooms go-live audit item 1, 24 Oct 2026). Anyone with
     // the public anon key and a room code can ring the doorbell, so a poke
     // must never pull straight away: a pull starts at most once per
@@ -2003,13 +2009,15 @@
     var RETRYING = tr('retrying');
 
     function $(id) { return document.getElementById(id); }
-    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv', 'update'];
+    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv', 'update', 'blag'];
     var current = null;
     function show(name) {
       if (current === name) return;
       current = name;
       screens.forEach(function (s) { $('screen-' + s).hidden = (s !== name); });
+      if (document.body) document.body.classList.toggle('bl-on', name === 'blag');
       window.scrollTo(0, 0);
+      if (blagUi) blagUi.afterShow();
     }
 
     // --- promoter passthrough, same params and sanitising as /play/ ---------
@@ -2083,6 +2091,26 @@
       try { if (joinKey) sessionStorage.setItem('anticsRoomJoinKey', joinKey); } catch (e) {}
     }
     function saveSession() { try { sessionStorage.setItem('anticsRoom', JSON.stringify(session)); } catch (e) {} }
+    // BLAG SEAT MEMORY (1.1.6). A Blag lap runs on scores, and a phone that
+    // closed its tab mid-lap used to lose its seat: the join key lived in
+    // that tab only. After a Blag join this browser keeps the room's name and
+    // join key for the room's twelve-hour life (localStorage, per code, never
+    // the token), so reopening the link fills the name in and Join hands the
+    // same seat back (the server's M2 rule: same name AND same key). It never
+    // joins on its own, so a second tab in the same browser is still a
+    // second player. Imposter rooms are untouched.
+    function blagSeatKey(code) { return 'anticsBlagSeat:' + code; }
+    function keptBlagSeat(code) {
+      try {
+        var k = JSON.parse(localStorage.getItem(blagSeatKey(code)) || 'null');
+        if (!k || typeof k.name !== 'string' || !/^[0-9a-f]{36}$/.test(k.joinKey || '') || !(k.until > Date.now())) return null;
+        return k;
+      } catch (e) { return null; }
+    }
+    function keepBlagSeat(code, name) {
+      try { if (joinKey) localStorage.setItem(blagSeatKey(code), JSON.stringify({ name: name, joinKey: joinKey, until: Date.now() + 12 * 3600 * 1000 })); } catch (e) {}
+    }
+    function forgetBlagSeat(code) { try { localStorage.removeItem(blagSeatKey(code)); } catch (e) {} }
     function clearSession() { session = { code: null, token: null }; view = null; try { sessionStorage.removeItem('anticsRoom'); } catch (e) {} }
 
     // After a 429 every phone in the party shares the refusal (one house
@@ -2197,7 +2225,7 @@
      *  (`view.screens`, absent on a phase 0 server, so it reads as none). */
     function drawTvBar() {
       var on = (view.screens || 0) > 0;
-      var slot = $('tvslot-' + (view.status === 'lobby' ? 'lobby' : view.status === 'dealt' ? 'card' : 'reveal'));
+      var slot = $(view.kind === 'blag' ? 'tvslot-blag' : 'tvslot-' + (view.status === 'lobby' ? 'lobby' : view.status === 'dealt' ? 'card' : 'reveal'));
       if (slot && $('tvbar').parentNode !== slot) slot.appendChild($('tvbar'));
       $('tvbar').hidden = !on;
       $('btn-tv-off').hidden = !(on && view.you.isHost);
@@ -2205,6 +2233,7 @@
 
     function draw() {
       if (!view) return;
+      if (view.kind === 'blag') { drawBlag(); return; }
       var n = view.players.length;
       if (view.status !== lastStatus || view.round !== lastRoundDrawn) {
         // A new deal or a new phase: the card starts closed, every time.
@@ -2299,7 +2328,7 @@
      * seat it cannot use (so no ghost player is dealt in) and draws nothing
      * else of that room.
      */
-    var KINDS = ['imposter'];
+    var KINDS = ['imposter', 'blag'];
     function knownKind(room) { var k = room && room.kind; return k === undefined || k === null || KINDS.indexOf(k) !== -1; }
     function unknownKind(r) {
       // A join's answer carries the new token before this tab has saved it.
@@ -2311,6 +2340,69 @@
       show('update');
     }
     $('btn-update').addEventListener('click', function () { location.reload(); });
+
+    // --- BLAG (1.1.6, W3 of the app repo's ops/bluff-game-2026-11-08/SPEC.md) --
+    // Its screens, styles and lines live in three versioned files beside this
+    // page, loaded only when a view says kind 'blag', so an Imposter room
+    // costs nothing more. A new version is a new file name here, never an
+    // edit to a published file, so this page and its scripts always match.
+    var BLAG_FILES = { css: '/j/blag-v1.css', i18n: '/j/blag-i18n-v1.js', js: '/j/blag-v1.js' };
+    var blagUi = null, blagLoad = 'idle', blagWaiting = [];
+    function loadBlag(then) {
+      if (blagUi) return then();
+      blagWaiting.push(then);
+      if (blagLoad === 'loading') return;
+      blagLoad = 'loading';
+      var css = document.createElement('link');
+      css.rel = 'stylesheet'; css.href = BLAG_FILES.css;
+      document.head.appendChild(css);
+      var fail = function () {
+        blagLoad = 'idle'; blagWaiting = [];
+        // The next pull tries again; until then the join screen says so.
+        $('join-error').textContent = tr('err_network');
+      };
+      var script = function (src, next) {
+        var s = document.createElement('script');
+        s.src = src; s.onload = next; s.onerror = fail;
+        document.head.appendChild(s);
+      };
+      script(BLAG_FILES.i18n, function () {
+        script(BLAG_FILES.js, function () {
+          if (!window.AnticsBlag || !window.ANTICS_BLAG_I18N) return fail();
+          window.AnticsBlag.init({
+            $: $, api: api, mine: mine, take: function (r) { return take(r); }, tr: tr, fmt: fmt, track: track,
+            show: show, current: function () { return current; }, lang: LANG,
+            isTv: function () { return TV; }, view: function () { return TV ? screenView : view; },
+            leave: leave, share: function (btn) { shareFrom(btn); }, drawQr: drawQr,
+            errorText: function (code) { return ERRORS[code] || tr('err_generic'); }
+          });
+          blagUi = window.AnticsBlag;
+          blagLoad = 'ready';
+          var w = blagWaiting; blagWaiting = [];
+          w.forEach(function (f) { f(); });
+        });
+      });
+    }
+    /** A Blag view arrived: draw it now, or as soon as its files are in. */
+    var blagRevealRound = 0;
+    function drawBlag() {
+      var v = TV ? screenView : view;
+      if (!TV && v.status === 'revealing' && v.round !== blagRevealRound) {
+        // The web player's impression of a reveal (A-89: kind on room_reveal_viewed).
+        blagRevealRound = v.round;
+        var n = v.players.length;
+        track('room_reveal_viewed', { via: 'web', kind: 'blag', round_n: v.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll', limited_n: limitedN });
+        limitedN = 0;
+      }
+      loadBlag(function () { blagUi.took(); if (!TV) drawTvBar(); schedule(); });
+    }
+    // The ?k=blag hint (a Blag share link may carry it): the join screen
+    // speaks Blag before the room has answered. Without it, the copy is as it was.
+    var KIND_HINT = /[?&]k=blag(&|$)/.test(location.search) ? 'blag' : null;
+    if (KIND_HINT === 'blag') loadBlag(function () {
+      $('screen-join').querySelector('h1').textContent = blagUi.web('joinTitle');
+      $('screen-join').querySelector('.lead').textContent = blagUi.web('joinLead');
+    });
 
     /** Every response goes through here, so the screen always follows the server. */
     function take(r, errorId) {
@@ -2331,6 +2423,7 @@
         if (view) track('room_left', { via: 'web', reason: removed || Date.parse(view.expiresAt) > Date.now() ? 'removed' : 'ended', round_n: view.round });
         $('gone-title').textContent = removed ? tr('removedTitle') : tr('goneTitle');
         $('gone-body').textContent = removed ? tr('removedBody') : tr('goneBody');
+        if (view && view.kind === 'blag') forgetBlagSeat(view.code);
         disconnect(); clearSession(); show('gone'); return false;
       }
       if (errorId) say(errorId, r);
@@ -2339,7 +2432,7 @@
 
     // --- staying current: doorbell plus slow poll ----------------------------
     var pollTimer = null, bell = null, bellUp = false, inflight = false, again = false;
-    var pullStartedAt = 0, trailing = null;
+    var pullStartedAt = 0, trailing = null, pullFailures = 0;
 
     // The only place a pull starts. A TV asks `screen` with its screen
     // token; a player asks `state` with its seat. The two are never mixed.
@@ -2350,6 +2443,7 @@
       var ask = TV ? api('screen', { code: tv.code, screenToken: tv.token }) : api('state', mine());
       ask.then(function (r) {
         inflight = false;
+        pullFailures = r.ok || r.status === 404 ? 0 : pullFailures + 1;
         if (TV) takeScreen(r); else take(r);
         if (again) { again = false; ring(); }
       });
@@ -2374,10 +2468,21 @@
     function schedule() {
       clearTimeout(pollTimer);
       if (!hasSeat()) return;
+      var delay = bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS;
+      var shown = TV ? screenView : view;
+      if (shown && shown.kind === 'blag') {
+        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 10 s with it (a
+        // seat that pulls less often than the room's active window stops
+        // counting for the early close), 1, 2 then 4 s after a failed pull, and
+        // a pull just after the next deadline, flip or idle mark.
+        delay = pullFailures > 0 ? [1000, 2000, 4000][Math.min(pullFailures, 3) - 1] : bellUp && !trouble ? BLAG_POLL_WITH_BELL_MS : BLAG_POLL_NO_BELL_MS;
+        var ping = blagUi && pullFailures === 0 ? blagUi.nextPingMs() : null;
+        if (ping !== null && ping < delay) delay = Math.max(250, ping);
+      }
       pollTimer = setTimeout(function () {
         if (!document.hidden) refresh();
         schedule();
-      }, bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS);
+      }, delay);
       $('live').textContent = bellUp ? tr('live') : tr('polling');
       if (TV) $('tv-foot').textContent = trouble ? tr('tvReconnecting') : '';
     }
@@ -2419,14 +2524,25 @@
       $('live').textContent = '';
     }
     document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
+    // Back from the bfcache or back online: one pull (SPEC 4.2 rule 8).
+    window.addEventListener('pageshow', function (e) { if (e.persisted) refresh(); });
+    window.addEventListener('online', function () { refresh(); });
 
     // --- buttons ----------------------------------------------------------------
     function busy(btn, p) { btn.disabled = true; return p.then(function (v) { btn.disabled = false; return v; }); }
 
     $('btn-join').addEventListener('click', function () {
       var method = prefilled && $('in-code').value.toUpperCase() === prefilled ? 'link' : 'code';
+      var kept = keptBlagSeat($('in-code').value.toUpperCase());
+      if (kept && kept.name.toLowerCase() === $('in-name').value.trim().toLowerCase()) {
+        joinKey = kept.joinKey;
+        try { sessionStorage.setItem('anticsRoomJoinKey', joinKey); } catch (e) {}
+      }
       busy(this, api('join', joinKey ? { code: $('in-code').value, name: $('in-name').value, joinKey: joinKey } : { code: $('in-code').value, name: $('in-name').value })).then(function (r) {
-        if (take(r, 'join-error')) track('room_joined', { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
+        if (r.ok && r.data.room && r.data.room.kind === 'blag') keepBlagSeat(r.data.room.code, r.data.room.you.name);
+        if (take(r, 'join-error')) track('room_joined', view.kind === 'blag'
+          ? { via: 'web', kind: 'blag', method: method, players_n: view.players.length, arrival: ARRIVAL }
+          : { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
         else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown', arrival: ARRIVAL });
       });
     });
@@ -2467,6 +2583,7 @@
       var others = !!view && view.players.some(function (p) { return p.id !== view.you.id; });
       if (!confirm(view && view.you.isHost && others ? tr('leaveConfirm') + '\n\n' + tr('leaveConfirmHost') : tr('leaveConfirm'))) return;
       if (view) track('room_left', { via: 'web', reason: 'leave', round_n: view.round });
+      if (view && view.kind === 'blag') forgetBlagSeat(view.code);
       api('leave', mine());
       disconnect(); clearSession(); start();
     }
@@ -2640,6 +2757,7 @@
     function drawTv() {
       var v = screenView;
       if (!v) return;
+      if (v.kind === 'blag') { drawBlag(); return; }
       show('tv');
       $('tv-entry').hidden = true;
       $('tv-room').hidden = false;
@@ -2790,7 +2908,12 @@
       current = null;
       if (wantsHost && !prefilled) { show('host'); return; }
       show('join');
-      if (prefilled) { $('in-code').value = prefilled; $('in-name').focus(); }
+      if (prefilled) {
+        $('in-code').value = prefilled;
+        var kept = keptBlagSeat(prefilled);
+        if (kept && !$('in-name').value) $('in-name').value = kept.name;
+        $('in-name').focus();
+      }
     }
 
     if (TV) {
