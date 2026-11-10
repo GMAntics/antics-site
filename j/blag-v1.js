@@ -683,7 +683,9 @@
       return;
     }
     if (step.kind === 'beat') {
-      var bflip = flipIn === null ? since >= 2000 : flipIn <= 0;
+      // The beat's opening IS its flip (W1); its flipAt can land after the 4 s
+      // beat ends (W2 note S2), so the author shows after 1.5 s, as in the app.
+      var bflip = since >= 1500 || (flipIn !== null && flipIn <= 0);
       var c = el('div', 'bl-card');
       add(c, el('p', 'bl-answer', step.option.text));
       if (step.greatMinds) add(c, el('p', 'bl-flip', b('greatMindsEveryone')));
@@ -819,6 +821,7 @@
       st.appendChild(el('p', 'bl-wait', bf('waitingForName', hostName(v))));
     }
     st.appendChild(button('ghost', b('sendNight'), function () { shareRecap(v, this); }));
+    prepareRecap(v);
   }
 
   // --- the recap card: a canvas, shared through the system sheet ------------
@@ -898,10 +901,27 @@
     g.fillText(b('recapGet'), x, H0 - 90);
     return c;
   }
-  function shareRecap(v, btn) {
+  // The PNG is made when the end screen draws, so the tap can open the share
+  // sheet at once: Safari refuses navigator.share once the tap's user
+  // activation has passed, and toBlob answers later.
+  var recap = { key: null, blob: null };
+  function recapKey(v) { return JSON.stringify([v.code, v.round, v.blag.scores && v.blag.scores.totals, v.blag.bestLie, v.blag.me && v.blag.me.grudge]); }
+  function prepareRecap(v) {
+    var k = recapKey(v);
+    if (recap.key === k) return;
+    recap = { key: k, blob: null };
     var c;
     try { c = drawRecap(v); } catch (e) { return; }
+    if (c.toBlob) c.toBlob(function (blob) { if (recap.key === k) recap.blob = blob; }, 'image/png');
+  }
+  function shareRecap(v, btn) {
     var fname = 'blag-' + new Date().toISOString().slice(0, 10) + '.png';
+    if (recap.key === recapKey(v) && recap.blob) return shareBlob(recap.blob, fname, btn);
+    var c;
+    try { c = drawRecap(v); } catch (e) { return; }
+    if (c.toBlob) c.toBlob(function (blob) { if (blob) shareBlob(blob, fname, btn); }, 'image/png');
+  }
+  function shareBlob(blob, fname, btn) {
     var done = function () { btn.textContent = w('recapSaved'); };
     var download = function (blob) {
       try {
@@ -913,9 +933,7 @@
         done();
       } catch (e) {}
     };
-    if (!c.toBlob) return;
-    c.toBlob(function (blob) {
-      if (!blob) return;
+    (function () {
       var file = null;
       try { file = new File([blob], fname, { type: 'image/png' }); } catch (e) {}
       if (file && navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
@@ -923,7 +941,7 @@
           if (!e || e.name !== 'AbortError') download(blob);
         });
       } else download(blob);
-    }, 'image/png');
+    })();
   }
 
   // --- the TV's writing and voting faces (no field, no marks, no counts) -----
@@ -975,7 +993,7 @@
       var steps = bl.steps || [];
       var cur = steps[steps.length - 1];
       var since = msSince(bl.stepReachedAt, v) || 0, flipIn = msUntil(bl.flipAt, v);
-      extra.push(fakeBeat(since, flipIn), cur && cur.kind === 'beat' ? (flipIn === null ? since >= 2000 : flipIn <= 0) : 0, canTapNext(v, since));
+      extra.push(fakeBeat(since, flipIn), cur && cur.kind === 'beat' ? (since >= 1500 || (flipIn !== null && flipIn <= 0)) : 0, canTapNext(v, since));
     }
     if (v.status === 'scored') extra.push(canTapNext(v, msSince(bl.stepReachedAt || bl.openedAt, v)));
     if (v.status === 'lobby') extra.push(!!(bl.rulesShownUntil && msUntil(bl.rulesShownUntil, v) > 0));
@@ -1117,7 +1135,8 @@
     if (foot) return foot;
     foot = el('p', 'bl-foot');
     var a = el('a', null, w('footLink'));
-    a.href = '/get/?from=blag&room=1';
+    // /get reads ?c= only (it reaches the App Store ct and Play's install referrer).
+    a.href = '/get/?c=web-blag';
     a.addEventListener('click', function () {
       var v = ctx.view(), cur = ctx.current();
       var where = cur !== 'blag' ? 'expired' : v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';

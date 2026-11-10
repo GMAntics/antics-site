@@ -10,7 +10,9 @@
           { "/": "/j/*", "?": { "web": "?*" }, "exclude": true, "comment": "An explicit browser join: the 1.1.4 fallback and the app's own join-in-the-browser button" },
           { "/": "/j/*", "?": { "host": "?*" }, "exclude": true, "comment": "The browser host page (test builds and ROOMS_WEB_HOST) stays in the browser" },
           { "/": "/j/config.json", "exclude": true, "comment": "The app's remote switch file, never a link" },
-          { "/": "/j/*", "comment": "A room link opens the app's join screen, 1.1.5 and later" }
+          { "/": "/j/blag.json", "exclude": true, "comment": "Blag's remote switch file, never a link (1.1.6)" },
+          { "/": "/j/*", "comment": "A room link opens the app's join screen, 1.1.5 and later" },
+          { "/": "/host/*", "comment": "Host your own: opens a new Blag lobby, 1.1.6 and later. PUBLISH ONLY ONCE 1.1.6 IS LIVE" }
         ]
       }
     ]
