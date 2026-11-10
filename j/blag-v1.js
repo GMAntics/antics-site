@@ -106,6 +106,21 @@
     if (since < FAKE_NAMES_MS + FAKE_POINT_MS) return 'point';
     return 'flip';
   }
+  /**
+   * Has a Who Said That? beat reached its author? A beat carries no flipAt
+   * (the server's word, 10 Nov 2026): the author shows 1.5 s into the beat,
+   * timed from the server's stepReachedAt, or, if a view ever lacks that,
+   * from the moment this tab first drew the beat. A flipAt, if one is sent,
+   * that has passed also counts.
+   */
+  var BEAT_AUTHOR_MS = 1500, beatSeenAt = {};
+  function beatFlipped(v, since, flipIn) {
+    if (flipIn !== null && flipIn <= 0) return true;
+    if (v.blag.stepReachedAt && msSince(v.blag.stepReachedAt, v) !== null) return since >= BEAT_AUTHOR_MS;
+    var k = v.code + ':' + v.round + ':' + v.blag.step;
+    if (!beatSeenAt[k]) beatSeenAt[k] = Date.now();
+    return Date.now() - beatSeenAt[k] >= BEAT_AUTHOR_MS;
+  }
   function canTapNext(v, since) {
     if (v.blag.canNext || (v.you && v.you.isHost)) return true;
     return since !== null && since >= IDLE_NEXT_MS;
@@ -159,8 +174,22 @@
     sawReveal: {},      // rounds this tab drew a reveal step for ("You missed one")
     buzzed: {},         // one buzz per flip and per truth
     lastStage: '',
+    drawn: null,        // { round, step, status } of the picture the buttons were drawn on
     busy: false
   };
+  // Every tap names the picture it was made on (round, step, status), so the
+  // server can refuse a stale tap with the normal view and change nothing.
+  // A body's own field wins: a report names the round of the answer it is
+  // about, which on the end screen is an earlier round.
+  var STAMPED = { answer: 1, vote: 1, next: 1, like: 1, report: 1, truth: 1 };
+  function stamped(route, body) {
+    if (!STAMPED[route]) return body || {};
+    var out = {}, k, s = S.drawn;
+    if (!s) { var v = ctx.view(); s = v && v.blag ? { round: v.round, step: v.blag.step || 0, status: v.status } : {}; }
+    for (k in s) out[k] = s[k];
+    for (k in body || {}) out[k] = body[k];
+    return out;
+  }
   var FOOT_KEY = 'anticsBlagFoot';   // sessionStorage: this tab has reached an end screen
   var DRAFT_KEY = 'anticsBlagDraft'; // sessionStorage: this tab's own unsent answer
   var AA_KEY = 'anticsBlagAa';       // localStorage: bigger text, this browser only
@@ -296,7 +325,7 @@
       if (!chosen) return;
       send.disabled = true;
       var body = isName ? { playerId: target.playerId, reason: chosen } : { round: target.round, optionId: target.optionId, reason: chosen };
-      ctx.api('report', ctx.mine(body)).then(function (r) {
+      ctx.api('report', ctx.mine(stamped('report', body))).then(function (r) {
         if (r.ok) { box.textContent = ''; add(box, el('p', 'bl-sheet-title', b('reportSent'))); setTimeout(closeSheet, 1400); }
         else { send.disabled = false; ctx.take(r); add(box, el('p', 'error', errorLine(r.data && r.data.error || 'generic'))); }
       });
@@ -448,7 +477,7 @@
       h.disabled = true;
       h.textContent = '♥' + ' ' + (o.likes + 1);
       h.className = 'bl-heart on';
-      ctx.api('like', ctx.mine({ optionId: o.id })).then(function (r) { if (!ctx.take(r)) draw(true); });
+      ctx.api('like', ctx.mine(stamped('like', { optionId: o.id }))).then(function (r) { if (!ctx.take(r)) draw(true); });
     });
     h.setAttribute('aria-label', liked ? b('likedA11y') : b('likeA11y'));
     h.setAttribute('aria-pressed', liked ? 'true' : 'false');
@@ -464,7 +493,7 @@
     return n;
   }
   function post(route, body) {
-    return ctx.api(route, ctx.mine(body || {})).then(function (r) {
+    return ctx.api(route, ctx.mine(stamped(route, body))).then(function (r) {
       if (!ctx.take(r) && r.data && r.data.error) D.error.textContent = errorLine(r.data.error);
       return r;
     });
@@ -506,8 +535,16 @@
   function roundHead(v) {
     var bl = v.blag;
     if (v.status === 'revealing') D.round.textContent = bl.stepsN > 0 ? Math.min(bl.step + 1, bl.stepsN) + ' / ' + bl.stepsN : '';
-    else if (v.status === 'writing' || v.status === 'voting') D.round.textContent = bl.roundsInLap ? bf('roundOf', Math.max(1, bl.roundInLap), bl.roundsInLap) : '';
+    else if (v.status === 'writing' || v.status === 'voting' || v.status === 'scored') D.round.textContent = roundOfLap(bl);
     else D.round.textContent = '';
+  }
+  /** "Round N of M", only when the server says how many rounds this lap holds
+   *  (blag.roundsInLap); an older server sends none, and then nothing shows. */
+  function roundOfLap(bl) {
+    var m = bl.roundsInLap;
+    if (typeof m !== 'number' || !isFinite(m) || m < 1) return '';
+    var n = typeof bl.roundInLap === 'number' && isFinite(bl.roundInLap) ? bl.roundInLap : 0;
+    return bf('roundOf', Math.min(Math.max(1, n), m), m);
   }
 
   function writing(v, st, view) {
@@ -694,7 +731,7 @@
     if (step.kind === 'beat') {
       // The beat's opening IS its flip (W1); its flipAt can land after the 4 s
       // beat ends (W2 note S2), so the author shows after 1.5 s, as in the app.
-      var bflip = since >= 1500 || (flipIn !== null && flipIn <= 0);
+      var bflip = beatFlipped(v, since, flipIn);
       var c = el('div', 'bl-card');
       add(c, el('p', 'bl-answer', step.option.text));
       if (step.greatMinds) add(c, el('p', 'bl-flip', b('greatMindsEveryone')));
@@ -914,7 +951,7 @@
   // sheet at once: Safari refuses navigator.share once the tap's user
   // activation has passed, and toBlob answers later.
   var recap = { key: null, blob: null };
-  function recapKey(v) { return JSON.stringify([v.code, v.round, v.blag.scores && v.blag.scores.totals, v.blag.bestLie, v.blag.me && v.blag.me.grudge]); }
+  function recapKey(v) { return JSON.stringify([v.code, v.blag.lap, v.round, v.blag.scores && v.blag.scores.totals, v.blag.bestLie, v.blag.me && v.blag.me.grudge]); }
   function prepareRecap(v) {
     var k = recapKey(v);
     if (recap.key === k) return;
@@ -1002,7 +1039,7 @@
       var steps = bl.steps || [];
       var cur = steps[steps.length - 1];
       var since = msSince(bl.stepReachedAt, v) || 0, flipIn = msUntil(bl.flipAt, v);
-      extra.push(fakeBeat(since, flipIn), cur && cur.kind === 'beat' ? (since >= 1500 || (flipIn !== null && flipIn <= 0)) : 0, canTapNext(v, since));
+      extra.push(fakeBeat(since, flipIn), cur && cur.kind === 'beat' ? beatFlipped(v, since, flipIn) : 0, canTapNext(v, since));
     }
     if (v.status === 'scored') extra.push(canTapNext(v, msSince(bl.stepReachedAt || bl.openedAt, v)));
     if (v.status === 'lobby') extra.push(!!(bl.rulesShownUntil && msUntil(bl.rulesShownUntil, v) > 0));
@@ -1053,6 +1090,7 @@
     var key = stageKey(v);
     if (force || key !== S.lastStage) {
       S.lastStage = key;
+      S.drawn = { round: v.round, step: v.blag.step || 0, status: v.status };
       var st = el('div', 'bl-stage-in');
       var flags = { field: false, lie: false, skip: false };
       var fn = phaseFn(v);
@@ -1128,7 +1166,7 @@
     if (S.busy) return;
     S.busy = true;
     btn.disabled = true;
-    ctx.api('answer', ctx.mine(body)).then(function (r) {
+    ctx.api('answer', ctx.mine(stamped('answer', body))).then(function (r) {
       S.busy = false;
       btn.disabled = false;
       answered(r);
