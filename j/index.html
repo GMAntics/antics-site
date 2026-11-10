@@ -445,7 +445,13 @@
 
     var POLL_WITH_BELL_MS = 30000;
     var POLL_NO_BELL_MS = 5000;
-    var BLAG_POLL_WITH_BELL_MS = 10000;
+    // Blag (SPEC 4.2 rule 8, the app's pollDelayMs in src/rooms/session.ts):
+    // 4 s with no doorbell; with it, 30 s, or 10 s while this seat waits for
+    // others (a guest in the lobby or on the end screen, or a seat sitting a
+    // round out: the app's blagWaiting). A TV only ever watches others, so it
+    // counts as waiting.
+    var BLAG_POLL_WITH_BELL_MS = 30000;
+    var BLAG_POLL_WAITING_MS = 10000;
     var BLAG_POLL_NO_BELL_MS = 4000;
     // THE POKE GATE (rooms go-live audit item 1, 24 Oct 2026). Anyone with
     // the public anon key and a room code can ring the doorbell, so a poke
@@ -2511,11 +2517,12 @@
       var delay = bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS;
       var shown = TV ? screenView : view;
       if (shown && shown.kind === 'blag') {
-        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 10 s with it (a
-        // seat that pulls less often than the room's active window stops
-        // counting for the early close), 1, 2 then 4 s after a failed pull, and
-        // a pull just after the next deadline, flip or idle mark.
-        delay = pullFailures > 0 ? [1000, 2000, 4000][Math.min(pullFailures, 3) - 1] : bellUp && !trouble ? BLAG_POLL_WITH_BELL_MS : BLAG_POLL_NO_BELL_MS;
+        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 30 s with it
+        // (10 s while waiting for others), 1, 2 then 4 s after a failed pull,
+        // and a pull just after the next deadline, flip or idle mark.
+        delay = pullFailures > 0 ? [1000, 2000, 4000][Math.min(pullFailures, 3) - 1]
+          : !(bellUp && !trouble) ? BLAG_POLL_NO_BELL_MS
+          : blagWaiting(shown) ? BLAG_POLL_WAITING_MS : BLAG_POLL_WITH_BELL_MS;
         var ping = blagUi && pullFailures === 0 ? blagUi.nextPingMs() : null;
         if (ping !== null && ping < delay) delay = Math.max(250, ping);
       }
@@ -2525,6 +2532,13 @@
       }, delay);
       $('live').textContent = bellUp ? tr('live') : tr('polling');
       if (TV) $('tv-foot').textContent = trouble ? tr('tvReconnecting') : '';
+    }
+    /** Is this Blag seat waiting for somebody else (the app's blagWaiting):
+     *  a guest in the lobby or on the end screen, or a seat not in this round. */
+    function blagWaiting(v) {
+      if (TV || !v || !v.you) return true;
+      if (v.status === 'lobby' || v.status === 'over') return !v.you.isHost;
+      return !(v.blag && v.blag.me && v.blag.me.inRound);
     }
     /** The room's doorbell id, from this tab's own view (review fix M4): the
      *  topic is never the room code. Null until a view has arrived, or from a
