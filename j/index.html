@@ -2375,6 +2375,7 @@
       document.head.appendChild(css);
       var fail = function () {
         blagLoad = 'idle'; blagWaiting = [];
+        $('btn-join').disabled = false;
         // The next pull tries again; until then the join screen says so.
         $('join-error').textContent = tr('err_network');
       };
@@ -2436,6 +2437,8 @@
     function take(r, errorId) {
       if (r.ok && r.data.room && !knownKind(r.data.room)) { unknownKind(r); return false; }
       if (r.ok && r.data.room && staleBlag(view, r.data.room)) return true;
+      // A Blag submit answered after Leave: this tab holds no seat any more.
+      if (r.ok && r.data.room && r.data.room.kind === 'blag' && !session.token && !r.data.token) return false;
       if (r.ok && r.data.room) {
         view = r.data.room;
         if (r.data.token) { session = { code: view.code, token: r.data.token }; saveSession(); connect(); }
@@ -2637,9 +2640,16 @@
       // found". The line people TYPE stays anticsapp.com/j/CODE.
       if (!view) return;
       var url = 'https://anticsapp.com/j/?room=' + view.code;
-      var text = fmt('shareText', view.code);
-      track('room_link_shared', { via: 'web' });
-      if (navigator.share) navigator.share({ title: tr('shareTitle'), text: text, url: url }).catch(function () {});
+      var text = fmt('shareText', view.code), title = tr('shareTitle');
+      if (view.kind === 'blag' && blagUi) {
+        // The app's own Blag share line; the link carries k=blag so the
+        // join screen speaks Blag before the room answers.
+        url += '&k=blag';
+        text = blagUi.shareText(view.code);
+        title = 'Blag';
+      }
+      track('room_link_shared', view.kind === 'blag' ? { via: 'web', kind: 'blag' } : { via: 'web' });
+      if (navigator.share) navigator.share({ title: title, text: text, url: url }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { btn.textContent = tr('linkCopied'); });
     }
     // Share from the lobby, a round and the reveal (H1): the server seats a
@@ -2948,6 +2958,8 @@
 
     function start() {
       current = null;
+      document.title = tr('title');
+      $('btn-join').disabled = false;
       if (wantsHost && !prefilled) { show('host'); return; }
       show('join');
       if (prefilled) {

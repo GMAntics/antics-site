@@ -216,6 +216,7 @@
     add(D.write, D.input, D.count, D.send, D.lie, D.skip);
     D.write.hidden = true;
     D.after = el('div', 'bl-after');
+    D.after.setAttribute('aria-live', 'polite');
     D.actions = el('div', 'bl-actions');
     D.error = el('p', 'error');
     D.error.setAttribute('role', 'alert');
@@ -297,7 +298,7 @@
       var body = isName ? { playerId: target.playerId, reason: chosen } : { round: target.round, optionId: target.optionId, reason: chosen };
       ctx.api('report', ctx.mine(body)).then(function (r) {
         if (r.ok) { box.textContent = ''; add(box, el('p', 'bl-sheet-title', b('reportSent'))); setTimeout(closeSheet, 1400); }
-        else { send.disabled = false; ctx.take(r); }
+        else { send.disabled = false; ctx.take(r); add(box, el('p', 'error', errorLine(r.data && r.data.error || 'generic'))); }
       });
     });
     send.disabled = true;
@@ -312,10 +313,13 @@
     node.addEventListener('contextmenu', function (e) { e.preventDefault(); openSheet(target); });
     node.addEventListener('touchstart', function (e) {
       var t = e.touches[0]; sx = t.clientX; sy = t.clientY;
+      held = false;
       timer = setTimeout(function () { timer = null; held = true; buzz(10); openSheet(target); }, 550);
     }, { passive: true });
     // The release after a long press is not also a tap (a heart, a vote row).
     node.addEventListener('click', function (e) { if (held) { held = false; e.preventDefault(); e.stopPropagation(); } }, true);
+    // A hold that ends with no click (Android) must not eat a later tap.
+    node.addEventListener('touchend', function () { if (held) setTimeout(function () { held = false; }, 400); });
     var cancel = function () { if (timer) { clearTimeout(timer); timer = null; } };
     node.addEventListener('touchend', cancel);
     node.addEventListener('touchcancel', cancel);
@@ -444,7 +448,7 @@
       h.disabled = true;
       h.textContent = '♥' + ' ' + (o.likes + 1);
       h.className = 'bl-heart on';
-      ctx.api('like', ctx.mine({ optionId: o.id })).then(ctx.take);
+      ctx.api('like', ctx.mine({ optionId: o.id })).then(function (r) { if (!ctx.take(r)) draw(true); });
     });
     h.setAttribute('aria-label', liked ? b('likedA11y') : b('likeA11y'));
     h.setAttribute('aria-pressed', liked ? 'true' : 'false');
@@ -551,6 +555,7 @@
       var sh = bl.shown;
       if (!sh) return;
       add(st, el('p', 'bl-kicker', b('whoWrote')), el('p', 'bl-answer bl-shown', sh.text), el('p', 'bl-small', bf('spotCount', sh.index + 1, sh.count)));
+      if (ctx.isTv()) return;
       if (!me.inRound) { st.appendChild(el('p', 'bl-say', b('nextOnesYours'))); return; }
       var seats = seatsOf(v).filter(function (p) { return p.inRound && !p.away; });
       var list = el('div', 'bl-list');
@@ -1186,6 +1191,8 @@
     nextPingMs: function () { return nextPingMs(ctx.view()); },
     afterShow: placeFoot,
     /** The page's join copy for a link that says it is a Blag room. */
-    web: w
+    web: w,
+    /** The app's ruled share line for a Blag room. */
+    shareText: function (code) { return bf('shareMessage', code, 'https://anticsapp.com/j/?room=' + code + '&k=blag'); }
   };
 })();
