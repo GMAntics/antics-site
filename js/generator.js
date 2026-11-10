@@ -628,7 +628,11 @@
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's every free " + label + ' card. The app has thousands more, plus eight other games.';
+        // What Are The Odds left the app's Home in 1.1.6 (Name 3 took its tile)
+        // and lives on here, so its last card never promises the deck in the app.
+        qEl.textContent = cfg === CFG.odds
+          ? "That's every free " + label + ' card. Start again for another round, or get Antics for nine more party games.'
+          : "That's every free " + label + ' card. The app has thousands more, plus eight other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
         countEl.textContent = 'You have seen every free card.';
