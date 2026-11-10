@@ -197,7 +197,7 @@
     D.secs.setAttribute('aria-live', 'off');
     add(D.timer, D.bar, D.secs);
     D.stage = el('div', 'bl-stage');
-    D.stage.setAttribute('aria-live', 'polite');
+    D.stage.setAttribute('aria-live', 'off');
     // The answer field lives OUTSIDE the stage, so a redraw never takes the
     // keyboard away or loses a letter.
     D.write = el('div', 'bl-write');
@@ -270,12 +270,12 @@
       add(box, button('ghost', w('remove'), function () {
         if (!confirm(ctx.fmt('removeConfirm', target.name))) return;
         closeSheet();
-        ctx.api('kick', ctx.mine({ playerId: target.playerId })).then(ctx.take);
+        post('kick', { playerId: target.playerId });
       }));
       add(box, button('ghost', b('phoneDied'), function () {
         if (!confirm(bf('phoneDiedBody', target.name))) return;
         closeSheet();
-        ctx.api('handover', ctx.mine({ playerId: target.playerId })).then(ctx.take);
+        post('handover', { playerId: target.playerId });
       }));
     }
     if (isName && target.playerId === v.you.id) { closeSheet(); return; }
@@ -308,12 +308,14 @@
   /** Long-press (touch), right click (mouse) and the context-menu key all open it. */
   function holdable(node, target) {
     if (ctx.isTv() || !target) return node;
-    var timer = null, sx = 0, sy = 0;
+    var timer = null, sx = 0, sy = 0, held = false;
     node.addEventListener('contextmenu', function (e) { e.preventDefault(); openSheet(target); });
     node.addEventListener('touchstart', function (e) {
       var t = e.touches[0]; sx = t.clientX; sy = t.clientY;
-      timer = setTimeout(function () { timer = null; buzz(10); openSheet(target); }, 550);
+      timer = setTimeout(function () { timer = null; held = true; buzz(10); openSheet(target); }, 550);
     }, { passive: true });
+    // The release after a long press is not also a tap (a heart, a vote row).
+    node.addEventListener('click', function (e) { if (held) { held = false; e.preventDefault(); e.stopPropagation(); } }, true);
     var cancel = function () { if (timer) { clearTimeout(timer); timer = null; } };
     node.addEventListener('touchend', cancel);
     node.addEventListener('touchcancel', cancel);
@@ -322,7 +324,6 @@
       if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) cancel();
     }, { passive: true });
     node.classList.add('bl-hold');
-    node.setAttribute('aria-haspopup', 'dialog');
     return node;
   }
 
@@ -482,7 +483,8 @@
     if (chosen.length) add(mode, el('p', 'bl-kicker bl-gap', b('decksLabel')), el('p', 'bl-rule', chosen.join(', ')));
     st.appendChild(mode);
     var who = el('div', 'bl-panel');
-    add(who, el('p', 'bl-kicker', ctx.fmt('inTheRoom', (v.players || []).length, 10)), playerList(v));
+    var cap = bl.settingsMode === 'who_said_that' ? 8 : 10;
+    add(who, el('p', 'bl-kicker', ctx.fmt('inTheRoom', (v.players || []).length, cap)), playerList(v));
     st.appendChild(who);
     st.appendChild(button('ghost', ctx.tr('share'), function () { ctx.share(this); }));
     if (host) {
@@ -490,7 +492,7 @@
       var go = bigButton(b('start'), function () { return post('start'); });
       go.disabled = !v.canStart;
       st.appendChild(go);
-      if (!v.canStart) st.appendChild(el('p', 'bl-small', bf('needN', bounds)));
+      if (!v.canStart) st.appendChild(el('p', 'bl-small', (v.players || []).length > cap ? b('switchFullEight') : bf('needN', bounds)));
     } else {
       st.appendChild(el('p', 'bl-wait', bf('waitingFor', hostName(v))));
     }
@@ -560,7 +562,7 @@
           buzz(8);
           S.pendingVote = { step: bl.step, id: p.id };
           draw(true);
-          post('vote', { target: p.id });
+          post('vote', { target: p.id }).then(unpend);
         });
         row.setAttribute('aria-label', bf('seatA11y', p.name, i + 1, seats.length));
         row.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -594,7 +596,7 @@
           buzz(8);
           S.pendingVote = { round: v.round, id: o.id };
           draw(true);
-          post('vote', { target: o.id });
+          post('vote', { target: o.id }).then(unpend);
         });
       }
       list2.appendChild(row);
@@ -603,6 +605,8 @@
     if (!readOnly && picked) st.appendChild(el('p', 'bl-small', b('votedLine')));
     if (!ctx.isTv()) st.appendChild(seatDotsVoted(v));
   }
+  /** A vote the server refused or never got: show what it holds (W-M2). */
+  function unpend(r) { if (!r.ok) { S.pendingVote = null; draw(true); } }
   function seatDotsVoted(v) {
     var spot = v.blag.spotlight && v.blag.spotlight.name;
     var seats = seatsOf(v).filter(function (p) { return p.inRound && !p.away && p.name !== spot; });
@@ -1024,8 +1028,13 @@
     document.title = 'Blag | Antics';
     document.body.classList.toggle('bl-tv', tv);
     document.body.classList.add('bl-on');
+    if (v.status !== S.status) { S.status = v.status; if (D.sheet && !D.sheet.hidden) closeSheet(); }
     if (v.round !== S.round) {
+      if (D.sheet && !D.sheet.hidden) closeSheet();
       S.round = v.round; S.editing = false; S.notice = null; S.pick = null; S.pendingVote = null;
+      // A spotlight skip goes writing to writing with a new round: the old
+      // card's text must not sit under the new question (W-M5).
+      if (D.input) { var dr = v.status === 'writing' && v.you ? readDraft(v) : null; D.input.value = dr === null ? '' : dr; }
       S.lastStage = ''; D.error.textContent = '';
     }
     var me = v.blag.me || {};

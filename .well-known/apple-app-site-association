@@ -12,7 +12,7 @@
           { "/": "/j/config.json", "exclude": true, "comment": "The app's remote switch file, never a link" },
           { "/": "/j/blag.json", "exclude": true, "comment": "Blag's remote switch file, never a link (1.1.6)" },
           { "/": "/j/*", "comment": "A room link opens the app's join screen, 1.1.5 and later" },
-          { "/": "/host/*", "comment": "Host your own: opens a new Blag lobby, 1.1.6 and later. PUBLISH ONLY ONCE 1.1.6 IS LIVE" }
+          { "/": "/host/*", "comment": "Host your own: opens a new Blag lobby, 1.1.6 and later (SPEC 3.8: published with the /j/ page, so TestFlight can test it; a 1.1.5 phone opens it on Home, and nothing links it before 1.1.6)" }
         ]
       }
     ]

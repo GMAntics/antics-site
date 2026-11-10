@@ -167,7 +167,7 @@
       <input id="in-name" type="text" autocomplete="nickname" maxlength="16" placeholder="Your name" data-t-ph="namePlaceholder">
       <button id="btn-join" class="primary" data-t="joinRoom">Join the room</button>
       <p id="join-error" class="error" role="alert"></p>
-      <p class="small"><a class="plain" href="/rooms-rules/" data-t="roomRules">By joining you agree to the room rules</a></p>
+      <p class="small" style="font-size:16px"><a class="plain" href="/rooms-rules/" data-t="roomRules">By joining you agree to the room rules</a></p>
       <p class="small"><span data-t="noSignup">No sign-up, no app needed.</span> <a class="plain" href="/privacy.html#rooms" data-t="privacy">Privacy</a></p>
     </section>
 
@@ -2246,6 +2246,10 @@
     function draw() {
       if (!view) return;
       if (view.kind === 'blag') { drawBlag(); return; }
+      if (document.title !== tr('title')) {
+        document.title = tr('title');
+        try { sessionStorage.removeItem('anticsBlagFoot'); } catch (e) {}
+      }
       var n = view.players.length;
       if (view.status !== lastStatus || view.round !== lastRoundDrawn) {
         // A new deal or a new phase: the card starts closed, every time.
@@ -2348,7 +2352,8 @@
       if (token && room && room.code) api('leave', { code: room.code, token: token });
       else if (session.token) api('leave', mine());
       disconnect(); clearSession();
-      if (TV) clearTv();
+      // A TV keeps its stored slot: the refreshed page reuses it (keptTvToken).
+      if (TV) { tv = { code: null, token: null }; screenView = null; }
       show('update');
     }
     $('btn-update').addEventListener('click', function () { location.reload(); });
@@ -2417,8 +2422,20 @@
     });
 
     /** Every response goes through here, so the screen always follows the server. */
+    var BLAG_ORDER = { lobby: 0, writing: 1, voting: 2, revealing: 3, scored: 4, over: 5 };
+    /** Is `next` older than `prev` (the app's isStaleBlagView, W-M7): a slow
+     *  poll landing after a submit's fresher view must not redraw a dead phase. */
+    function staleBlag(prev, next) {
+      if (!prev || prev.kind !== 'blag' || next.kind !== 'blag' || prev.code !== next.code || !prev.blag || !next.blag) return false;
+      if (next.round !== prev.round) return next.round < prev.round;
+      if (BLAG_ORDER[next.status] !== BLAG_ORDER[prev.status]) return BLAG_ORDER[next.status] < BLAG_ORDER[prev.status];
+      if (next.status === 'revealing') return next.blag.step < prev.blag.step;
+      if (next.status === 'voting' && next.blag.shown && prev.blag.shown) return next.blag.shown.index < prev.blag.shown.index;
+      return false;
+    }
     function take(r, errorId) {
       if (r.ok && r.data.room && !knownKind(r.data.room)) { unknownKind(r); return false; }
+      if (r.ok && r.data.room && staleBlag(view, r.data.room)) return true;
       if (r.ok && r.data.room) {
         view = r.data.room;
         if (r.data.token) { session = { code: view.code, token: r.data.token }; saveSession(); connect(); }
@@ -2435,7 +2452,9 @@
         if (view) track('room_left', { via: 'web', reason: removed || Date.parse(view.expiresAt) > Date.now() ? 'removed' : 'ended', round_n: view.round });
         $('gone-title').textContent = removed ? tr('removedTitle') : tr('goneTitle');
         $('gone-body').textContent = removed ? tr('removedBody') : tr('goneBody');
-        if (view && view.kind === 'blag') forgetBlagSeat(view.code);
+        // Only a removal forgets it: a bare 404 can be this seat moving to
+        // another tab of this browser, whose seat still needs it (W-M3).
+        if (removed && view && view.kind === 'blag') forgetBlagSeat(view.code);
         disconnect(); clearSession(); show('gone'); return false;
       }
       if (errorId) say(errorId, r);
@@ -2456,6 +2475,8 @@
       ask.then(function (r) {
         inflight = false;
         pullFailures = r.ok || r.status === 404 ? 0 : pullFailures + 1;
+        // A Blag seat retries at 1, 2 then 4 s from the failure itself (W-M1).
+        if (!TV && pullFailures > 0 && view && view.kind === 'blag') schedule();
         if (TV) takeScreen(r); else take(r);
         if (again) { again = false; ring(); }
       });
@@ -2465,6 +2486,10 @@
     // a hold, and never dropped: one trailing pull answers every ring since.
     function ring() {
       if (!hasSeat()) return;
+      // A hidden Blag tab ignores the bell: its pull would count a pocketed
+      // phone as active and hold the early close (SPEC 4.2 rule 2, W-M4). The
+      // return to the tab pulls. Imposter rooms are unchanged.
+      if (document.hidden && !TV && view && view.kind === 'blag') return;
       if (inflight) { again = true; return; }
       var wait = Math.max(pullStartedAt + PULL_GAP_MS, holdUntil) - Date.now();
       if (wait <= 0) { pull(); return; }
@@ -2551,7 +2576,11 @@
         try { sessionStorage.setItem('anticsRoomJoinKey', joinKey); } catch (e) {}
       }
       busy(this, api('join', joinKey ? { code: $('in-code').value, name: $('in-name').value, joinKey: joinKey } : { code: $('in-code').value, name: $('in-name').value })).then(function (r) {
-        if (r.ok && r.data.room && r.data.room.kind === 'blag') keepBlagSeat(r.data.room.code, r.data.room.you.name);
+        if (r.ok && r.data.room && r.data.room.kind === 'blag') {
+          keepBlagSeat(r.data.room.code, r.data.room.you.name);
+          // The Blag files may still be on their way: no second tap meanwhile.
+          if (!blagUi) { var jb = $('btn-join'); jb.disabled = true; loadBlag(function () { jb.disabled = false; }); }
+        }
         if (take(r, 'join-error')) track('room_joined', view.kind === 'blag'
           ? { via: 'web', kind: 'blag', method: method, players_n: view.players.length, arrival: ARRIVAL }
           : { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
@@ -2726,6 +2755,7 @@
     /** Every TV response goes through here, so the TV always follows the server. */
     function takeScreen(r) {
       if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(); return false; }
+      if (r.ok && r.data.screen && staleBlag(screenView, r.data.screen)) return true;
       if (r.ok && r.data.screen) {
         screenView = r.data.screen;
         var was = trouble;
@@ -2924,6 +2954,7 @@
         $('in-code').value = prefilled;
         var kept = keptBlagSeat(prefilled);
         if (kept && !$('in-name').value) $('in-name').value = kept.name;
+        if (kept) loadBlag(function () {});
         $('in-name').focus();
       }
     }
