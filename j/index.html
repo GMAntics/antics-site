@@ -259,6 +259,16 @@
       <button id="btn-rejoin" class="primary" data-t="rejoin">Join another room</button>
     </section>
 
+    <!-- THE UNKNOWN-KIND GUARD (Blag spec 7.2, 10 Nov 2026). A room whose
+         view names a kind this page cannot play. Published AHEAD of any new
+         room kind, so a cached old page meeting a newer game says so plainly
+         and never draws a half-understood room. -->
+    <section id="screen-update" hidden>
+      <h1 data-t="updateTitle">Update the page</h1>
+      <p class="lead" data-t="updateBody">This room is playing a game this page does not know yet. Refresh the page to join it.</p>
+      <button id="btn-update" class="primary" data-t="updateButton">Refresh the page</button>
+    </section>
+
     <!-- One "TV connected" line, moved into the slot of whichever player
          screen is showing, ONLY while a TV is watching. The host also gets
          the button that disconnects every TV watching the room. Nothing on
@@ -583,7 +593,10 @@
         err_web_host_disabled: "Hosting from the browser is switched off.",
         err_host_only: "Only the host can do that.",
         err_not_in_round: "You joined mid-round. You are in the next one.",
-        err_screens_full: "Two screens are already showing this room. The host can disconnect them from their phone."
+        err_screens_full: "Two screens are already showing this room. The host can disconnect them from their phone.",
+        updateTitle: "Update the page",
+        updateBody: "This room is playing a game this page does not know yet. Refresh the page to join it.",
+        updateButton: "Refresh the page"
       },
       "es": {
         codeLabel: "CÓDIGO DE LA SALA",
@@ -714,7 +727,10 @@
         err_web_host_disabled: "La opción de abrir salas desde el navegador está desactivada.",
         err_host_only: "Solo el anfitrión puede hacer eso.",
         err_not_in_round: "Entraste a mitad de ronda. Juegas en la próxima.",
-        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su celular."
+        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su celular.",
+        updateTitle: "Actualiza la página",
+        updateBody: "Esta sala está jugando a algo que esta página todavía no conoce. Recarga la página para unirte.",
+        updateButton: "Recargar la página"
       },
       "es-ES": {
         codeLabel: "CÓDIGO DE LA SALA",
@@ -845,7 +861,10 @@
         err_web_host_disabled: "Abrir salas desde el navegador está desactivado.",
         err_host_only: "Solo el anfitrión puede hacer eso.",
         err_not_in_round: "Has entrado a mitad de ronda. Juegas en la siguiente.",
-        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su móvil."
+        err_screens_full: "Ya hay dos pantallas mostrando esta sala. El anfitrión puede desconectarlas desde su móvil.",
+        updateTitle: "Actualiza la página",
+        updateBody: "Esta sala está jugando a algo que esta página todavía no conoce. Recarga la página para unirte.",
+        updateButton: "Recargar la página"
       },
       "pt": {
         codeLabel: "CÓDIGO DA SALA",
@@ -976,7 +995,10 @@
         err_web_host_disabled: "Abrir salas pelo navegador está desativado.",
         err_host_only: "Só o anfitrião pode fazer isso.",
         err_not_in_round: "Você entrou no meio da rodada. Você entra na próxima.",
-        err_screens_full: "Duas telas já estão mostrando esta sala. O anfitrião pode desconectá-las pelo celular."
+        err_screens_full: "Duas telas já estão mostrando esta sala. O anfitrião pode desconectá-las pelo celular.",
+        updateTitle: "Atualize a página",
+        updateBody: "Esta sala está jogando algo que esta página ainda não conhece. Recarregue a página para entrar.",
+        updateButton: "Recarregar a página"
       },
       "pt-PT": {
         codeLabel: "CÓDIGO DA SALA",
@@ -1107,7 +1129,10 @@
         err_web_host_disabled: "Abrir salas pelo browser está desativado.",
         err_host_only: "Só o anfitrião pode fazer isso.",
         err_not_in_round: "Entraste a meio da ronda. Jogas na próxima.",
-        err_screens_full: "Já há dois ecrãs a mostrar esta sala. O anfitrião pode desligá-los no telemóvel."
+        err_screens_full: "Já há dois ecrãs a mostrar esta sala. O anfitrião pode desligá-los no telemóvel.",
+        updateTitle: "Atualiza a página",
+        updateBody: "Esta sala está a jogar algo que esta página ainda não conhece. Recarrega a página para entrares.",
+        updateButton: "Recarregar a página"
       },
       "de": {
         codeLabel: "RAUMCODE",
@@ -1238,7 +1263,10 @@
         err_web_host_disabled: "Räume im Browser eröffnen ist ausgeschaltet.",
         err_host_only: "Das kann nur der Gastgeber.",
         err_not_in_round: "Du bist mitten in der Runde beigetreten. In der nächsten bist du dabei.",
-        err_screens_full: "Zwei Bildschirme zeigen diesen Raum schon. Der Gastgeber kann sie auf seinem Handy trennen."
+        err_screens_full: "Zwei Bildschirme zeigen diesen Raum schon. Der Gastgeber kann sie auf seinem Handy trennen.",
+        updateTitle: "Seite aktualisieren",
+        updateBody: "In diesem Raum läuft ein Spiel, das diese Seite noch nicht kennt. Lade die Seite neu, um mitzuspielen.",
+        updateButton: "Seite neu laden"
       },
       "fr": {
         codeLabel: "CODE DU SALON",
@@ -1369,7 +1397,10 @@
         err_web_host_disabled: "La création de salon depuis le navigateur est désactivée.",
         err_host_only: "Seul l’hôte peut faire ça.",
         err_not_in_round: "Tu as rejoint en pleine manche. Tu joues à la prochaine.",
-        err_screens_full: "Deux écrans affichent déjà ce salon. L’hôte peut les déconnecter depuis son téléphone."
+        err_screens_full: "Deux écrans affichent déjà ce salon. L’hôte peut les déconnecter depuis son téléphone.",
+        updateTitle: "Mets la page à jour",
+        updateBody: "Ce salon joue à un jeu que cette page ne connaît pas encore. Recharge la page pour le rejoindre.",
+        updateButton: "Recharger la page"
       },
       "it": {
         codeLabel: "CODICE DELLA STANZA",
@@ -1500,7 +1531,10 @@
         err_web_host_disabled: "L’apertura di stanze dal browser è disattivata.",
         err_host_only: "Solo l’host può farlo.",
         err_not_in_round: "Il round è già iniziato. Giochi al prossimo.",
-        err_screens_full: "Due schermi stanno già mostrando questa stanza. L’host può scollegarli dal suo telefono."
+        err_screens_full: "Due schermi stanno già mostrando questa stanza. L’host può scollegarli dal suo telefono.",
+        updateTitle: "Aggiorna la pagina",
+        updateBody: "Questa stanza sta giocando a un gioco che questa pagina non conosce ancora. Ricarica la pagina per entrare.",
+        updateButton: "Ricarica la pagina"
       },
       "nl": {
         codeLabel: "KAMERCODE",
@@ -1631,7 +1665,10 @@
         err_web_host_disabled: "Een kamer openen in de browser staat uit.",
         err_host_only: "Alleen de host kan dat.",
         err_not_in_round: "Je kwam binnen tijdens de ronde. Je doet mee in de volgende.",
-        err_screens_full: "Twee schermen tonen deze kamer al. De host kan ze loskoppelen op de eigen telefoon."
+        err_screens_full: "Twee schermen tonen deze kamer al. De host kan ze loskoppelen op de eigen telefoon.",
+        updateTitle: "Ververs de pagina",
+        updateBody: "Deze kamer speelt een spel dat deze pagina nog niet kent. Laad de pagina opnieuw om mee te doen.",
+        updateButton: "Pagina opnieuw laden"
       },
       "pl": {
         codeLabel: "KOD POKOJU",
@@ -1762,7 +1799,10 @@
         err_web_host_disabled: "Otwieranie pokoi w przeglądarce jest wyłączone.",
         err_host_only: "Tylko gospodarz może to zrobić.",
         err_not_in_round: "Dołączasz w trakcie rundy. Grasz w następnej.",
-        err_screens_full: "Ten pokój pokazują już dwa ekrany. Gospodarz może je odłączyć na swoim telefonie."
+        err_screens_full: "Ten pokój pokazują już dwa ekrany. Gospodarz może je odłączyć na swoim telefonie.",
+        updateTitle: "Odśwież stronę",
+        updateBody: "W tym pokoju toczy się gra, której ta strona jeszcze nie zna. Odśwież stronę, żeby dołączyć.",
+        updateButton: "Odśwież stronę"
       },
       "cs": {
         codeLabel: "KÓD MÍSTNOSTI",
@@ -1893,7 +1933,10 @@
         err_web_host_disabled: "Otevírání místností v prohlížeči je vypnuté.",
         err_host_only: "To může jen hostitel.",
         err_not_in_round: "Přidáváš se uprostřed kola. Hraješ až v dalším.",
-        err_screens_full: "Tuhle místnost už ukazují dvě obrazovky. Hostitel je může odpojit na svém telefonu."
+        err_screens_full: "Tuhle místnost už ukazují dvě obrazovky. Hostitel je může odpojit na svém telefonu.",
+        updateTitle: "Obnov stránku",
+        updateBody: "V téhle místnosti běží hra, kterou tahle stránka ještě nezná. Obnov stránku a připoj se.",
+        updateButton: "Obnovit stránku"
       }
     };
     function pickLang() {
@@ -1960,7 +2003,7 @@
     var RETRYING = tr('retrying');
 
     function $(id) { return document.getElementById(id); }
-    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv'];
+    var screens = ['join', 'host', 'lobby', 'card', 'reveal', 'gone', 'tv', 'update'];
     var current = null;
     function show(name) {
       if (current === name) return;
@@ -2248,8 +2291,30 @@
       $('reveal-wait').textContent = view.you.isHost ? '' : tr('waitingNext');
     }
 
+    /**
+     * THE UNKNOWN-KIND GUARD. A room's view names its kind (`kind`, absent on
+     * an Imposter room, whose view is byte for byte what it always was). This
+     * page plays only the kinds in KINDS; any other means a newer game than
+     * this copy of the page knows, so it says "Update the page", gives back a
+     * seat it cannot use (so no ghost player is dealt in) and draws nothing
+     * else of that room.
+     */
+    var KINDS = ['imposter'];
+    function knownKind(room) { var k = room && room.kind; return k === undefined || k === null || KINDS.indexOf(k) !== -1; }
+    function unknownKind(r) {
+      // A join's answer carries the new token before this tab has saved it.
+      var token = r && r.data && r.data.token, room = r && r.data && r.data.room;
+      if (token && room && room.code) api('leave', { code: room.code, token: token });
+      else if (session.token) api('leave', mine());
+      disconnect(); clearSession();
+      if (TV) clearTv();
+      show('update');
+    }
+    $('btn-update').addEventListener('click', function () { location.reload(); });
+
     /** Every response goes through here, so the screen always follows the server. */
     function take(r, errorId) {
+      if (r.ok && r.data.room && !knownKind(r.data.room)) { unknownKind(r); return false; }
       if (r.ok && r.data.room) {
         view = r.data.room;
         if (r.data.token) { session = { code: view.code, token: r.data.token }; saveSession(); connect(); }
@@ -2495,6 +2560,7 @@
       var kept = keptTvToken(code);
       var first = kept ? api('screen', { code: code, screenToken: kept }) : Promise.resolve(null);
       first.then(function (s) {
+        if (s && s.ok && s.data.screen && !knownKind(s.data.screen)) { $('btn-tv-watch').disabled = false; unknownKind(); return; }
         if (s && s.ok && s.data.screen) {
           $('btn-tv-watch').disabled = false;
           adoptScreen(code, kept, s.data.screen, false);
@@ -2517,6 +2583,7 @@
         var key = watchKeyFor(code);
         api('watch', key ? { code: code, watchKey: key } : { code: code }).then(function (r) {
           $('btn-tv-watch').disabled = false;
+          if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(); return; }
           if (r.ok && r.data.screen && r.data.screenToken) {
             adoptScreen(r.data.screen.code, r.data.screenToken, r.data.screen, true);
             return;
@@ -2529,6 +2596,7 @@
 
     /** Every TV response goes through here, so the TV always follows the server. */
     function takeScreen(r) {
+      if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(); return false; }
       if (r.ok && r.data.screen) {
         screenView = r.data.screen;
         var was = trouble;
@@ -2733,7 +2801,7 @@
     try { var kept = JSON.parse(sessionStorage.getItem('anticsRoom') || 'null'); if (kept && kept.token) session = kept; } catch (e) {}
     if (session.token && (!prefilled || prefilled === session.code)) {
       // A refresh mid-game: pick the seat back up rather than asking again.
-      api('state', mine()).then(function (r) { if (take(r)) connect(); else if (current !== 'gone') { clearSession(); start(); } });
+      api('state', mine()).then(function (r) { if (take(r)) connect(); else if (current !== 'gone' && current !== 'update') { clearSession(); start(); } });
     } else {
       start();
     }
