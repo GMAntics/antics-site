@@ -278,11 +278,14 @@
   function buildSheet() {
     D.sheet = el('div', 'bl-sheet');
     D.sheet.hidden = true;
+    D.sheetOpenedAt = 0;
     D.sheet.setAttribute('role', 'dialog');
     D.sheet.setAttribute('aria-modal', 'true');
     D.sheetBox = el('div', 'bl-sheet-box');
     D.sheet.appendChild(D.sheetBox);
-    D.sheet.addEventListener('click', function (e) { if (e.target === D.sheet) closeSheet(); });
+    // A backdrop click in the first 400 ms after a long press opened the sheet
+    // is the release's own click landing on the backdrop, not a dismissal.
+    D.sheet.addEventListener('click', function (e) { if (e.target === D.sheet && Date.now() - D.sheetOpenedAt >= 400) closeSheet(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !D.sheet.hidden) closeSheet(); });
     document.body.appendChild(D.sheet);
   }
@@ -333,6 +336,7 @@
     send.disabled = true;
     add(box, send, button('link', w('cancel'), closeSheet));
     D.sheet.hidden = false;
+    D.sheetOpenedAt = Date.now();
     rows[0].focus();
   }
   /** Long-press (touch), right click (mouse) and the context-menu key all open it. */
@@ -348,7 +352,10 @@
     // The release after a long press is not also a tap (a heart, a vote row).
     node.addEventListener('click', function (e) { if (held) { held = false; e.preventDefault(); e.stopPropagation(); } }, true);
     // A hold that ends with no click (Android) must not eat a later tap.
-    node.addEventListener('touchend', function () { if (held) setTimeout(function () { held = false; }, 400); });
+    // A release after a long press is cancelled outright (not passive), so the
+    // browser does not synthesise the click that lands on the sheet's backdrop
+    // and closes Report again.
+    node.addEventListener('touchend', function (e) { if (held) { if (e.cancelable) e.preventDefault(); setTimeout(function () { held = false; }, 400); } }, { passive: false });
     var cancel = function () { if (timer) { clearTimeout(timer); timer = null; } };
     node.addEventListener('touchend', cancel);
     node.addEventListener('touchcancel', cancel);
