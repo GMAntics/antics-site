@@ -43,7 +43,7 @@
       "https://play.google.com/store/apps/details?id=com.anticsapp.antics"
     ],
     "image": "https://anticsapp.com/img/og-card.png",
-    "description": "Pass-the-phone party games in one app: Antics mode, The Four Kings, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, What Are The Odds, Imposter and Spicy. Thousands of cards. No ads.",
+    "description": "Party games in one app: Antics mode, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, Imposter, Name 3, Blag and Spicy. Thousands of cards. No ads.",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
     "contentRating": "18+ on the App Store",
     "inLanguage": ["en", "es-419", "es-ES", "pt-BR", "pt-PT", "de", "fr", "it", "nl", "pl", "cs"],
@@ -56,9 +56,9 @@
     "@type": "FAQPage",
     "mainEntity": [
       { "@type": "Question", "name": "What is Antics?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A party game app for iPhone and Android. Nine pass-the-phone games on one phone: Antics mode, The Four Kings, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, What Are The Odds, Imposter and Spicy. Thousands of cards, and the app remembers which ones your phone has shown so you get new ones before any come round again. Nothing in it depends on drinking, so drinkers and non-drinkers play the same game." } },
+        "acceptedAnswer": { "@type": "Answer", "text": "A party game app for iPhone and Android. Nine party games: Antics mode, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, Imposter, Name 3, Blag and Spicy. All but Blag play on one phone passed round; Blag is played on everyone's own phone. Thousands of cards, and the app remembers which ones your phone has shown so you get new ones before any come round again. Nothing in it depends on drinking, so drinkers and non-drinkers play the same game." } },
       { "@type": "Question", "name": "Is Antics free?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Free to download. Imposter and The Four Kings are free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), and every other game except Spicy comes with free cards. Premium unlocks the full decks and Spicy: a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays." } },
+        "acceptedAnswer": { "@type": "Answer", "text": "Free to download. Imposter is free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), joining a Blag room costs nothing, and every other game except Spicy comes with free cards. Premium unlocks the full decks and Spicy: a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays." } },
       { "@type": "Question", "name": "Can everyone play Imposter on their own phone?",
         "acceptedAnswer": { "@type": "Answer", "text": "Yes. The host starts a room at anticsapp.com/j/?host=1, friends join with the room code, and nobody needs the app." } },
       { "@type": "Question", "name": "Who is Antics for?",
@@ -265,7 +265,7 @@ h1 em{font-style:normal;color:var(--pink);display:block}
 [data-game="nhie"],[data-game="imposter"]{--tone:var(--purple)}
 [data-game="mlt"],[data-game="spicy"]{--tone:var(--pink)}
 [data-game="wyr"]{--tone:var(--cyan)}
-[data-game="kings"],[data-game="odds"]{--tone:var(--orange)}
+[data-game="kings"],[data-game="odds"],[data-game="blag"],[data-game="name3"]{--tone:var(--orange)}
 @media (max-width: 359px){.card{min-height:17.5rem}
 }
 @media (min-width: 560px){.ctas .cta{flex:1 1 auto}
@@ -531,18 +531,21 @@ h1{font-size:clamp(3rem,min(7.4vw,13svh),12rem)}
               <div class="face" aria-hidden="true" data-where="tile" data-d="wouldYouRather" data-i="2"><p class="kind">Would You Rather</p><p class="q"><span data-f="a">Your group chat leaks</span> <span class="or">or</span> <span data-f="b">Your camera roll leaks</span></p></div>
             </div>
           </div>
-          <div class="tile" data-game="kings" style="--a:#FF2E7E;--b:#FFB02E">
-            <a class="tile-link" href="/the-four-kings/"><span class="go" aria-hidden="true">&#8599;</span><h3>The Four Kings</h3><p>The classic circle game, 52 cards of chaos</p></a>
+          <!-- 1.1.6: Blag and Name 3 take The Four Kings' and What Are The Odds' tiles.
+               Static faces, no data-d: Blag's face is the app's own About us rule line
+               (t.blag.ruleAboutUs), not a card; Name 3's is free category 1. -->
+          <div class="tile" data-game="blag" style="--a:#FF2E7E;--b:#FFB02E">
+            <a class="tile-link" href="/blag-game/"><span class="go" aria-hidden="true">&#8599;</span><h3>Blag</h3><p>Bluff your mates on your own phones</p></a>
             <div class="flip">
-              <div class="back" aria-hidden="true">🔥</div>
-              <div class="face" aria-hidden="true" data-where="tile" data-d="ringOfFire" data-i="6"><p class="kind">The Four Kings</p><p class="meta"><b data-f="r">7</b> &middot; <span data-f="title">Heaven</span></p><p class="q" data-f="t">Reach for the sky! Last player to raise a hand takes a forfeit.</p></div>
+              <div class="back" aria-hidden="true">🤥</div>
+              <div class="face" aria-hidden="true"><p class="kind">Blag</p><p class="q">One of you tells the truth. The rest fake it. Spot the truth.</p></div>
             </div>
           </div>
-          <div class="tile" data-game="odds" style="--a:#FFB627;--b:#FF5C5C">
-            <a class="tile-link" href="/what-are-the-odds/"><span class="go" aria-hidden="true">&#8599;</span><h3>What Are The Odds</h3><p>Shout the same number, do the thing</p></a>
+          <div class="tile" data-game="name3" style="--a:#FFB627;--b:#FF5C5C">
+            <a class="tile-link" href="/name-3-game/"><span class="go" aria-hidden="true">&#8599;</span><h3>Name 3</h3><p>Three things, five seconds</p></a>
             <div class="flip">
-              <div class="back" aria-hidden="true">🎯</div>
-              <div class="face" aria-hidden="true" data-where="tile" data-d="odds" data-i="0"><p class="kind">What Are The Odds</p><p class="q" data-f="t">You talk to a wall for one minute. Sincerely.</p></div>
+              <div class="back" aria-hidden="true">⏱️</div>
+              <div class="face" aria-hidden="true"><p class="kind">Name 3&hellip;</p><p class="q">Pizza toppings</p></div>
             </div>
           </div>
         </div>
@@ -601,6 +604,8 @@ h1{font-size:clamp(3rem,min(7.4vw,13svh),12rem)}
             <li><a href="/truth-or-dare-questions/"><span class="ico" aria-hidden="true">😈</span> Truth or Dare questions</a></li>
             <li><a href="/would-you-rather-questions/"><span class="ico" aria-hidden="true">🤔</span> Would You Rather questions</a></li>
             <li><a href="/most-likely-to-questions/"><span class="ico" aria-hidden="true">👉</span> Most Likely To questions</a></li>
+            <li><a href="/name-3-game/"><span class="ico" aria-hidden="true">⏱️</span> How to play Name 3</a></li>
+            <li><a href="/blag-game/"><span class="ico" aria-hidden="true">🤥</span> How to play Blag</a></li>
             <li><a href="/what-are-the-odds/"><span class="ico" aria-hidden="true">🎲</span> What Are The Odds questions</a></li>
             <li><a href="/how-to-play-imposter/"><span class="ico" aria-hidden="true">🕵️</span> How to play Imposter</a></li>
             <li><a href="/imposter-game-words/"><span class="ico" aria-hidden="true">🕵️</span> Imposter game words</a></li>
@@ -642,11 +647,11 @@ h1{font-size:clamp(3rem,min(7.4vw,13svh),12rem)}
         <div class="faq">
           <div>
             <h3>What is Antics?</h3>
-            <p>A party game app for iPhone and Android. Nine pass-the-phone games on one phone: Antics mode, The Four Kings, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, What Are The Odds, Imposter and Spicy. Thousands of cards, and the app remembers which ones your phone has shown so you get new ones before any come round again. Nothing in it depends on drinking, so drinkers and non-drinkers play the same game.</p>
+            <p>A party game app for iPhone and Android. Nine party games: Antics mode, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, Imposter, Name 3, Blag and Spicy. All but Blag play on one phone passed round; Blag is played on everyone's own phone. Thousands of cards, and the app remembers which ones your phone has shown so you get new ones before any come round again. Nothing in it depends on drinking, so drinkers and non-drinkers play the same game.</p>
           </div>
           <div>
             <h3>Is Antics free?</h3>
-            <p>Free to download. Imposter and The Four Kings are free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), and every other game except Spicy comes with free cards. Premium unlocks the full decks and Spicy: a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays.</p>
+            <p>Free to download. Imposter is free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), joining a Blag room costs nothing, and every other game except Spicy comes with free cards. Premium unlocks the full decks and Spicy: a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays.</p>
           </div>
           <div>
             <h3>Can everyone play Imposter on their own phone?</h3>
