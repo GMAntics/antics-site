@@ -445,12 +445,17 @@
 
     var POLL_WITH_BELL_MS = 30000;
     var POLL_NO_BELL_MS = 5000;
-    // Blag (SPEC 4.2 rule 8, the app's pollDelayMs in src/rooms/session.ts):
-    // 4 s with no doorbell; with it, 30 s, or 10 s while this seat waits for
-    // others (a guest in the lobby or on the end screen, or a seat sitting a
-    // round out: the app's blagWaiting). A TV only ever watches others, so it
-    // counts as waiting.
-    var BLAG_POLL_WITH_BELL_MS = 30000;
+    // Blag: 4 s with no doorbell; with it, 10 s, both for a seat in the round
+    // and for one waiting for others (a guest in the lobby or on the end
+    // screen, a seat sitting a round out, a TV). IN-ROUND STAYS UNDER THE
+    // SERVER'S ACTIVE WINDOW (blag.ts ACTIVE_WINDOW_MS, 20 s with five or more
+    // seated): a seat that has not pulled for longer stops counting toward the
+    // early close, so a typing seat that heard no poke could lose its answer to
+    // the first one sent (review finding, 10 Nov 2026). The 30 s of SPEC 4.2
+    // rule 8 conflicts with rule 2 and awaits a SPEC ruling; until then this
+    // page keeps the 10 s it had before cc00fd7. The Blag browser suite checks
+    // both numbers against ACTIVE_WINDOW_MS.
+    var BLAG_POLL_WITH_BELL_MS = 10000;
     var BLAG_POLL_WAITING_MS = 10000;
     var BLAG_POLL_NO_BELL_MS = 4000;
     // THE POKE GATE (rooms go-live audit item 1, 24 Oct 2026). Anyone with
@@ -2517,9 +2522,10 @@
       var delay = bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS;
       var shown = TV ? screenView : view;
       if (shown && shown.kind === 'blag') {
-        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 30 s with it
-        // (10 s while waiting for others), 1, 2 then 4 s after a failed pull,
-        // and a pull just after the next deadline, flip or idle mark.
+        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 10 s with it
+        // (in the round or waiting: under the active window, see above), 1, 2
+        // then 4 s after a failed pull, and a pull just after the next
+        // deadline, flip or idle mark.
         delay = pullFailures > 0 ? [1000, 2000, 4000][Math.min(pullFailures, 3) - 1]
           : !(bellUp && !trouble) ? BLAG_POLL_NO_BELL_MS
           : blagWaiting(shown) ? BLAG_POLL_WAITING_MS : BLAG_POLL_WITH_BELL_MS;
