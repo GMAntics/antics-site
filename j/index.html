@@ -2547,22 +2547,49 @@
       var b = TV ? (screenView && screenView.bell) : (view && view.bell);
       return typeof b === 'string' && /^[A-Za-z0-9_-]{16,64}$/.test(b) ? b : null;
     }
+    // A REFUSED DOORBELL BACKS OFF (10 Nov 2026, as the app's doorbell.ts
+    // reconnectDelay does). supabase-js 2.115 rejoins a refused channel at
+    // 1, 2, 5 s and then every 10 s for ever, and does not pass a
+    // rejoinAfterMs option through to its socket. So after BELL_REFUSALS_MAX
+    // refusals in a row this page drops the channel itself (the poll carries
+    // the room meanwhile) and asks again after 30 s, then at most once a
+    // minute. Any SUBSCRIBED resets the count.
+    var BELL_REFUSALS_MAX = 4, BELL_RETRY_FIRST_MS = 30000, BELL_RETRY_MAX_MS = 60000;
+    var bellRefusals = 0, bellRetry = null, bellClient = null;
+    function bellRetryMs(refusals) {
+      var n = Math.max(0, refusals - BELL_REFUSALS_MAX);
+      return Math.min(BELL_RETRY_MAX_MS, BELL_RETRY_FIRST_MS * Math.pow(2, n));
+    }
+    function dropBell() {
+      if (bell) { var b = bell; bell = null; try { b.client.removeChannel(b.channel); } catch (e) {} }
+      bellUp = false;
+    }
     function connectBell() {
-      if (!ANON_KEY || !USE_PROD || bell) return;
+      if (!ANON_KEY || !USE_PROD || bell || bellRetry) return;
       var topic = bellId();
       if (!topic) return;
       var start = function () {
+        if (bell || bellRetry) return;
         try {
-          var client = window.supabase.createClient(PROJECT, ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
+          var client = bellClient || (bellClient = window.supabase.createClient(PROJECT, ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } }));
           var channel = client.channel('room:' + topic);
+          var mine = { client: client, channel: channel };
           channel.on('broadcast', { event: 'poke' }, function () { ring(); });
+          bell = mine;
           channel.subscribe(function (status) {
+            if (bell !== mine) return; // a channel this page already dropped
             bellUp = status === 'SUBSCRIBED';
-            if (bellUp) ring();
+            if (bellUp) { bellRefusals = 0; ring(); }
+            else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+              bellRefusals++;
+              if (bellRefusals >= BELL_REFUSALS_MAX) {
+                dropBell();
+                bellRetry = setTimeout(function () { bellRetry = null; connectBell(); }, bellRetryMs(bellRefusals));
+              }
+            }
             schedule();
           });
-          bell = { client: client, channel: channel };
-        } catch (e) { bellUp = false; }
+        } catch (e) { bell = null; bellUp = false; }
       };
       if (window.supabase) return start();
       var s = document.createElement('script');
@@ -2573,8 +2600,8 @@
     function connect() { schedule(); connectBell(); }
     function disconnect() {
       clearTimeout(pollTimer); clearTimeout(trailing); trailing = null; again = false;
-      if (bell) { try { bell.client.removeChannel(bell.channel); } catch (e) {} bell = null; }
-      bellUp = false;
+      dropBell();
+      clearTimeout(bellRetry); bellRetry = null; bellRefusals = 0;
       $('live').textContent = '';
     }
     document.addEventListener('visibilitychange', function () { if (!document.hidden) refresh(); });
@@ -2585,7 +2612,20 @@
     // --- buttons ----------------------------------------------------------------
     function busy(btn, p) { btn.disabled = true; return p.then(function (v) { btn.disabled = false; return v; }); }
 
+    // Blag rooms (delta A-89): does a typed name look like two people on one
+    // phone ("Sam & Jo", "Mum and Dad")? The app's blagLocal.looksShared,
+    // word for word. Only the yes or no is filed, never the name.
+    var AND_WORDS = { en: ['and'], es: ['y'], 'es-ES': ['y'], pt: ['e'], 'pt-PT': ['e'], de: ['und'], fr: ['et'], it: ['e'], nl: ['en'], pl: ['i'], cs: ['a'] };
+    function looksShared(name, lang) {
+      name = String(name || '');
+      if (name.indexOf('&') !== -1 || name.indexOf('+') !== -1) return true;
+      var words = name.toLowerCase().split(/\s+/).filter(Boolean);
+      if (words.length < 3) return false;
+      var ands = AND_WORDS[lang] || AND_WORDS.en;
+      return words.slice(1, -1).some(function (w) { return ands.indexOf(w) !== -1; });
+    }
     $('btn-join').addEventListener('click', function () {
+      var typedName = $('in-name').value;
       var method = prefilled && $('in-code').value.toUpperCase() === prefilled ? 'link' : 'code';
       var kept = keptBlagSeat($('in-code').value.toUpperCase());
       if (kept && kept.name.toLowerCase() === $('in-name').value.trim().toLowerCase()) {
@@ -2599,7 +2639,8 @@
           if (!blagUi) { var jb = $('btn-join'); jb.disabled = true; loadBlag(function () { jb.disabled = false; }); }
         }
         if (take(r, 'join-error')) track('room_joined', view.kind === 'blag'
-          ? { via: 'web', kind: 'blag', method: method, players_n: view.players.length, arrival: ARRIVAL }
+          ? { via: 'web', kind: 'blag', method: method, players_n: view.players.length, arrival: ARRIVAL,
+              reclaimed: r.data.reclaimed === true ? 'yes' : 'no', shared_name: looksShared(typedName, LANG) ? 'yes' : 'no' }
           : { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
         else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown', arrival: ARRIVAL });
       });
