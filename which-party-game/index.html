@@ -195,7 +195,7 @@
         <ul>
           <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: Works fine with two, as long as you do not mind there being only one person to judge you. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Swap turns card by card, so it is back to you before you have finished your last excuse. Free cards in the app, full deck with Premium.</li>
-          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: Built for two: every card is a duel, and if you both shout the same number, it has to happen. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: Built for two: every card is a duel, and if you both shout the same number, it has to happen. No longer in the app, free here on the web.</li>
         </ul>
         <p><strong>Deduction and bluffing:</strong> Imposter needs at least three players. With two, What Are The Odds is the nearest thing to a bluff: you are both trying to read the other person's number.</p>
       </section>
@@ -221,9 +221,9 @@
           <li><strong><a href="/never-have-i-ever-questions/">Never Have I Ever</a></strong>: At three or four it is at its most honest, because nobody can hide behind a crowd of hands going up. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Better small: with three of you, your turn comes back every third card, and chickening out means a forfeit. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/would-you-rather-questions/">Would You Rather</a></strong>: Everyone votes at once, so nobody is put on the spot. With three the vote can never tie; with four, agree what a two-two split means first. Free cards in the app, full deck with Premium.</li>
-          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The chaos engine: dare a mate, they name the odds, you both shout a number. Match, and it has to happen. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The chaos engine: dare a mate, they name the odds, you both shout a number. Match, and it has to happen. No longer in the app, free here on the web.</li>
           <li><strong><a href="/how-to-play-imposter/">Imposter</a></strong>: Works from three and gets better from four. Keep the one-word hint on at this size. Free in the app.</li>
-          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: Thirteen rules and one circle, and with three or four your draw comes round fast. Whoever draws the fourth King performs the whole routine. Free in the app.</li>
+          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: Thirteen rules and one circle, and with three or four your draw comes round fast. Whoever draws the fourth King performs the whole routine. No longer in the app, free here on the web.</li>
           <li><strong><a href="/antics-mode/">Antics mode</a></strong>: One phone deals dares, rules and callouts by name, so nobody has to host. With three, tap past the vote cards. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/spicy/">Spicy</a></strong>: The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it. 18+, comes with Premium.</li>
         </ul>
@@ -253,9 +253,9 @@
           <li><strong><a href="/truth-or-dare-questions/">Truth or Dare</a></strong>: Great once the group has warmed up. One hard veto each keeps the pressure theatrical rather than mean. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/most-likely-to-questions/">Most Likely To</a></strong>: At its best around this size: everyone points on three, and the defence speeches are the real content. Best with your actual mates. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/would-you-rather-questions/">Would You Rather</a></strong>: The best opener: everyone answers at once, so nobody is put on the spot while people are still arriving. Free cards in the app, full deck with Premium.</li>
-          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The reliable peak: no other party game produces a "no way that just happened" moment as often. Free cards in the app, full deck with Premium.</li>
+          <li><strong><a href="/what-are-the-odds/">What Are The Odds</a></strong>: The reliable peak: no other party game produces a "no way that just happened" moment as often. No longer in the app, free here on the web.</li>
           <li><strong><a href="/how-to-play-imposter/">Imposter</a></strong>: The sweet spot: Imposter is best from four to eight players, and from six the app can deal a second imposter. Free in the app.</li>
-          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: One game with a proper finale: a rule for every card, and whoever draws the fourth King performs the whole routine. Free in the app.</li>
+          <li><strong><a href="/the-four-kings/">The Four Kings</a></strong>: One game with a proper finale: a rule for every card, and whoever draws the fourth King performs the whole routine. No longer in the app, free here on the web.</li>
           <li><strong><a href="/antics-mode/">Antics mode</a></strong>: Let the phone run it: dares, rules that stay live for several cards, votes and callouts by name, so nobody has to host. Free cards in the app, full deck with Premium.</li>
           <li><strong><a href="/spicy/">Spicy</a></strong>: The after dark deck: hotter questions and proper confessions, for late in the night once the group has earned it. 18+, comes with Premium.</li>
         </ul>
@@ -355,14 +355,17 @@
   'use strict';
   var own = Object.prototype.hasOwnProperty;
   var FREE_CARDS = 'Free cards in the app, full deck with Premium';
+  // 1.1.6: What Are The Odds and The Four Kings left the app's Home (Name 3 and
+  // Blag took their tiles) and live on free on this site.
+  var WEB_ONLY = 'No longer in the app, free here on the web';
   var GAMES = {
     nhie:     { name: 'Never Have I Ever', href: '/never-have-i-ever-questions/', play: '/never-have-i-ever-generator/', min: 2, max: 0, access: FREE_CARDS },
     tod:      { name: 'Truth or Dare', href: '/truth-or-dare-questions/', play: '/truth-or-dare-generator/', min: 2, max: 0, access: FREE_CARDS },
     mlt:      { name: 'Most Likely To', href: '/most-likely-to-questions/', play: '/most-likely-to-generator/', min: 3, max: 0, access: FREE_CARDS },
     wyr:      { name: 'Would You Rather', href: '/would-you-rather-questions/', play: '/would-you-rather-generator/', min: 3, max: 0, access: FREE_CARDS },
-    odds:     { name: 'What Are The Odds', href: '/what-are-the-odds/', play: '/what-are-the-odds-generator/', min: 2, max: 0, access: FREE_CARDS },
+    odds:     { name: 'What Are The Odds', href: '/what-are-the-odds/', play: '/what-are-the-odds-generator/', min: 2, max: 0, access: WEB_ONLY },
     imposter: { name: 'Imposter', href: '/how-to-play-imposter/', play: '/imposter-game/', min: 3, max: 12, access: 'Free in the app' },
-    kings:    { name: 'The Four Kings', href: '/the-four-kings/', play: '', min: 3, max: 0, access: 'Free in the app' },
+    kings:    { name: 'The Four Kings', href: '/the-four-kings/', play: '/four-kings-online/', min: 3, max: 0, access: WEB_ONLY },
     antics:   { name: 'Antics mode', href: '/antics-mode/', play: '/play/', min: 3, max: 0, access: FREE_CARDS },
     spicy:    { name: 'Spicy', href: '/spicy/', play: '', min: 3, max: 0, access: '18+, comes with Premium' }
   };

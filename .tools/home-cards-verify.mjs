@@ -63,6 +63,8 @@ const DECKS = {
   imposterEverydayObjects: imp.everydayObjectsWords.map((w, i) => ({ w, h: imp.everydayObjectsHints[i] })),
   // The Four Kings: Guy's own canon, keyed by rank; the index is the array position.
   ringOfFire: load('data/ringOfFire.ts').rankRules.map((r) => ({ r: r.rank, title: r.title, t: r.party })),
+  // Name 3 (1.1.6, takes What Are The Odds' tile): the category is the card.
+  nameThree: load('data/nameThree.ts').nameThreePrompts.map((t) => ({ t })),
 };
 
 // Imposter decks whose registry entry says access: 'free' (read from the source
@@ -181,9 +183,11 @@ else if (deal[0]) {
 }
 if (deal[0] && /forfeit/i.test(Object.values(deal[0]).join(' '))) fails.push('hero: the first card is a forfeit card');
 
-// 4. Tiles: nine games, Spicy carries no card.
+// 4. Tiles: nine games, Spicy carries no card. From 1.1.6 (feat/116-new-games)
+// Blag carries none either: its face is the app's own About us rule line
+// (t.blag.ruleAboutUs), not a card, because no Blag prompt is published.
 const tiles = htmlCards.filter((c) => c.where === 'tile');
-if (tiles.length !== 8) fails.push(`tiles: ${tiles.length} tile cards, want 8 (nine games, Spicy shows none)`);
+if (tiles.length !== 7) fails.push(`tiles: ${tiles.length} tile cards, want 7 (nine games, Spicy and Blag show none)`);
 
 console.log(rows.join('\n'));
 console.log(`\n${deal.length} hero cards, ${tiles.length} tile cards, ${htmlCards.length} cards in the HTML.`);

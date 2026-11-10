@@ -532,8 +532,8 @@ h1{font-size:clamp(3rem,min(7.4vw,13svh),12rem)}
             </div>
           </div>
           <!-- 1.1.6: Blag and Name 3 take The Four Kings' and What Are The Odds' tiles.
-               Static faces, no data-d: Blag's face is the app's own About us rule line
-               (t.blag.ruleAboutUs), not a card; Name 3's is free category 1. -->
+               Blag's face is the app's own About us rule line (t.blag.ruleAboutUs), not a
+               card, so it has no data-d; Name 3's is free category 1. -->
           <div class="tile" data-game="blag" style="--a:#FF2E7E;--b:#FFB02E">
             <a class="tile-link" href="/blag-game/"><span class="go" aria-hidden="true">&#8599;</span><h3>Blag</h3><p>Bluff your mates on your own phones</p></a>
             <div class="flip">
@@ -545,7 +545,7 @@ h1{font-size:clamp(3rem,min(7.4vw,13svh),12rem)}
             <a class="tile-link" href="/name-3-game/"><span class="go" aria-hidden="true">&#8599;</span><h3>Name 3</h3><p>Three answers before the clock runs out</p></a>
             <div class="flip">
               <div class="back" aria-hidden="true">⏱️</div>
-              <div class="face" aria-hidden="true"><p class="kind">Name 3&hellip;</p><p class="q">Pizza toppings</p></div>
+              <div class="face" aria-hidden="true" data-where="tile" data-d="nameThree" data-i="1"><p class="kind">Name 3&hellip;</p><p class="q" data-f="t">Pizza toppings</p></div>
             </div>
           </div>
         </div>
