@@ -798,7 +798,9 @@
       st.appendChild(holdable(bc, bl.bestLie.optionId ? { round: bl.bestLie.round, optionId: bl.bestLie.optionId } : null));
     }
     if (tv) return;
-    var g = grudgeText(bl.me && bl.me.grudge);
+    // A grudge line only for someone who played this lap (a latecomer has none).
+    var played = v.you && totals.some(function (r) { return r.id === v.you.id; });
+    var g = played ? grudgeText(bl.me && bl.me.grudge) : null;
     if (g) st.appendChild(el('div', 'bl-private', g));
     if (host) {
       var n = (v.players || []).length;
@@ -885,7 +887,8 @@
       g.fillText(fit(g, bf('by', names(bl.authorNames)), maxW - 40), x + 20, y);
       y = top + boxH;
     }
-    var gl = grudgeText(v.blag.me && v.blag.me.grudge);
+    var played = v.you && (v.blag.scores ? v.blag.scores.totals : []).some(function (r) { return r.id === v.you.id; });
+    var gl = played ? grudgeText(v.blag.me && v.blag.me.grudge) : null;
     if (gl) {
       y += 80;
       g.fillStyle = '#FF2E7E'; g.font = '800 40px ' + font;

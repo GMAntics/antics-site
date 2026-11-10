@@ -157,3 +157,7 @@ body.tv.bl-on .bl-q, body.tv.bl-on .bl-answer { font-size: 7vh; font-size: clamp
 .bl-ask { font-size: calc(26px * var(--b-scale)); margin: 4px 0 12px; }
 .bl-shown { text-align: center; background: var(--b-surface); border-radius: 22px; padding: 22px 18px; margin: 4px 0 6px; }
 #screen-blag > .link { display: block; margin: 18px auto 0; }
+#screen-blag .tvbar .tvon, #screen-blag .tvbar .tvmirror { font-size: calc(18px * var(--b-scale)); }
+body.bl-on #live { font-size: 14px; }
+#screen-blag .ghost { font-size: calc(20px * var(--b-scale)); min-height: 56px; }
+#screen-blag .tag { font-size: calc(18px * var(--b-scale)); letter-spacing: .04em; padding: 2px 10px; }
