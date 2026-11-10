@@ -445,17 +445,22 @@
 
     var POLL_WITH_BELL_MS = 30000;
     var POLL_NO_BELL_MS = 5000;
-    // Blag: 4 s with no doorbell; with it, 10 s, both for a seat in the round
-    // and for one waiting for others (a guest in the lobby or on the end
-    // screen, a seat sitting a round out, a TV). IN-ROUND STAYS UNDER THE
-    // SERVER'S ACTIVE WINDOW (blag.ts ACTIVE_WINDOW_MS, 20 s with five or more
-    // seated): a seat that has not pulled for longer stops counting toward the
-    // early close, so a typing seat that heard no poke could lose its answer to
-    // the first one sent (review finding, 10 Nov 2026). The 30 s of SPEC 4.2
-    // rule 8 conflicts with rule 2 and awaits a SPEC ruling; until then this
-    // page keeps the 10 s it had before cc00fd7. The Blag browser suite checks
-    // both numbers against ACTIVE_WINDOW_MS.
-    var BLAG_POLL_WITH_BELL_MS = 10000;
+    // Blag (SPEC 4.2 rule 8, ruled 10 Nov 2026; the same rule as the app's
+    // pollDelayMs with `owing`, src/rooms/session.ts and blagSession.ts
+    // blagOwes): 4 s with no doorbell, in every state. With the doorbell up:
+    // 10 s while THIS SEAT OWES the phase something (writing: dealt in, answer
+    // not in; voting: dealt in and not yet voted, About Us not as the
+    // spotlight nor sitting the vote out, or not yet tapped this Who Said
+    // That? step); 10 s while waiting for others (a guest in the lobby or on
+    // the end screen, a seat sitting a round out, a TV); 30 s otherwise. The
+    // owing poll stays well under the server's active window (blag.ts
+    // ACTIVE_WINDOW_MS, 20 s with five or more seated, plus its 10 s stamp
+    // slack): a seat that has not pulled for longer stops counting toward the
+    // early close, so a typing seat that heard no poke would lose its answer
+    // to the first one sent (review finding, 10 Nov 2026). The 30 s poll is
+    // only for states that owe nothing. The Blag browser suite checks it.
+    var BLAG_POLL_WITH_BELL_MS = 30000;
+    var BLAG_POLL_OWING_MS = 10000;
     var BLAG_POLL_WAITING_MS = 10000;
     var BLAG_POLL_NO_BELL_MS = 4000;
     // THE POKE GATE (rooms go-live audit item 1, 24 Oct 2026). Anyone with
@@ -2522,13 +2527,11 @@
       var delay = bellUp && !trouble ? POLL_WITH_BELL_MS : POLL_NO_BELL_MS;
       var shown = TV ? screenView : view;
       if (shown && shown.kind === 'blag') {
-        // Blag (SPEC 4.2 rules 1 and 8): 4 s with no doorbell, 10 s with it
-        // (in the round or waiting: under the active window, see above), 1, 2
-        // then 4 s after a failed pull, and a pull just after the next
+        // Blag (SPEC 4.2 rules 1 and 8): blagPollMs (see the constants), 1,
+        // 2 then 4 s after a failed pull, and a pull just after the next
         // deadline, flip or idle mark.
         delay = pullFailures > 0 ? [1000, 2000, 4000][Math.min(pullFailures, 3) - 1]
-          : !(bellUp && !trouble) ? BLAG_POLL_NO_BELL_MS
-          : blagWaiting(shown) ? BLAG_POLL_WAITING_MS : BLAG_POLL_WITH_BELL_MS;
+          : blagPollMs(shown, bellUp && !trouble);
         var ping = blagUi && pullFailures === 0 ? blagUi.nextPingMs() : null;
         if (ping !== null && ping < delay) delay = Math.max(250, ping);
       }
@@ -2545,6 +2548,30 @@
       if (TV || !v || !v.you) return true;
       if (v.status === 'lobby' || v.status === 'over') return !v.you.isHost;
       return !(v.blag && v.blag.me && v.blag.me.inRound);
+    }
+    /** Does this seat still owe the phase an answer, a vote or a tap (SPEC
+     *  4.2 rule 8; the app's blagOwes). A TV owes nothing. */
+    function blagOwes(v) {
+      if (TV || !v || !v.you || !v.blag) return false;
+      var me = v.blag.me;
+      if (!me || !me.inRound) return false;
+      var seats = Array.isArray(v.blag.seats) ? v.blag.seats : [];
+      var seat = null;
+      for (var i = 0; i < seats.length; i++) if (seats[i] && seats[i].id === v.you.id) seat = seats[i];
+      if (!seat) return false;
+      if (v.status === 'writing') return seat.submitted !== true;
+      if (v.status === 'voting') {
+        if (seat.voted === true) return false;
+        if (v.blag.mode === 'about_us') return me.isSpotlight !== true && me.sitOut !== true && !me.vote;
+        return !me.tap;
+      }
+      return false;
+    }
+    /** The Blag safety-net poll with no failures: the one rule above. */
+    function blagPollMs(v, bell) {
+      if (!bell) return BLAG_POLL_NO_BELL_MS;
+      if (blagOwes(v)) return BLAG_POLL_OWING_MS;
+      return blagWaiting(v) ? BLAG_POLL_WAITING_MS : BLAG_POLL_WITH_BELL_MS;
     }
     /** The room's doorbell id, from this tab's own view (review fix M4): the
      *  topic is never the room code. Null until a view has arrived, or from a
