@@ -2187,11 +2187,20 @@
     }
     function hasSeat() { return TV ? !!tv.token : !!session.token; }
 
+    // THE CAPABILITY MARKER (12 Nov 2026 pre-release review, HIGH): every
+    // request says this page can play Blag rooms as well as Imposter ones.
+    // The room server seats nobody in a Blag room, takes no TV slot for one
+    // and answers no seat's poll in one without it, because the live 1.1.5
+    // app and the older page would be seated in a game they cannot draw.
+    var CLIENT_KINDS = ['imposter', 'blag'];
     function api(route, body) {
+      var sent = {};
+      for (var k in body || {}) sent[k] = body[k];
+      sent.kinds = CLIENT_KINDS;
       return fetch(API + route, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-antics-key': SITE_KEY },
-        body: JSON.stringify(body)
+        body: JSON.stringify(sent)
       }).then(function (res) {
         if (res.status === 429) noteLimited(res);
         else if (res.ok) holdMs = 0;

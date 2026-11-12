@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer"><title>Join a room | Antics</title>
+<!-- THE BLAG INVITE LINK (12 Nov 2026 pre-release review, HIGH): a Blag
+     lobby hands out /j/blag/?room=K7QM (src/rooms/roomLink.ts blagShareUrl).
+     The 1.1.5 app's room parser refuses that form and sends it to the browser
+     with web=1, so a phone that cannot play Blag lands here, never in the
+     app's Imposter join form. This page forwards the whole query (room, web,
+     anything else) to the join page, which plays Blag. One line of JS: run
+     `node --check` on it before any push (the 7 Sep 2026 law). Preview copy
+     reuses the live join page's lines without the game's name (DRAFT for
+     Guy's ruling if Blag wants its own). -->
+<meta property="og:site_name" content="Antics"><meta property="og:title" content="Join our room"><meta property="og:description" content="Tap to join on your own phone. No download, no sign-up."><meta property="og:type" content="website"><meta property="og:image" content="https://anticsapp.com/img/og-card.png">
+<script>(function(){location.replace('/j/'+location.search+location.hash);})();</script>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+  <meta name="theme-color" content="#0E0A1F">
+</head><body><p>Redirecting… <a href="/j/">Tap here</a></p></body></html>
