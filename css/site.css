@@ -2143,6 +2143,7 @@ body.embed .tool-wrap { position: static; margin: 0; }
 .tile-wyr      { --a: #2E8CFF; --b: #25E5FF; }
 .tile-kings    { --a: #FF2E7E; --b: #FFB02E; }
 .tile-odds     { --a: #FFB627; --b: #FF5C5C; }
+.tile-blag     { --a: #FFB02E; --b: #FF2E7E; }
 
 
 /* --------------------------------------------------------------------------
