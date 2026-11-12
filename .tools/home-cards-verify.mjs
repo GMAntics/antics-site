@@ -183,11 +183,12 @@ else if (deal[0]) {
 }
 if (deal[0] && /forfeit/i.test(Object.values(deal[0]).join(' '))) fails.push('hero: the first card is a forfeit card');
 
-// 4. Tiles: nine games, Spicy carries no card. From 1.1.6 (feat/116-new-games)
+// 4. Tiles: ten games from 1.1.6 (feat/116-new-games: Name 3 takes What Are The
+// Odds' tile, Blag is added, The Four Kings stays), Spicy carries no card, and
 // Blag carries none either: its face is the app's own About us rule line
 // (t.blag.ruleAboutUs), not a card, because no Blag prompt is published.
 const tiles = htmlCards.filter((c) => c.where === 'tile');
-if (tiles.length !== 7) fails.push(`tiles: ${tiles.length} tile cards, want 7 (nine games, Spicy and Blag show none)`);
+if (tiles.length !== 8) fails.push(`tiles: ${tiles.length} tile cards, want 8 (ten games, Spicy and Blag show none)`);
 
 console.log(rows.join('\n'));
 console.log(`\n${deal.length} hero cards, ${tiles.length} tile cards, ${htmlCards.length} cards in the HTML.`);
