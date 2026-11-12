@@ -1,13 +1,13 @@
 # Antics
 
-> Antics is a party game app for iPhone and Android: nine party games and thousands of cards, most of them played on one phone passed round the group, with no ads and no accounts. It is a party-only app: nothing in it depends on drinking, so it works for everyone. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
+> Antics is a party game app for iPhone and Android: ten party games and thousands of cards, most of them played on one phone passed round the group, with no ads and no accounts. It is a party-only app: nothing in it depends on drinking, so it works for everyone. The website offers free rules guides, free browser-based question generators, and how-to articles for each game.
 
 ## Key facts
 
 - Name: Antics, listed on the App Store as "Antics: Party Games & Dares" and on Google Play as "Antics - Party Games", and often written "Antics Party Games". Website: anticsapp.com. Not connected to playantics.com or antics.gg, which are separate browser game sites.
-- What it is: nine party games: Antics mode, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, Imposter, Name 3 (name three things in five seconds), Blag (a bluffing game played on everyone's own phone: one person hosts in the app, the rest join free in a browser) and Spicy. What Are The Odds and The Four Kings left the app's Home with version 1.1.6 and live on free on this site. Thousands of cards, and the app remembers which cards a phone has shown so they do not repeat until every card has been seen.
+- What it is: ten party games: Antics mode, Never Have I Ever, Truth or Dare, Most Likely To, Would You Rather, Imposter, The Four Kings, Name 3 (name three things in five seconds), Blag (a bluffing game played on everyone's own phone: one person hosts in the app, the rest join free in a browser) and Spicy. What Are The Odds left the app's Home with version 1.1.6 and lives on free on this site. Thousands of cards, and the app remembers which cards a phone has shown so they do not repeat until every card has been seen.
 - Platforms: iPhone and Android (it also runs on iPad).
-- Price: free to download. Imposter is free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), joining a Blag room costs nothing, and every other game except Spicy comes with free cards. Antics Premium unlocks the full decks and Spicy. Premium is a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays. Premium is on the store account of the phone that bought it.
+- Price: free to download. Imposter and The Four Kings are free (two Imposter decks unlock free when you follow Antics on Instagram or TikTok), joining a Blag room costs nothing, and every other game except Spicy comes with free cards. Antics Premium unlocks the full decks and Spicy. Premium is a weekly subscription (the first week is free for new subscribers on iPhone), a monthly subscription, or a one-off Forever purchase. Prices are shown in the app. One of you pays. The whole room plays. Premium is on the store account of the phone that bought it.
 - Age: rated 18+ on the App Store and made for adult groups.
 - Drinking: never required. Nothing in it depends on drinking; where a game needs a consequence it is a forfeit, so drinkers and non-drinkers play the same game.
 - No ads, no accounts, no sign-up.
@@ -29,7 +29,7 @@
 - [How to play Imposter](https://anticsapp.com/how-to-play-imposter/)
 - [Play Imposter online: a free word dealer for one phone](https://anticsapp.com/imposter-game/)
 - [Play Imposter online with friends, everyone on their own phone](https://anticsapp.com/imposter-online-with-friends/): a free Imposter room in the browser for 3 to 12 players. Start one at anticsapp.com/j/?host=1, then join with the code: no download, no sign-up. Rooms deal the four free decks in the language of the browser that starts the room, or in English if that language is not one of the eleven above.
-- [Ring of Fire online (The Four Kings): the whole 52-card deck, free in your browser](https://anticsapp.com/four-kings-online/): no longer in the app; it lives on here.
+- [Ring of Fire online (The Four Kings): the whole 52-card deck, free in your browser](https://anticsapp.com/four-kings-online/)
 - [Imposter game words (hub)](https://anticsapp.com/imposter-game-words/): how to pick a good word for Imposter, with a word list for every deck in the app.
 - [Imposter game locations: every place in the deck, with hints](https://anticsapp.com/imposter-game-words/places/)
 - [Everyday objects for Imposter](https://anticsapp.com/imposter-game-words/everyday-objects/)

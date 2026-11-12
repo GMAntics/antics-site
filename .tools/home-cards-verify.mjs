@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Read-back proof for every card the home page shows (hero deal and the nine
+// Read-back proof for every card the home page shows (hero deal and the
 // game tiles), 7 Nov 2026, design/deal-home.
 //
 // The card law (BUILD-BRIEF.md, house rules): card text is copied VERBATIM, BY
