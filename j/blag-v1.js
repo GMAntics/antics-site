@@ -384,7 +384,13 @@
     }
     var r = bl.me && bl.me.result;
     if (!r) return null;
-    if (r.isSpotlight) return r.missedN === 0 ? b('nobodyMissed') : r.missedN === 1 ? b('missedItOne') : bf('missedItMany', r.missedN);
+    if (r.isSpotlight) {
+      // "Nobody missed it." reads as everyone found the truth: say so only
+      // when someone voted (the app's no_votes line, second simulator pass P2).
+      var votes = (bl.options || []).reduce(function (n, o) { return n + ((o.voters || []).length); }, 0);
+      if (r.missedN === 0 && bl.options != null && votes === 0) return b('nobodyVoted');
+      return r.missedN === 0 ? b('nobodyMissed') : r.missedN === 1 ? b('missedItOne') : bf('missedItMany', r.missedN);
+    }
     if (r.nearTruth) return b('youKnew');
     if (r.spotted) return b('youSpotted');
     if (r.fellFor === 'house') return b('youFellForHouse');
