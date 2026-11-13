@@ -5,7 +5,9 @@
      The 1.1.5 app's room parser refuses that form and sends it to the browser
      with web=1, so a phone that cannot play Blag lands here, never in the
      app's Imposter join form. This page forwards the whole query (room, web,
-     anything else) to the join page, which plays Blag. One line of JS: run
+     anything else) to the join page, which plays Blag, and adds k=blag once
+     (13 Nov 2026, play-test F2) so the join page says Blag, not Imposter,
+     before the room answers. One line of JS: run
      `node --check` on it before any push (the 7 Sep 2026 law). Preview copy
      reuses the live join page's lines without the game's name (DRAFT for
      Guy's ruling if Blag wants its own). -->
@@ -15,4 +17,4 @@
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <meta name="theme-color" content="#0E0A1F">
 </head><body><p>Redirecting… <a id="go" href="/j/">Tap here</a></p>
-<script>(function(){var u='/j/'+location.search+location.hash;try{var a=document.getElementById('go');if(a)a.href=u;}catch(e){}location.replace(u);})();</script></body></html>
+<script>(function(){var s=location.search,q=/[?&]k=blag(&|$)/.test(s)?s:(s?s+'&':'?')+'k=blag';var u='/j/'+q+location.hash;try{var a=document.getElementById('go');if(a)a.href=u;}catch(e){}location.replace(u);})();</script></body></html>
