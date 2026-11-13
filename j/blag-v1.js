@@ -808,8 +808,13 @@
     } else {
       var pts = (sc ? sc.round : []).slice().sort(function (a, z) { return z.points - a.points; });
       pts.forEach(function (r) { table.appendChild(scoreRow(v, r.name, bf('plus', r.points), r.id, r.points > 0)); });
-      var tease = !sc || !sc.leaderName ? b('allLevel')
-        : sc.climberName && sc.climberName !== sc.leaderName ? bf('leads', sc.leaderName, sc.climberName) : bf('leadsAlone', sc.leaderName);
+      // The app's leaderTease (src/utils/blagLocal.ts): one leader, leaders
+      // sharing the top ("Sam and Priya lead.", F7 13 Nov 2026), or All level.
+      var leaders = sc && sc.leaderNames && sc.leaderNames.length ? sc.leaderNames : sc && sc.leaderName ? [sc.leaderName] : [];
+      var climber = sc && sc.climberName && leaders.indexOf(sc.climberName) === -1 ? sc.climberName : null;
+      var tease = leaders.length === 0 ? b('allLevel')
+        : leaders.length > 1 ? (climber ? bf('leadTogether', names(leaders), climber) : bf('leadTogetherAlone', names(leaders)))
+        : climber ? bf('leads', leaders[0], climber) : bf('leadsAlone', leaders[0]);
       add(table, el('p', 'bl-say', tease));
     }
     st.appendChild(table);
