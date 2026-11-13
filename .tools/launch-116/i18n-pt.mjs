@@ -1,0 +1,120 @@
+// Portuguese (pt-BR) copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.pt.ts: Blag, Diga 3, Sobre nós, Quem disse isso?, Mente por mim.
+export default {
+  chrome: {
+    skip: 'Pular para o conteúdo', crumbAria: 'Navegação estrutural', langAria: 'Idioma', tocLabel: 'Nesta página',
+    footerHome: 'Antics: jogos de festa', privacy: 'Privacidade (em inglês)', footerLine: '18+ · Cuidem dos amigos.',
+    installAria: 'Baixe o app', installSub: 'Jogos de festa', installBtn: 'Baixar grátis', installBtnLong: 'Baixe o Antics grátis',
+    appStore: 'Baixar na App Store', googlePlay: 'Disponível no Google Play',
+    laptop: 'No notebook?', laptopTail: 'manda a loja certa para o seu celular.',
+    guidesAria: 'Mais jogos em português', imposterUrl: '/pt/jogo-do-impostor/', imposterText: 'O jogo do impostor online', hubText: 'Todos os jogos em português',
+  },
+  hub: { id: 'novo', h2: 'Novo no app', blag: 'Blefe, cada um no seu celular', n3: 'Três respostas antes do tempo acabar' },
+  blag: {
+    slug: 'jogo-blag', crumb: 'Blag',
+    title: 'Blag: o jogo de festa de blefe no celular de cada um | Antics',
+    desc: 'Blag é o jogo de blefe que cada um joga no próprio celular: um conta a verdade, o resto inventa e todo mundo vota. Uma pessoa abre a sala no app Antics e os outros entram grátis pelo navegador.',
+    ogTitle: 'Blag: uma verdade, uma mesa cheia de mentiras',
+    ogDesc: 'O jogo de blefe para o celular de cada um. Escreva uma mentira que passe por verdade, ache a resposta real e descubra quem do grupo mente melhor.',
+    linkText: 'Blag: o jogo de blefe no celular de cada um',
+    h1: 'Blag: uma verdade, uma mesa cheia de mentiras',
+    standfirst: 'O jogo de blefe em que cada um joga no próprio celular. Escreva uma mentira boa o bastante para passar por verdade, fareje a resposta real e descubra quem do seu grupo mente melhor.',
+    toc: ['Como jogar', 'Dois jeitos de jogar', 'Celulares, não a TV', 'Como mentir bem', 'Perguntas'],
+    how: {
+      h2: 'Como jogar',
+      steps: [
+        'Uma pessoa abre o Blag no app Antics e cria uma sala. O app mostra um código curto e um link para compartilhar.',
+        'Todo mundo entra pelo próprio celular. Dá para abrir o link no navegador e jogar grátis, sem baixar nada e sem conta, ou entrar pelo app Antics se tiver.',
+        'Aparece uma pergunta. Um jogador responde a verdade e os outros escrevem uma resposta falsa com a cara dessa pessoa. Depois todas as respostas aparecem embaralhadas em cada celular e todo mundo vota na que acha que é real.',
+      ],
+      p: 'Enganou alguém com a sua mentira, ganha ponto. Achou a verdade, ganha ponto. Quem conta a verdade ganha ponto por cada pessoa que erra, então quer uma resposta que pareça inventada. A última rodada vale em dobro, e os celulares mostram quem caiu na de quem.',
+    },
+    modes: {
+      h2: 'Dois jeitos de jogar',
+      aboutH: 'Sobre nós',
+      aboutP: 'De três a dez jogadores. Em cada rodada alguém fica no centro das atenções: conta a verdade, e o resto escreve a mentira que essa pessoa contaria. É um jogo sobre o quanto vocês se conhecem, e sobre o quanto conseguem imitar os amigos por escrito.',
+      whoH: 'Quem disse isso?',
+      whoP: 'De quatro a oito jogadores. Todo mundo responde a mesma pergunta com sinceridade, e depois o grupo adivinha quem escreveu o quê. O truque é dizer a verdade com a voz de outra pessoa.',
+      lieH: 'Sem mentira na cabeça?',
+      lieP1: 'Toque em ', lieBtn: 'Mente por mim', lieP2: ' e a Casa escreve uma para você. Disfarça. Às vezes a Casa engana a mesa inteira, o que é uma vergonha bem particular.',
+    },
+    phones: {
+      h2: 'Jogado no celular, não na TV',
+      p1: 'Blag não precisa de tela no canto nem de videogame. Cada jogador lê, escreve e vota no celular que tem na mão, então funciona no quarto, na cozinha, no bar ou numa viagem longa de carro, onde tiver sinal. Só quem abre a sala precisa do app.',
+      p2: 'As respostas são digitadas, então o mais quieto do grupo tem a mesma chance que o mais barulhento, e ninguém descobre pela sua cara qual resposta é a sua. A graça é essa.',
+    },
+    lying: {
+      h2: 'Como mentir bem',
+      items: [
+        ['Roube o jeito de escrever.', 'Se a pessoa sempre escreve "tipo" ou nunca usa maiúscula, você também não.'],
+        ['Seja sem graça de propósito.', 'Uma resposta chata e específica passa por verdade muito mais do que uma engraçada.'],
+        ['Deixe a verdade quieta.', 'Se for você contando, não enfeite. As respostas reais costumam ser a coisa mais estranha da lista.'],
+        ['Olhe os votos, não as respostas.', 'Quem parece todo satisfeito na revelação escreveu a mentira que funcionou.'],
+      ],
+    },
+    faq: {
+      h2: 'Perguntas que o pessoal faz',
+      qa: [
+        ['Todo mundo precisa do app?', 'Não. Só quem abre a sala precisa do Antics. Os outros entram grátis pelo navegador do celular com o código ou o link da sala.'],
+        ['Quantas pessoas podem jogar?', 'Sobre nós é para três a dez jogadores. Quem disse isso? é para quatro a oito.'],
+        ['O Blag é grátis?', 'Sim. O Blag vem com cartas grátis no app Antics, e entrar numa sala não custa nada. Quando alguém com Premium abre a sala, todas as cartas ficam liberadas para o grupo todo.'],
+        ['É um jogo de bebida?', 'Não. Ganha quem fizer mais pontos, mentindo bem e achando a verdade.'],
+      ],
+    },
+    cta: { h2: 'Abra uma sala', p: 'O Blag está no app Antics. Um de vocês abre a sala num iPhone e os outros entram pelo próprio celular, grátis no navegador. Sem anúncios, sem contas.' },
+  },
+  n3: {
+    slug: 'jogo-diga-3', name: 'Diga 3', crumb: 'Diga 3', kicker: 'Diga 3…',
+    title: 'Diga 3: três coisas em cinco segundos, o jogo de festa | Antics',
+    desc: 'Diga 3 é o jogo de festa de cinco segundos: leia a categoria, inicie o cronômetro e diga três coisas antes de acabar. Como jogar, e um teste grátis no navegador.',
+    ogTitle: 'Diga 3: três coisas, cinco segundos',
+    ogDesc: 'Leia a categoria, inicie o cronômetro e diga três coisas antes de chegar a zero. Fácil no sofá, impossível com a galera gritando.',
+    linkText: 'Diga 3: três coisas, cinco segundos',
+    h1: 'Diga 3: três coisas, cinco segundos',
+    standfirst: 'Leia a categoria. Inicie o cronômetro. Diga três coisas antes de chegar a zero. Fácil sozinho, impossível com todo mundo olhando para você.',
+    toc: ['Como jogar', 'Teste uma rodada', 'Regras da casa', 'Boas categorias', 'Perguntas'],
+    how: {
+      h2: 'Como jogar',
+      steps: [
+        'Quem está com o celular lê a categoria em voz alta: Coberturas de pizza, por exemplo, ou Coisas que você encontra no fundo do sofá.',
+        'Aí inicia o cronômetro. Cinco segundos. Diga três coisas da categoria antes de acabar.',
+        'O grupo decide. Três respostas válidas no tempo é acerto. Dar branco, repetir ou deixar zerar é erro, e errar é prenda. Depois o celular passa para o próximo.',
+      ],
+      p: 'O jogo é só isso. Funciona com duas pessoas e com doze, não precisa de preparação nem de caneta, e uma rodada dura uns dez segundos, então encaixa entre qualquer outra coisa que vocês estejam jogando.',
+    },
+    tryIt: { h2: 'Teste uma rodada aqui', p: 'Um teste grátis com dez categorias do app Antics. Leia em voz alta, toque no cronômetro e veja até onde você chega com todo mundo contando.' },
+    tool: {
+      start: 'Iniciar o cronômetro', goAgain: 'De novo', next: 'Próxima categoria', restart: 'Começar de novo', timeUp: 'Tempo!',
+      countInit: 'Dez categorias grátis aqui. O app tem muitas mais.',
+      count: 'Categoria {n} de {of}. O app tem muitas mais.',
+      doneQ: 'Essas foram as dez categorias grátis. O baralho completo está no app.',
+      doneCount: 'Você já viu todas as categorias grátis daqui.',
+      ctaH: 'Quer o baralho completo, um cronômetro que você ajusta e uma prenda para cada erro?',
+    },
+    rules: {
+      h2: 'Regras da casa para ficar justo',
+      items: [
+        ['O que vale como resposta?', 'Uma palavra, um nome ou um substantivo curto. "Queijo" vale. "Aquele negócio com pedacinhos vermelhos" não. Se o grupo discutir mais do que a rodada durou, é erro.'],
+        ['Pode repetir uma resposta que alguém já deu?', 'Pode, a não ser que o grupo combine o contrário. Proibir repetição deixa as categorias populares brutais na terceira volta, e tem grupo que adora.'],
+        ['Cinco segundos é pouco', 'No app vocês ajustam o cronômetro, de três a dez segundos. Comecem com cinco, baixem para quatro quando todo mundo estiver aquecido e deem um pouco mais para quem chegou agora.'],
+        ['Pressão da galera', 'Liberado. Recomendado, até. Contar em voz alta para quem está na vez é metade da graça, e o motivo de ninguém conseguir dizer três animais de fazenda com todo mundo gritando.'],
+      ],
+    },
+    catsSec: {
+      h2: 'O que faz uma boa categoria',
+      p1: 'As melhores parecem fáceis. Todo mundo conhece cores, então quando você dá branco em Cores o grupo todo se diverte. Uma categoria forte tem dezenas de respostas certas, e sob pressão nenhuma vem à cabeça.',
+      p2: 'O app distribui as categorias sem repetir até vocês verem todas, e algumas citam alguém do grupo, então o grupo também opina sobre o que vale.',
+    },
+    faq: {
+      h2: 'Perguntas que o pessoal faz',
+      qa: [
+        ['Diga 3 é o mesmo que o jogo dos cinco segundos?', 'É a mesma ideia: uma categoria, um cronômetro curto e três respostas. Diga 3 é o jeito do app Antics jogar, com categorias próprias e uma prenda quando você erra.'],
+        ['Quantas pessoas precisa?', 'Duas ou mais. Fica melhor com quatro a oito, passando o celular na roda.'],
+        ['Diga 3 é grátis?', 'Sim. Diga 3 vem com categorias grátis no app Antics, e o Antics Premium libera o baralho completo junto com todos os outros jogos.'],
+        ['É um jogo de bebida?', 'Não. Errar significa uma prenda, então todo mundo pode jogar, seja lá o que tiver no copo.'],
+      ],
+    },
+    cta: { h2: 'Jogue o jogo completo', p: 'Diga 3 está no app Antics para iPhone e Android, com categorias grátis, um cronômetro que você ajusta e uma prenda para cada erro. Sem anúncios, sem contas.' },
+    cats10: ['Coisas na geladeira', 'Coberturas de pizza', 'Animais de fazenda', 'Super-heróis', 'Filmes da Disney', 'Cores', 'Países que começam com S', 'Famosos chamados David', 'Piores lugares para um primeiro encontro', 'Coisas que você encontra no fundo do sofá'],
+  },
+};

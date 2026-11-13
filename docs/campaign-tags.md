@@ -267,3 +267,27 @@ The pages, and `<w>` for each word page:
 | `site-best-drinking-footer` | `/best-drinking-game-apps/` | footer "Get the app" |
 | `site-best-drinking-bar` | `/best-drinking-game-apps/` | the phone install bar |
 | `site-best-drinking-pick` | `/best-drinking-game-apps/` | the "Get Antics free" button under "Why Antics is our pick" |
+
+## 1.1.6 game pages (feat/116-new-games and feat/116-launch-pages, publish with the 1.1.6 release)
+
+Registered 13 Nov 2026. `<l>` is one of the eight site languages: es, pt, de,
+fr, it, nl, pl, cs. Every tag is 32 characters or fewer.
+
+| Tag | Page | Which link |
+| --- | --- | --- |
+| `site-blag` | `/blag-game/` | the two store buttons in the closing box |
+| `site-blag-laptop` | `/blag-game/` | the closing box's laptop line |
+| `site-blag-bar` | `/blag-game/` | the phone install bar |
+| `site-name3` | `/name-3-game/` | the two store buttons in the closing box |
+| `site-name3-laptop` | `/name-3-game/` | the closing box's laptop line |
+| `site-name3-bar` | `/name-3-game/` | the phone install bar |
+| `site-name3-taster` | `/name-3-game/` | the taster's "Get Antics free" button |
+| `site-blag-<l>` | `/<l>/<blag slug>/` | the two store buttons in the closing box |
+| `site-blag-<l>-laptop` | `/<l>/<blag slug>/` | the closing box's laptop line |
+| `site-blag-<l>-bar` | `/<l>/<blag slug>/` | the phone install bar |
+| `site-name3-<l>` | `/<l>/<Name 3 slug>/` | the two store buttons in the closing box |
+| `site-name3-<l>-laptop` | `/<l>/<Name 3 slug>/` | the closing box's laptop line |
+| `site-name3-<l>-bar` | `/<l>/<Name 3 slug>/` | the phone install bar |
+| `site-name3-<l>-taster` | `/<l>/<Name 3 slug>/` | the taster's download button |
+
+The slugs are listed in `.tools/launch-116/README.md`.

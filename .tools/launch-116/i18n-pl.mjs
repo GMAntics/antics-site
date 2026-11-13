@@ -1,0 +1,120 @@
+// Polish copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.pl.ts: Blag, Wymień 3, O nas, Kto to powiedział?, Skłam za mnie. Forfeit = fant.
+export default {
+  chrome: {
+    skip: 'Przejdź do treści', crumbAria: 'Ścieżka nawigacji', langAria: 'Język', tocLabel: 'Na tej stronie',
+    footerHome: 'Antics: gry imprezowe', privacy: 'Prywatność (po angielsku)', footerLine: '18+ · Dbajcie o siebie nawzajem.',
+    installAria: 'Pobierz aplikację', installSub: 'Gry imprezowe', installBtn: 'Pobierz za darmo', installBtnLong: 'Pobierz Antics za darmo',
+    appStore: 'Pobierz z App Store', googlePlay: 'Pobierz z Google Play',
+    laptop: 'Na laptopie?', laptopTail: 'wyśle właściwy sklep na twój telefon.',
+    guidesAria: 'Więcej gier po polsku', imposterUrl: '/pl/gra-w-impostora/', imposterText: 'Gra w impostora online', hubText: 'Wszystkie gry po polsku',
+  },
+  hub: { id: 'nowosci', h2: 'Nowe w aplikacji', blag: 'Blefowanie, każdy na swoim telefonie', n3: 'Trzy odpowiedzi, zanim skończy się czas' },
+  blag: {
+    slug: 'gra-blag', crumb: 'Blag',
+    title: 'Blag: imprezowa gra w blefowanie na waszych telefonach | Antics',
+    desc: 'Blag to gra w blefowanie, w którą każdy gra na swoim telefonie: jedna osoba mówi prawdę, reszta zmyśla, a wszyscy głosują. Jedna osoba otwiera pokój w aplikacji Antics, reszta dołącza za darmo w przeglądarce.',
+    ogTitle: 'Blag: jedna prawda, stół pełen kłamstw',
+    ogDesc: 'Gra w blefowanie na telefonie każdego z was. Napisz kłamstwo, które ujdzie za prawdę, znajdź prawdziwą odpowiedź i sprawdź, kto w ekipie kłamie najlepiej.',
+    linkText: 'Blag: gra w blefowanie na waszych telefonach',
+    h1: 'Blag: jedna prawda, stół pełen kłamstw',
+    standfirst: 'Gra w blefowanie, w której każdy gra na swoim telefonie. Napisz kłamstwo tak dobre, że ujdzie za prawdę, wywęsz prawdziwą odpowiedź i sprawdź, kto w twojej ekipie kłamie najlepiej.',
+    toc: ['Jak grać', 'Dwa tryby gry', 'Telefony, nie telewizor', 'Jak dobrze kłamać', 'Pytania'],
+    how: {
+      h2: 'Jak grać',
+      steps: [
+        'Jedna osoba otwiera Blag w aplikacji Antics i zakłada pokój. Aplikacja pokazuje krótki kod i link do udostępnienia.',
+        'Reszta dołącza na swoich telefonach. Mogą otworzyć link w przeglądarce i grać za darmo, bez pobierania i bez konta, albo dołączyć z aplikacji Antics, jeśli ją mają.',
+        'Pojawia się pytanie. Jeden gracz odpowiada zgodnie z prawdą, a wszyscy pozostali piszą fałszywą odpowiedź, która brzmi zupełnie jak on. Potem wszystkie odpowiedzi trafiają w losowej kolejności na każdy telefon i każdy głosuje na tę, którą uważa za prawdziwą.',
+      ],
+      p: 'Nabierzesz kogoś na swoje kłamstwo, masz punkt. Znajdziesz prawdę, masz punkt. Osoba mówiąca prawdę dostaje punkt za każdego, kto jej nie trafi, więc chce odpowiedzi, która brzmi na zmyśloną. Ostatnia runda liczy się podwójnie, a telefony pokazują, kto dał się nabrać komu.',
+    },
+    modes: {
+      h2: 'Dwa tryby gry',
+      aboutH: 'O nas',
+      aboutP: 'Od trzech do dziesięciu graczy. W każdej rundzie jedna osoba jest w centrum uwagi: mówi prawdę, a reszta pisze kłamstwo, które ta osoba by wymyśliła. To gra o tym, jak dobrze się znacie i jak dobrze potraficie naśladować znajomych na piśmie.',
+      whoH: 'Kto to powiedział?',
+      whoP: 'Od czterech do ośmiu graczy. Wszyscy szczerze odpowiadają na to samo pytanie, a potem ekipa zgaduje, kto co napisał. Sztuka polega na tym, żeby powiedzieć prawdę cudzym głosem.',
+      lieH: 'Brak pomysłu na kłamstwo?',
+      lieP1: 'Stuknij ', lieBtn: 'Skłam za mnie', lieP2: ', a Dom napisze je za ciebie. Zachowuj się normalnie. Czasem Dom nabiera cały stół, co jest wstydem zupełnie osobnego rodzaju.',
+    },
+    phones: {
+      h2: 'Gra na telefonach, nie na telewizorze',
+      p1: 'Blag nie potrzebuje ekranu w kącie ani konsoli. Każdy gracz czyta, pisze i głosuje na telefonie, który trzyma w ręce, więc gra działa w pokoju, w kuchni, w pubie albo w długiej podróży autem, wszędzie, gdzie jest zasięg. Aplikacji potrzebuje tylko osoba, która otwiera pokój.',
+      p2: 'Odpowiedzi się wpisuje, więc najcichsza osoba w ekipie ma taką samą szansę jak najgłośniejsza, a nikt nie pozna po twojej minie, która odpowiedź jest twoja. O to właśnie chodzi.',
+    },
+    lying: {
+      h2: 'Jak dobrze kłamać',
+      items: [
+        ['Podkradnij styl.', 'Jeśli ktoś zawsze pisze "serio" albo nigdy nie używa wielkich liter, ty też nie.'],
+        ['Bądź nudny specjalnie.', 'Nudna, konkretna odpowiedź uchodzi za prawdę dużo częściej niż zabawna.'],
+        ['Nie ruszaj prawdy.', 'Jeśli to ty ją mówisz, nie upiększaj jej. Prawdziwe odpowiedzi to często najdziwniejsza rzecz na liście.'],
+        ['Patrz na głosy, nie na odpowiedzi.', 'Kto przy odsłonięciu wygląda na zadowolonego z siebie, ten napisał kłamstwo, które zadziałało.'],
+      ],
+    },
+    faq: {
+      h2: 'Najczęstsze pytania',
+      qa: [
+        ['Czy każdy potrzebuje aplikacji?', 'Nie. Antics potrzebuje tylko osoba, która otwiera pokój. Reszta dołącza za darmo w przeglądarce telefonu, z kodem albo linkiem do pokoju.'],
+        ['Ile osób może grać?', 'O nas to gra dla trzech do dziesięciu graczy. Kto to powiedział? dla czterech do ośmiu.'],
+        ['Czy Blag jest darmowy?', 'Tak. Blag ma darmowe karty w aplikacji Antics, a dołączenie do pokoju nic nie kosztuje. Gdy pokój otwiera ktoś z Premium, wszystkie karty są odblokowane dla całej ekipy.'],
+        ['Czy to gra alkoholowa?', 'Nie. Wygrywa się punktami, dobrze kłamiąc i znajdując prawdę.'],
+      ],
+    },
+    cta: { h2: 'Otwórz pokój', p: 'Blag jest w aplikacji Antics. Jedno z was otwiera pokój na iPhonie, a reszta dołącza na swoich telefonach, za darmo w przeglądarce. Bez reklam, bez kont.' },
+  },
+  n3: {
+    slug: 'gra-wymien-3', name: 'Wymień 3', crumb: 'Wymień 3', kicker: 'Wymień 3…',
+    title: 'Wymień 3: trzy rzeczy w pięć sekund, gra imprezowa | Antics',
+    desc: 'Wymień 3 to pięciosekundowa gra imprezowa: przeczytaj kategorię, włącz zegar i wymień trzy rzeczy, zanim czas się skończy. Zasady i darmowa próbka w przeglądarce.',
+    ogTitle: 'Wymień 3: trzy rzeczy, pięć sekund',
+    ogDesc: 'Przeczytaj kategorię, włącz zegar, wymień trzy rzeczy przed zerem. Łatwe na kanapie, niemożliwe, gdy cała ekipa krzyczy.',
+    linkText: 'Wymień 3: trzy rzeczy, pięć sekund',
+    h1: 'Wymień 3: trzy rzeczy, pięć sekund',
+    standfirst: 'Przeczytaj kategorię. Włącz zegar. Wymień trzy rzeczy, zanim dojdzie do zera. Łatwe w pojedynkę, niemożliwe, gdy cała ekipa się na ciebie gapi.',
+    toc: ['Jak grać', 'Zagraj rundę', 'Zasady domowe', 'Dobre kategorie', 'Pytania'],
+    how: {
+      h2: 'Jak grać',
+      steps: [
+        'Osoba z telefonem czyta kategorię na głos: na przykład Dodatki do pizzy albo Rzeczy, które znajdziesz za oparciem kanapy.',
+        'Włącza zegar. Pięć sekund. Wymień trzy rzeczy z kategorii, zanim czas minie.',
+        'Decyduje ekipa. Trzy dobre odpowiedzi na czas to sukces. Pustka w głowie, powtórka albo zegar na zerze to porażka, a porażka oznacza fanta. Potem telefon idzie dalej.',
+      ],
+      p: 'To cała gra. Działa we dwójkę i w dwanaście osób, nie wymaga przygotowań ani długopisu, a runda trwa około dziesięciu sekund, więc wejdzie między wszystko, w co akurat gracie.',
+    },
+    tryIt: { h2: 'Zagraj tu rundę', p: 'Darmowa próbka z dziesięcioma kategoriami z aplikacji Antics. Przeczytaj na głos, stuknij zegar i zobacz, ile dasz radę, gdy wszyscy odliczają.' },
+    tool: {
+      start: 'Uruchom zegar', goAgain: 'Jeszcze raz', next: 'Następna kategoria', restart: 'Od nowa', timeUp: 'Czas!',
+      countInit: 'Tu dziesięć darmowych kategorii. W aplikacji jest ich dużo więcej.',
+      count: 'Kategoria {n} z {of}. W aplikacji jest ich dużo więcej.',
+      doneQ: 'To były wszystkie dziesięć darmowych kategorii. Cała talia jest w aplikacji.',
+      doneCount: 'Na tej stronie nie ma już więcej darmowych kategorii.',
+      ctaH: 'Chcesz całą talię, zegar do ustawienia i fanta za każdą porażkę?',
+    },
+    rules: {
+      h2: 'Zasady domowe, żeby było uczciwie',
+      items: [
+        ['Co liczy się jako odpowiedź?', 'Jedno słowo, imię albo krótki rzeczownik. "Ser" się liczy. "To coś z czerwonymi kawałkami" już nie. Jeśli ekipa kłóci się dłużej, niż trwała runda, to porażka.'],
+        ['Można powtórzyć odpowiedź, którą ktoś już podał?', 'Tak, chyba że wasza ekipa ustali inaczej. Zakaz powtórek sprawia, że popularne kategorie są bezlitosne od trzeciego okrążenia, i niektóre ekipy to uwielbiają.'],
+        ['Pięć sekund to za mało', 'W aplikacji sami ustawiacie zegar, od trzech do dziesięciu sekund. Zacznijcie od pięciu, zejdźcie do czterech, gdy wszyscy się rozkręcą, a nowej osobie dajcie trochę więcej.'],
+        ['Przeszkadzanie', 'Dozwolone. Wręcz wskazane. Odliczanie na głos przy osobie, która gra, to połowa zabawy i powód, dla którego nikt nie wymieni trzech zwierząt gospodarskich, gdy wszyscy krzyczą.'],
+      ],
+    },
+    catsSec: {
+      h2: 'Co sprawia, że kategoria jest dobra',
+      p1: 'Najlepsze brzmią łatwo. Każdy zna kolory, więc gdy przy Kolorach masz pustkę w głowie, cała ekipa ma frajdę. Mocna kategoria ma dziesiątki dobrych odpowiedzi, a pod presją żadna nie przychodzi do głowy.',
+      p2: 'Aplikacja rozdaje kategorie bez powtórek, dopóki nie zobaczycie wszystkich, a niektóre wymieniają kogoś z waszej ekipy, więc ekipa też decyduje, co się liczy.',
+    },
+    faq: {
+      h2: 'Najczęstsze pytania',
+      qa: [
+        ['Czy Wymień 3 to to samo co gra w pięć sekund?', 'To ten sam pomysł: kategoria, krótki zegar i trzy odpowiedzi. Wymień 3 to wersja z aplikacji Antics, z własnymi kategoriami i fantem, gdy ci się nie uda.'],
+        ['Ile osób potrzeba?', 'Dwie lub więcej. Najlepiej gra się w cztery do ośmiu osób, podając telefon w kółko.'],
+        ['Czy Wymień 3 jest darmowe?', 'Tak. Wymień 3 ma darmowe kategorie w aplikacji Antics, a Antics Premium odblokowuje całą talię razem ze wszystkimi innymi grami.'],
+        ['Czy to gra alkoholowa?', 'Nie. Porażka oznacza fanta, więc każdy może grać, niezależnie od tego, co ma w szklance.'],
+      ],
+    },
+    cta: { h2: 'Zagraj w pełną grę', p: 'Wymień 3 jest w aplikacji Antics na iPhone i Androida, z darmowymi kategoriami, zegarem, który sami ustawiacie, i fantem za każdą porażkę. Bez reklam, bez kont.' },
+    cats10: ['Rzeczy w lodówce', 'Dodatki do pizzy', 'Zwierzęta gospodarskie', 'Superbohaterowie', 'Filmy Disneya', 'Kolory', 'Kraje na S', 'Sławni ludzie o imieniu David', 'Najgorsze miejsca na pierwszą randkę', 'Rzeczy, które znajdziesz za oparciem kanapy'],
+  },
+};

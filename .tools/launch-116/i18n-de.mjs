@@ -1,0 +1,120 @@
+// German copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.de.ts: Blag, Nenne 3, Über uns, Wer war das?, Lüg für mich.
+export default {
+  chrome: {
+    skip: 'Zum Inhalt springen', crumbAria: 'Navigationspfad', langAria: 'Sprache', tocLabel: 'Auf dieser Seite',
+    footerHome: 'Antics: Partyspiele', privacy: 'Datenschutz (auf Englisch)', footerLine: '18+ · Passt auf eure Freunde auf.',
+    installAria: 'App herunterladen', installSub: 'Partyspiele', installBtn: 'Gratis laden', installBtnLong: 'Antics gratis laden',
+    appStore: 'Im App Store laden', googlePlay: 'Bei Google Play holen',
+    laptop: 'Am Laptop?', laptopTail: 'schickt dir den richtigen Store aufs Handy.',
+    guidesAria: 'Mehr Spiele auf Deutsch', imposterUrl: '/de/imposter-spiel/', imposterText: 'Das Imposter-Spiel online', hubText: 'Alle Spiele auf Deutsch',
+  },
+  hub: { id: 'neu', h2: 'Neu in der App', blag: 'Bluffen, jeder am eigenen Handy', n3: 'Drei Antworten, bevor die Uhr abläuft' },
+  blag: {
+    slug: 'blag-spiel', crumb: 'Blag',
+    title: 'Blag: das Bluff-Partyspiel auf euren eigenen Handys | Antics',
+    desc: 'Blag ist das Bluff-Spiel auf euren eigenen Handys: eine Person sagt die Wahrheit, der Rest erfindet etwas, und alle stimmen ab. Eine Person öffnet den Raum in der App Antics, alle anderen spielen gratis im Browser mit.',
+    ogTitle: 'Blag: eine Wahrheit, ein Tisch voller Lügen',
+    ogDesc: 'Das Bluff-Spiel für jedes eigene Handy. Schreib eine Lüge, die als Wahrheit durchgeht, finde die echte Antwort und finde heraus, wer in der Runde am besten lügt.',
+    linkText: 'Blag: das Bluff-Spiel auf euren eigenen Handys',
+    h1: 'Blag: eine Wahrheit, ein Tisch voller Lügen',
+    standfirst: 'Das Bluff-Spiel, bei dem jeder am eigenen Handy spielt. Schreib eine Lüge, die als Wahrheit durchgeht, erschnüffle die echte Antwort und finde heraus, wer in deiner Runde am besten lügt.',
+    toc: ['So wird gespielt', 'Zwei Spielarten', 'Handys statt Fernseher', 'Gut lügen', 'Fragen'],
+    how: {
+      h2: 'So wird gespielt',
+      steps: [
+        'Eine Person öffnet Blag in der App Antics und startet einen Raum. Die App zeigt einen kurzen Code und einen Link zum Teilen.',
+        'Alle anderen machen auf dem eigenen Handy mit. Sie öffnen den Link im Browser und spielen gratis, ohne Download und ohne Konto, oder steigen über die App Antics ein, wenn sie sie haben.',
+        'Eine Frage erscheint. Eine Person beantwortet sie ehrlich, alle anderen schreiben eine Fälschung, die genau nach ihr klingt. Dann landen alle Antworten gemischt auf jedem Handy, und alle stimmen für die, die sie für echt halten.',
+      ],
+      p: 'Wer mit seiner Lüge jemanden reinlegt, punktet. Wer die Wahrheit findet, punktet. Die Person mit der Wahrheit punktet für jeden, der sie übersieht, also will sie eine Antwort, die erfunden klingt. Die letzte Runde zählt doppelt, und die Handys zeigen, wer auf wen hereingefallen ist.',
+    },
+    modes: {
+      h2: 'Zwei Spielarten',
+      aboutH: 'Über uns',
+      aboutP: 'Drei bis zehn Leute. Jede Runde steht eine Person im Rampenlicht: Sie sagt die Wahrheit, der Rest schreibt die Lüge, die diese Person erzählen würde. Ein Spiel darüber, wie gut ihr euch kennt, und wie gut ihr eure Freunde schriftlich nachmachen könnt.',
+      whoH: 'Wer war das?',
+      whoP: 'Vier bis acht Leute. Alle beantworten dieselbe Frage ehrlich, dann rät die Runde, wer was geschrieben hat. Der Trick: die Wahrheit in der Stimme von jemand anderem erzählen.',
+      lieH: 'Keine Lüge parat?',
+      lieP1: 'Tipp auf ', lieBtn: 'Lüg für mich', lieP2: ', und das Haus schreibt dir eine. Benimm dich unauffällig. Manchmal legt das Haus den ganzen Tisch rein, und das ist auf seine eigene Art peinlich.',
+    },
+    phones: {
+      h2: 'Auf Handys gespielt, nicht am Fernseher',
+      p1: 'Blag braucht keinen Bildschirm in der Ecke und keine Konsole. Alle lesen, schreiben und stimmen auf dem Handy in der Hand ab, also klappt es im WG-Zimmer, in der Küche, in der Kneipe oder auf einer langen Autofahrt, überall mit Netz. Nur die Person, die den Raum öffnet, braucht die App.',
+      p2: 'Die Antworten werden getippt, also hat die stille Person in der Runde dieselbe Chance wie die lauteste, und niemand sieht dir an, welche Antwort deine ist. Genau darum geht es.',
+    },
+    lying: {
+      h2: 'Gut lügen',
+      items: [
+        ['Klau ihren Ton.', 'Wenn sie immer "ehrlich gesagt" schreibt oder nie Großbuchstaben benutzt, machst du es genauso.'],
+        ['Sei absichtlich langweilig.', 'Eine öde, genaue Antwort geht viel öfter als Wahrheit durch als eine witzige.'],
+        ['Lass die Wahrheit in Ruhe.', 'Wenn du sie erzählst, poliere sie nicht. Echte Antworten sind oft das Seltsamste auf der Liste.'],
+        ['Schau auf die Stimmen, nicht auf die Antworten.', 'Wer bei der Auflösung zufrieden grinst, hat die Lüge geschrieben, die funktioniert hat.'],
+      ],
+    },
+    faq: {
+      h2: 'Fragen, die oft kommen',
+      qa: [
+        ['Braucht jeder die App?', 'Nein. Nur die Person, die den Raum öffnet, braucht Antics. Alle anderen spielen gratis im Browser ihres Handys mit, per Raum-Code oder Link.'],
+        ['Wie viele können mitspielen?', 'Über uns geht mit drei bis zehn Leuten, Wer war das? mit vier bis acht.'],
+        ['Ist Blag kostenlos?', 'Ja. Blag hat Gratis-Karten in der App Antics, und einem Raum beizutreten kostet nichts. Öffnet jemand mit Premium den Raum, sind alle Karten für die ganze Runde frei.'],
+        ['Ist das ein Trinkspiel?', 'Nein. Gewonnen wird nach Punkten, durch gutes Lügen und das Finden der Wahrheit.'],
+      ],
+    },
+    cta: { h2: 'Raum öffnen', p: 'Blag ist in der App Antics. Eine Person öffnet den Raum auf dem iPhone, alle anderen spielen auf dem eigenen Handy mit, gratis im Browser. Ohne Werbung, ohne Konto.' },
+  },
+  n3: {
+    slug: 'nenne-3-spiel', name: 'Nenne 3', crumb: 'Nenne 3', kicker: 'Nenne 3…',
+    title: 'Nenne 3: drei Dinge in fünf Sekunden, das Partyspiel | Antics',
+    desc: 'Nenne 3 ist das Fünf-Sekunden-Partyspiel: Kategorie vorlesen, Uhr starten, drei Dinge nennen, bevor sie abläuft. So wird gespielt, plus eine Gratis-Kostprobe im Browser.',
+    ogTitle: 'Nenne 3: drei Dinge, fünf Sekunden',
+    ogDesc: 'Kategorie lesen, Uhr starten, drei Dinge nennen, bevor sie auf null steht. Allein ganz leicht, unmöglich, wenn die ganze Runde runterzählt.',
+    linkText: 'Nenne 3: drei Dinge, fünf Sekunden',
+    h1: 'Nenne 3: drei Dinge, fünf Sekunden',
+    standfirst: 'Kategorie lesen. Uhr starten. Drei Dinge nennen, bevor sie auf null steht. Allein ganz leicht, unmöglich, wenn alle dich anstarren.',
+    toc: ['So wird gespielt', 'Eine Runde testen', 'Hausregeln', 'Gute Kategorien', 'Fragen'],
+    how: {
+      h2: 'So wird gespielt',
+      steps: [
+        'Wer das Handy hat, liest die Kategorie laut vor, zum Beispiel Pizzabeläge oder Dinge, die man hinter dem Sofakissen findet.',
+        'Dann startet die Uhr. Fünf Sekunden. Nenne drei Dinge aus der Kategorie, bevor sie abläuft.',
+        'Die Runde entscheidet. Drei gültige Antworten in der Zeit sind geschafft. Ein Blackout, eine Wiederholung oder eine Uhr auf null ist verloren, und verloren heißt Strafe. Dann geht das Handy weiter.',
+      ],
+      p: 'Das ist das ganze Spiel. Es klappt zu zweit und zu zwölft, braucht keine Vorbereitung und keinen Stift, und eine Runde dauert etwa zehn Sekunden, also passt es zwischen alles andere, was ihr spielt.',
+    },
+    tryIt: { h2: 'Hier eine Runde testen', p: 'Eine Gratis-Kostprobe mit zehn Kategorien aus der App Antics. Vorlesen, auf die Uhr tippen und schauen, wie weit du kommst, während alle runterzählen.' },
+    tool: {
+      start: 'Uhr starten', goAgain: 'Nochmal', next: 'Nächste Kategorie', restart: 'Von vorn', timeUp: 'Zeit!',
+      countInit: 'Zehn Gratis-Kategorien hier. Die App hat viel mehr.',
+      count: 'Kategorie {n} von {of}. Die App hat viel mehr.',
+      doneQ: 'Das waren alle zehn Gratis-Kategorien. Das ganze Deck ist in der App.',
+      doneCount: 'Du hast jede Gratis-Kategorie hier gesehen.',
+      ctaH: 'Lust auf das ganze Deck, eine einstellbare Uhr und eine Strafe für jeden Fehlschlag?',
+    },
+    rules: {
+      h2: 'Hausregeln, die es fair halten',
+      items: [
+        ['Was zählt als Antwort?', 'Ein Wort, ein Name oder ein kurzes Hauptwort. "Käse" zählt. "Das Ding mit den roten Stückchen" nicht. Wenn die Runde länger darüber streitet, als die Runde gedauert hat, ist es verloren.'],
+        ['Darf man eine Antwort wiederholen, die schon jemand gesagt hat?', 'Ja, außer eure Runde sagt etwas anderes. Ohne Wiederholungen werden die beliebten Kategorien ab der dritten Runde brutal, und manche Runden lieben genau das.'],
+        ['Fünf Sekunden sind zu kurz', 'In der App stellt ihr die Uhr selbst ein, von drei bis zehn Sekunden. Fangt mit fünf an, geht auf vier, wenn alle warm sind, und gebt Neulingen ruhig etwas mehr.'],
+        ['Reinrufen', 'Erlaubt. Eigentlich erwünscht. Laut runterzählen ist der halbe Spaß und der Grund, warum niemand drei Tiere auf dem Bauernhof nennen kann, wenn alle brüllen.'],
+      ],
+    },
+    catsSec: {
+      h2: 'Was eine gute Kategorie ausmacht',
+      p1: 'Die besten klingen leicht. Jeder kennt Farben, also hat die ganze Runde Spaß, wenn dir bei Farben nichts einfällt. Eine starke Kategorie hat Dutzende richtige Antworten, und unter Druck fällt dir keine ein.',
+      p2: 'Die App teilt die Kategorien ohne Wiederholung aus, bis ihr alle gesehen habt, und manche nennen jemanden aus eurer Runde, also redet die Runde mit, was zählt.',
+    },
+    faq: {
+      h2: 'Fragen, die oft kommen',
+      qa: [
+        ['Ist Nenne 3 das Gleiche wie das Fünf-Sekunden-Spiel?', 'Es ist dieselbe Idee: eine Kategorie, eine kurze Uhr und drei Antworten. Nenne 3 ist die Version in der App Antics, mit eigenen Kategorien und einer Strafe, wenn du es nicht schaffst.'],
+        ['Wie viele Leute braucht man?', 'Zwei oder mehr. Am besten mit vier bis acht, das Handy geht im Kreis herum.'],
+        ['Ist Nenne 3 kostenlos?', 'Ja. Nenne 3 hat Gratis-Kategorien in der App Antics, und Antics Premium schaltet das ganze Deck frei, zusammen mit allen anderen Spielen.'],
+        ['Ist das ein Trinkspiel?', 'Nein. Wer es nicht schafft, bekommt eine Strafe, also kann jeder mitspielen, egal was im Glas ist.'],
+      ],
+    },
+    cta: { h2: 'Das ganze Spiel spielen', p: 'Nenne 3 ist in der App Antics für iPhone und Android, mit Gratis-Kategorien, einer Uhr, die ihr selbst einstellt, und einer Strafe für jeden Fehlschlag. Ohne Werbung, ohne Konto.' },
+    cats10: ['Dinge im Kühlschrank', 'Pizzabeläge', 'Tiere auf dem Bauernhof', 'Superhelden', 'Disney-Filme', 'Farben', 'Länder, die mit S anfangen', 'Berühmte Leute namens David', 'Schlimmste Orte für ein erstes Date', 'Dinge, die man hinter dem Sofakissen findet'],
+  },
+};

@@ -1,0 +1,120 @@
+// Dutch copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.nl.ts: Blag, Noem 3, Over ons, Wie zei dat?, Lieg voor mij. Forfeit = opdracht.
+export default {
+  chrome: {
+    skip: 'Ga naar de inhoud', crumbAria: 'Kruimelpad', langAria: 'Taal', tocLabel: 'Op deze pagina',
+    footerHome: 'Antics: feestspellen', privacy: 'Privacy (in het Engels)', footerLine: '18+ · Pas goed op elkaar.',
+    installAria: 'Download de app', installSub: 'Feestspellen', installBtn: 'Gratis downloaden', installBtnLong: 'Download Antics gratis',
+    appStore: 'Download in de App Store', googlePlay: 'Ontdek het op Google Play',
+    laptop: 'Op een laptop?', laptopTail: 'stuurt de juiste store naar je telefoon.',
+    guidesAria: 'Meer spellen in het Nederlands', imposterUrl: '/nl/imposter-spel/', imposterText: 'Het imposter spel online', hubText: 'Alle spellen in het Nederlands',
+  },
+  hub: { id: 'nieuw', h2: 'Nieuw in de app', blag: 'Bluffen, iedereen op de eigen telefoon', n3: 'Drie antwoorden voordat de klok afloopt' },
+  blag: {
+    slug: 'blag-spel', crumb: 'Blag',
+    title: 'Blag: het bluf-feestspel op jullie eigen telefoons | Antics',
+    desc: 'Blag is het blufspel dat je speelt op je eigen telefoon: één persoon vertelt de waarheid, de rest verzint iets en iedereen stemt. Eén persoon opent de kamer in de app Antics, de rest doet gratis mee in de browser.',
+    ogTitle: 'Blag: één waarheid, een tafel vol leugens',
+    ogDesc: 'Het blufspel voor ieders eigen telefoon. Schrijf een leugen die doorgaat voor de waarheid, vind het echte antwoord en ontdek wie in de groep het best liegt.',
+    linkText: 'Blag: het blufspel op jullie eigen telefoons',
+    h1: 'Blag: één waarheid, een tafel vol leugens',
+    standfirst: 'Het blufspel waarbij iedereen op de eigen telefoon speelt. Schrijf een leugen die goed genoeg is om voor de waarheid door te gaan, ruik het echte antwoord en ontdek wie in je groep het best liegt.',
+    toc: ['Zo speel je het', 'Twee manieren van spelen', 'Telefoons, geen tv', 'Goed liegen', 'Vragen'],
+    how: {
+      h2: 'Zo speel je het',
+      steps: [
+        'Eén persoon opent Blag in de app Antics en start een kamer. De app laat een korte code en een link om te delen zien.',
+        'De rest doet mee op de eigen telefoon. Ze openen de link in de browser en spelen gratis, zonder download en zonder account, of doen mee via de app Antics als ze die hebben.',
+        'Er verschijnt een vraag. Eén speler beantwoordt die eerlijk, alle anderen schrijven een nepantwoord dat precies zo klinkt als die persoon. Daarna staan alle antwoorden door elkaar op elke telefoon, en iedereen stemt op het antwoord dat ze echt denken.',
+      ],
+      p: 'Trap iemand in je leugen en je scoort. Vind de waarheid en je scoort. Wie de waarheid vertelt, scoort voor iedereen die hem mist, dus die wil een antwoord dat verzonnen klinkt. De laatste ronde telt dubbel, en de telefoons laten zien wie erin trapte bij wie.',
+    },
+    modes: {
+      h2: 'Twee manieren van spelen',
+      aboutH: 'Over ons',
+      aboutP: 'Drie tot tien spelers. Elke ronde staat één van jullie in de spotlight: die vertelt de waarheid, de rest schrijft de leugen die die persoon zou vertellen. Een spel over hoe goed jullie elkaar kennen, en over hoe goed je je vrienden op papier kunt nadoen.',
+      whoH: 'Wie zei dat?',
+      whoP: 'Vier tot acht spelers. Iedereen beantwoordt dezelfde vraag eerlijk, daarna raadt de groep wie wat schreef. De truc is de waarheid vertellen in de stem van iemand anders.',
+      lieH: 'Geen leugen paraat?',
+      lieP1: 'Tik op ', lieBtn: 'Lieg voor mij', lieP2: ' en het Huis schrijft er een voor je. Doe normaal. Soms tuint de hele tafel erin bij het Huis, en dat is een heel eigen soort gênant.',
+    },
+    phones: {
+      h2: 'Gespeeld op telefoons, niet op de tv',
+      p1: 'Blag heeft geen scherm in de hoek en geen console nodig. Iedereen leest, schrijft en stemt op de telefoon in de hand, dus het werkt op een kamer, in de keuken, in de kroeg of tijdens een lange autorit, overal met bereik. Alleen wie de kamer opent heeft de app nodig.',
+      p2: 'Antwoorden worden getypt, dus de stilste van de groep heeft dezelfde kans als de luidste, en niemand ziet aan je gezicht welk antwoord van jou is. Daar draait het om.',
+    },
+    lying: {
+      h2: 'Goed liegen',
+      items: [
+        ['Steel hun toon.', 'Schrijven ze altijd "eerlijk gezegd" of nooit met hoofdletters, dan jij ook niet.'],
+        ['Wees expres saai.', 'Een saai, precies antwoord gaat veel vaker door voor de waarheid dan een grappig antwoord.'],
+        ['Laat de waarheid met rust.', 'Vertel jij hem, poets hem dan niet op. Echte antwoorden zijn vaak het raarste op de lijst.'],
+        ['Let op de stemmen, niet op de antwoorden.', 'Wie bij de onthulling tevreden kijkt, schreef de leugen die werkte.'],
+      ],
+    },
+    faq: {
+      h2: 'Vragen die mensen stellen',
+      qa: [
+        ['Heeft iedereen de app nodig?', 'Nee. Alleen wie de kamer opent heeft Antics nodig. De rest doet gratis mee in de browser van de telefoon, met de code of de link van de kamer.'],
+        ['Met hoeveel kun je spelen?', 'Over ons is voor drie tot tien spelers. Wie zei dat? is voor vier tot acht.'],
+        ['Is Blag gratis?', 'Ja. Blag heeft gratis kaarten in de app Antics, en meedoen in een kamer kost niets. Opent iemand met Premium de kamer, dan zijn alle kaarten vrij voor de hele groep.'],
+        ['Is het een drankspel?', 'Nee. Je wint op punten, door goed te liegen en de waarheid te vinden.'],
+      ],
+    },
+    cta: { h2: 'Open een kamer', p: 'Blag zit in de app Antics. Eén van jullie opent de kamer op een iPhone, de rest doet mee op de eigen telefoon, gratis in de browser. Geen advertenties, geen accounts.' },
+  },
+  n3: {
+    slug: 'noem-3-spel', name: 'Noem 3', crumb: 'Noem 3', kicker: 'Noem 3…',
+    title: 'Noem 3: drie dingen in vijf seconden, het feestspel | Antics',
+    desc: 'Noem 3 is het feestspel van vijf seconden: lees de categorie, start de klok en noem drie dingen voordat hij afloopt. Zo speel je het, plus een gratis proefronde in je browser.',
+    ogTitle: 'Noem 3: drie dingen, vijf seconden',
+    ogDesc: 'Lees de categorie, start de klok, noem drie dingen voor nul. Makkelijk op de bank, onmogelijk als de hele groep schreeuwt.',
+    linkText: 'Noem 3: drie dingen, vijf seconden',
+    h1: 'Noem 3: drie dingen, vijf seconden',
+    standfirst: 'Lees de categorie. Start de klok. Noem drie dingen voordat hij op nul staat. Makkelijk in je eentje, onmogelijk als de hele groep naar je kijkt.',
+    toc: ['Zo speel je het', 'Probeer een ronde', 'Huisregels', 'Goede categorieën', 'Vragen'],
+    how: {
+      h2: 'Zo speel je het',
+      steps: [
+        'Wie de telefoon heeft, leest de categorie hardop voor: Pizzatoppings bijvoorbeeld, of Dingen die je achter de bank vindt.',
+        'Dan start de klok. Vijf seconden. Noem drie dingen uit de categorie voordat hij afloopt.',
+        'De groep beslist. Drie goede antwoorden op tijd is gelukt. Niets weten, iets herhalen of een klok op nul is mislukt, en mislukt betekent een opdracht. Dan gaat de telefoon door.',
+      ],
+      p: 'Dat is het hele spel. Het werkt met twee mensen en met twaalf, je hoeft niets voor te bereiden en geen pen te pakken, en een ronde duurt ongeveer tien seconden, dus het past tussen alles wat jullie verder spelen.',
+    },
+    tryIt: { h2: 'Probeer hier een ronde', p: 'Een gratis proefronde met tien categorieën uit de app Antics. Lees hem hardop voor, tik op de klok en kijk hoe ver je komt terwijl iedereen aftelt.' },
+    tool: {
+      start: 'Start de klok', goAgain: 'Nog een keer', next: 'Volgende categorie', restart: 'Opnieuw', timeUp: 'Tijd!',
+      countInit: 'Tien gratis categorieën hier. De app heeft er veel meer.',
+      count: 'Categorie {n} van {of}. De app heeft er veel meer.',
+      doneQ: 'Dat waren alle tien gratis categorieën. Het hele spel zit in de app.',
+      doneCount: 'Je hebt elke gratis categorie hier gezien.',
+      ctaH: 'Zin in alle categorieën, een klok die je zelf instelt en een opdracht bij elke misser?',
+    },
+    rules: {
+      h2: 'Huisregels die het eerlijk houden',
+      items: [
+        ['Wat telt als antwoord?', 'Eén woord, een naam of een kort zelfstandig naamwoord. "Kaas" telt. "Dat ding met die rode stukjes" niet. Discussieert de groep langer dan de ronde duurde, dan is het mislukt.'],
+        ['Mag je een antwoord herhalen dat iemand al gaf?', 'Ja, tenzij jullie groep iets anders afspreekt. Zonder herhalingen worden de populaire categorieën vanaf de derde ronde keihard, en sommige groepen vinden dat juist leuk.'],
+        ['Vijf seconden is te kort', 'In de app stellen jullie de klok zelf in, van drie tot tien seconden. Begin met vijf, ga naar vier als iedereen op gang is, en geef een nieuwkomer gerust iets meer.'],
+        ['Erdoorheen roepen', 'Mag. Moet eigenlijk. Hardop aftellen naar wie aan de beurt is, is de helft van de lol, en de reden dat niemand drie boerderijdieren kan noemen als iedereen schreeuwt.'],
+      ],
+    },
+    catsSec: {
+      h2: 'Wat een goede categorie maakt',
+      p1: 'De beste klinken makkelijk. Iedereen kent kleuren, dus als je hoofd leeg is bij Kleuren, geniet de hele groep. Een sterke categorie heeft tientallen goede antwoorden, en onder druk schiet je er geen te binnen.',
+      p2: 'De app deelt de categorieën uit zonder herhaling tot jullie ze allemaal gezien hebben, en sommige noemen iemand uit de groep, dus de groep praat mee over wat telt.',
+    },
+    faq: {
+      h2: 'Vragen die mensen stellen',
+      qa: [
+        ['Is Noem 3 hetzelfde als het vijfsecondenspel?', 'Het is hetzelfde idee: een categorie, een korte klok en drie antwoorden. Noem 3 is hoe de app Antics het speelt, met eigen categorieën en een opdracht als het mislukt.'],
+        ['Met hoeveel mensen speel je het?', 'Twee of meer. Het werkt het best met vier tot acht, terwijl de telefoon de kring rondgaat.'],
+        ['Is Noem 3 gratis?', 'Ja. Noem 3 heeft gratis categorieën in de app Antics, en Antics Premium maakt alle categorieën vrij, samen met alle andere spellen.'],
+        ['Is het een drankspel?', 'Nee. Wie het niet haalt krijgt een opdracht, dus iedereen kan meedoen, wat er ook in het glas zit.'],
+      ],
+    },
+    cta: { h2: 'Speel het hele spel', p: 'Noem 3 zit in de app Antics voor iPhone en Android, met gratis categorieën, een klok die je zelf instelt en een opdracht bij elke misser. Geen advertenties, geen accounts.' },
+    cats10: ['Dingen in een koelkast', 'Pizzatoppings', 'Boerderijdieren', 'Superhelden', 'Disneyfilms', 'Kleuren', 'Landen die met een S beginnen', 'Beroemde mensen die David heten', 'Slechtste plekken voor een eerste date', 'Dingen die je achter de bank vindt'],
+  },
+};

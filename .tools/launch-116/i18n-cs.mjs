@@ -1,0 +1,120 @@
+// Czech copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.cs.ts: Blag, Vyjmenuj 3, O nás, Kdo to řekl?, Zalži za mě. Forfeit = fant.
+export default {
+  chrome: {
+    skip: 'Přeskočit na obsah', crumbAria: 'Drobečková navigace', langAria: 'Jazyk', tocLabel: 'Na této stránce',
+    footerHome: 'Antics: párty hry', privacy: 'Ochrana soukromí (anglicky)', footerLine: '18+ · Dávejte na sebe pozor.',
+    installAria: 'Stáhni si aplikaci', installSub: 'Párty hry', installBtn: 'Stáhnout zdarma', installBtnLong: 'Stáhni si Antics zdarma',
+    appStore: 'Stáhnout z App Store', googlePlay: 'Stáhnout z Google Play',
+    laptop: 'Jsi na notebooku?', laptopTail: 'ti pošle správný obchod do telefonu.',
+    guidesAria: 'Další hry v češtině', imposterUrl: '/cs/impostor-hra/', imposterText: 'Impostor hra online', hubText: 'Všechny hry v češtině',
+  },
+  hub: { id: 'novinky', h2: 'Novinky v aplikaci', blag: 'Blafování, každý na svém telefonu', n3: 'Tři odpovědi, než vyprší čas' },
+  blag: {
+    slug: 'blag-hra', crumb: 'Blag',
+    title: 'Blag: párty hra na blafování na vašich vlastních telefonech | Antics',
+    desc: 'Blag je hra na blafování, kterou hraje každý na svém telefonu: jeden mluví pravdu, ostatní si vymýšlejí a všichni hlasují. Jeden otevře místnost v aplikaci Antics, ostatní se zdarma připojí v prohlížeči.',
+    ogTitle: 'Blag: jedna pravda, stůl plný lží',
+    ogDesc: 'Hra na blafování pro telefon každého z vás. Napiš lež, která projde jako pravda, najdi skutečnou odpověď a zjisti, kdo v partě lže nejlíp.',
+    linkText: 'Blag: hra na blafování na vašich telefonech',
+    h1: 'Blag: jedna pravda, stůl plný lží',
+    standfirst: 'Hra na blafování, kde každý hraje na svém telefonu. Napiš lež tak dobrou, že projde jako pravda, vyčmuchej skutečnou odpověď a zjisti, kdo z tvé party lže nejlíp.',
+    toc: ['Jak se hraje', 'Dva způsoby hry', 'Telefony, ne televize', 'Jak dobře lhát', 'Otázky'],
+    how: {
+      h2: 'Jak se hraje',
+      steps: [
+        'Jeden otevře Blag v aplikaci Antics a založí místnost. Aplikace ukáže krátký kód a odkaz ke sdílení.',
+        'Ostatní se připojí na svých telefonech. Můžou otevřít odkaz v prohlížeči a hrát zdarma, bez stahování a bez účtu, nebo se připojit z aplikace Antics, pokud ji mají.',
+        'Objeví se otázka. Jeden hráč na ni odpoví po pravdě, všichni ostatní napíšou falešnou odpověď, která zní přesně jako on. Pak se všechny odpovědi zamíchané objeví na každém telefonu a každý hlasuje pro tu, kterou považuje za pravdivou.',
+      ],
+      p: 'Napálíš někoho svou lží, máš bod. Najdeš pravdu, máš bod. Ten, kdo mluví pravdu, dostane bod za každého, kdo ji netrefí, takže chce odpověď, která zní vymyšleně. Poslední kolo se počítá dvojnásob a telefony ukážou, kdo komu naletěl.',
+    },
+    modes: {
+      h2: 'Dva způsoby hry',
+      aboutH: 'O nás',
+      aboutP: 'Tři až deset hráčů. Každé kolo je jeden z vás v centru pozornosti: řekne pravdu a zbytek napíše lež, kterou by ten člověk vyprávěl. Je to hra o tom, jak dobře se znáte a jak dobře umíte písemně napodobit své kámoše.',
+      whoH: 'Kdo to řekl?',
+      whoP: 'Čtyři až osm hráčů. Všichni po pravdě odpoví na stejnou otázku a parta pak hádá, kdo co napsal. Trik je říct pravdu hlasem někoho jiného.',
+      lieH: 'Nemáš žádnou lež?',
+      lieP1: 'Ťukni na ', lieBtn: 'Zalži za mě', lieP2: ' a Dům ji napíše za tebe. Tvař se normálně. Dům občas napálí celý stůl, a to je ostuda úplně svého druhu.',
+    },
+    phones: {
+      h2: 'Hraje se na telefonech, ne na televizi',
+      p1: 'Blag nepotřebuje obrazovku v rohu ani konzoli. Každý hráč čte, píše a hlasuje na telefonu, který drží v ruce, takže to funguje na pokoji, v kuchyni, v hospodě nebo na dlouhé cestě autem, všude, kde je signál. Aplikaci potřebuje jen ten, kdo místnost otevře.',
+      p2: 'Odpovědi se píšou, takže ten nejtišší z party má stejnou šanci jako ten nejhlasitější a nikdo ti z obličeje nevyčte, která odpověď je tvoje. O to přesně jde.',
+    },
+    lying: {
+      h2: 'Jak dobře lhát',
+      items: [
+        ['Ukradni jim styl.', 'Když vždycky píšou "upřímně" nebo nikdy nepoužívají velká písmena, ty taky ne.'],
+        ['Buď schválně nudný.', 'Nudná, konkrétní odpověď projde jako pravda mnohem častěji než vtipná.'],
+        ['Pravdu nech být.', 'Když ji říkáš ty, neuhlazuj ji. Skutečné odpovědi bývají to nejdivnější na seznamu.'],
+        ['Sleduj hlasy, ne odpovědi.', 'Kdo se při odhalení tváří spokojeně, napsal lež, která vyšla.'],
+      ],
+    },
+    faq: {
+      h2: 'Na co se lidi ptají',
+      qa: [
+        ['Potřebuje aplikaci každý?', 'Ne. Antics potřebuje jen ten, kdo místnost otevře. Ostatní se zdarma připojí v prohlížeči telefonu s kódem nebo odkazem na místnost.'],
+        ['Kolik lidí může hrát?', 'O nás se hraje ve třech až deseti. Kdo to řekl? ve čtyřech až osmi.'],
+        ['Je Blag zdarma?', 'Ano. Blag má v aplikaci Antics karty zdarma a připojení do místnosti nic nestojí. Když místnost otevře někdo s Premium, jsou všechny karty odemčené pro celou partu.'],
+        ['Je to hra na pití?', 'Ne. Vyhrává se na body, dobrým lhaním a hledáním pravdy.'],
+      ],
+    },
+    cta: { h2: 'Otevři místnost', p: 'Blag je v aplikaci Antics. Jeden z vás otevře místnost na iPhonu a ostatní se připojí na svých telefonech, zdarma v prohlížeči. Bez reklam, bez účtů.' },
+  },
+  n3: {
+    slug: 'hra-vyjmenuj-3', name: 'Vyjmenuj 3', crumb: 'Vyjmenuj 3', kicker: 'Vyjmenuj 3…',
+    title: 'Vyjmenuj 3: tři věci za pět vteřin, párty hra | Antics',
+    desc: 'Vyjmenuj 3 je pětivteřinová párty hra: přečti kategorii, spusť odpočet a vyjmenuj tři věci, než vyprší. Jak se hraje a ochutnávka zdarma v prohlížeči.',
+    ogTitle: 'Vyjmenuj 3: tři věci, pět vteřin',
+    ogDesc: 'Přečti kategorii, spusť odpočet, vyjmenuj tři věci před nulou. Snadné na gauči, nemožné, když celá parta řve.',
+    linkText: 'Vyjmenuj 3: tři věci, pět vteřin',
+    h1: 'Vyjmenuj 3: tři věci, pět vteřin',
+    standfirst: 'Přečti kategorii. Spusť odpočet. Vyjmenuj tři věci, než dojde na nulu. Snadné o samotě, nemožné, když na tebe kouká celá parta.',
+    toc: ['Jak se hraje', 'Zkus kolo', 'Domácí pravidla', 'Dobré kategorie', 'Otázky'],
+    how: {
+      h2: 'Jak se hraje',
+      steps: [
+        'Kdo drží telefon, přečte kategorii nahlas: třeba Co se dává na pizzu nebo Věci, které najdeš za opěradlem gauče.',
+        'Spustí odpočet. Pět vteřin. Vyjmenuj tři věci z kategorie, než vyprší.',
+        'Rozhodne parta. Tři platné odpovědi včas znamenají úspěch. Okno, opakování nebo odpočet na nule je neúspěch a neúspěch znamená fant. Pak jde telefon dál.',
+      ],
+      p: 'To je celá hra. Funguje ve dvou i ve dvanácti, nepotřebuje přípravu ani tužku a jedno kolo trvá asi deset vteřin, takže se vejde mezi cokoli dalšího, co hrajete.',
+    },
+    tryIt: { h2: 'Zkus si tady kolo', p: 'Ochutnávka zdarma s deseti kategoriemi z aplikace Antics. Přečti ji nahlas, ťukni na odpočet a uvidíš, jak daleko se dostaneš, když všichni odpočítávají.' },
+    tool: {
+      start: 'Spustit odpočet', goAgain: 'Znovu', next: 'Další kategorie', restart: 'Od začátku', timeUp: 'Čas!',
+      countInit: 'Tady je deset kategorií zdarma. Aplikace jich má mnohem víc.',
+      count: 'Kategorie {n} z {of}. Aplikace jich má mnohem víc.',
+      doneQ: 'To bylo všech deset kategorií zdarma. Celý balíček je v aplikaci.',
+      doneCount: 'Na téhle stránce už další kategorie zdarma nejsou.',
+      ctaH: 'Chceš celý balíček, nastavitelný odpočet a fant za každý neúspěch?',
+    },
+    rules: {
+      h2: 'Domácí pravidla, aby to bylo fér',
+      items: [
+        ['Co se počítá jako odpověď?', 'Jedno slovo, jméno nebo krátké podstatné jméno. "Sýr" se počítá. "Ta věc s červenými kousky" ne. Když se parta hádá déle, než trvalo kolo, je to neúspěch.'],
+        ['Smí se zopakovat odpověď, kterou už někdo řekl?', 'Ano, pokud se vaše parta nedohodne jinak. Zákaz opakování udělá z oblíbených kategorií od třetího kola peklo, a některé party to milují.'],
+        ['Pět vteřin je málo', 'V aplikaci si odpočet nastavíte sami, od tří do deseti vteřin. Začněte na pěti, po rozehřátí slezte na čtyři a nováčkovi klidně dejte trochu víc.'],
+        ['Pokřikování', 'Povoleno. Vlastně žádoucí. Odpočítávat nahlas tomu, kdo je na řadě, je půlka zábavy a důvod, proč nikdo nevyjmenuje tři zvířata na farmě, když všichni řvou.'],
+      ],
+    },
+    catsSec: {
+      h2: 'Co dělá kategorii dobrou',
+      p1: 'Ty nejlepší znějí snadno. Barvy zná každý, takže když se ti u Barev vyprázdní hlava, celá parta se baví. Silná kategorie má desítky správných odpovědí a pod tlakem tě nenapadne ani jedna.',
+      p2: 'Aplikace rozdává kategorie bez opakování, dokud neuvidíte všechny, a některé jmenují někoho z vaší party, takže parta má co mluvit do toho, co platí.',
+    },
+    faq: {
+      h2: 'Na co se lidi ptají',
+      qa: [
+        ['Je Vyjmenuj 3 totéž co hra na pět vteřin?', 'Je to stejný nápad: kategorie, krátký odpočet a tři odpovědi. Vyjmenuj 3 je verze z aplikace Antics, s vlastními kategoriemi a fantem, když to nedáš.'],
+        ['Kolik lidí je potřeba?', 'Dva a víc. Nejlíp se hraje ve čtyřech až osmi a telefon jde dokola.'],
+        ['Je Vyjmenuj 3 zdarma?', 'Ano. Vyjmenuj 3 má v aplikaci Antics kategorie zdarma a Antics Premium odemkne celý balíček spolu se všemi ostatními hrami.'],
+        ['Je to hra na pití?', 'Ne. Neúspěch znamená fant, takže může hrát každý, ať má ve sklenici cokoli.'],
+      ],
+    },
+    cta: { h2: 'Zahraj si celou hru', p: 'Vyjmenuj 3 je v aplikaci Antics pro iPhone i Android, s kategoriemi zdarma, odpočtem, který si nastavíte, a fantem za každý neúspěch. Bez reklam, bez účtů.' },
+    cats10: ['Věci v lednici', 'Co se dává na pizzu', 'Zvířata na farmě', 'Superhrdinové', 'Disneyho filmy', 'Barvy', 'Státy na S', 'Slavní lidé jménem David', 'Nejhorší místa na první rande', 'Věci, které najdeš za opěradlem gauče'],
+  },
+};

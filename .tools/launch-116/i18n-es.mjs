@@ -1,0 +1,120 @@
+// Spanish (es-419) copy for the 1.1.6 launch pages. Agent draft 13 Nov 2026, AI language QA pending.
+// App names from src/i18n/strings.es.ts: Blag, Nombra 3, Sobre nosotros, ¿Quién dijo eso?, Miente por mí.
+export default {
+  chrome: {
+    skip: 'Saltar al contenido', crumbAria: 'Ruta de navegación', langAria: 'Idioma', tocLabel: 'En esta página',
+    footerHome: 'Antics: juegos de fiesta', privacy: 'Privacidad (en inglés)', footerLine: '18+ · Cuiden a sus amigos.',
+    installAria: 'Descarga la app', installSub: 'Juegos de fiesta', installBtn: 'Descargar gratis', installBtnLong: 'Descarga Antics gratis',
+    appStore: 'Descargar en el App Store', googlePlay: 'Disponible en Google Play',
+    laptop: '¿Estás en la laptop?', laptopTail: 'manda la tienda correcta a tu celular.',
+    guidesAria: 'Más juegos en español', imposterUrl: '/es/juego-del-impostor/', imposterText: 'El juego del impostor online', hubText: 'Todos los juegos en español',
+  },
+  hub: { id: 'nuevo', h2: 'Nuevo en la app', blag: 'Faroleo, cada quien en su celular', n3: 'Tres respuestas antes de que se acabe el tiempo' },
+  blag: {
+    slug: 'juego-blag', crumb: 'Blag',
+    title: 'Blag: el juego de fiesta para blofear desde sus celulares | Antics',
+    desc: 'Blag es el juego de blofear que se juega cada quien en su celular: uno dice la verdad, los demás inventan y todos votan. Una persona abre la sala en la app Antics y los demás se unen gratis desde el navegador.',
+    ogTitle: 'Blag: una verdad, una mesa llena de mentiras',
+    ogDesc: 'El juego de blofear para el celular de cada quien. Escribe una mentira que pase por verdad, encuentra la respuesta real y descubre quién del grupo miente mejor.',
+    linkText: 'Blag: el juego de blofear en sus propios celulares',
+    h1: 'Blag: una verdad, una mesa llena de mentiras',
+    standfirst: 'El juego de blofear donde cada quien juega en su celular. Escribe una mentira tan buena que pase por verdad, olfatea la respuesta real y descubre quién de tu grupo miente mejor.',
+    toc: ['Cómo se juega', 'Dos formas de jugar', 'Celulares, no la tele', 'Cómo mentir bien', 'Preguntas'],
+    how: {
+      h2: 'Cómo se juega',
+      steps: [
+        'Una persona abre Blag en la app Antics y crea una sala. La app muestra un código corto y un enlace para compartir.',
+        'Los demás se unen desde su propio celular. Pueden abrir el enlace en el navegador y jugar gratis, sin descargar nada y sin cuenta, o entrar desde la app Antics si la tienen.',
+        'Sale una pregunta. Un jugador la responde con la verdad y los demás escriben una falsa que suene igualita a esa persona. Luego todas las respuestas aparecen revueltas en cada celular y todos votan por la que creen que es real.',
+      ],
+      p: 'Si engañas a alguien con tu mentira, sumas. Si encuentras la verdad, sumas. Quien dice la verdad suma por cada persona que no la adivina, así que le conviene una respuesta que suene inventada. La última ronda vale doble, y los celulares cuentan quién cayó con quién.',
+    },
+    modes: {
+      h2: 'Dos formas de jugar',
+      aboutH: 'Sobre nosotros',
+      aboutP: 'De tres a diez jugadores. En cada ronda alguien queda en el centro: dice la verdad y el resto escribe la mentira que esa persona diría. Es un juego sobre qué tan bien se conocen, y sobre qué tan bien imitan por escrito a sus amigos.',
+      whoH: '¿Quién dijo eso?',
+      whoP: 'De cuatro a ocho jugadores. Todos responden la misma pregunta con la verdad y luego el grupo adivina quién escribió qué. El truco es decir la verdad con la voz de otra persona.',
+      lieH: '¿Sin mentira?',
+      lieP1: 'Toca ', lieBtn: 'Miente por mí', lieP2: ' y la Casa escribe una por ti. Actúa normal. A veces la Casa engaña a toda la mesa, y eso da su propio tipo de vergüenza.',
+    },
+    phones: {
+      h2: 'Se juega en celulares, no en la tele',
+      p1: 'Blag no necesita pantalla ni consola. Cada jugador lee, escribe y vota en el celular que tiene en la mano, así que funciona en un cuarto, en la cocina, en el bar o en un viaje largo en carro, donde haya señal. Solo quien abre la sala necesita la app.',
+      p2: 'Las respuestas se escriben, así que el más callado del grupo tiene la misma oportunidad que el más ruidoso, y nadie puede saber por tu cara cuál respuesta es tuya. De eso se trata.',
+    },
+    lying: {
+      h2: 'Cómo mentir bien',
+      items: [
+        ['Róbale la voz.', 'Si siempre escribe "literal" o nunca usa mayúsculas, tú tampoco.'],
+        ['Sé aburrido a propósito.', 'Una respuesta sosa y concreta pasa por verdad mucho más seguido que una chistosa.'],
+        ['No toques la verdad.', 'Si te toca decirla, no la pulas. Las respuestas reales suelen ser lo más raro de la lista.'],
+        ['Mira los votos, no las respuestas.', 'Quien se ve muy satisfecho en la revelación escribió la mentira que funcionó.'],
+      ],
+    },
+    faq: {
+      h2: 'Preguntas frecuentes',
+      qa: [
+        ['¿Todos necesitan la app?', 'No. Solo quien abre la sala necesita Antics. Los demás se unen gratis desde el navegador del celular con el código o el enlace de la sala.'],
+        ['¿Cuántas personas pueden jugar?', 'Sobre nosotros es para tres a diez jugadores. ¿Quién dijo eso? es para cuatro a ocho.'],
+        ['¿Blag es gratis?', 'Sí. Blag trae cartas gratis en la app Antics, y unirse a una sala no cuesta nada. Cuando alguien con Premium abre la sala, todas las cartas se desbloquean para todo el grupo.'],
+        ['¿Es un juego para beber?', 'No. Se gana por puntos, mintiendo bien y encontrando la verdad.'],
+      ],
+    },
+    cta: { h2: 'Abre una sala', p: 'Blag está en la app Antics. Uno de ustedes abre la sala desde un iPhone y los demás se unen desde su propio celular, gratis en el navegador. Sin anuncios, sin cuentas.' },
+  },
+  n3: {
+    slug: 'juego-nombra-3', name: 'Nombra 3', crumb: 'Nombra 3', kicker: 'Nombra 3…',
+    title: 'Nombra 3: tres cosas en cinco segundos, el juego de fiesta | Antics',
+    desc: 'Nombra 3 es el juego de fiesta de cinco segundos: lee la categoría, arranca el reloj y di tres cosas antes de que se acabe. Cómo se juega, y una prueba gratis en tu navegador.',
+    ogTitle: 'Nombra 3: tres cosas, cinco segundos',
+    ogDesc: 'Lee la categoría, arranca el reloj y di tres cosas antes de que llegue a cero. Fácil en el sillón, imposible con todo el grupo gritando.',
+    linkText: 'Nombra 3: tres cosas, cinco segundos',
+    h1: 'Nombra 3: tres cosas, cinco segundos',
+    standfirst: 'Lee la categoría. Arranca el reloj. Di tres cosas antes de que llegue a cero. Fácil a solas, imposible con todo el grupo mirándote.',
+    toc: ['Cómo se juega', 'Prueba una ronda', 'Reglas de la casa', 'Buenas categorías', 'Preguntas'],
+    how: {
+      h2: 'Cómo se juega',
+      steps: [
+        'Quien tiene el celular lee la categoría en voz alta: Ingredientes de pizza, por ejemplo, o Cosas que encuentras en el fondo del sofá.',
+        'Arranca el reloj. Cinco segundos. Di tres cosas de la categoría antes de que se acabe.',
+        'El grupo decide. Tres respuestas válidas a tiempo es que lo lograste. Quedarse en blanco, repetir o llegar a cero es que fallaste, y fallar es reto. Luego el celular pasa al siguiente.',
+      ],
+      p: 'Ese es todo el juego. Funciona con dos personas y con doce, no necesita preparación ni pluma, y una ronda dura unos diez segundos, así que cabe entre cualquier otra cosa que estén jugando.',
+    },
+    tryIt: { h2: 'Prueba una ronda aquí', p: 'Una prueba gratis con diez categorías de la app Antics. Léela en voz alta, toca el reloj y mira hasta dónde llegas con todos contando hacia atrás.' },
+    tool: {
+      start: 'Iniciar el reloj', goAgain: 'Otra vez', next: 'Siguiente categoría', restart: 'Empezar de nuevo', timeUp: '¡Tiempo!',
+      countInit: 'Diez categorías gratis aquí. La app tiene muchas más.',
+      count: 'Categoría {n} de {of}. La app tiene muchas más.',
+      doneQ: 'Esas fueron las diez categorías gratis. El mazo completo está en la app.',
+      doneCount: 'Ya viste todas las categorías gratis de aquí.',
+      ctaH: '¿Quieres el mazo completo, un reloj que tú ajustas y un reto por cada fallo?',
+    },
+    rules: {
+      h2: 'Reglas de la casa para que sea justo',
+      items: [
+        ['¿Qué cuenta como respuesta?', 'Una palabra, un nombre o un sustantivo corto. "Queso" cuenta. "Esa cosa con pedacitos rojos" no. Si el grupo discute más de lo que duró la ronda, es fallo.'],
+        ['¿Se puede repetir una respuesta que ya dijo alguien?', 'Sí, a menos que su grupo diga lo contrario. Prohibir repetir hace brutales las categorías populares a la tercera vuelta, y a algunos grupos les encanta.'],
+        ['Cinco segundos es muy poco', 'En la app el reloj lo ajustan ustedes, de tres a diez segundos. Empiecen con cinco, bajen a cuatro cuando todos estén calientes y denle un poco más a quien llega nuevo.'],
+        ['Meter presión', 'Se vale. De hecho, se recomienda. Contar en voz alta a la persona en turno es la mitad de la diversión, y la razón por la que nadie puede nombrar tres animales de granja con todos gritando.'],
+      ],
+    },
+    catsSec: {
+      h2: 'Qué hace buena una categoría',
+      p1: 'Las mejores suenan fáciles. Todos conocen los colores, así que cuando se te pone la mente en blanco con Colores, todo el grupo lo disfruta. Una categoría fuerte tiene docenas de respuestas correctas y, bajo presión, no se te ocurre ninguna.',
+      p2: 'La app reparte las categorías sin repetir hasta que hayan visto todas, y algunas nombran a alguien del grupo, así que el grupo opina sobre qué cuenta.',
+    },
+    faq: {
+      h2: 'Preguntas frecuentes',
+      qa: [
+        ['¿Nombra 3 es lo mismo que el juego de los cinco segundos?', 'Es la misma idea: una categoría, un reloj corto y tres respuestas. Nombra 3 es como lo juega la app Antics, con sus propias categorías y un reto cuando fallas.'],
+        ['¿Cuántas personas se necesitan?', 'Dos o más. Se juega mejor con cuatro a ocho, pasando el celular en círculo.'],
+        ['¿Nombra 3 es gratis?', 'Sí. Nombra 3 trae categorías gratis en la app Antics, y Antics Premium desbloquea el mazo completo junto con todos los demás juegos.'],
+        ['¿Es un juego para beber?', 'No. Fallar significa un reto, así que cualquiera puede jugar, tenga lo que tenga en el vaso.'],
+      ],
+    },
+    cta: { h2: 'Juega el juego completo', p: 'Nombra 3 está en la app Antics para iPhone y Android, con categorías gratis, un reloj que tú ajustas y un reto por cada fallo. Sin anuncios, sin cuentas.' },
+    cats10: ['Cosas que hay en un refrigerador', 'Ingredientes de pizza', 'Animales de granja', 'Superhéroes', 'Películas de Disney', 'Colores', 'Países que empiezan con S', 'Famosos que se llaman David', 'Los peores lugares para una primera cita', 'Cosas que encuentras en el fondo del sofá'],
+  },
+};
