@@ -76,6 +76,8 @@
     .live { font-size: 12px; color: var(--dim); margin-top: 22px; }
     .wall { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.08); }
     a.plain { color: var(--dim); font-weight: 700; }
+    .gone-get { margin-top: 28px; text-align: center; }
+    .gone-get a { color: var(--white); font-weight: 900; }
     .wall a.cta { display: block; background: var(--white); color: #17112f; font-weight: 900; border-radius: 16px; padding: 15px; text-decoration: none; margin-top: 12px; }
     .tvbar { margin-top: 10px; }
     .tvon { color: var(--good); font-weight: 800; font-size: 14px; }
@@ -247,9 +249,9 @@
       <button id="btn-share-reveal" class="ghost" data-t="share">Share the join link</button>
       <div class="tvslot" id="tvslot-reveal"></div>
       <div class="wall" id="wall">
-        <p class="lead" style="margin-bottom:0" data-t="wallBody">This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.</p>
-        <a class="cta" id="wall-get" href="/get/?c=web-room" data-t="wallCta">Get Antics free</a>
-        <p class="small" data-t="wallSmall">iPhone and Android. Thousands of cards, no ads.</p>
+        <p class="lead" style="margin-bottom:0" data-t="wallBody">Liked that? The Antics app has more Imposter decks and more party games for the same group.</p>
+        <a class="cta" id="wall-get" href="/get/?c=web-room" data-t="wallCta">Get the Antics app</a>
+        <p class="small" data-t="wallSmall">iPhone and Android.</p>
       </div>
       <button id="btn-leave2" class="link" data-t="leave">Leave the room</button>
     </section>
@@ -258,6 +260,10 @@
       <h1 id="gone-title" data-t="goneTitle">That room has ended</h1>
       <p class="lead" id="gone-body" data-t="goneBody">Rooms close a few hours after the last round, or when the host removes you. Ask for a fresh code.</p>
       <button id="btn-rejoin" class="primary" data-t="rejoin">Join another room</button>
+      <!-- The page an Imposter room leaves behind (13 Nov 2026, the install
+           ask pass): shown only to a tab that reached a reveal, as Blag's
+           footer is, never to a web=1 arrival (that phone has the app). -->
+      <p class="small gone-get" id="gone-get" hidden><span data-t="goneGetLead">That was Imposter, by Antics.</span> <a id="gone-get-link" href="/get/?c=web-room" data-t="goneGetLink">More party games: get Antics</a></p>
     </section>
 
     <!-- BLAG (1.1.6): j/blag-v1.js builds this screen when a room's view says
@@ -585,9 +591,11 @@
         yourCard: "YOUR CARD",
         roundInProgress: "ROUND IN PROGRESS",
         and: "and",
-        wallBody: "This room deals the free decks. The Antics app has more Imposter decks and eight more party games for the same group.",
-        wallCta: "Get Antics free",
-        wallSmall: "iPhone and Android. Thousands of cards, no ads.",
+        wallBody: "Liked that? The Antics app has more Imposter decks and more party games for the same group.",
+        wallCta: "Get the Antics app",
+        wallSmall: "iPhone and Android.",
+        goneGetLead: "That was Imposter, by Antics.",
+        goneGetLink: "More party games: get Antics",
         rejoin: "Join another room",
         tvEntryTitle: "Put the room on the TV",
         tvEntryLead: "Type the room code from the host's phone. The TV shows who is in, the round and the reveal. Never anyone's card.",
@@ -724,9 +732,11 @@
         yourCard: "TU CARTA",
         roundInProgress: "RONDA EN CURSO",
         and: "y",
-        wallBody: "Esta sala reparte los mazos gratis. La app de Antics tiene más mazos de Impostor y ocho juegos de fiesta más para el mismo grupo.",
-        wallCta: "Descarga Antics gratis",
-        wallSmall: "iPhone y Android. Miles de cartas, sin anuncios.",
+        wallBody: "¿Te gustó? La app de Antics tiene más mazos de Impostor y más juegos de fiesta para el mismo grupo.",
+        wallCta: "Descarga la app de Antics",
+        wallSmall: "iPhone y Android.",
+        goneGetLead: "Eso fue Impostor, de Antics.",
+        goneGetLink: "Más juegos de fiesta: consigue Antics",
         rejoin: "Unirse a otra sala",
         tvEntryTitle: "Pon la sala en la tele",
         tvEntryLead: "Escribe el código de la sala que aparece en el celular del anfitrión. La tele muestra quién está en la sala, la ronda y la revelación. Nunca la carta de nadie.",
@@ -863,9 +873,11 @@
         yourCard: "TU CARTA",
         roundInProgress: "RONDA EN CURSO",
         and: "y",
-        wallBody: "Esta sala reparte los mazos gratis. La app de Antics tiene más mazos de Impostor y ocho juegos de fiesta más para el mismo grupo.",
-        wallCta: "Consigue Antics gratis",
-        wallSmall: "iPhone y Android. Miles de cartas, sin anuncios.",
+        wallBody: "¿Te ha gustado? La app de Antics tiene más mazos de Impostor y más juegos de fiesta para el mismo grupo.",
+        wallCta: "Descarga la app de Antics",
+        wallSmall: "iPhone y Android.",
+        goneGetLead: "Eso ha sido Impostor, de Antics.",
+        goneGetLink: "Más juegos de fiesta: descarga Antics",
         rejoin: "Unirse a otra sala",
         tvEntryTitle: "Pon la sala en la tele",
         tvEntryLead: "Escribe el código de la sala que aparece en el móvil del anfitrión. La tele muestra quién está, la ronda y la revelación. Nunca la carta de nadie.",
@@ -1002,9 +1014,11 @@
         yourCard: "SUA CARTA",
         roundInProgress: "RODADA EM ANDAMENTO",
         and: "e",
-        wallBody: "Esta sala usa os baralhos grátis. O app Antics tem mais baralhos de Impostor e mais oito jogos de festa para a mesma galera.",
-        wallCta: "Baixe o Antics grátis",
-        wallSmall: "iPhone e Android. Milhares de cartas, sem anúncios.",
+        wallBody: "Curtiu? O app Antics tem mais baralhos de Impostor e mais jogos de festa para a mesma galera.",
+        wallCta: "Baixe o app Antics",
+        wallSmall: "iPhone e Android.",
+        goneGetLead: "Isso foi Impostor, do Antics.",
+        goneGetLink: "Mais jogos de festa: baixe o Antics",
         rejoin: "Entrar em outra sala",
         tvEntryTitle: "Coloque a sala na TV",
         tvEntryLead: "Digite o código da sala que aparece no celular do anfitrião. A TV mostra quem está na sala, a rodada e a revelação. Nunca a carta de ninguém.",
@@ -1141,9 +1155,11 @@
         yourCard: "A TUA CARTA",
         roundInProgress: "RONDA A DECORRER",
         and: "e",
-        wallBody: "Esta sala usa os baralhos grátis. A app Antics tem mais baralhos de Impostor e mais oito jogos de festa para o mesmo grupo.",
-        wallCta: "Descarrega o Antics grátis",
-        wallSmall: "iPhone e Android. Milhares de cartas, sem anúncios.",
+        wallBody: "Gostaste? A app Antics tem mais baralhos de Impostor e mais jogos de festa para o mesmo grupo.",
+        wallCta: "Descarrega a app Antics",
+        wallSmall: "iPhone e Android.",
+        goneGetLead: "Isto foi o Impostor, do Antics.",
+        goneGetLink: "Mais jogos de festa: descarrega o Antics",
         rejoin: "Entrar noutra sala",
         tvEntryTitle: "Põe a sala na TV",
         tvEntryLead: "Escreve o código da sala que está no telemóvel do anfitrião. A TV mostra quem está na sala, a ronda e a revelação. Nunca a carta de ninguém.",
@@ -1280,9 +1296,11 @@
         yourCard: "DEINE KARTE",
         roundInProgress: "RUNDE LÄUFT",
         and: "und",
-        wallBody: "Dieser Raum spielt mit den kostenlosen Decks. Die Antics-App hat mehr Imposter-Decks und acht weitere Partyspiele für dieselbe Gruppe.",
-        wallCta: "Antics kostenlos holen",
-        wallSmall: "iPhone und Android. Tausende Karten, keine Werbung.",
+        wallBody: "Hat’s Spaß gemacht? Die Antics-App hat mehr Imposter-Decks und mehr Partyspiele für dieselbe Gruppe.",
+        wallCta: "Hol dir die Antics-App",
+        wallSmall: "iPhone und Android.",
+        goneGetLead: "Das war Imposter, von Antics.",
+        goneGetLink: "Mehr Partyspiele: hol dir Antics",
         rejoin: "Einem anderen Raum beitreten",
         tvEntryTitle: "Den Raum auf den Fernseher bringen",
         tvEntryLead: "Gib den Raumcode vom Handy des Gastgebers ein. Der Fernseher zeigt, wer dabei ist, die Runde und die Auflösung. Nie die Karte von jemandem.",
@@ -1419,9 +1437,11 @@
         yourCard: "TA CARTE",
         roundInProgress: "MANCHE EN COURS",
         and: "et",
-        wallBody: "Ce salon distribue les paquets gratuits. L’appli Antics a d’autres paquets Imposteur et huit autres jeux de soirée pour le même groupe.",
-        wallCta: "Télécharge Antics gratuitement",
-        wallSmall: "iPhone et Android. Des milliers de cartes, sans pub.",
+        wallBody: "Ça t’a plu ? L’appli Antics a d’autres paquets Imposteur et d’autres jeux de soirée pour le même groupe.",
+        wallCta: "Télécharge l’appli Antics",
+        wallSmall: "iPhone et Android.",
+        goneGetLead: "C’était Imposteur, par Antics.",
+        goneGetLink: "Plus de jeux de soirée : télécharge Antics",
         rejoin: "Rejoindre un autre salon",
         tvEntryTitle: "Mets le salon sur la télé",
         tvEntryLead: "Tape le code du salon affiché sur le téléphone de l’hôte. La télé montre qui est là, la manche et la révélation. Jamais la carte d’un joueur.",
@@ -1558,9 +1578,11 @@
         yourCard: "LA TUA CARTA",
         roundInProgress: "ROUND IN CORSO",
         and: "e",
-        wallBody: "Questa stanza usa i mazzi gratis. L’app Antics ha altri mazzi di Impostore e altri otto giochi da festa per lo stesso gruppo.",
-        wallCta: "Scarica Antics gratis",
-        wallSmall: "iPhone e Android. Migliaia di carte, niente pubblicità.",
+        wallBody: "Ti è piaciuto? L’app Antics ha altri mazzi di Impostore e altri giochi da festa per lo stesso gruppo.",
+        wallCta: "Scarica l’app Antics",
+        wallSmall: "iPhone e Android.",
+        goneGetLead: "Questo era Impostore, di Antics.",
+        goneGetLink: "Altri giochi da festa: scarica Antics",
         rejoin: "Entra in un’altra stanza",
         tvEntryTitle: "Metti la stanza sulla TV",
         tvEntryLead: "Scrivi il codice della stanza che vedi sul telefono dell’host. La TV mostra chi c’è, il round e la rivelazione. Mai la carta di nessuno.",
@@ -1697,9 +1719,11 @@
         yourCard: "JOUW KAART",
         roundInProgress: "RONDE BEZIG",
         and: "en",
-        wallBody: "In deze kamer speel je met de gratis stapels. De Antics-app heeft meer Bedrieger-stapels en nog acht partyspellen voor dezelfde groep.",
-        wallCta: "Download Antics gratis",
-        wallSmall: "iPhone en Android. Duizenden kaarten, geen advertenties.",
+        wallBody: "Leuk? De Antics-app heeft meer Bedrieger-stapels en meer partyspellen voor dezelfde groep.",
+        wallCta: "Download de Antics-app",
+        wallSmall: "iPhone en Android.",
+        goneGetLead: "Dat was Bedrieger, van Antics.",
+        goneGetLink: "Meer partyspellen: download Antics",
         rejoin: "Doe mee in een andere kamer",
         tvEntryTitle: "Zet de kamer op de tv",
         tvEntryLead: "Typ de kamercode van de telefoon van de host. De tv laat zien wie er meedoet, de ronde en de onthulling. Nooit iemands kaart.",
@@ -1836,9 +1860,11 @@
         yourCard: "TWOJA KARTA",
         roundInProgress: "RUNDA TRWA",
         and: "i",
-        wallBody: "Ten pokój rozdaje darmowe talie. Aplikacja Antics ma więcej talii Impostora i osiem innych gier imprezowych dla tej samej ekipy.",
-        wallCta: "Pobierz Antics za darmo",
-        wallSmall: "iPhone i Android. Tysiące kart, bez reklam.",
+        wallBody: "Podobało się? Aplikacja Antics ma więcej talii Impostora i więcej gier imprezowych dla tej samej ekipy.",
+        wallCta: "Pobierz aplikację Antics",
+        wallSmall: "iPhone i Android.",
+        goneGetLead: "To był Impostor od Antics.",
+        goneGetLink: "Więcej gier imprezowych: pobierz Antics",
         rejoin: "Dołącz do innego pokoju",
         tvEntryTitle: "Wyświetl pokój na telewizorze",
         tvEntryLead: "Wpisz kod pokoju z telefonu gospodarza. Telewizor pokazuje, kto jest w pokoju, rundę i wynik. Nigdy niczyjej karty.",
@@ -1975,9 +2001,11 @@
         yourCard: "TVOJE KARTA",
         roundInProgress: "KOLO PROBÍHÁ",
         and: "a",
-        wallBody: "Tahle místnost rozdává balíčky zdarma. Aplikace Antics má další balíčky Podvodníka a osm dalších párty her pro stejnou partu.",
-        wallCta: "Stáhni Antics zdarma",
-        wallSmall: "iPhone a Android. Tisíce karet, bez reklam.",
+        wallBody: "Bavilo tě to? Aplikace Antics má další balíčky Podvodníka a další párty hry pro stejnou partu.",
+        wallCta: "Stáhni si aplikaci Antics",
+        wallSmall: "iPhone a Android.",
+        goneGetLead: "Tohle byl Podvodník od Antics.",
+        goneGetLink: "Další párty hry: stáhni si Antics",
         rejoin: "Připojit se do jiné místnosti",
         tvEntryTitle: "Dej místnost na televizi",
         tvEntryLead: "Napiš kód místnosti z telefonu hostitele. Televize ukazuje, kdo je v místnosti, kolo a odhalení. Nikdy ničí kartu.",
@@ -2091,6 +2119,7 @@
       if (document.body) document.body.classList.toggle('bl-on', name === 'blag');
       window.scrollTo(0, 0);
       if (blagUi) blagUi.afterShow();
+      if (name === 'gone') placeGoneGet();
     }
 
     // --- promoter passthrough, same params and sanitising as /play/ ---------
@@ -2105,6 +2134,7 @@
       else { var saved = sessionStorage.getItem('anticsPlayPromo'); if (saved) promo = JSON.parse(saved); }
     } catch (e) {}
     $('wall-get').href = '/get/?c=' + (promo.code || 'web-room') + (promo.offer ? '&o=' + promo.offer : '');
+    $('gone-get-link').href = $('wall-get').href;
 
     // --- measurement -------------------------------------------------------
     // The six names in RULED were RULED by Guy on 5 Oct 2026 ("Yes, all six";
@@ -2125,6 +2155,19 @@
     // room_created, room_joined and room_join_failed only, and is read once
     // from the address this page was opened at.
     var ARRIVAL = /[?&]web=1(&|$)/.test(location.search) ? 'app_fallback' : 'direct';
+    // THE INSTALL ASK (13 Nov 2026). On the night, at the high moment, never
+    // before or during a round, never blocking play: the reveal's block, and
+    // one line on the page a room leaves behind once this tab has seen a
+    // reveal. A web=1 arrival is a phone the app sent here, so it already has
+    // Antics and is asked nothing.
+    var IMP_REVEAL_KEY = 'anticsImpRevealSeen';
+    function impRevealSeen() { try { return sessionStorage.getItem(IMP_REVEAL_KEY) === '1'; } catch (e) { return false; } }
+    function markImpReveal() { try { sessionStorage.setItem(IMP_REVEAL_KEY, '1'); } catch (e) {} }
+    if (ARRIVAL === 'app_fallback') $('wall').hidden = true;
+    function placeGoneGet() {
+      var gone = $('screen-gone');
+      $('gone-get').hidden = ARRIVAL === 'app_fallback' || !impRevealSeen() || !!gone.querySelector('.bl-foot');
+    }
     function track(name, props) {
       if (RULED.indexOf(name) === -1 || !USE_PROD || LOCAL) return;
       try {
@@ -2388,6 +2431,7 @@
       }
 
       // revealed
+      markImpReveal();
       show('reveal');
       var r = view.reveal;
       if (r.mischief) {
@@ -2810,7 +2854,8 @@
       // the room is disconnected; anyone with the code can put one back.
       busy(this, api('kick', mine({ screens: true }))).then(function (r) { take(r); });
     });
-    $('wall-get').addEventListener('click', function () { track('room_install_tapped', { round_n: view ? view.round : 0 }); });
+    $('wall-get').addEventListener('click', function () { track('room_install_tapped', { round_n: view ? view.round : 0, kind: 'imposter', surface: 'reveal' }); });
+    $('gone-get-link').addEventListener('click', function () { track('room_install_tapped', { round_n: 0, kind: 'imposter', surface: 'gone' }); });
     $('in-code').addEventListener('input', function () { this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ''); });
     ['in-name', 'in-code'].forEach(function (id) { $(id).addEventListener('keydown', function (e) { if (e.key === 'Enter') $('btn-join').click(); }); });
 
