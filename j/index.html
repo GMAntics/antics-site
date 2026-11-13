@@ -2797,7 +2797,7 @@
         title = 'Blag';
       }
       track('room_link_shared', view.kind === 'blag' ? { via: 'web', kind: 'blag' } : { via: 'web' });
-      if (navigator.share) navigator.share({ title: title, text: text, url: url }).catch(function () {});
+      if (navigator.share) navigator.share({ title: title, text: text }).catch(function () {});
       else if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { btn.textContent = tr('linkCopied'); });
     }
     // Share from the lobby, a round and the reveal (H1): the server seats a
