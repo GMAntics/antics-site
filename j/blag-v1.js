@@ -818,6 +818,13 @@
       // sharing the top ("Sam and Priya lead.", F7 13 Nov 2026), or All level.
       var leaders = sc && sc.leaderNames && sc.leaderNames.length ? sc.leaderNames : sc && sc.leaderName ? [sc.leaderName] : [];
       var climber = sc && sc.climberName && leaders.indexOf(sc.climberName) === -1 ? sc.climberName : null;
+      // A climber level on points with another chaser is not "coming" ahead
+      // of them: name nobody then (the app's leaderTease, second simulator pass P3).
+      if (climber !== null) {
+        var totalsT = (sc && sc.totals) || [];
+        var mineT = totalsT.filter(function (x) { return x.name === climber; })[0];
+        if (mineT && totalsT.some(function (x) { return x.name !== climber && leaders.indexOf(x.name) === -1 && x.total === mineT.total; })) climber = null;
+      }
       var tease = leaders.length === 0 ? b('allLevel')
         : leaders.length > 1 ? (climber ? bf('leadTogether', names(leaders), climber) : bf('leadTogetherAlone', names(leaders)))
         : climber ? bf('leads', leaders[0], climber) : bf('leadsAlone', leaders[0]);
