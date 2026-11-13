@@ -10,9 +10,9 @@
      reuses the live join page's lines without the game's name (DRAFT for
      Guy's ruling if Blag wants its own). -->
 <meta property="og:site_name" content="Antics"><meta property="og:title" content="Join our room"><meta property="og:description" content="Tap to join on your own phone. No download, no sign-up."><meta property="og:type" content="website"><meta property="og:image" content="https://anticsapp.com/img/og-card.png">
-<script>(function(){location.replace('/j/'+location.search+location.hash);})();</script>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
   <meta name="theme-color" content="#0E0A1F">
-</head><body><p>Redirecting… <a href="/j/">Tap here</a></p></body></html>
+</head><body><p>Redirecting… <a id="go" href="/j/">Tap here</a></p>
+<script>(function(){var u='/j/'+location.search+location.hash;try{var a=document.getElementById('go');if(a)a.href=u;}catch(e){}location.replace(u);})();</script></body></html>
