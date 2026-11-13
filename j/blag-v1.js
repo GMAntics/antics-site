@@ -1024,7 +1024,8 @@
     add(qr, box, el('p', null, ctx.fmt('scanToJoin', 'anticsapp.com/j/' + v.code)));
     add(grid, left, qr);
     st.appendChild(grid);
-    ctx.drawQr(box, qr, v.code);
+    // The Blag invite form, never the Imposter one (second 1.1.6 review, links-1).
+    ctx.drawQr(box, qr, v.code, 'blag');
   }
 
   // --- the frame's moving parts ---------------------------------------------
@@ -1144,7 +1145,7 @@
       D.barFill.style.transform = 'scaleX(' + frac.toFixed(3) + ')';
       var secs = Math.ceil(left / 1000);
       D.secs.textContent = String(secs);
-      D.secs.setAttribute('aria-label', bf('timeLeftA11y', secs));
+      D.secs.setAttribute('aria-label', secs === 1 && b('timeLeftOneA11y') ? b('timeLeftOneA11y') : bf('timeLeftA11y', secs));
       D.timer.classList.toggle('pulse', secs <= 5 && secs > 0 && (v.status === 'writing' || v.status === 'voting'));
       D.timer.classList.toggle('small', v.status === 'revealing' || v.status === 'scored');
     }
@@ -1243,6 +1244,6 @@
     /** The page's join copy for a link that says it is a Blag room. */
     web: w,
     /** The app's ruled share line for a Blag room. */
-    shareText: function (code) { return bf('shareMessage', code, 'https://anticsapp.com/j/?room=' + code + '&k=blag'); }
+    shareText: function (code) { return bf('shareMessage', code, 'https://anticsapp.com/j/blag/?room=' + code); }
   };
 })();
