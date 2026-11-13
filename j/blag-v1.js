@@ -506,6 +506,9 @@
     return n;
   }
   function post(route, body) {
+    // A refused Start or Another lap says why until the next tap or the lap
+    // begins (the app's startError, second simulator pass P1): the tap clears it.
+    if (route === 'start') D.error.textContent = '';
     return ctx.api(route, ctx.mine(stamped(route, body))).then(function (r) {
       if (!ctx.take(r) && r.data && r.data.error) D.error.textContent = errorLine(r.data.error);
       return r;
@@ -1096,7 +1099,11 @@
     document.title = 'Blag | Antics';
     document.body.classList.toggle('bl-tv', tv);
     document.body.classList.add('bl-on');
-    if (v.status !== S.status) { S.status = v.status; if (D.sheet && !D.sheet.hidden) closeSheet(); }
+    if (v.status !== S.status) {
+      // Leaving the lobby or the end screen: a start refusal there is stale.
+      if (S.status === 'lobby' || S.status === 'over') D.error.textContent = '';
+      S.status = v.status; if (D.sheet && !D.sheet.hidden) closeSheet();
+    }
     if (v.round !== S.round) {
       if (D.sheet && !D.sheet.hidden) closeSheet();
       S.round = v.round; S.editing = false; S.notice = null; S.pick = null; S.pendingVote = null;
