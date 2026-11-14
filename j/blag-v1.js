@@ -169,6 +169,7 @@
     round: -1,          // the round the local state belongs to
     editing: false,     // "Change answer" reopened the field
     notice: null,       // the server's soft word on the last answer, this round only
+    late: null,         // the step (stepKeyOf) a tap of ours reached after it closed: "Too late for this round."
     pick: null,         // the spotlight's Best lie pick, before the truth fires
     pendingVote: null,  // a vote tapped and not yet confirmed by a view
     sawReveal: {},      // rounds this tab drew a reveal step for ("You missed one")
@@ -206,6 +207,15 @@
     try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ code: v.code, round: v.round, seat: v.you.id, text: text })); } catch (e) {}
   }
   function clearDraft() { try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+  // TOO LATE (O2, 14 Nov 2026): the server's 200 to an answer or vote that
+  // arrived after its step closed says `late: true`. One line, on the step the
+  // page is showing, cleared at the next step (the app's blagStepKey).
+  function stepKeyOf(v) { return v.round + '|' + v.status + '|' + (v.blag.step || 0) + '|' + (v.blag.shown ? v.blag.shown.index : -1); }
+  function markLate(r) {
+    if (!r || !r.ok || !r.data || r.data.late !== true) return;
+    var v = ctx.view();
+    if (v && v.kind === 'blag' && v.blag) S.late = stepKeyOf(v);
+  }
 
   // --- the screen's fixed frame, built once ----------------------------------
   var D = {};
@@ -218,6 +228,9 @@
     D.aa = button('bl-aa', 'Aa', toggleAa);
     D.aa.setAttribute('aria-label', w('aa'));
     add(D.head, D.round, D.code, D.aa);
+    D.late = el('p', 'bl-small bl-late');
+    D.late.setAttribute('role', 'status');
+    D.late.hidden = true;
     D.timer = el('div', 'bl-timer');
     D.bar = el('div', 'bl-bar');
     D.barFill = el('i');
@@ -252,7 +265,7 @@
     D.tvslot = el('div', 'tvslot');
     D.tvslot.id = 'tvslot-blag';
     D.leave = button('link', b('leaveRoom'), function () { ctx.leave(); });
-    add(sec, D.head, D.timer, D.stage, D.write, D.after, D.actions, D.error, D.tvslot, D.leave);
+    add(sec, D.head, D.timer, D.late, D.stage, D.write, D.after, D.actions, D.error, D.tvslot, D.leave);
     D.input.addEventListener('input', onType);
     D.input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); onSend(); } });
     buildSheet();
@@ -511,6 +524,7 @@
     if (route === 'start') D.error.textContent = '';
     return ctx.api(route, ctx.mine(stamped(route, body))).then(function (r) {
       if (!ctx.take(r) && r.data && r.data.error) D.error.textContent = errorLine(r.data.error);
+      if (route === 'vote') { markLate(r); draw(false); }
       return r;
     });
   }
@@ -1112,6 +1126,9 @@
       if (D.input) { var dr = v.status === 'writing' && v.you ? readDraft(v) : null; D.input.value = dr === null ? '' : dr; }
       S.lastStage = ''; D.error.textContent = '';
     }
+    if (S.late !== null && S.late !== stepKeyOf(v)) S.late = null;
+    var lateNow = !tv && S.late !== null;
+    if (D.late.hidden === lateNow) { D.late.textContent = lateNow ? b('tooLate') : ''; D.late.hidden = !lateNow; }
     var me = v.blag.me || {};
     // A tapped vote stands until the view either confirms it or moves on.
     if (S.pendingVote && (v.status !== 'voting' || me.vote === S.pendingVote.id || me.tap === S.pendingVote.id)) S.pendingVote = null;
@@ -1193,6 +1210,7 @@
     }
     if (!ctx.take(r) && r.data && r.data.error) D.error.textContent = errorLine(r.data.error);
     else D.error.textContent = '';
+    markLate(r);
     draw(true);
   }
   function sendAnswer(body, btn) {
