@@ -896,6 +896,11 @@
       var n = (v.players || []).length;
       var other = bl.settingsMode === 'who_said_that' ? 'about_us' : 'who_said_that';
       st.appendChild(bigButton(b('anotherLap'), function () { return post('start', { mode: bl.settingsMode }); }));
+      // The switch draws only when the room can deal the other mode (the
+      // app's blagModeHasCards, 1.1.6 Android pass review, 14 Nov 2026), so a
+      // web player who inherits hosting is never offered a mode the server
+      // answers with "No cards left to deal".
+      if (!modeDeals(bl, other)) return finishEnd(st, v);
       var sw = button('ghost', other === 'who_said_that' ? b('switchToWst') : b('switchToAboutUs'), function () {
         if (S.busy) return;
         S.busy = true;
@@ -908,8 +913,30 @@
     } else {
       st.appendChild(el('p', 'bl-wait', bf('waitingForName', hostName(v))));
     }
+    finishEnd(st, v);
+  }
+
+  function finishEnd(st, v) {
     st.appendChild(button('ghost', b('sendNight'), function () { shareRecap(v, this); }));
     prepareRecap(v);
+  }
+
+  // Whether this room can deal `mode` from its chosen decks. THE SERVER
+  // DECIDES: each decksOpen row carries `deals` per mode, with the free
+  // slices and the creator rule applied. A row with no `deals` (an older
+  // server) or a deck id the view does not list counts as having cards, as
+  // in the app: an unknown never hides a mode. No chosen deck reads every
+  // listed deck, as the app does.
+  function modeDeals(bl, mode) {
+    var open = bl.decksOpen || [];
+    var chosen = bl.decks && bl.decks.length ? bl.decks : open.map(function (d) { return d.id; });
+    if (!chosen.length) return true;
+    return chosen.some(function (id) {
+      var row = null;
+      open.forEach(function (d) { if (d.id === id) row = d; });
+      if (!row || !row.deals) return true;
+      return row.deals[mode] === true;
+    });
   }
 
   // --- the recap card: a canvas, shared through the system sheet ------------
