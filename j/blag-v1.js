@@ -1268,12 +1268,16 @@
     // /get reads ?c= only (it reaches the App Store ct and Play's install referrer).
     a.href = '/get/?c=web-blag';
     a.addEventListener('click', function () {
-      var v = ctx.view(), cur = ctx.current();
-      var where = cur !== 'blag' ? 'expired' : v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';
-      ctx.track('room_install_tapped', { round_n: v ? v.round : 0, kind: 'blag', surface: 'end_screen', where: where });
+      var v = ctx.view();
+      ctx.track('room_install_tapped', { round_n: v ? v.round : 0, kind: 'blag', surface: 'end_screen', where: footWhere() });
     });
     add(foot, document.createTextNode(w('footLead') + ' '), a);
     return foot;
+  }
+  /** The `where` prop the footer's tap and impression rows carry. */
+  function footWhere() {
+    var v = ctx.view(), cur = ctx.current();
+    return cur !== 'blag' ? 'expired' : v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';
   }
   /** Where the footer sits now, if anywhere: the end screen, the lobby after a
    *  first end screen, and the page a Blag room leaves behind. */
@@ -1285,7 +1289,12 @@
     if (cur === 'blag' && v && v.kind === 'blag' && (v.status === 'over' || (v.status === 'lobby' && footSeen()))) spot = ctx.$('screen-blag');
     else if ((cur === 'gone' || cur === 'join') && footSeen()) spot = ctx.$('screen-' + cur);
     if (!spot) { if (f.parentNode) f.parentNode.removeChild(f); return; }
-    if (f.parentNode !== spot) spot.appendChild(f);
+    if (f.parentNode !== spot) {
+      spot.appendChild(f);
+      // The footer's impression (delta A-104): once each time it is placed.
+      var v2 = ctx.view();
+      ctx.track('room_install_shown', { round_n: v2 ? v2.round : 0, kind: 'blag', surface: 'end_screen', where: footWhere() });
+    }
   }
 
   // --- wiring ----------------------------------------------------------------
