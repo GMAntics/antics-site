@@ -2145,7 +2145,11 @@
     // app repo): room_link_shared, room_left and room_screen_opened. Each
     // joins RULED only on his word, and no other line changes. No event ever
     // carries a player name, a room code, a token, the word or the hint.
-    var RULED = ['room_created', 'room_joined', 'room_join_failed', 'room_started', 'room_reveal_viewed', 'room_install_tapped'];
+    // room_install_shown was RULED IN by Guy on 15 Nov 2026 ("your reccys are
+    // fine for all these", app repo ops/analytics/CONTRACT.md delta A-104):
+    // one impression per appearance of an install ask, so taps can be read
+    // over views. Same kind and surface props as room_install_tapped.
+    var RULED = ['room_created', 'room_joined', 'room_join_failed', 'room_started', 'room_reveal_viewed', 'room_install_tapped', 'room_install_shown'];
     var SID = 'web-' + Math.random().toString(36).slice(2, 10);
     // How this tab arrived (the 1.1.5 delta for web= arrivals). The 1.1.4 app
     // cannot open a room link, so it hands /j/ links to the browser with
@@ -2186,9 +2190,20 @@
       try { var had = sessionStorage.getItem(IMP_REVEAL_KEY); if (had && had !== code && !revealed) sessionStorage.removeItem(IMP_REVEAL_KEY); } catch (e) {}
     }
     if (ARRIVAL === 'app_fallback') $('wall').hidden = true;
+    // The ended line's impression (delta A-104): once per room per page load,
+    // and only when the line is actually drawn.
+    var goneShownFor = null;
     function placeGoneGet() {
       var gone = $('screen-gone');
       $('gone-get').hidden = ARRIVAL === 'app_fallback' || !impRevealSeen() || !!gone.querySelector('.bl-foot');
+      if (!$('gone-get').hidden) {
+        var seenRoom = null;
+        try { seenRoom = sessionStorage.getItem(IMP_REVEAL_KEY); } catch (e) {}
+        if (seenRoom !== goneShownFor) {
+          goneShownFor = seenRoom;
+          track('room_install_shown', { round_n: 0, kind: 'imposter', surface: 'gone' });
+        }
+      }
     }
     function track(name, props) {
       if (RULED.indexOf(name) === -1 || !USE_PROD || LOCAL) return;
@@ -2396,6 +2411,9 @@
         if (view.status === 'revealed' && lastStatus !== 'revealed') {
           track('room_reveal_viewed', { via: 'web', round_n: view.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll', limited_n: limitedN });
           limitedN = 0;
+          // The reveal block's impression (delta A-104): it is drawn on every
+          // reveal except for a web=1 tab, which never sees it.
+          if (!$('wall').hidden) track('room_install_shown', { round_n: view.round, kind: 'imposter', surface: 'reveal' });
         }
         lastStatus = view.status;
         lastRoundDrawn = view.round;
