@@ -514,7 +514,12 @@
     var n = button('primary bl-go' + (cls ? ' ' + cls : ''), text, function () {
       if (S.busy) return;
       S.busy = true; n.disabled = true;
-      Promise.resolve(onTap()).then(function () { S.busy = false; n.disabled = false; });
+      // Always let go of the button, whether the tap worked or threw: a
+      // stuck busy flag froze every later tap until a reload (19 Nov 2026).
+      var done = function () { S.busy = false; n.disabled = false; };
+      var p;
+      try { p = Promise.resolve(onTap()); } catch (e) { done(); throw e; }
+      p.then(done, done);
     });
     return n;
   }
