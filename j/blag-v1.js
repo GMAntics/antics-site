@@ -52,9 +52,9 @@
     bestAboutYou: 'It’s about you. Write the best one anyway.',
     whichFunniest: 'Which one’s funniest?',
     doubleVote: 'This one is about you, so your vote counts double.',
-    pickedIt: '{0} picked it',
+    bestPoints: '+{0} · {1}',
+    votedDouble: '{0} ×2',
     nobodyPicked: 'Nobody picked these',
-    namedPick: '{0}’s pick',
     bestAnswer: 'Best answer',
     jointBest: 'Joint best',
     cleanSweep: 'Clean sweep',
@@ -1001,8 +1001,10 @@
   /**
    * BEST ANSWER'S REVEAL (view contract section 4): the unvoted batch first,
    * then each answer that got votes, fewest first, then the top. The points line
-   * ("+3 · Guy ×2, Robo"), "{name}'s pick" and the author, or the House, are
-   * drawn only once the step is `flipped` (the server sends voters then). Before the flip nothing else about an option is drawn: no
+   * ("+3 · Guy ×2, Robo") and the author, or the House, are drawn only once
+   * the step is `flipped`. There is no separate "{name}'s pick" badge (Guy,
+   * 19 Nov 2026: "'Guy's pick' and 'Guy picked it' ? im confused"): the ×2 on
+   * the points line carries it, as in the app (the server sends voters then). Before the flip nothing else about an option is drawn: no
    * "yours", no placeholder that differs between options, no count. No hearts.
    */
   /**
@@ -1021,16 +1023,18 @@
   function bestPointsLine(voters, namedPick, namedName) {
     // Voters keep the server's order, the named player marked in place
     // ("+3 · Robo, Guy ×2"), exactly as the app's bestPoints does. The count
-    // trusts namedPick, not the name match, as the app does too.
+    // trusts namedPick, not the name match, as the app does too. Both lines are
+    // the app's own templates (bestPoints, votedDouble), exported to
+    // blag-i18n-v1.js; the names are joined with ', ' as the app joins them.
     var list = (voters || []).filter(Boolean);
     if (!list.length) return null;
     var marked = false;
     var parts = list.map(function (n) {
-      if (!marked && namedPick && namedName && n === namedName) { marked = true; return n + ' ×' + BEST_NAMED_VOTE; }
+      if (!marked && namedPick && namedName && n === namedName) { marked = true; return bf('votedDouble', n); }
       return n;
     });
     var total = list.length + (namedPick ? BEST_NAMED_VOTE - 1 : 0);
-    return bf('plus', total) + ' · ' + parts.join(', ');
+    return bf('bestPoints', total, parts.join(', '));
   }
   function bestStep(v, st, step) {
     var bl = v.blag;
@@ -1055,25 +1059,29 @@
       // "Best answer" (or "Joint best") is the headline; "Clean sweep" sits under it.
       st.appendChild(el('p', 'bl-flip', step.tie ? b('jointBest') : b('bestAnswer')));
       if (step.sweep) st.appendChild(el('p', 'bl-kicker bl-hot', b('cleanSweep')));
+      // The doubled final round (mirrors the app's BestStep, 19 Nov 2026): the
+      // points lines stay undoubled ("+3"), the table credits double, so the top
+      // step says why once, with the same "last one" line the writing screen shows.
+      var lastLine = bl.double ? b('lastOne') : '';
+      if (lastLine) st.appendChild(el('p', 'bl-kicker bl-hot', lastLine));
       // The top step is announced once.
       var tk = v.code + ':' + v.round + ':top';
       if (!S.buzzed[tk]) {
         S.buzzed[tk] = true;
-        D.say.textContent = (step.tie ? b('jointBest') : b('bestAnswer')) + (step.sweep ? '. ' + b('cleanSweep') : '');
+        D.say.textContent = (step.tie ? b('jointBest') : b('bestAnswer')) + (step.sweep ? '. ' + b('cleanSweep') : '') + (lastLine ? '. ' + lastLine : '');
         setTimeout(function () { D.say.textContent = ''; }, 3000);
       }
     }
     (step.options || []).forEach(function (o) {
       var card = el('div', 'bl-card' + (step.kind === 'top' ? ' bl-truth' : ''));
       add(card, el('p', 'bl-answer', quoted(o.text)));
-      // The points line (who gave them) and the named player's pick wait for
-      // the flip with the writer (19 Nov 2026, mirrors the app): nobody may vote
+      // The points line (who gave them, the named player's vote marked ×2) waits
+      // for the flip with the writer (19 Nov 2026, mirrors the app): nobody may vote
       // for their own answer, so the voters' names would point at the writer by
       // who is missing.
       var voters = flipped ? (o.voters || []) : [];
       var pts = bestPointsLine(voters, flipped && !!o.namedPick, spotName);
-      if (pts) card.appendChild(el('p', 'bl-say', pts));
-      if (flipped && o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
+      if (pts) card.appendChild(el('p', 'bl-say bl-pts', pts));
       var slot = el('div', 'bl-flipslot');
       var who = flipped ? authorLine(o) : null;
       slot.appendChild(el('p', 'bl-author', who || '…'));

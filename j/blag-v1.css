@@ -115,6 +115,8 @@ body.bl-on #screen-blag .bl-head .bl-code:empty { display: none; }
 .bl-hot { color: var(--b-hot); }
 .bl-good { color: var(--b-accent); }
 .bl-say { font-size: calc(20px * var(--b-scale)); font-weight: 700; color: var(--b-body); margin: 6px 0 12px; }
+/* Best answer's points line ("+3 · Guy ×2, Robo"): a long name wraps, never overflows. */
+.bl-pts { overflow-wrap: anywhere; }
 .bl-small { font-size: calc(18px * var(--b-scale)); color: var(--b-dim); font-weight: 600; margin-top: 10px; }
 .bl-qsmall { margin: 0 0 10px; }
 .bl-big { font-size: calc(26px * var(--b-scale)); font-weight: 900; line-height: 1.2; margin: 14px 0; }
