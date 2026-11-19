@@ -1040,9 +1040,12 @@
     (step.options || []).forEach(function (o) {
       var card = el('div', 'bl-card' + (step.kind === 'top' ? ' bl-truth' : ''));
       add(card, el('p', 'bl-answer', quoted(o.text)));
-      var voters = o.voters || [];
+      // Who picked it and the named player's pick wait for the flip with the
+      // writer (19 Nov 2026, mirrors the app): nobody may vote for their own
+      // answer, so the voters' names would point at the writer by who is missing.
+      var voters = flipped ? (o.voters || []) : [];
       if (voters.length) card.appendChild(el('p', 'bl-say', bf('pickedIt', names(voters))));
-      if (o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
+      if (flipped && o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
       var slot = el('div', 'bl-flipslot');
       var who = flipped ? authorLine(o) : null;
       slot.appendChild(el('p', 'bl-author', who || '…'));
