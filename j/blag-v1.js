@@ -51,7 +51,7 @@
     bestAboutLine: 'Answer for {0}. Make it funny.',
     bestAboutYou: 'It’s about you. Write the best one anyway.',
     whichFunniest: 'Which one’s funniest?',
-    doubleVote: 'Your vote counts double.',
+    doubleVote: 'This one is about you, so your vote counts double.',
     pickedIt: '{0} picked it',
     nobodyPicked: 'Nobody picked these',
     namedPick: '{0}’s pick',
@@ -1000,12 +1000,37 @@
   }
   /**
    * BEST ANSWER'S REVEAL (view contract section 4): the unvoted batch first,
-   * then each answer that got votes, fewest first, then the top. The voters'
-   * names and "{name}'s pick" are drawn as soon as the step is reached (the
-   * server sends them then); the author, or the House, only once the step is
-   * `flipped`. Before the flip nothing else about an option is drawn: no
+   * then each answer that got votes, fewest first, then the top. The points line
+   * ("+3 · Guy ×2, Robo"), "{name}'s pick" and the author, or the House, are
+   * drawn only once the step is `flipped` (the server sends voters then). Before the flip nothing else about an option is drawn: no
    * "yours", no placeholder that differs between options, no count. No hearts.
    */
+  /**
+   * BEST ANSWER'S POINTS LINE (Guy's play test, 19 Nov 2026: "instead of robo
+   * picked it maybe '1 point from Robo'"). Under each voted answer: the points
+   * it earned and who gave them, "+3 · Guy ×2, Robo", in a form that needs no
+   * grammar in any language. The named player's vote on an about-a-player
+   * round is worth two (the server's BEST_NAMED_VOTE), so their name carries
+   * "×2" and leads. N is the vote value BEFORE the final round's doubling:
+   * the reveal shows no per-answer score anywhere else, and the doubled round
+   * keeps its own "last one" banner. `voters` and `namedPick` arrive only at
+   * the flip (the server sends voters empty before it), so this draws nothing
+   * earlier. No votes: null, and the answer shows what it always did.
+   */
+  var BEST_NAMED_VOTE = 2;
+  function bestPointsLine(voters, namedName) {
+    var list = (voters || []).filter(Boolean);
+    if (!list.length) return null;
+    var named = namedName && list.indexOf(namedName) !== -1 ? namedName : '';
+    var parts = [], total = 0;
+    if (named) { parts.push(named + ' ×' + BEST_NAMED_VOTE); total += BEST_NAMED_VOTE; }
+    list.forEach(function (n) {
+      if (named && n === named) { named = null; return; }
+      parts.push(n);
+      total += 1;
+    });
+    return bf('plus', total) + ' · ' + parts.join(', ');
+  }
   function bestStep(v, st, step) {
     var bl = v.blag;
     var spotName = (bl.spotlight && bl.spotlight.name) || '';
@@ -1040,11 +1065,13 @@
     (step.options || []).forEach(function (o) {
       var card = el('div', 'bl-card' + (step.kind === 'top' ? ' bl-truth' : ''));
       add(card, el('p', 'bl-answer', quoted(o.text)));
-      // Who picked it and the named player's pick wait for the flip with the
-      // writer (19 Nov 2026, mirrors the app): nobody may vote for their own
-      // answer, so the voters' names would point at the writer by who is missing.
+      // The points line (who gave them) and the named player's pick wait for
+      // the flip with the writer (19 Nov 2026, mirrors the app): nobody may vote
+      // for their own answer, so the voters' names would point at the writer by
+      // who is missing.
       var voters = flipped ? (o.voters || []) : [];
-      if (voters.length) card.appendChild(el('p', 'bl-say', bf('pickedIt', names(voters))));
+      var pts = bestPointsLine(voters, flipped && o.namedPick ? spotName : '');
+      if (pts) card.appendChild(el('p', 'bl-say', pts));
       if (flipped && o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
       var slot = el('div', 'bl-flipslot');
       var who = flipped ? authorLine(o) : null;
