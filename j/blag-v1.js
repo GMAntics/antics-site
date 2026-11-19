@@ -1503,16 +1503,21 @@
   // the join screen after its own Leave keeps the where and round it last had
   // in the room; CONTRACT.md A-104 allows no 'left' value, so none is invented.
   // 'expired' stays for the screen a room that ended leaves behind.
-  var lastFoot = null;   // { where, round } the footer last had on a Blag screen
+  // The memory is per room: the round is the room's live round at the Leave,
+  // and the where is where the footer last sat IN THAT ROOM. A Leave from a
+  // room where the footer never sat has no allowed where value (a 'left' value
+  // is listed for Guy, not invented), so the footer does not follow that tab.
+  var lastFoot = null;   // { code, where, round } of the Blag room this tab is or was in
   var leftByTap = false; // this tab's own Leave took it off the room
+  function leftWithFoot() { return leftByTap && !!lastFoot && !!lastFoot.where; }
   function footWhere() {
     var v = ctx.view(), cur = ctx.current();
-    if (cur !== 'blag') return leftByTap && lastFoot ? lastFoot.where : 'expired';
+    if (cur !== 'blag') return leftWithFoot() ? lastFoot.where : 'expired';
     return v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';
   }
   function footRound() {
     var v = ctx.view();
-    if (ctx.current() !== 'blag' && leftByTap && lastFoot) return lastFoot.round;
+    if (ctx.current() !== 'blag' && leftWithFoot()) return lastFoot.round;
     return v ? v.round : 0;
   }
   /** Where the footer sits now, if anywhere: the end screen, the lobby after a
@@ -1522,16 +1527,21 @@
     var f = footNode();
     var cur = ctx.current(), v = ctx.view();
     if (cur === 'gone') leftByTap = false;
+    if (cur === 'blag' && v && v.kind === 'blag') {
+      if (!lastFoot || lastFoot.code !== v.code) lastFoot = { code: v.code, where: null, round: v.round };
+      lastFoot.round = v.round;
+      leftByTap = false;
+    }
     var spot = null;
     if (cur === 'blag' && v && v.kind === 'blag' && (v.status === 'over' || (v.status === 'lobby' && footSeen()))) spot = ctx.$('screen-blag');
-    else if ((cur === 'gone' || cur === 'join') && footSeen()) spot = ctx.$('screen-' + cur);
+    else if ((cur === 'gone' || cur === 'join') && footSeen() && !(cur === 'join' && leftByTap && !leftWithFoot())) spot = ctx.$('screen-' + cur);
     if (!spot) { if (f.parentNode) f.parentNode.removeChild(f); return; }
     if (f.parentNode !== spot) {
       spot.appendChild(f);
       // The footer's impression (delta A-104): once each time it is placed.
       ctx.track('room_install_shown', { round_n: footRound(), kind: 'blag', surface: 'end_screen', where: footWhere() });
     }
-    if (cur === 'blag' && v) { lastFoot = { where: footWhere(), round: v.round }; leftByTap = false; }
+    if (cur === 'blag' && v && lastFoot) lastFoot.where = footWhere();
   }
 
   // --- wiring ----------------------------------------------------------------
