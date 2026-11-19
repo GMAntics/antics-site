@@ -2579,6 +2579,17 @@
       show('update');
     }
     $('btn-update').addEventListener('click', function () { location.reload(); });
+    // The server refuses a join or a watch with not_imposter when this page
+    // does not carry a room's game marker (a Blag mode or a game newer than
+    // this page), before it sends any room, so the poll-path guard above never
+    // sees it. Say refresh, never "Something went wrong" (release review,
+    // 19 Nov 2026). Nothing was seated, so nothing is left.
+    function newerGame(r) {
+      if (!r || r.ok || !r.data || r.data.error !== 'not_imposter') return false;
+      $('screen-update').querySelector('.lead').textContent = tr('updateBody');
+      show('update');
+      return true;
+    }
 
     // --- BLAG (1.1.6, W3 of the app repo's ops/bluff-game-2026-11-08/SPEC.md) --
     // Its screens, styles and lines live in three versioned files beside this
@@ -2891,7 +2902,7 @@
           ? { via: 'web', kind: 'blag', method: method, players_n: view.players.length, arrival: ARRIVAL,
               reclaimed: r.data.reclaimed === true ? 'yes' : 'no', shared_name: looksShared(typedName, LANG) ? 'yes' : 'no' }
           : { via: 'web', method: method, players_n: view.players.length, arrival: ARRIVAL });
-        else track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown', arrival: ARRIVAL });
+        else { track('room_join_failed', { via: 'web', method: method, reason: r.data.error || 'unknown', arrival: ARRIVAL }); newerGame(r); }
       });
     });
     $('btn-create').addEventListener('click', function () {
@@ -3069,6 +3080,7 @@
             return;
           }
           if (r.status === 0 || r.status >= 500) { retryWatch(code); return; }
+          if (newerGame(r)) return;
           tvEntry(code, null, ERRORS[r.data.error] || tr('err_generic'));
         });
       });
