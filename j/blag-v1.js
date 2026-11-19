@@ -505,15 +505,18 @@
     var a = foldAnswer(shownText);
     return a.length > 0 && a === foldAnswer(m.text);
   }
-  /** One beat, read for the labelled reveal (the app's beatRead): a writer's own tap is never listed. */
-  function beatRead(beat, me, roundNames) {
+  /** One beat, read for the labelled reveal (the app's beatRead): once flipped a
+   *  writer's own tap is not listed; BEFORE the flip it is listed like any guess,
+   *  so nobody is named by absence (review fix, 19 Nov 2026). */
+  function beatRead(beat, me, roundNames, flipped) {
     var authors = (beat.authors || []).map(function (a) { return a.name; });
     var wrote = function (n) { return authors.indexOf(n) !== -1; };
-    var youWrote = wrote(me);
-    var guesses = (beat.guesses || []).filter(function (g) { return g.voter && g.target && !wrote(g.voter); });
+    var hidden = function (n) { return flipped && wrote(n); };
+    var youWrote = !!flipped && wrote(me);
+    var guesses = (beat.guesses || []).filter(function (g) { return g.voter && g.target && !hidden(g.voter); });
     var mine = youWrote ? null : guesses.filter(function (g) { return g.voter === me; })[0] || null;
     var others = guesses.filter(function (g) { return g.voter !== me; }).map(function (g) { return { kind: 'said', voter: g.voter, target: g.target, right: wrote(g.target) }; });
-    var listed = [me].concat(authors, guesses.map(function (g) { return g.voter; }));
+    var listed = [me].concat(flipped ? authors : [], guesses.map(function (g) { return g.voter; }));
     roundNames.forEach(function (n) { if (listed.indexOf(n) === -1) { others.push({ kind: 'no_vote', voter: n }); listed.push(n); } });
     return {
       authors: authors, youWrote: youWrote,
@@ -893,7 +896,7 @@
       else {
         var meN = tv || !v.you ? '\u0000' : v.you.name;
         var roundNames = seatsOf(v).filter(function (p) { return p.inRound; }).map(function (p) { return p.name; });
-        var rd = beatRead(step, meN, roundNames);
+        var rd = beatRead(step, meN, roundNames, bflip);
         var writer = rd.authors.length > 1 ? bf('greatMinds', names(rd.authors)) : rd.authors[0] || '';
         add(c, sectionLabel(b('writtenBy')));
         var slot2 = el('div', 'bl-flipslot');
