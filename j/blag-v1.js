@@ -163,6 +163,10 @@
   function modeName(mode) { return mode === 'who_said_that' ? b('modeWhoSaidThat') : b('modeAboutUs'); }
   function modeRule(mode) { return mode === 'who_said_that' ? b('ruleWhoSaidThat') : b('ruleAboutUs'); }
   var WRITE_SECONDS = { quick: 45, steady: 60, slow: 80 };
+  // The server's minimums (blag.ts, pinned in the app by ops/blag-app-test.mjs).
+  var ABOUT_US_MIN_PLAYERS = 3, WST_MIN_PLAYERS = 4;
+  function shortfall(mode, n) { return Math.max(0, (mode === 'who_said_that' ? WST_MIN_PLAYERS : ABOUT_US_MIN_PLAYERS) - (isFinite(n) ? Math.floor(n) : 0)); }
+  function moreToStart(n) { return n === 1 ? b('moreToStartOne') : bf('moreToStartMany', n); }
 
   // --- this tab's local state (never another seat's secret) -----------------
   var S = {
@@ -176,6 +180,10 @@
     buzzed: {},         // one buzz per flip and per truth
     lastStage: '',
     drawn: null,        // { round, step, status } of the picture the buttons were drawn on
+    card: null,         // cardKeyOf the card the answer box belongs to
+    lastStatus: null,   // the status drawn last (leaving writing empties the box)
+    myAnswer: null,     // { code, round, text }: what this seat wrote this round
+    bannered: {},       // rooms and rounds this tab showed the last-round banner for
     busy: false
   };
   // Every tap names the picture it was made on (round, step, status), so the
@@ -199,14 +207,16 @@
   function readDraft(v) {
     try {
       var d = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null');
-      if (d && d.code === v.code && d.round === v.round && d.seat === v.you.id && typeof d.text === 'string') return d.text.slice(0, 200);
+      if (d && d.code === v.code && d.round === v.round && d.card === cardKeyOf(v) && d.seat === v.you.id && typeof d.text === 'string') return d.text.slice(0, 200);
     } catch (e) {}
     return null;
   }
   function saveDraft(v, text) {
-    try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ code: v.code, round: v.round, seat: v.you.id, text: text })); } catch (e) {}
+    try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify({ code: v.code, round: v.round, card: cardKeyOf(v), seat: v.you.id, text: text })); } catch (e) {}
   }
   function clearDraft() { try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {} }
+  /** One card: the round, the question and the spotlight (a re-deal changes the last two). */
+  function cardKeyOf(v) { return v.code + '|' + v.round + '|' + (v.blag.question || '') + '|' + ((v.blag.spotlight && v.blag.spotlight.name) || ''); }
   // TOO LATE (O2, 14 Nov 2026): the server's 200 to an answer or vote that
   // arrived after its step closed says `late: true`. One line, on the step the
   // page is showing, cleared at the next step (the app's blagStepKey).
@@ -243,6 +253,9 @@
     // The answer field lives OUTSIDE the stage, so a redraw never takes the
     // keyboard away or loses a letter.
     D.write = el('div', 'bl-write');
+    D.form = el('form', 'bl-form');
+    D.form.setAttribute('action', '#');
+    D.form.noValidate = true;
     D.input = el('input', 'bl-input');
     D.input.type = 'text';
     D.input.setAttribute('autocomplete', 'off');
@@ -255,7 +268,8 @@
     D.send = button('primary bl-send', b('send'), onSend);
     D.lie = button('link bl-small', b('lieForMe'), onLie);
     D.skip = button('link bl-small', b('skipCard'), onSkip);
-    add(D.write, D.input, D.count, D.send, D.lie, D.skip);
+    add(D.form, D.input, D.count, D.send);
+    add(D.write, D.form, D.lie, D.skip);
     D.write.hidden = true;
     D.after = el('div', 'bl-after');
     D.after.setAttribute('aria-live', 'polite');
@@ -267,7 +281,21 @@
     D.leave = button('link', b('leaveRoom'), function () { ctx.leave(); });
     add(sec, D.head, D.timer, D.late, D.stage, D.write, D.after, D.actions, D.error, D.tvslot, D.leave);
     D.input.addEventListener('input', onType);
-    D.input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); onSend(); } });
+    // Return sends (prod round 19 Nov 2026, problem 7). The box sits in a form,
+    // so a phone keyboard's Go or Send submits it too; never while a composition
+    // (an IME) is still open.
+    D.input.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.keyCode === 13) && !e.isComposing) { e.preventDefault(); onSend(); }
+    });
+    D.form.addEventListener('submit', function (e) { e.preventDefault(); onSend(); });
+    // THE LAST ROUND BANNER (build 87 pass, item 3, the app's BlagLastRoundBanner):
+    // over the header and the clock, never takes a tap, clears itself.
+    D.banner = el('div', 'bl-banner');
+    D.banner.setAttribute('aria-hidden', 'true');
+    D.banner.hidden = true;
+    D.say = el('p', 'bl-sr');
+    D.say.setAttribute('aria-live', 'assertive');
+    add(sec, D.banner, D.say);
     buildSheet();
   }
 
@@ -400,8 +428,18 @@
     if (r.isSpotlight) {
       // "Nobody missed it." reads as everyone found the truth: say so only
       // when someone voted (the app's no_votes line, second simulator pass P2).
-      var votes = (bl.options || []).reduce(function (n, o) { return n + ((o.voters || []).length); }, 0);
+      var voterNames = [];
+      (bl.options || []).forEach(function (o) { (o.voters || []).forEach(function (n) { if (voterNames.indexOf(n) === -1) voterNames.push(n); }); });
+      var votes = voterNames.length;
       if (r.missedN === 0 && bl.options != null && votes === 0) return b('nobodyVoted');
+      // "Nobody missed it." when only one of three voted read as everyone
+      // found it (prod round 19 Nov 2026, problem 9): when some seat in the
+      // round left no vote, say who did find it instead ("Priya knew it.").
+      if (r.missedN === 0 && bl.options != null) {
+        var spotN = bl.spotlight && bl.spotlight.name;
+        var could = seatsOf(v).filter(function (p) { return p.inRound && p.name !== spotN; }).length;
+        if (votes < could) return bf('knew', names(voterNames));
+      }
       return r.missedN === 0 ? b('nobodyMissed') : r.missedN === 1 ? b('missedItOne') : bf('missedItMany', r.missedN);
     }
     if (r.nearTruth) return b('youKnew');
@@ -455,6 +493,54 @@
     var top = Math.max.apply(null, totals.map(function (t) { return t.total; }));
     if (top <= 0) return [];
     return totals.filter(function (t) { return t.total === top; }).map(function (t) { return t.name; });
+  }
+
+  // --- build 87 pass (19 Nov 2026): the app's blagLocal and BlagReveal, line for line
+  function cleanAnswer(raw) { return Array.from(String(raw).replace(/[\r\n\t]+/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 40).join(''); }
+  function foldAnswer(x) { return cleanAnswer(x).toLowerCase().replace(/[.!?…,;:]+$/, '').trim(); }
+  /** What this tab wrote this round (kept from the writing view), against the answer on screen. */
+  function isMyShownAnswer(v, shownText) {
+    var m = S.myAnswer;
+    if (!m || m.code !== v.code || m.round !== v.round || !shownText || !m.text) return false;
+    var a = foldAnswer(shownText);
+    return a.length > 0 && a === foldAnswer(m.text);
+  }
+  /** One beat, read for the labelled reveal (the app's beatRead): a writer's own tap is never listed. */
+  function beatRead(beat, me, roundNames) {
+    var authors = (beat.authors || []).map(function (a) { return a.name; });
+    var wrote = function (n) { return authors.indexOf(n) !== -1; };
+    var youWrote = wrote(me);
+    var guesses = (beat.guesses || []).filter(function (g) { return g.voter && g.target && !wrote(g.voter); });
+    var mine = youWrote ? null : guesses.filter(function (g) { return g.voter === me; })[0] || null;
+    var others = guesses.filter(function (g) { return g.voter !== me; }).map(function (g) { return { kind: 'said', voter: g.voter, target: g.target, right: wrote(g.target) }; });
+    var listed = [me].concat(authors, guesses.map(function (g) { return g.voter; }));
+    roundNames.forEach(function (n) { if (listed.indexOf(n) === -1) { others.push({ kind: 'no_vote', voter: n }); listed.push(n); } });
+    return {
+      authors: authors, youWrote: youWrote,
+      you: mine ? { target: mine.target, right: wrote(mine.target) } : null,
+      fooledN: youWrote ? guesses.filter(function (g) { return !wrote(g.target); }).length : 0,
+      others: others
+    };
+  }
+  function quoted(text) { return '“' + text + '”'; }
+  /** WRITTEN BY, as a name and not a possessive: "Priya", "Great minds: Sam and Jo", "The House". */
+  function writtenByText(o) {
+    if (o.house) return b('theHouse');
+    if (!o.authors || !o.authors.length) return null;
+    var ns = o.authors.map(function (a) { return a.name; });
+    if (o.authors.every(function (a) { return a.fill; })) return bf('houseWroteOne', names(ns));
+    if (ns.length > 1) return bf('greatMinds', names(ns));
+    return ns[0];
+  }
+  function fooledLine(n) { return n === 0 ? b('nobodyFellYours') : n === 1 ? b('fellForYoursOne') : bf('fellForYoursMany', n); }
+  function sectionLabel(text) { return el('p', 'bl-label', String(text).toUpperCase()); }
+  /** A tick or a cross, then the words. Plain text, never a box: it is not a button. */
+  function verdict(right, text, big, a11y) {
+    var n = el('p', 'bl-verdict' + (big ? ' big' : ''));
+    if (right !== null) n.appendChild(el('span', 'bl-mark ' + (right ? 'right' : 'wrong'), right ? '✓' : '✗'));
+    n.appendChild(el('span', null, text));
+    if (a11y) n.setAttribute('aria-label', a11y);
+    return n;
   }
 
   // --- shared pieces ---------------------------------------------------------
@@ -516,7 +602,7 @@
       S.busy = true; n.disabled = true;
       // Always let go of the button, whether the tap worked or threw: a
       // stuck busy flag froze every later tap until a reload (19 Nov 2026).
-      var done = function () { S.busy = false; n.disabled = false; };
+      var done = function () { S.busy = false; n.disabled = false; syncSend(); };
       var p;
       try { p = Promise.resolve(onTap()); } catch (e) { done(); throw e; }
       p.then(done, done);
@@ -553,14 +639,22 @@
     var who = el('div', 'bl-panel');
     var cap = bl.settingsMode === 'who_said_that' ? 8 : 10;
     add(who, el('p', 'bl-kicker', ctx.fmt('inTheRoom', (v.players || []).length, cap)), playerList(v));
+    // THE SHORTFALL, on every phone from the first draw (build 87 pass, item 1,
+    // the app's blagStartShortfall against the server's minimum).
+    var short = shortfall(bl.settingsMode, (v.players || []).length);
+    if (short > 0) {
+      var sh = el('p', 'bl-short', moreToStart(short));
+      sh.setAttribute('role', 'status');
+      who.appendChild(sh);
+    }
     st.appendChild(who);
     st.appendChild(button('ghost', ctx.tr('share'), function () { ctx.share(this); }));
     if (host) {
-      var bounds = bl.settingsMode === 'who_said_that' ? 4 : 3;
       var go = bigButton(b('start'), function () { return post('start'); });
-      go.disabled = !v.canStart;
+      go.disabled = !v.canStart || short > 0;
       st.appendChild(go);
-      if (!v.canStart) st.appendChild(el('p', 'bl-small', (v.players || []).length > cap ? b('switchFullEight') : bf('needN', bounds)));
+      // The caption now only explains a full room; the shortfall line says the rest.
+      if (!v.canStart && short === 0 && (v.players || []).length > cap) st.appendChild(el('p', 'bl-small', b('switchFullEight')));
     } else {
       st.appendChild(el('p', 'bl-wait', bf('waitingFor', hostName(v))));
     }
@@ -585,7 +679,9 @@
   function writing(v, st, view) {
     var bl = v.blag, me = bl.me || {};
     var wst = bl.mode === 'who_said_that';
-    if (bl.double) st.appendChild(el('p', 'bl-kicker bl-hot', b('lastOne')));
+    // The last round is the banner over the header now (build 87 pass, 19 Nov
+    // 2026, the app's BlagLastRoundBanner); a seat not in the round keeps the line.
+    if (bl.double && !me.inRound) st.appendChild(el('p', 'bl-kicker bl-hot', b('lastOne')));
     if (!me.inRound) {
       add(st, questionNode(v), el('p', 'bl-big', b('nextOnesYours')), seatDots(v));
       return;
@@ -594,7 +690,7 @@
     var spot = !!me.isSpotlight;
     var line = wst ? b('wstLine') : spot ? b('spotlightLine') : bf('fakerLine', (bl.spotlight && bl.spotlight.name) || '');
     st.appendChild(el('p', 'bl-say', line));
-    if (wst && bl.roundInLap === 1) st.appendChild(el('p', 'bl-small', b('wstTapAnyone')));
+    // The wstTapAnyone line is no longer drawn (build 87 pass, item 5, as the app).
     if (me.nearTruth) {
       st.appendChild(el('p', 'bl-big bl-good', b('knewAtSubmit')));
       view.field = false;
@@ -626,7 +722,14 @@
     if (bl.mode === 'who_said_that') {
       var sh = bl.shown;
       if (!sh) return;
-      add(st, el('p', 'bl-kicker', b('whoWrote')), el('p', 'bl-answer bl-shown', sh.text), el('p', 'bl-small', bf('spotCount', sh.index + 1, sh.count)));
+      // YOUR OWN ANSWER explains itself (build 87 pass, item 6, the app's
+      // BlagVote): the vote view carries no `mine` for Who said that?, so this
+      // tab compares what it wrote this round with the answer on screen.
+      var yours = !ctx.isTv() && isMyShownAnswer(v, sh.text);
+      var dbl = bl.double && !ctx.isTv() ? el('p', 'bl-small bl-hot', b('lastOne')) : null;
+      add(st, dbl, el('p', 'bl-kicker', yours ? b('yoursHeading') : b('whoWrote')), el('p', 'bl-answer bl-shown', sh.text));
+      if (yours) st.appendChild(el('p', 'bl-say', b('yoursTapAny')));
+      st.appendChild(el('p', 'bl-small', bf('spotCount', sh.index + 1, sh.count)));
       if (ctx.isTv()) return;
       if (!me.inRound) { st.appendChild(el('p', 'bl-say', b('nextOnesYours'))); return; }
       var seats = seatsOf(v).filter(function (p) { return p.inRound && !p.away; });
@@ -653,6 +756,7 @@
     var opts = bl.options || [];
     var spot = !!me.isSpotlight;
     var readOnly = !me.inRound || spot || me.sitOut;
+    if (bl.double && !ctx.isTv()) st.appendChild(el('p', 'bl-small bl-hot', b('lastOne')));
     st.appendChild(el('h1', 'bl-q bl-ask', spot ? b('watchSquirm') : b('whichTrue')));
     if (me.sitOut) st.appendChild(el('p', 'bl-say bl-good', b('sitOut')));
     var picked = S.pendingVote && S.pendingVote.round === v.round ? S.pendingVote.id : me.vote;
@@ -721,21 +825,33 @@
       return;
     }
     if (step.kind === 'fake' || step.kind === 'house') {
+      // Labelled rows (build 87 pass, item 8, the app's OptionStep): the answer in
+      // quotes; WRITTEN BY and the writer by name ("…" then "Point." before the
+      // flip); YOU SAID with a cross when you fell for it; on your own fake, how
+      // many fell for it; EVERYONE ELSE, who else fell for it.
       var o = step.options[0];
       var flipped = step.flipped && beat === 'flip';
+      var meName = v.you ? v.you.name : null;
+      var voters = o.voters || [];
       var card = el('div', 'bl-card');
-      add(card, el('p', 'bl-answer', o.text));
-      if (o.voters && o.voters.length) add(card, el('p', 'bl-say', step.kind === 'house' ? bf('fellForHouse', names(o.voters)) : bf('fellFor', names(o.voters))));
-      // Every beat holds the same space, so nothing jumps when "Point." turns into the name.
+      add(card, el('p', 'bl-answer', quoted(o.text)), sectionLabel(b('writtenBy')));
       var slot = el('div', 'bl-flipslot');
-      if (!flipped) slot.appendChild(el('p', 'bl-point' + (beat === 'names' ? ' quiet' : ''), b('point')));
-      else {
-        add(slot, el('p', 'bl-flip', authorLine(o) || ''));
-        mergedTexts(o).forEach(function (x) { add(slot, el('p', 'bl-small', x)); });
-        add(slot, heart(v, o));
+      if (!flipped) {
+        var wait = el('p', 'bl-author', beat === 'names' ? '…' : b('point'));
+        wait.setAttribute('aria-label', b('point'));
+        slot.appendChild(wait);
+      } else {
+        add(slot, el('p', 'bl-author', writtenByText(o) || ''));
+        mergedTexts(o).forEach(function (x) { add(slot, el('p', 'bl-small', quoted(x))); });
         noteFlip(v, 'f' + bl.step);
       }
       card.appendChild(slot);
+      if (!tv && meName && voters.indexOf(meName) !== -1) add(card, sectionLabel(b('youSaid')), verdict(false, b('fooledYou'), true));
+      var iWrote = !tv && flipped && meName && o.authors && o.authors.some(function (a) { return a.name === meName && !a.fill; });
+      if (iWrote) card.appendChild(verdict(null, fooledLine(voters.length), true));
+      var othersV = tv ? voters : voters.filter(function (n) { return n !== meName; });
+      if (othersV.length) add(card, sectionLabel(b('everyoneElse')), el('p', 'bl-say', step.kind === 'house' ? bf('fellForHouse', names(othersV)) : bf('fellFor', names(othersV))));
+      if (flipped) { var hw = el('div', 'bl-center'); add(hw, heart(v, o)); if (hw.firstChild) card.appendChild(hw); }
       st.appendChild(holdable(card, o.id ? { round: v.round, optionId: o.id } : null));
       return;
     }
@@ -767,33 +883,51 @@
       // The beat's opening IS its flip (W1); its flipAt can land after the 4 s
       // beat ends (W2 note S2), so the author shows after 1.5 s, as in the app.
       var bflip = beatFlipped(v, since, flipIn);
+      // Labelled rows (build 87 pass, item 8, the app's BeatStep and beatRead):
+      // WRITTEN BY ("…" until the 1.5 s flip), YOU SAID with your pick and,
+      // after the flip, a tick and "You got it" or a cross and "Fooled you";
+      // EVERYONE ELSE, one row per other player. The boxed private line is gone.
       var c = el('div', 'bl-card');
-      add(c, el('p', 'bl-answer', step.option.text));
+      add(c, el('p', 'bl-answer', quoted(step.option.text)));
       if (step.greatMinds) add(c, el('p', 'bl-flip', b('greatMindsEveryone')));
       else {
-        var byTarget = {}, order = [];
-        (step.guesses || []).forEach(function (g) {
-          if (!byTarget[g.target]) { byTarget[g.target] = []; order.push(g.target); }
-          byTarget[g.target].push(g.voter);
-        });
-        order.forEach(function (t) {
-          var r = el('div', 'bl-score');
-          add(r, el('span', 'bl-score-name', t), el('span', 'bl-small', names(byTarget[t])));
-          c.appendChild(r);
-        });
-        var authors = (step.authors || []).map(function (a) { return a.name; });
+        var meN = tv || !v.you ? '\u0000' : v.you.name;
+        var roundNames = seatsOf(v).filter(function (p) { return p.inRound; }).map(function (p) { return p.name; });
+        var rd = beatRead(step, meN, roundNames);
+        var writer = rd.authors.length > 1 ? bf('greatMinds', names(rd.authors)) : rd.authors[0] || '';
+        add(c, sectionLabel(b('writtenBy')));
         var slot2 = el('div', 'bl-flipslot');
-        if (bflip && authors.length) {
-          slot2.appendChild(el('p', 'bl-flip', authors.length > 1 ? bf('greatMinds', names(authors)) : bf('authorIs', authors[0])));
-          noteFlip(v, 'b' + bl.step);
-        }
+        slot2.appendChild(el('p', 'bl-author', bflip && rd.authors.length ? writer : '…'));
+        if (bflip && rd.authors.length) noteFlip(v, 'b' + bl.step);
         c.appendChild(slot2);
+        if (!tv && v.you) {
+          if (rd.youWrote) c.appendChild(verdict(null, fooledLine(rd.fooledN), true));
+          else {
+            c.appendChild(sectionLabel(b('youSaid')));
+            if (rd.you) {
+              var words = bflip ? rd.you.target + '  ·  ' + (rd.you.right ? b('youGotIt') : b('fooledYou')) : rd.you.target;
+              c.appendChild(verdict(bflip ? rd.you.right : null, words, true));
+            } else c.appendChild(verdict(null, b('youNoVote'), true));
+          }
+        }
+        if (rd.others.length) {
+          c.appendChild(sectionLabel(b('everyoneElse')));
+          var ol = el('div', 'bl-others');
+          rd.others.forEach(function (r) {
+            var txt = r.kind === 'said' ? bf('saidName', r.voter, r.target) : bf('nameNoVote', r.voter);
+            var right = r.kind === 'said' && bflip ? r.right : null;
+            var row = el('div', 'bl-other' + (r.kind === 'no_vote' ? ' dim' : ''));
+            add(row, el('span', 'bl-other-t', txt));
+            if (right !== null) {
+              add(row, el('span', 'bl-mark ' + (right ? 'right' : 'wrong'), right ? '✓' : '✗'));
+              row.setAttribute('aria-label', txt + ', ' + (right ? b('rightA11y') : b('wrongA11y')));
+            }
+            ol.appendChild(row);
+          });
+          c.appendChild(ol);
+        }
       }
       st.appendChild(holdable(c, step.option.id ? { round: v.round, optionId: step.option.id } : null));
-      if (bflip && !tv) {
-        var line = privateLine(v);
-        if (line) st.appendChild(el('div', 'bl-private', line));
-      }
     }
   }
   /** One medium buzz the moment a step flips, once per step. */
@@ -813,7 +947,9 @@
     var t = bl.truth;
     if (aboutUs && t && t.text) {
       var card = el('div', 'bl-card bl-truth');
-      add(card, el('p', 'bl-answer', t.text), el('p', 'bl-flip', b('itWasTrue')), el('p', 'bl-say', t.spotlightName || ''));
+      // Labelled like the reveal (build 87 pass, the app's BlagStory): whose truth it was, big.
+      add(card, el('p', 'bl-answer', quoted(t.text)), el('p', 'bl-flip', b('itWasTrue')));
+      if (t.spotlightName) add(card, sectionLabel(b('writtenBy')), el('p', 'bl-author', t.spotlightName));
       var pk = pickedLine(v);
       if (pk) add(card, el('p', 'bl-small', pk));
       if (t.knewNames && t.knewNames.length) add(card, el('p', 'bl-small', bf('knew', names(t.knewNames))));
@@ -881,7 +1017,11 @@
   function over(v, st) {
     var bl = v.blag, tv = ctx.isTv();
     var host = v.you && v.you.isHost;
-    var totals = bl.scores ? bl.scores.totals : [];
+    // Who is still here (prod round 19 Nov 2026, problem 10): a player who left
+    // drops off the table. A TV body has no ids, so it matches by name.
+    var here = [];
+    (v.players || []).forEach(function (p) { if (p.id) here.push(p.id); here.push('n:' + p.name); });
+    var totals = (bl.scores ? bl.scores.totals : []).filter(function (r) { return !here.length || here.indexOf(r.id || ('n:' + r.name)) !== -1; });
     var win = winners(totals);
     st.appendChild(el('h1', 'bl-q bl-win', win.length === 0 ? b('allLevel') : win.length === 1 ? bf('wins', win[0]) : bf('shareIt', names(win))));
     var table = el('div', 'bl-panel');
@@ -900,7 +1040,12 @@
     if (host) {
       var n = (v.players || []).length;
       var other = bl.settingsMode === 'who_said_that' ? 'about_us' : 'who_said_that';
-      st.appendChild(bigButton(b('anotherLap'), function () { return post('start', { mode: bl.settingsMode }); }));
+      // Below the mode's minimum, Another lap is off and says how many more (problem 10).
+      var lapShort = shortfall(bl.settingsMode, n);
+      var again = bigButton(b('anotherLap'), function () { return post('start', { mode: bl.settingsMode }); });
+      if (lapShort > 0) again.disabled = true;
+      st.appendChild(again);
+      if (lapShort > 0) st.appendChild(el('p', 'bl-short', moreToStart(lapShort)));
       // The switch draws only when the room can deal the other mode (the
       // app's blagModeHasCards, 1.1.6 Android pass review, 14 Nov 2026), so a
       // web player who inherits hosting is never offered a mode the server
@@ -909,7 +1054,8 @@
       var sw = button('ghost', other === 'who_said_that' ? b('switchToWst') : b('switchToAboutUs'), function () {
         if (S.busy) return;
         S.busy = true;
-        post('start', { mode: other }).then(function () { S.busy = false; });
+        var free = function () { S.busy = false; syncSend(); };
+        post('start', { mode: other }).then(free, free);
       });
       var why = other === 'who_said_that' && n > 8 ? b('switchFullEight') : other === 'who_said_that' && n < 4 ? bf('needN', 4) : null;
       if (why) sw.disabled = true;
@@ -1158,6 +1304,21 @@
       if (D.input) { var dr = v.status === 'writing' && v.you ? readDraft(v) : null; D.input.value = dr === null ? '' : dr; }
       S.lastStage = ''; D.error.textContent = '';
     }
+    // AN UNSENT DRAFT BELONGS TO ONE CARD (prod round 19 Nov 2026, problem 5: a
+    // fake typed about one player sat in the box under "Tell the truth" when the
+    // card was dealt again with this seat as the subject). The card is the round,
+    // the question and the spotlight; a new card, or leaving the writing phase,
+    // empties the box and forgets the draft.
+    var card = cardKeyOf(v);
+    if (card !== S.card) {
+      if (S.card !== null && D.input) { D.input.value = ''; clearDraft(); S.editing = false; }
+      S.card = card;
+    }
+    if (v.status !== 'writing' && S.lastStatus === 'writing' && D.input) { D.input.value = ''; clearDraft(); }
+    S.lastStatus = v.status;
+    // What this seat wrote this round, for "This one's yours" on the vote (item 6).
+    var mw = v.blag.me || {};
+    if (v.status === 'writing' && mw.inRound && !mw.house && typeof mw.text === 'string' && mw.text) S.myAnswer = { code: v.code, round: v.round, text: mw.text };
     if (S.late !== null && S.late !== stepKeyOf(v)) S.late = null;
     var lateNow = !tv && S.late !== null;
     if (D.late.hidden === lateNow) { D.late.textContent = lateNow ? b('tooLate') : ''; D.late.hidden = !lateNow; }
@@ -1197,21 +1358,49 @@
     if (!tv && v.status === 'writing' && me.inRound && me.text !== null && me.text !== undefined && !S.editing) clearDraft();
     D.after.textContent = '';
     if (!tv && v.status === 'writing' && me.inRound && !me.nearTruth) D.after.appendChild(seatDots(v, null));
+    if (!tv && v.status === 'writing' && v.blag.double && me.inRound) lastRoundBanner(v);
+    syncSend();
     tick();
+  }
+  /** Once per room and round in this tab: slide and fade in, hold 1.5 s, fade out, gone. */
+  var BANNER_MS = 240 + 1500 + 320;
+  function lastRoundBanner(v) {
+    var k = v.code + ':' + v.round;
+    if (S.bannered[k]) return;
+    S.bannered[k] = true;
+    var n = D.banner;
+    n.textContent = b('lastOne');
+    n.hidden = false;
+    n.classList.remove('go');
+    void n.offsetWidth;
+    n.classList.add('go');
+    buzz([30, 60, 30]);
+    // Spoken once, through the page's polite live line (the banner itself is hidden from readers).
+    D.say.textContent = b('lastOne');
+    clearTimeout(D.bannerTimer);
+    D.bannerTimer = setTimeout(function () { n.classList.remove('go'); n.hidden = true; n.textContent = ''; D.say.textContent = ''; }, BANNER_MS + 60);
+  }
+  /** Send is on exactly when there is text and nothing is in flight (problem 7). */
+  function syncSend() {
+    if (!D.send) return;
+    var n = Array.from(clean(D.input.value).trim()).length;
+    var off = n === 0 || S.busy;
+    if (D.send.disabled !== off) D.send.disabled = off;
   }
   /** 4 times a second: the clock, and a redraw when a beat or the idle mark passes. */
   function tick() {
     var v = ctx.view();
     if (!v || v.kind !== 'blag' || !v.blag) { D.timer.hidden = true; return; }
     var bl = v.blag;
-    var timed = v.status === 'writing' || v.status === 'voting' || v.status === 'revealing' || v.status === 'scored';
+    // No unlabelled step bar on the reveal or the story (build 87 pass, item 8):
+    // "2 / 5" in the header says where the room is, and the server's own step
+    // deadline still moves it on.
+    var timed = v.status === 'writing' || v.status === 'voting';
     var left = timed ? msUntil(bl.deadlineAt, v) : null;
     D.timer.hidden = left === null;
+    if (left === null) S.barSync = null;
     if (left !== null) {
-      var from = v.status === 'revealing' || v.status === 'scored' ? bl.stepReachedAt || bl.openedAt : bl.openedAt;
-      var total = from ? Date.parse(bl.deadlineAt) - Date.parse(from) : 0;
-      var frac = total > 0 ? Math.max(0, Math.min(1, left / total)) : 0;
-      D.barFill.style.transform = 'scaleX(' + frac.toFixed(3) + ')';
+      syncBar(v, left);
       var secs = Math.ceil(left / 1000);
       D.secs.textContent = String(secs);
       D.secs.setAttribute('aria-label', secs === 1 && b('timeLeftOneA11y') ? b('timeLeftOneA11y') : bf('timeLeftA11y', secs));
@@ -1220,6 +1409,35 @@
     }
     if (stageKey(v) !== S.lastStage) draw(false);
   }
+
+  // THE BAR (build 87 pass, item 7, the app's BlagTimer): ONE linear CSS
+  // transition from the server-clock fraction to empty at the deadline, set
+  // again on every sync (a new view, a new deadline, the tab coming back, the
+  // reduced-motion setting flipping). Never a per-second width step. Under
+  // reduced motion it holds at the last sync; the number keeps counting.
+  var reduceMq = null;
+  try { reduceMq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null; } catch (e) {}
+  function reduced() { return !!(reduceMq && reduceMq.matches); }
+  function syncBar(v, left) {
+    var bl = v.blag;
+    var total = bl.openedAt ? Date.parse(bl.deadlineAt) - Date.parse(bl.openedAt) : 0;
+    var key = [v.code, v.round, v.status, bl.shown ? bl.shown.index : -1, bl.deadlineAt, bl.openedAt, bl.serverNow, viewAt, reduced(), S.barWake].join('|');
+    if (S.barSync === key) return;
+    S.barSync = key;
+    var frac = total > 0 ? Math.max(0, Math.min(1, left / total)) : 0;
+    var f = D.barFill;
+    f.style.transition = 'none';
+    f.style.transform = 'scaleX(' + frac.toFixed(4) + ')';
+    if (reduced() || left <= 0) return;
+    void f.offsetWidth;
+    f.style.transition = 'transform ' + Math.round(left) + 'ms linear';
+    f.style.transform = 'scaleX(0)';
+  }
+  if (reduceMq) {
+    var onReduce = function () { S.barSync = null; };
+    if (reduceMq.addEventListener) reduceMq.addEventListener('change', onReduce); else if (reduceMq.addListener) reduceMq.addListener(onReduce);
+  }
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { S.barWake = Date.now(); S.barSync = null; } });
 
   // --- writing: the field, Send, Lie for me, Skip ---------------------------
   function clean(text) { return Array.from(String(text).replace(/[\r\n]+/g, ' ')).slice(0, 40).join(''); }
@@ -1249,16 +1467,16 @@
     if (S.busy) return;
     S.busy = true;
     btn.disabled = true;
+    var free = function () { S.busy = false; btn.disabled = false; };
     ctx.api('answer', ctx.mine(stamped('answer', body))).then(function (r) {
-      S.busy = false;
-      btn.disabled = false;
+      free();
       answered(r);
       onType();
-    });
+    }, function () { free(); syncSend(); });
   }
   function onSend() {
     var text = clean(D.input.value).trim();
-    if (!text) return;
+    if (!text || S.busy) return;
     sendAnswer({ text: text }, D.send);
   }
   function onLie() { sendAnswer({ house: true }, D.lie); }
@@ -1274,15 +1492,28 @@
     a.href = '/get/?c=web-blag';
     a.addEventListener('click', function () {
       var v = ctx.view();
-      ctx.track('room_install_tapped', { round_n: v ? v.round : 0, kind: 'blag', surface: 'end_screen', where: footWhere() });
+      ctx.track('room_install_tapped', { round_n: footRound(), kind: 'blag', surface: 'end_screen', where: footWhere() });
     });
     add(foot, document.createTextNode(w('footLead') + ' '), a);
     return foot;
   }
   /** The `where` prop the footer's tap and impression rows carry. */
+  // A VOLUNTARY LEAVE IS NOT 'expired' (prod round 19 Nov 2026, problem 11:
+  // Leave filed where 'expired' and round_n 0). The footer a tab carries to
+  // the join screen after its own Leave keeps the where and round it last had
+  // in the room; CONTRACT.md A-104 allows no 'left' value, so none is invented.
+  // 'expired' stays for the screen a room that ended leaves behind.
+  var lastFoot = null;   // { where, round } the footer last had on a Blag screen
+  var leftByTap = false; // this tab's own Leave took it off the room
   function footWhere() {
     var v = ctx.view(), cur = ctx.current();
-    return cur !== 'blag' ? 'expired' : v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';
+    if (cur !== 'blag') return leftByTap && lastFoot ? lastFoot.where : 'expired';
+    return v && v.status === 'lobby' ? 'lobby' : v && v.blag && v.blag.lap > 1 ? 'between_laps' : 'end';
+  }
+  function footRound() {
+    var v = ctx.view();
+    if (ctx.current() !== 'blag' && leftByTap && lastFoot) return lastFoot.round;
+    return v ? v.round : 0;
   }
   /** Where the footer sits now, if anywhere: the end screen, the lobby after a
    *  first end screen, and the page a Blag room leaves behind. */
@@ -1290,6 +1521,7 @@
     if (ctx.isTv()) return;
     var f = footNode();
     var cur = ctx.current(), v = ctx.view();
+    if (cur === 'gone') leftByTap = false;
     var spot = null;
     if (cur === 'blag' && v && v.kind === 'blag' && (v.status === 'over' || (v.status === 'lobby' && footSeen()))) spot = ctx.$('screen-blag');
     else if ((cur === 'gone' || cur === 'join') && footSeen()) spot = ctx.$('screen-' + cur);
@@ -1297,9 +1529,9 @@
     if (f.parentNode !== spot) {
       spot.appendChild(f);
       // The footer's impression (delta A-104): once each time it is placed.
-      var v2 = ctx.view();
-      ctx.track('room_install_shown', { round_n: v2 ? v2.round : 0, kind: 'blag', surface: 'end_screen', where: footWhere() });
+      ctx.track('room_install_shown', { round_n: footRound(), kind: 'blag', surface: 'end_screen', where: footWhere() });
     }
+    if (cur === 'blag' && v) { lastFoot = { where: footWhere(), round: v.round }; leftByTap = false; }
   }
 
   // --- wiring ----------------------------------------------------------------
@@ -1320,6 +1552,8 @@
     draw: draw,
     nextPingMs: function () { return nextPingMs(ctx.view()); },
     afterShow: placeFoot,
+    /** index.html's leave() says the tab left by its own tap, before it clears the view. */
+    leaving: function () { leftByTap = true; },
     /** The page's join copy for a link that says it is a Blag room. */
     web: w,
     /** The app's ruled share line for a Blag room. */

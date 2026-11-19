@@ -44,7 +44,63 @@ body.bl-on .error { color: var(--b-hot); font-size: calc(18px * var(--b-scale));
 .bl-timer.small .bl-secs { font-size: calc(18px * var(--b-scale)); color: var(--b-dim); }
 .bl-timer.pulse .bl-secs { color: var(--b-hot); animation: bl-pulse 1s ease-in-out infinite; }
 @keyframes bl-pulse { 50% { transform: scale(1.18); } }
-@media (prefers-reduced-motion: reduce) { .bl-timer.pulse .bl-secs { animation: none; } .bl-bar i { transition: none; } }
+/* The bar's motion is set by blag-v1.js: one linear transition to the
+   deadline per sync (build 87 pass, item 7). Reduced motion: no transition. */
+@media (prefers-reduced-motion: reduce) { .bl-timer.pulse .bl-secs { animation: none; } .bl-bar i { transition: none !important; } }
+
+/* THE LAST ROUND BANNER (build 87 pass, item 3): over the header and the
+   clock, never takes a tap, dark text on orange; slides and fades in (240 ms),
+   holds 1.5 s, fades out (320 ms). Reduced motion: fade only. */
+#screen-blag { position: relative; }
+.bl-banner {
+  position: absolute; left: 0; right: 0; top: 0; z-index: 5; pointer-events: none;
+  min-height: 88px; display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 12px 16px; border-radius: 18px; background: #FFB627; color: #17112F;
+  font-size: calc(24px * var(--b-scale)); font-weight: 900; line-height: 1.2;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25); opacity: 0;
+}
+.bl-banner.go { animation: bl-banner 2060ms ease forwards; }
+@keyframes bl-banner {
+  0% { opacity: 0; transform: translateY(-14px); }
+  11.65% { opacity: 1; transform: none; }
+  84.47% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: none; }
+}
+@keyframes bl-banner-fade { 0% { opacity: 0; } 11.65% { opacity: 1; } 84.47% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .bl-banner.go { animation-name: bl-banner-fade; } }
+.bl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+
+/* SEND LOOKS LIKE SEND (prod round 19 Nov 2026, problem 7): solid when it
+   works, a clearly empty outline when it does not, never a pale pink that
+   reads as either. */
+#screen-blag .bl-send { background: var(--b-pink); color: #FFFFFF; opacity: 1; border: 2px solid var(--b-pink); }
+#screen-blag .bl-send:disabled { background: transparent; color: var(--b-dim); border-color: var(--b-line); opacity: 1; }
+.bl-form { margin: 0; }
+
+/* The lobby and lap-end shortfall (build 87 pass, item 1). */
+.bl-short { color: var(--b-accent); font-size: calc(20px * var(--b-scale)); font-weight: 800; text-align: center; margin-top: 12px; }
+
+/* The labelled reveal (build 87 pass, item 8, the app's revealStyles). */
+.bl-label { color: var(--b-dim); font-size: calc(14px * var(--b-scale)); font-weight: 800; letter-spacing: .09em; text-align: center; margin-top: 18px; }
+.bl-author { color: var(--b-accent); font-size: calc(30px * var(--b-scale)); font-weight: 900; line-height: 1.15; text-align: center; margin-top: 4px; overflow-wrap: anywhere; }
+.bl-verdict { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 6px; font-size: calc(18px * var(--b-scale)); font-weight: 700; color: var(--b-fg); text-align: center; overflow-wrap: anywhere; }
+.bl-verdict.big { font-size: calc(22px * var(--b-scale)); font-weight: 800; }
+.bl-mark { font-size: calc(22px * var(--b-scale)); font-weight: 900; }
+.bl-mark.right { color: var(--b-accent); }
+.bl-mark.wrong { color: var(--b-pink); }
+.bl-others { margin-top: 4px; text-align: left; }
+.bl-other { display: flex; align-items: center; gap: 10px; min-height: 44px; border-bottom: 1px solid var(--b-line); font-size: calc(18px * var(--b-scale)); font-weight: 700; color: var(--b-fg); }
+.bl-other-t { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.bl-other.dim { color: var(--b-dim); }
+.bl-center { display: flex; justify-content: center; }
+.bl-card .bl-flipslot { min-height: calc(48px * var(--b-scale)); margin-top: 0; }
+.bl-card .bl-label + .bl-flipslot { margin-top: 0; }
+
+/* The footer on a Blag join screen in a light theme (index.html's bl-join). */
+@media (prefers-color-scheme: light) {
+  body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .bl-foot { color: #5E5687; }
+  body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .bl-foot a { color: #17112F; }
+}
 
 .bl-stage { min-height: 0; }
 body.bl-on #screen-blag .bl-head .bl-code:empty { display: none; }

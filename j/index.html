@@ -153,6 +153,24 @@
       .tv-head > * + * { margin-left: 0; margin-top: 1vh; }
       #tv-lobby, #tv-dealt, #tv-revealed { min-height: 0; }
     }
+    /* A BLAG JOIN KEEPS THE BLAG THEME (prod round 19 Nov 2026, problem 8: the
+       join screen was dark and the Blag lobby light, so the page flipped on
+       join). Set only once the page knows the room is Blag (the k=blag hint, a
+       kept Blag seat, or a Blag room this tab was in), and only while the
+       join or ended screen shows, so an Imposter screen never takes it; the
+       same light tokens as j/blag-v1.css, so nothing changes at the moment of
+       joining. A browser without :has keeps the old dark join screen. */
+    @media (prefers-color-scheme: light) {
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) { background: #F6F4FB; color: #17112F; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .brand, body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) label,
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .small, body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .link { color: #5E5687; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .lead { color: #342C5A; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) a.plain { color: #342C5A; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) input[type=text] { background: #FFFFFF; color: #17112F; border-color: rgba(23,17,47,.14); }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) input[type=text]:focus { border-color: #C8005A; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .ghost, body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .panel { background: #ECE8F8; color: #17112F; }
+      body.bl-join:not(.tv):not(.bl-on):has(#screen-join:not([hidden]), #screen-gone:not([hidden])) .error { color: #A35400; }
+    }
     [hidden] { display: none !important; }
   </style>
 </head>
@@ -2261,8 +2279,32 @@
       } catch (e) { return null; }
     }
     function keepBlagSeat(code, name) {
-      try { if (joinKey) localStorage.setItem(blagSeatKey(code), JSON.stringify({ name: name, joinKey: joinKey, until: Date.now() + 12 * 3600 * 1000 })); } catch (e) {}
+      try { if (joinKey) localStorage.setItem(blagSeatKey(code), JSON.stringify({ name: name, joinKey: joinKey, until: Date.now() + 12 * 3600 * 1000, tab: TAB_ID, beat: Date.now() })); } catch (e) {}
     }
+    // A KEPT SEAT IS NOT A NEW TAB'S NAME (prod round 19 Nov 2026, problem 4,
+    // and Guy's own session: a new tab arrived with the last player's name
+    // filled in, and Join would have taken that player's seat). The tab that
+    // holds the seat stamps it every few seconds and clears the stamp when the
+    // tab closes (pagehide); another tab fills the name in, and reuses the
+    // join key, only when no live tab holds it: the reopened-after-closing
+    // case the memory is for. A crashed tab's stamp goes stale in 90 s.
+    var TAB_ID = null;
+    try { TAB_ID = sessionStorage.getItem('anticsTabId'); } catch (e) {}
+    if (!TAB_ID) { TAB_ID = newKey() || String(Math.random()).slice(2); try { sessionStorage.setItem('anticsTabId', TAB_ID); } catch (e) {} }
+    var SEAT_LIVE_MS = 90 * 1000;
+    function seatLiveElsewhere(k) { return !!k && !!k.tab && k.tab !== TAB_ID && typeof k.beat === 'number' && Date.now() - k.beat < SEAT_LIVE_MS; }
+    function beatBlagSeat(gone) {
+      if (TV || !view || view.kind !== 'blag' || !session.token) return;
+      try {
+        var key = blagSeatKey(view.code), k = JSON.parse(localStorage.getItem(key) || 'null');
+        if (!k || k.joinKey !== joinKey) return;
+        k.tab = TAB_ID; k.beat = gone ? 0 : Date.now();
+        localStorage.setItem(key, JSON.stringify(k));
+      } catch (e) {}
+    }
+    setInterval(function () { beatBlagSeat(false); }, 5000);
+    window.addEventListener('pagehide', function () { beatBlagSeat(true); });
+    window.addEventListener('pageshow', function () { beatBlagSeat(false); });
     function forgetBlagSeat(code) { try { localStorage.removeItem(blagSeatKey(code)); } catch (e) {} }
     function clearSession() { session = { code: null, token: null }; view = null; try { sessionStorage.removeItem('anticsRoom'); } catch (e) {} }
 
@@ -2570,12 +2612,16 @@
         track('room_reveal_viewed', { via: 'web', kind: 'blag', round_n: v.round, players_n: n, players_bucket: bucketPlayers(n), doorbell: bellUp ? 'live' : 'poll', limited_n: limitedN });
         limitedN = 0;
       }
+      blagJoinTheme();
+      beatBlagSeat(false);
       loadBlag(function () { blagUi.took(); if (!TV) drawTvBar(); schedule(); });
     }
     // The ?k=blag hint (a Blag share link may carry it): the join screen
     // speaks Blag before the room has answered. Without it the join screen is
     // neutral, "Join a room" (13 Nov 2026), as the app's own join form is.
     var KIND_HINT = /[?&]k=blag(&|$)/.test(location.search) ? 'blag' : null;
+    function blagJoinTheme() { if (document.body && !TV) document.body.classList.add('bl-join'); }
+    if (KIND_HINT === 'blag') blagJoinTheme();
     if (KIND_HINT === 'blag') loadBlag(function () {
       $('screen-join').querySelector('h1').textContent = blagUi.web('joinTitle');
       $('screen-join').querySelector('.lead').textContent = blagUi.web('joinLead');
@@ -2806,7 +2852,7 @@
       var typedName = $('in-name').value;
       var method = prefilled && $('in-code').value.toUpperCase() === prefilled ? 'link' : 'code';
       var kept = keptBlagSeat($('in-code').value.toUpperCase());
-      if (kept && kept.name.toLowerCase() === $('in-name').value.trim().toLowerCase()) {
+      if (kept && !seatLiveElsewhere(kept) && kept.name.toLowerCase() === $('in-name').value.trim().toLowerCase()) {
         joinKey = kept.joinKey;
         try { sessionStorage.setItem('anticsRoomJoinKey', joinKey); } catch (e) {}
       }
@@ -2860,7 +2906,7 @@
       var others = !!view && view.players.some(function (p) { return p.id !== view.you.id; });
       if (!confirm(view && view.you.isHost && others ? tr('leaveConfirm') + '\n\n' + tr('leaveConfirmHost') : tr('leaveConfirm'))) return;
       if (view) track('room_left', { via: 'web', reason: 'leave', round_n: view.round });
-      if (view && view.kind === 'blag') forgetBlagSeat(view.code);
+      if (view && view.kind === 'blag') { forgetBlagSeat(view.code); if (blagUi && blagUi.leaving) blagUi.leaving(); }
       api('leave', mine());
       disconnect(); clearSession(); start();
     }
@@ -3207,9 +3253,12 @@
       if (prefilled) {
         $('in-code').value = prefilled;
         var kept = keptBlagSeat(prefilled);
-        if (kept && !$('in-name').value) $('in-name').value = kept.name;
-        if (kept) loadBlag(function () {});
+        var resume = kept && !seatLiveElsewhere(kept);
+        if (resume && !$('in-name').value) $('in-name').value = kept.name;
+        if (kept) { loadBlag(function () {}); blagJoinTheme(); }
         $('in-name').focus();
+        // A filled name is selected, so typing replaces it rather than adding to it.
+        if (resume) { try { $('in-name').select(); } catch (e) {} }
       }
     }
 
