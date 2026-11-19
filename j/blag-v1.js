@@ -1018,17 +1018,18 @@
    * earlier. No votes: null, and the answer shows what it always did.
    */
   var BEST_NAMED_VOTE = 2;
-  function bestPointsLine(voters, namedName) {
+  function bestPointsLine(voters, namedPick, namedName) {
+    // Voters keep the server's order, the named player marked in place
+    // ("+3 · Robo, Guy ×2"), exactly as the app's bestPoints does. The count
+    // trusts namedPick, not the name match, as the app does too.
     var list = (voters || []).filter(Boolean);
     if (!list.length) return null;
-    var named = namedName && list.indexOf(namedName) !== -1 ? namedName : '';
-    var parts = [], total = 0;
-    if (named) { parts.push(named + ' ×' + BEST_NAMED_VOTE); total += BEST_NAMED_VOTE; }
-    list.forEach(function (n) {
-      if (named && n === named) { named = null; return; }
-      parts.push(n);
-      total += 1;
+    var marked = false;
+    var parts = list.map(function (n) {
+      if (!marked && namedPick && namedName && n === namedName) { marked = true; return n + ' ×' + BEST_NAMED_VOTE; }
+      return n;
     });
+    var total = list.length + (namedPick ? BEST_NAMED_VOTE - 1 : 0);
     return bf('plus', total) + ' · ' + parts.join(', ');
   }
   function bestStep(v, st, step) {
@@ -1070,7 +1071,7 @@
       // for their own answer, so the voters' names would point at the writer by
       // who is missing.
       var voters = flipped ? (o.voters || []) : [];
-      var pts = bestPointsLine(voters, flipped && o.namedPick ? spotName : '');
+      var pts = bestPointsLine(voters, flipped && !!o.namedPick, spotName);
       if (pts) card.appendChild(el('p', 'bl-say', pts));
       if (flipped && o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
       var slot = el('div', 'bl-flipslot');
