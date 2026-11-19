@@ -980,7 +980,7 @@ window.ANTICS_BLAG_I18N = {
   "lastOne": "Letzte Runde. Doppelte Punkte.",
   "spotlightLine": "Alle haben die Frage. Sag die Wahrheit, aber mach’s ihnen schwer.",
   "fakerLine": "Schreib eine Fake-Antwort, die von {0} sein könnte",
-  "wstLine": "Mach sie gut. Klingt wie jemand anders.",
+  "wstLine": "Mach sie gut. Klinge wie jemand anders.",
   "wstTapAnyone": "Ist es später deine, tipp auf irgendwen. Bleib cool.",
   "placeholder": "Hier eintippen",
   "send": "Senden",
