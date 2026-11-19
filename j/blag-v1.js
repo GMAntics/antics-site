@@ -1026,9 +1026,9 @@
       return;
     }
     if (step.kind === 'top') {
-      var label = el('p', 'bl-kicker bl-hot', step.tie ? b('jointBest') : b('bestAnswer'));
-      st.appendChild(label);
-      if (step.sweep) st.appendChild(el('p', 'bl-flip', b('cleanSweep')));
+      // "Best answer" (or "Joint best") is the headline; "Clean sweep" sits under it.
+      st.appendChild(el('p', 'bl-flip', step.tie ? b('jointBest') : b('bestAnswer')));
+      if (step.sweep) st.appendChild(el('p', 'bl-kicker bl-hot', b('cleanSweep')));
       // The top step is announced once.
       var tk = v.code + ':' + v.round + ':top';
       if (!S.buzzed[tk]) {
