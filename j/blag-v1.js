@@ -40,10 +40,39 @@
   var L = null;        // this page's language's app lines
   var W = null;        // this page's language's web lines
 
+  // BEST ANSWER'S NEW LINES (19 Nov 2026), the English of the spec's section 5
+  // table, used ONLY while the exported file lacks a key: the app's own
+  // dictionaries are the source, and a re-run of the exporter replaces every
+  // one of these in all eleven languages. Never edited as translations.
+  var PENDING_EN = {
+    modeBestAnswer: 'Best answer',
+    ruleBestAnswer: 'Everyone answers. Vote for the funniest. Not your own.',
+    bestLine: 'Make them laugh.',
+    bestAboutLine: 'Answer for {0}. Make it funny.',
+    bestAboutYou: 'It’s about you. Write the best one anyway.',
+    whichFunniest: 'Which one’s funniest?',
+    doubleVote: 'Your vote counts double.',
+    pickedIt: '{0} picked it',
+    nobodyPicked: 'Nobody picked these',
+    namedPick: '{0}’s pick',
+    bestAnswer: 'Best answer',
+    jointBest: 'Joint best',
+    cleanSweep: 'Clean sweep',
+    gotVotesOne: 'You got 1 vote',
+    gotVotesMany: 'You got {0} votes',
+    gotVotesNone: 'No votes this time',
+    notEnoughAnswers: 'Not enough answers. Next one.',
+    switchToBest: 'Switch to Best answer',
+    needsUpdate: 'This room needs the latest Antics.',
+    votedForYouOnce: '{0} voted for you once',
+    votedForYouMany: '{0} voted for you {1} times',
+    'errors.mode_not_offered': 'That mode isn’t on in this room.'
+  };
   /** One app line; English if a line is ever missing. */
   function b(key) {
     var v = L && L[key];
     if (typeof v !== 'string') v = window.ANTICS_BLAG_I18N.en[key];
+    if (typeof v !== 'string') v = PENDING_EN[key];
     return typeof v === 'string' ? v : '';
   }
   function bf(key) {
@@ -65,6 +94,7 @@
     if (code === 'answer_refused' || code === 'invalid_answer') return b('tryAnother');
     var e = 'errors.' + code;
     if (L && typeof L[e] === 'string') return L[e];
+    if (PENDING_EN[e] && b(e)) return b(e);
     return ctx.errorText(code);
   }
 
@@ -160,12 +190,21 @@
     var h = (v.players || []).filter(function (p) { return p.isHost; })[0];
     return h ? h.name : '';
   }
-  function modeName(mode) { return mode === 'who_said_that' ? b('modeWhoSaidThat') : b('modeAboutUs'); }
-  function modeRule(mode) { return mode === 'who_said_that' ? b('ruleWhoSaidThat') : b('ruleAboutUs'); }
+  function modeName(mode) { return mode === 'who_said_that' ? b('modeWhoSaidThat') : mode === 'best_answer' ? b('modeBestAnswer') : b('modeAboutUs'); }
+  function modeRule(mode) { return mode === 'who_said_that' ? b('ruleWhoSaidThat') : mode === 'best_answer' ? b('ruleBestAnswer') : b('ruleAboutUs'); }
+  function switchLine(mode) { return mode === 'who_said_that' ? b('switchToWst') : mode === 'best_answer' ? b('switchToBest') : b('switchToAboutUs'); }
+  /** The modes this room offers, as the server lists them; an older room (no
+   *  list) offers the old pair, so it still plays. */
+  function modesOffered(bl) { return Array.isArray(bl.modesOffered) && bl.modesOffered.length ? bl.modesOffered : ['about_us', 'who_said_that']; }
+  function isBest(bl) { return bl.mode === 'best_answer'; }
   var WRITE_SECONDS = { quick: 45, steady: 60, slow: 80 };
-  // The server's minimums (blag.ts, pinned in the app by ops/blag-app-test.mjs).
-  var ABOUT_US_MIN_PLAYERS = 3, WST_MIN_PLAYERS = 4;
-  function shortfall(mode, n) { return Math.max(0, (mode === 'who_said_that' ? WST_MIN_PLAYERS : ABOUT_US_MIN_PLAYERS) - (isFinite(n) ? Math.floor(n) : 0)); }
+  // THE ONE SOURCE for each mode's seat bounds (blag.ts's modeBounds, pinned in
+  // the app by ops/blag-app-test.mjs): Best answer 3 to 10, Who said that? 4
+  // to 8, About us 3 to 10.
+  var MODE_BOUNDS = { about_us: [3, 10], who_said_that: [4, 8], best_answer: [3, 10] };
+  function modeMin(mode) { return (MODE_BOUNDS[mode] || MODE_BOUNDS.about_us)[0]; }
+  function modeMax(mode) { return (MODE_BOUNDS[mode] || MODE_BOUNDS.about_us)[1]; }
+  function shortfall(mode, n) { return Math.max(0, modeMin(mode) - (isFinite(n) ? Math.floor(n) : 0)); }
   function moreToStart(n) { return n === 1 ? b('moreToStartOne') : bf('moreToStartMany', n); }
 
   // --- this tab's local state (never another seat's secret) -----------------
@@ -425,6 +464,11 @@
     }
     var r = bl.me && bl.me.result;
     if (!r) return null;
+    // Best answer: the votes this seat's answer got (a count, never the value).
+    if (isBest(bl)) {
+      var n = typeof r.votesN === 'number' && isFinite(r.votesN) ? r.votesN : 0;
+      return n === 0 ? b('gotVotesNone') : n === 1 ? b('gotVotesOne') : bf('gotVotesMany', n);
+    }
     if (r.isSpotlight) {
       // "Nobody missed it." reads as everyone found the truth: say so only
       // when someone voted (the app's no_votes line, second simulator pass P2).
@@ -453,8 +497,16 @@
     var r = v.blag.me && v.blag.me.result;
     return !!r && !r.isSpotlight && (r.nearTruth || r.spotted);
   }
-  function grudgeText(g) {
+  function grudgeText(g, best) {
     if (!g) return null;
+    // In Best answer the grudge counts votes: who voted for you most this lap,
+    // and the votes you got (view contract section 4, scored).
+    if (best) {
+      if (g.fooledByName && g.fooledByN >= 2) return bf('votedForYouMany', g.fooledByName, g.fooledByN);
+      if (g.fooledByName && g.fooledByN === 1) return bf('votedForYouOnce', g.fooledByName);
+      var n = g.youFooledN || 0;
+      return n === 0 ? b('gotVotesNone') : n === 1 ? b('gotVotesOne') : bf('gotVotesMany', n);
+    }
     if (g.fooledByName && g.fooledByN >= 2) return bf('grudgeMany', g.fooledByName, g.fooledByN);
     if (g.youFooledN > 0) return g.youFooledN === 1 ? b('youFooledOne') : bf('youFooledMany', g.youFooledN);
     if (g.fooledByName && g.fooledByN === 1) return bf('grudgeOnce', g.fooledByName);
@@ -640,7 +692,7 @@
     if (chosen.length) add(mode, el('p', 'bl-kicker bl-gap', b('decksLabel')), el('p', 'bl-rule', chosen.join(', ')));
     st.appendChild(mode);
     var who = el('div', 'bl-panel');
-    var cap = bl.settingsMode === 'who_said_that' ? 8 : 10;
+    var cap = modeMax(bl.settingsMode);
     add(who, el('p', 'bl-kicker', ctx.fmt('inTheRoom', (v.players || []).length, cap)), playerList(v));
     // THE SHORTFALL, on every phone from the first draw (build 87 pass, item 1,
     // the app's blagStartShortfall against the server's minimum).
@@ -682,6 +734,9 @@
   function writing(v, st, view) {
     var bl = v.blag, me = bl.me || {};
     var wst = bl.mode === 'who_said_that';
+    var best = isBest(bl);
+    // TOO FEW ANSWERS (Best answer): the last card was skipped and this is the next one.
+    if (best && bl.skipped === 'best_short') st.appendChild(el('p', 'bl-small', b('notEnoughAnswers')));
     // The last round is the banner over the header now (build 87 pass, 19 Nov
     // 2026, the app's BlagLastRoundBanner); a seat not in the round keeps the line.
     if (bl.double && !me.inRound) st.appendChild(el('p', 'bl-kicker bl-hot', b('lastOne')));
@@ -691,7 +746,10 @@
     }
     st.appendChild(questionNode(v));
     var spot = !!me.isSpotlight;
-    var line = wst ? b('wstLine') : spot ? b('spotlightLine') : bf('fakerLine', (bl.spotlight && bl.spotlight.name) || '');
+    var spotName = (bl.spotlight && bl.spotlight.name) || '';
+    var line = wst ? b('wstLine')
+      : best ? (spot ? b('bestAboutYou') : bl.promptKind === 'player' && spotName ? bf('bestAboutLine', spotName) : b('bestLine'))
+      : spot ? b('spotlightLine') : bf('fakerLine', spotName);
     st.appendChild(el('p', 'bl-say', line));
     // The wstTapAnyone line is no longer drawn (build 87 pass, item 5, as the app).
     if (me.nearTruth) {
@@ -701,11 +759,12 @@
     }
     var submitted = me.text !== null && me.text !== undefined;
     view.field = !submitted || S.editing;
-    view.lie = !wst && !spot && !submitted;
+    // No "Lie for me" in Best answer: it was a bluffing tool.
+    view.lie = !wst && !best && !spot && !submitted;
     view.skip = spot && !!me.skipLeft && !submitted;
     if (!view.field) {
       var locked = el('div', 'bl-locked');
-      add(locked, el('p', 'bl-big', spot ? b('lockedInSpotlight') : b('lockedIn')));
+      add(locked, el('p', 'bl-big', spot && !best ? b('lockedInSpotlight') : b('lockedIn')));
       if (me.house) add(locked, el('p', 'bl-say', b('houseWroteYours')));
       else add(locked, el('p', 'bl-mine', me.text));
       st.appendChild(locked);
@@ -755,12 +814,16 @@
       if (mark) st.appendChild(el('p', 'bl-small', b('votedLine')));
       return;
     }
-    // About Us: the one shared list, in the room's order.
+    // About Us and Best answer: the one shared list, in the room's order as sent.
     var opts = bl.options || [];
     var spot = !!me.isSpotlight;
-    var readOnly = !me.inRound || spot || me.sitOut;
+    var best = isBest(bl);
+    // In Best answer the named player votes too, and their vote counts double.
+    var readOnly = !me.inRound || (spot && !best) || me.sitOut;
     if (bl.double && !ctx.isTv()) st.appendChild(el('p', 'bl-small bl-hot', b('lastOne')));
-    st.appendChild(el('h1', 'bl-q bl-ask', spot ? b('watchSquirm') : b('whichTrue')));
+    if (best && bl.question) st.appendChild(el('p', 'bl-small bl-qsmall', bl.question));
+    st.appendChild(el('h1', 'bl-q bl-ask', best ? b('whichFunniest') : spot ? b('watchSquirm') : b('whichTrue')));
+    if (best && spot && me.inRound && !ctx.isTv()) st.appendChild(el('p', 'bl-say', b('doubleVote')));
     if (me.sitOut) st.appendChild(el('p', 'bl-say bl-good', b('sitOut')));
     var picked = S.pendingVote && S.pendingVote.round === v.round ? S.pendingVote.id : me.vote;
     var list2 = el('div', 'bl-list' + (readOnly ? ' ro' : ''));
@@ -792,7 +855,8 @@
   /** A vote the server refused or never got: show what it holds (W-M2). */
   function unpend(r) { if (!r.ok) { S.pendingVote = null; draw(true); } }
   function seatDotsVoted(v) {
-    var spot = v.blag.spotlight && v.blag.spotlight.name;
+    // Every dealt-in seat votes in Best answer, the named player too.
+    var spot = !isBest(v.blag) && v.blag.spotlight && v.blag.spotlight.name;
     var seats = seatsOf(v).filter(function (p) { return p.inRound && !p.away && p.name !== spot; });
     var row = el('div', 'bl-dots');
     seats.forEach(function (p) { row.appendChild(el('i', p.voted ? 'on' : '')); });
@@ -810,6 +874,7 @@
     if (bl.question && (!step || step.kind !== 'beat')) st.appendChild(el('p', 'bl-small bl-qsmall', bl.question));
     if (bl.everyoneKnew) st.appendChild(el('p', 'bl-big', b('everyoneKnew')));
     if (!step) return;
+    if (isBest(bl)) return bestStep(v, st, step);
     var tv = ctx.isTv();
     if (step.kind === 'unvoted') {
       st.appendChild(el('p', 'bl-big', b('nobodyFellFor')));
@@ -933,6 +998,59 @@
       st.appendChild(holdable(c, step.option.id ? { round: v.round, optionId: step.option.id } : null));
     }
   }
+  /**
+   * BEST ANSWER'S REVEAL (view contract section 4): the unvoted batch first,
+   * then each answer that got votes, fewest first, then the top. The voters'
+   * names and "{name}'s pick" are drawn as soon as the step is reached (the
+   * server sends them then); the author, or the House, only once the step is
+   * `flipped`. Before the flip nothing else about an option is drawn: no
+   * "yours", no placeholder that differs between options, no count. No hearts.
+   */
+  function bestStep(v, st, step) {
+    var bl = v.blag;
+    var spotName = (bl.spotlight && bl.spotlight.name) || '';
+    var flipped = !!step.flipped;
+    if (flipped) noteFlip(v, 'best' + bl.step);
+    if (step.kind === 'answers') {
+      st.appendChild(el('p', 'bl-big', b('nobodyPicked')));
+      var list = el('div', 'bl-list ro');
+      (step.options || []).forEach(function (o) {
+        var row = el('div', 'bl-row bl-col');
+        add(row, el('span', 'bl-opt', o.text));
+        var who = flipped ? authorLine(o) : null;
+        if (who) add(row, el('span', 'bl-who', who));
+        if (flipped) mergedTexts(o).forEach(function (x) { add(row, el('span', 'bl-small', x)); });
+        list.appendChild(holdable(row, o.id ? { round: v.round, optionId: o.id } : null));
+      });
+      st.appendChild(list);
+      return;
+    }
+    if (step.kind === 'top') {
+      var label = el('p', 'bl-kicker bl-hot', step.tie ? b('jointBest') : b('bestAnswer'));
+      st.appendChild(label);
+      if (step.sweep) st.appendChild(el('p', 'bl-flip', b('cleanSweep')));
+      // The top step is announced once.
+      var tk = v.code + ':' + v.round + ':top';
+      if (!S.buzzed[tk]) {
+        S.buzzed[tk] = true;
+        D.say.textContent = (step.tie ? b('jointBest') : b('bestAnswer')) + (step.sweep ? '. ' + b('cleanSweep') : '');
+        setTimeout(function () { D.say.textContent = ''; }, 3000);
+      }
+    }
+    (step.options || []).forEach(function (o) {
+      var card = el('div', 'bl-card' + (step.kind === 'top' ? ' bl-truth' : ''));
+      add(card, el('p', 'bl-answer', quoted(o.text)));
+      var voters = o.voters || [];
+      if (voters.length) card.appendChild(el('p', 'bl-say', bf('pickedIt', names(voters))));
+      if (o.namedPick && spotName) card.appendChild(el('p', 'bl-small bl-hot', bf('namedPick', spotName)));
+      var slot = el('div', 'bl-flipslot');
+      var who = flipped ? authorLine(o) : null;
+      slot.appendChild(el('p', 'bl-author', who || '…'));
+      if (who) mergedTexts(o).forEach(function (x) { add(slot, el('p', 'bl-small', quoted(x))); });
+      card.appendChild(slot);
+      st.appendChild(holdable(card, o.id ? { round: v.round, optionId: o.id } : null));
+    });
+  }
   /** One medium buzz the moment a step flips, once per step. */
   function noteFlip(v, id) {
     var k = v.code + ':' + v.round + ':' + id;
@@ -1032,38 +1150,40 @@
     st.appendChild(table);
     if (bl.bestLie) {
       var bc = el('div', 'bl-card');
-      add(bc, el('p', 'bl-kicker', b('bestLie')), el('p', 'bl-answer', bl.bestLie.text), el('p', 'bl-say', bf('by', names(bl.bestLie.authorNames))));
+      add(bc, el('p', 'bl-kicker', isBest(bl) ? b('bestAnswer') : b('bestLie')), el('p', 'bl-answer', bl.bestLie.text), el('p', 'bl-say', bf('by', names(bl.bestLie.authorNames))));
       st.appendChild(holdable(bc, bl.bestLie.optionId ? { round: bl.bestLie.round, optionId: bl.bestLie.optionId } : null));
     }
     if (tv) return;
     // A grudge line only for someone who played this lap (a latecomer has none).
     var played = v.you && totals.some(function (r) { return r.id === v.you.id; });
-    var g = played ? grudgeText(bl.me && bl.me.grudge) : null;
+    var g = played ? grudgeText(bl.me && bl.me.grudge, isBest(bl)) : null;
     if (g) st.appendChild(el('div', 'bl-private', g));
     if (host) {
       var n = (v.players || []).length;
-      var other = bl.settingsMode === 'who_said_that' ? 'about_us' : 'who_said_that';
       // Below the mode's minimum, Another lap is off and says how many more (problem 10).
       var lapShort = shortfall(bl.settingsMode, n);
       var again = bigButton(b('anotherLap'), function () { return post('start', { mode: bl.settingsMode }); });
       if (lapShort > 0) again.disabled = true;
       st.appendChild(again);
       if (lapShort > 0) st.appendChild(el('p', 'bl-short', moreToStart(lapShort)));
-      // The switch draws only when the room can deal the other mode (the
-      // app's blagModeHasCards, 1.1.6 Android pass review, 14 Nov 2026), so a
-      // web player who inherits hosting is never offered a mode the server
-      // answers with "No cards left to deal".
-      if (!modeDeals(bl, other)) return finishEnd(st, v);
-      var sw = button('ghost', other === 'who_said_that' ? b('switchToWst') : b('switchToAboutUs'), function () {
-        if (S.busy) return;
-        S.busy = true;
-        var free = function () { S.busy = false; syncSend(); };
-        post('start', { mode: other }).then(free, free);
+      // One switch per other mode the ROOM offers (modesOffered, the old pair
+      // when absent), drawn only when the room can deal it (the app's
+      // blagModeHasCards, 1.1.6 Android pass review, 14 Nov 2026), so a web
+      // player who inherits hosting is never offered a mode the server
+      // refuses or answers with "No cards left to deal".
+      modesOffered(bl).forEach(function (other) {
+        if (other === bl.settingsMode || !MODE_BOUNDS[other] || !modeDeals(bl, other)) return;
+        var sw = button('ghost', switchLine(other), function () {
+          if (S.busy) return;
+          S.busy = true;
+          var free = function () { S.busy = false; syncSend(); };
+          post('start', { mode: other }).then(free, free);
+        });
+        var why = n > modeMax(other) ? (other === 'who_said_that' ? b('switchFullEight') : b('errors.mode_max_players')) : n < modeMin(other) ? bf('needN', modeMin(other)) : null;
+        if (why) sw.disabled = true;
+        st.appendChild(sw);
+        if (why) st.appendChild(el('p', 'bl-small', why));
       });
-      var why = other === 'who_said_that' && n > 8 ? b('switchFullEight') : other === 'who_said_that' && n < 4 ? bf('needN', 4) : null;
-      if (why) sw.disabled = true;
-      st.appendChild(sw);
-      if (why) st.appendChild(el('p', 'bl-small', why));
     } else {
       st.appendChild(el('p', 'bl-wait', bf('waitingForName', hostName(v))));
     }
@@ -1152,7 +1272,7 @@
       if (g.roundRect) { g.beginPath(); g.roundRect(x - 20, top, maxW + 40, boxH, 36); g.fill(); } else g.fillRect(x - 20, top, maxW + 40, boxH);
       y = top + 60;
       g.fillStyle = '#9C92C7'; g.font = '900 28px ' + font;
-      g.fillText(fit(g, b('bestLie').toUpperCase(), maxW - 40), x + 20, y);
+      g.fillText(fit(g, (isBest(v.blag) ? b('bestAnswer') : b('bestLie')).toUpperCase(), maxW - 40), x + 20, y);
       y += 62; g.fillStyle = '#FFFFFF'; g.font = '800 46px ' + font;
       lines.forEach(function (ln) { g.fillText(ln, x + 20, y); y += 58; });
       g.fillStyle = '#D8D3EE'; g.font = '700 32px ' + font;
@@ -1160,7 +1280,7 @@
       y = top + boxH;
     }
     var played = v.you && (v.blag.scores ? v.blag.scores.totals : []).some(function (r) { return r.id === v.you.id; });
-    var gl = played ? grudgeText(v.blag.me && v.blag.me.grudge) : null;
+    var gl = played ? grudgeText(v.blag.me && v.blag.me.grudge, isBest(v.blag)) : null;
     if (gl) {
       y += 80;
       g.fillStyle = '#FF2E7E'; g.font = '800 40px ' + font;
@@ -1217,6 +1337,7 @@
   function tvWriting(v, st) {
     var bl = v.blag;
     if (bl.double) st.appendChild(el('p', 'bl-kicker bl-hot', b('lastOne')));
+    if (isBest(bl) && bl.skipped === 'best_short') st.appendChild(el('p', 'bl-small', b('notEnoughAnswers')));
     st.appendChild(questionNode(v));
     if (bl.mode === 'about_us' && bl.spotlight && bl.spotlight.name) st.appendChild(el('p', 'bl-say', bf('spotlightIs', bl.spotlight.name)));
     else st.appendChild(el('p', 'bl-say', ctx.tr('tvCheckPhone')));
@@ -1280,8 +1401,10 @@
     }
     if (v.status === 'scored') {
       var spot = bl.mode === 'about_us' && bl.me && bl.me.result && bl.me.result.isSpotlight;
+      // Best answer: the named player may move the results on at once, as the host.
+      var named = isBest(bl) && bl.me && bl.me.result && bl.me.result.isSpotlight;
       if (!spot && !canTapNext(v, msSince(bl.stepReachedAt || bl.openedAt, v))) return null;
-      return bigButton(spot ? b('nextCard') : v.you.isHost ? b('next') : b('anyoneNext'), function () { return post('next'); }, 'bl-accent');
+      return bigButton(spot ? b('nextCard') : v.you.isHost || named ? b('next') : b('anyoneNext'), function () { return post('next'); }, 'bl-accent');
     }
     return null;
   }
@@ -1569,6 +1692,8 @@
     leaving: function () { leftByTap = true; },
     /** The page's join copy for a link that says it is a Blag room. */
     web: w,
+    /** One app line by key (index.html's unknown-mode guard reads needsUpdate). */
+    line: b,
     /** The app's ruled share line for a Blag room. */
     shareText: function (code) { return bf('shareMessage', code, 'https://anticsapp.com/j/blag/?room=' + code); }
   };

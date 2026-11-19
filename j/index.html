@@ -2359,7 +2359,9 @@
     // The room server seats nobody in a Blag room, takes no TV slot for one
     // and answers no seat's poll in one without it, because the live 1.1.5
     // app and the older page would be seated in a game they cannot draw.
-    var CLIENT_KINDS = ['imposter', 'blag'];
+    // 'blag_best' (19 Nov 2026): this page also plays Blag's Best answer mode,
+    // so the server seats it in a room that offers Best answer.
+    var CLIENT_KINDS = ['imposter', 'blag', 'blag_best'];
     function api(route, body) {
       var sent = {};
       for (var k in body || {}) sent[k] = body[k];
@@ -2545,8 +2547,28 @@
      * else of that room.
      */
     var KINDS = ['imposter', 'blag'];
-    function knownKind(room) { var k = room && room.kind; return k === undefined || k === null || KINDS.indexOf(k) !== -1; }
-    function unknownKind(r) {
+    // THE UNKNOWN-MODE GUARD (Best answer, 19 Nov 2026). A Blag room whose
+    // mode, chosen mode or offered modes name one this page cannot draw is
+    // treated like an unknown kind: "This room needs the latest Antics.", the
+    // seat is given back, and nothing retries.
+    var BLAG_MODES = ['about_us', 'who_said_that', 'best_answer'];
+    function knownBlagMode(m) { return m === undefined || m === null || BLAG_MODES.indexOf(m) !== -1; }
+    function blagModeKnown(room) {
+      var bl = room && room.kind === 'blag' && room.blag;
+      if (!bl) return true;
+      if (!knownBlagMode(bl.mode) || !knownBlagMode(bl.settingsMode)) return false;
+      if (bl.modesOffered !== undefined && bl.modesOffered !== null) {
+        if (!Array.isArray(bl.modesOffered)) return false;
+        for (var i = 0; i < bl.modesOffered.length; i++) if (BLAG_MODES.indexOf(bl.modesOffered[i]) === -1) return false;
+      }
+      return true;
+    }
+    function knownKind(room) { var k = room && room.kind; return (k === undefined || k === null || KINDS.indexOf(k) !== -1) && blagModeKnown(room); }
+    function unknownKind(r, screenRoom) {
+      var seen = (r && r.data && r.data.room) || screenRoom || null;
+      var modeOnly = !!(seen && seen.kind === 'blag' && !blagModeKnown(seen));
+      $('screen-update').querySelector('.lead').textContent = tr('updateBody');
+      if (modeOnly) loadBlag(function () { var l = blagUi.line('needsUpdate'); if (l && current === 'update') $('screen-update').querySelector('.lead').textContent = l; });
       // A join's answer carries the new token before this tab has saved it.
       var token = r && r.data && r.data.token, room = r && r.data && r.data.room;
       if (token && room && room.code) api('leave', { code: room.code, token: token });
@@ -2563,7 +2585,10 @@
     // page, loaded only when a view says kind 'blag', so an Imposter room
     // costs nothing more. A new version is a new file name here, never an
     // edit to a published file, so this page and its scripts always match.
-    var BLAG_FILES = { css: '/j/blag-v1.css', i18n: '/j/blag-i18n-v1.js', js: '/j/blag-v1.js' };
+    // The ?b= stamp (Best answer, 19 Nov 2026): this page and its Blag files
+    // change together, so a browser holding an older cached copy of a file
+    // fetches the one that matches this page.
+    var BLAG_FILES = { css: '/j/blag-v1.css?b=best1', i18n: '/j/blag-i18n-v1.js?b=best1', js: '/j/blag-v1.js?b=best1' };
     var blagUi = null, blagLoad = 'idle', blagWaiting = [];
     function loadBlag(then) {
       if (blagUi) return then();
@@ -3015,7 +3040,7 @@
       var kept = keptTvToken(code);
       var first = kept ? api('screen', { code: code, screenToken: kept }) : Promise.resolve(null);
       first.then(function (s) {
-        if (s && s.ok && s.data.screen && !knownKind(s.data.screen)) { $('btn-tv-watch').disabled = false; unknownKind(); return; }
+        if (s && s.ok && s.data.screen && !knownKind(s.data.screen)) { $('btn-tv-watch').disabled = false; unknownKind(null, s.data.screen); return; }
         if (s && s.ok && s.data.screen) {
           $('btn-tv-watch').disabled = false;
           adoptScreen(code, kept, s.data.screen, false);
@@ -3038,7 +3063,7 @@
         var key = watchKeyFor(code);
         api('watch', key ? { code: code, watchKey: key } : { code: code }).then(function (r) {
           $('btn-tv-watch').disabled = false;
-          if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(); return; }
+          if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(null, r.data.screen); return; }
           if (r.ok && r.data.screen && r.data.screenToken) {
             adoptScreen(r.data.screen.code, r.data.screenToken, r.data.screen, true);
             return;
@@ -3051,7 +3076,7 @@
 
     /** Every TV response goes through here, so the TV always follows the server. */
     function takeScreen(r) {
-      if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(); return false; }
+      if (r.ok && r.data.screen && !knownKind(r.data.screen)) { unknownKind(null, r.data.screen); return false; }
       if (r.ok && r.data.screen && staleBlag(screenView, r.data.screen)) return true;
       if (r.ok && r.data.screen) {
         screenView = r.data.screen;
