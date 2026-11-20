@@ -221,6 +221,7 @@
     lastStatus: null,   // the status drawn last (leaving writing empties the box)
     myAnswer: null,     // { code, round, text }: what this seat wrote this round
     bannered: {},       // rooms and rounds this tab showed the last-round banner for
+    topKey: null,       // phaseTopKey of the picture last scrolled to the top
     busy: false
   };
   // Every tap names the picture it was made on (round, step, status), so the
@@ -257,6 +258,9 @@
   // TOO LATE (O2, 14 Nov 2026): the server's 200 to an answer or vote that
   // arrived after its step closed says `late: true`. One line, on the step the
   // page is showing, cleared at the next step (the app's blagStepKey).
+  // The room, round and status; plus the step while voting in Who said that?,
+  // where each answer is its own vote. Reveal steps are left out on purpose.
+  function phaseTopKey(v) { return v.code + '|' + v.round + '|' + v.status + (v.status === 'voting' && v.blag.mode === 'who_said_that' ? '|' + (v.blag.step || 0) : ''); }
   function stepKeyOf(v) { return v.round + '|' + v.status + '|' + (v.blag.step || 0) + '|' + (v.blag.shown ? v.blag.shown.index : -1); }
   function markLate(r) {
     if (!r || !r.ok || !r.data || r.data.late !== true) return;
@@ -687,7 +691,9 @@
     add(mode, el('p', 'bl-kicker', b('modeLabel')), el('p', 'bl-mode', modeName(bl.settingsMode)), el('p', 'bl-rule', modeRule(bl.settingsMode)));
     if (bl.settingsTimers && bl.settingsTimers !== 'quick') add(mode, el('p', 'bl-small', bf('slowerLine', WRITE_SECONDS[bl.settingsTimers])));
     var chosen = (bl.decksOpen || []).filter(function (d) { return (bl.decks || []).indexOf(d.id) !== -1; }).map(function (d) { return d.name; });
-    if (chosen.length) add(mode, el('p', 'bl-kicker bl-gap', b('decksLabel')), el('p', 'bl-rule', chosen.join(', ')));
+    // The deck row only when more than one deck is open, as the app's BlagLobby
+    // draws it (web QA LOW-3: a lone "Core" read in English in every language).
+    if ((bl.decksOpen || []).length > 1 && chosen.length) add(mode, el('p', 'bl-kicker bl-gap', b('decksLabel')), el('p', 'bl-rule', chosen.join(', ')));
     st.appendChild(mode);
     var who = el('div', 'bl-panel');
     var cap = modeMax(bl.settingsMode);
@@ -1500,6 +1506,12 @@
       lastFlags = flags;
       if (v.status === 'over') markFoot();
       placeFoot();
+      // A NEW PHASE OPENS AT THE TOP (web QA MED-1, 20 Nov 2026): every phase is
+      // drawn in the one screen, so a scrolled tie reveal left the next round's
+      // question above the fold. Only a new phase scrolls, never a redraw, a
+      // poll or a reveal step.
+      var top = phaseTopKey(v);
+      if (top !== S.topKey) { S.topKey = top; window.scrollTo(0, 0); }
     }
     // The answer field: shown, filled from this tab's own draft, never cleared by a redraw.
     var showField = !tv && v.status === 'writing' && lastFlags.field;

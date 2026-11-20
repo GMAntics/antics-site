@@ -158,7 +158,7 @@ body.bl-on #screen-blag .bl-head .bl-code:empty { display: none; }
 #screen-blag .bl-row.mine { opacity: .55; }
 .bl-list.ro .bl-row { cursor: default; }
 .bl-num { flex: none; width: 1.6em; color: var(--b-dim); font-weight: 900; }
-.bl-opt { flex: 1; min-width: 0; }
+.bl-opt { flex: 1; min-width: 0; -webkit-hyphens: auto; hyphens: auto; }
 .bl-tick { color: var(--b-accent); font-weight: 900; }
 .bl-who { color: var(--b-pink); font-weight: 900; font-size: calc(18px * var(--b-scale)); }
 
