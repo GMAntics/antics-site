@@ -51,9 +51,7 @@
     bestAboutLine: 'Answer for {0}. Make it funny.',
     bestAboutYou: 'It’s about you. Write the best one anyway.',
     whichFunniest: 'Which one’s funniest?',
-    doubleVote: 'This one is about you, so your vote counts double.',
     bestPoints: '+{0} · {1}',
-    votedDouble: '{0} ×2',
     nobodyPicked: 'Nobody picked these',
     bestAnswer: 'Best answer',
     jointBest: 'Joint best',
@@ -818,12 +816,12 @@
     var opts = bl.options || [];
     var spot = !!me.isSpotlight;
     var best = isBest(bl);
-    // In Best answer the named player votes too, and their vote counts double.
+    // In Best answer the named player votes too, and their vote is one like
+    // everyone's (Guy, 20 Nov 2026), so nothing extra is said to them.
     var readOnly = !me.inRound || (spot && !best) || me.sitOut;
     if (bl.double && !ctx.isTv()) st.appendChild(el('p', 'bl-small bl-hot', b('lastOne')));
     if (best && bl.question) st.appendChild(el('p', 'bl-small bl-qsmall', bl.question));
     st.appendChild(el('h1', 'bl-q bl-ask', best ? b('whichFunniest') : spot ? b('watchSquirm') : b('whichTrue')));
-    if (best && spot && me.inRound && !ctx.isTv()) st.appendChild(el('p', 'bl-say', b('doubleVote')));
     if (me.sitOut) st.appendChild(el('p', 'bl-say bl-good', b('sitOut')));
     var picked = S.pendingVote && S.pendingVote.round === v.round ? S.pendingVote.id : me.vote;
     var list2 = el('div', 'bl-list' + (readOnly ? ' ro' : ''));
@@ -1001,44 +999,36 @@
   /**
    * BEST ANSWER'S REVEAL (view contract section 4): the unvoted batch first,
    * then each answer that got votes, fewest first, then the top. The points line
-   * ("+3 · Guy ×2, Robo") and the author, or the House, are drawn only once
-   * the step is `flipped`. There is no separate "{name}'s pick" badge (Guy,
-   * 19 Nov 2026: "'Guy's pick' and 'Guy picked it' ? im confused"): the ×2 on
-   * the points line carries it, as in the app (the server sends voters then). Before the flip nothing else about an option is drawn: no
+   * ("+2 · Guy, Robo") and the author, or the House, are drawn only once
+   * the step is `flipped`. There is no "{name}'s pick" badge (Guy, 19 Nov
+   * 2026) and no ×2 mark (the double vote was ruled out, Guy, 20 Nov 2026), as
+   * in the app (the server sends voters then). Before the flip nothing else about an option is drawn: no
    * "yours", no placeholder that differs between options, no count. No hearts.
    */
   /**
    * BEST ANSWER'S POINTS LINE (Guy's play test, 19 Nov 2026: "instead of robo
    * picked it maybe '1 point from Robo'"). Under each voted answer: the points
-   * it earned and who gave them, "+3 · Guy ×2, Robo", in a form that needs no
-   * grammar in any language. The named player's vote on an about-a-player
-   * round is worth two (the server's BEST_NAMED_VOTE), so their name carries
-   * "×2" and leads. N is the vote value BEFORE the final round's doubling:
+   * it earned and who gave them, "+2 · Guy, Robo", in a form that needs no
+   * grammar in any language. Every vote is worth one, the named player's too
+   * (Guy, 20 Nov 2026, verbatim: "im not sure about the named player getting
+   * 2x the points i think it overcompplicates things"), and the server's
+   * namedPick is always false since, so it is not read. N is the vote value
+   * BEFORE the final round's doubling:
    * the reveal shows no per-answer score anywhere else, and the doubled round
-   * keeps its own "last one" banner. `voters` and `namedPick` arrive only at
+   * keeps its own "last one" banner. `voters` arrive only at
    * the flip (the server sends voters empty before it), so this draws nothing
    * earlier. No votes: null, and the answer shows what it always did.
    */
-  var BEST_NAMED_VOTE = 2;
-  function bestPointsLine(voters, namedPick, namedName) {
-    // Voters keep the server's order, the named player marked in place
-    // ("+3 · Robo, Guy ×2"), exactly as the app's bestPoints does. The count
-    // trusts namedPick, not the name match, as the app does too. Both lines are
-    // the app's own templates (bestPoints, votedDouble), exported to
+  function bestPointsLine(voters) {
+    // Voters keep the server's order, exactly as the app's bestPoints does: one
+    // point a vote. The line is the app's own template (bestPoints), exported to
     // blag-i18n-v1.js; the names are joined with ', ' as the app joins them.
     var list = (voters || []).filter(Boolean);
     if (!list.length) return null;
-    var marked = false;
-    var parts = list.map(function (n) {
-      if (!marked && namedPick && namedName && n === namedName) { marked = true; return bf('votedDouble', n); }
-      return n;
-    });
-    var total = list.length + (namedPick ? BEST_NAMED_VOTE - 1 : 0);
-    return bf('bestPoints', total, parts.join(', '));
+    return bf('bestPoints', list.length, list.join(', '));
   }
   function bestStep(v, st, step) {
     var bl = v.blag;
-    var spotName = (bl.spotlight && bl.spotlight.name) || '';
     var flipped = !!step.flipped;
     if (flipped) noteFlip(v, 'best' + bl.step);
     if (step.kind === 'answers') {
@@ -1075,12 +1065,12 @@
     (step.options || []).forEach(function (o) {
       var card = el('div', 'bl-card' + (step.kind === 'top' ? ' bl-truth' : ''));
       add(card, el('p', 'bl-answer', quoted(o.text)));
-      // The points line (who gave them, the named player's vote marked ×2) waits
+      // The points line (who gave them) waits
       // for the flip with the writer (19 Nov 2026, mirrors the app): nobody may vote
       // for their own answer, so the voters' names would point at the writer by
       // who is missing.
       var voters = flipped ? (o.voters || []) : [];
-      var pts = bestPointsLine(voters, flipped && !!o.namedPick, spotName);
+      var pts = bestPointsLine(voters);
       if (pts) card.appendChild(el('p', 'bl-say bl-pts', pts));
       var slot = el('div', 'bl-flipslot');
       var who = flipped ? authorLine(o) : null;
