@@ -1482,7 +1482,14 @@
     if (v.status === 'writing' && mw.inRound && !mw.house && typeof mw.text === 'string' && mw.text) S.myAnswer = { code: v.code, round: v.round, text: mw.text };
     if (S.late !== null && S.late !== stepKeyOf(v)) S.late = null;
     var lateNow = !tv && S.late !== null;
-    if (D.late.hidden === lateNow) { D.late.textContent = lateNow ? b('tooLate') : ''; D.late.hidden = !lateNow; }
+    // Your own seat marked away (ruling 4, 22 Nov 2026, the app's blagAwayShown): one
+    // line while writing until you answer; a lost answer's own line wins.
+    var mine = null;
+    if (!tv && v.you && v.status === 'writing' && v.blag.me && v.blag.me.inRound) {
+      seatsOf(v).forEach(function (p) { if (p.id && p.id === v.you.id) mine = p; });
+    }
+    var lineText = lateNow ? b('tooLate') : (mine && mine.away && !mine.submitted ? b('awayBack') : '');
+    if (D.late.textContent !== lineText) { D.late.textContent = lineText; D.late.hidden = lineText === ''; }
     var me = v.blag.me || {};
     // A tapped vote stands until the view either confirms it or moves on.
     if (S.pendingVote && (v.status !== 'voting' || me.vote === S.pendingVote.id || me.tap === S.pendingVote.id)) S.pendingVote = null;
