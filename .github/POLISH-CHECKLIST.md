@@ -104,7 +104,8 @@ Already met
 - 1, 5: colour or brightness hovers throughout (`css/site.css:564`, `:573`,
   `:1691`); disabled steppers and buttons dim (`css/site.css:1693`, `:1796`).
 - 3 (mostly): buttons press to `scale(0.98)` (`css/site.css:565`,
-  `index.html:219`), tiles to `0.985` (`css/site.css:2110`).
+  `index.html:219`); game tiles press to `0.985` (`css/site.css:2110`), a
+  touch gentler than the range, which is harmless.
 - 4: one ring everywhere (`css/site.css:201`, `index.html:202`,
   `play/index.html:157`); the TOC row is padded for it (`css/site.css:588`).
 - 6, 7: `--tap-min: 44px` (`css/site.css:138`) on crumbs, chips, TOC, skip
@@ -124,7 +125,8 @@ Already met
   only for deals.
 - 22: `js/deal.js:6` never deals a box already on screen at load.
 - 23: a global reduced-motion block (`css/site.css:1617`), plus
-  `index.html:418` and `play/index.html:308`; smooth scroll only with
+  `index.html:418`; `play/index.html:308` plays its motion only under
+  `no-preference`, which has the same effect; smooth scroll only with
   `no-preference` (`css/site.css:177`).
 
 Visibly not met
@@ -147,7 +149,8 @@ Visibly not met
   bar (`css/site.css:1194`) or home brand mark (`index.html:228`).
 - 18: the closing box rises over 0.52s (`css/site.css:1602`), just past half a
   second; the install bar tucks and returns on the same 0.28s
-  (`css/site.css:1233`), so its exit is not shorter.
+  (`css/site.css:1233`), so its exit is not shorter; the home tiles change
+  background over 0.18s (`index.html:319`), just over the 150ms for hovers.
 - 20: every "Next card" replays a 0.26s tilt-and-rise (`css/site.css:1486`,
   restarted by `js/generator.js:267`) and every dealer reveal a 0.3s flip
   (`css/site.css:1844`). Both are the ruled "The Deal" design of 7 Nov 2026,
