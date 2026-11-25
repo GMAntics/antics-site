@@ -98,6 +98,13 @@ image library from the app checkout. Turn the hooks on once per clone with
 - `.githooks/pre-push`: refuses a push if the script on any one-line redirect
   page fails `node --check`.
 
+## Interface polish checklist
+
+Before changing how any page looks, read
+[`.github/POLISH-CHECKLIST.md`](POLISH-CHECKLIST.md): 25 CSS-only checks
+applied to the parts of a page you are already changing, never as a
+standalone redesign, and never touching indexed text or layout.
+
 ## Preview locally
 
 Run a simple static server from the repository root, then open
