@@ -117,7 +117,7 @@
     // plural included); the rest (round, wasWord, wasPlace, loadFail) are new
     // site copy for a native read before publishing.
     de: {
-      deal: function (n) { return 'Runde austeilen (' + n + ' Spieler)'; },  // APP deal
+      deal: function (n) { return 'Rollen verteilen (' + n + ' Spieler)'; },  // APP deal
       player: function (n) { return 'Spieler ' + n; },  // APP playerN
       round: function (n) { return 'Runde ' + n; },
       category: function (name) { return 'Kategorie: ' + name; },  // APP categoryOnCard
@@ -136,7 +136,7 @@
       starts: function (p) { return p + ' fängt an'; },  // APP discussStarter
       wasWord: 'Das Wort war',
       wasPlace: 'Der Ort war',
-      hintWas: function (h) { return 'Der Imposter hatte nur einen Hinweis: “' + h + '”.'; },  // APP hintWas
+      hintWas: function (h) { return 'Der Imposter hatte nur einen Hinweis: „' + h + '“.'; },  // APP hintWas
       loadFail: 'Die Wörter konnten nicht geladen werden. Prüf deine Verbindung und lade die Seite neu.'
     },
     fr: {
@@ -159,11 +159,11 @@
       starts: function (p) { return p + ' commence'; },  // APP discussStarter
       wasWord: 'Le mot était',
       wasPlace: 'Le lieu était',
-      hintWas: function (h) { return 'L’imposteur n’avait qu’un indice : "' + h + '".'; },  // APP hintWas
+      hintWas: function (h) { return 'L’imposteur n’avait qu’un indice : « ' + h + ' ».'; },  // APP hintWas
       loadFail: 'Impossible de charger les mots. Vérifie ta connexion et recharge la page.'
     },
     it: {
-      deal: function (n) { return 'Distribuisci il round (' + n + ' giocatori)'; },  // APP deal
+      deal: function (n) { return 'Distribuisci i ruoli (' + n + ' giocatori)'; },  // APP deal
       player: function (n) { return 'Giocatore ' + n; },  // APP playerN
       round: function (n) { return 'Round ' + n; },
       category: function (name) { return 'Categoria: ' + name; },  // APP categoryOnCard
@@ -209,7 +209,7 @@
       loadFail: 'De woorden konden niet worden geladen. Controleer je verbinding en herlaad de pagina.'
     },
     pl: {
-      deal: function (n) { return 'Rozdaj rundę (' + n + ' graczy)'; },  // APP deal
+      deal: function (n) { return 'Rozdaj rundę (' + n + ' ' + (n === 1 ? 'gracz' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? 'gracze' : 'graczy') + ')'; },  // APP deal
       player: function (n) { return 'Gracz ' + n; },  // APP playerN
       round: function (n) { return 'Runda ' + n; },
       category: function (name) { return 'Kategoria: ' + name; },  // APP categoryOnCard
@@ -228,7 +228,7 @@
       starts: function (p) { return 'Zaczyna ' + p; },  // APP discussStarter
       wasWord: 'Sekretne słowo to',
       wasPlace: 'Sekretne miejsce to',
-      hintWas: function (h) { return 'Wskazówka impostora: “' + h + '”.'; },  // APP hintWas
+      hintWas: function (h) { return 'Podpowiedź impostora: „' + h + '”.'; },  // APP hintWas
       loadFail: 'Nie udało się wczytać słów. Sprawdź połączenie i odśwież stronę.'
     },
     cs: {
@@ -251,7 +251,7 @@
       starts: function (p) { return p + ' začíná'; },  // APP discussStarter
       wasWord: 'Tajné slovo bylo',
       wasPlace: 'Tajné místo bylo',
-      hintWas: function (h) { return 'Jediná stopa pro podvodníka: “' + h + '”.'; },  // APP hintWas
+      hintWas: function (h) { return 'Jediná stopa pro podvodníka: „' + h + '“.'; },  // APP hintWas
       loadFail: 'Slova se nepodařilo načíst. Zkontroluj připojení a obnov stránku.'
     }
   };
