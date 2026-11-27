@@ -25,7 +25,9 @@
     wyr:  { prefix: 'Would you rather',  label: 'Would You Rather',  lower: true },
     mlt:  { prefix: 'Most likely to',    label: 'Most Likely To',    lower: true },
     tod:  { prefix: '',                  label: 'Truth or Dare',      lower: false },
-    odds: { prefix: "What are the odds you'd", label: 'What Are The Odds', lower: true, ask: true }
+    // What Are The Odds left the app's Home on 1.1.6 (Name 3 took its tile),
+    // so its widget never says the app deals more of it (27 Nov 2026).
+    odds: { prefix: "What are the odds you'd", label: 'What Are The Odds', lower: true, ask: true, siteOnly: true }
   };
   var MODES = {
     party: { key: 'party', name: 'Party', bank: 'ANTICS_QUESTIONS' },
@@ -602,12 +604,16 @@
     function ctaLine() {
       return mode === 'clean'
         ? 'From Antics: ten party games, thousands of cards.'
-        : 'Want thousands more cards and a whole stack more games?';
+        : cfg.siteOnly
+          ? 'Want a whole stack more games? Antics has ten.'
+          : 'Want thousands more cards and a whole stack more games?';
     }
     function deckLine() {
       return mode === 'clean'
         ? 'Free clean cards. Nothing about drinking.'
-        : 'Free cards here. The app has thousands.';
+        : cfg.siteOnly
+          ? 'Every card here is free.'
+          : 'Free cards here. The app has thousands.';
     }
     function syncModeBtns() {
       for (var i = 0; i < modeBtns.length; i++) {
@@ -628,10 +634,12 @@
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's every free " + label + ' card. The app has thousands more, plus nine other games.';
+        qEl.textContent = cfg.siteOnly
+          ? "That's every " + label + ' card. The app has ten other party games and thousands of cards.'
+          : "That's every free " + label + ' card. The app has thousands more, plus nine other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
-        countEl.textContent = 'You have seen every free card.';
+        countEl.textContent = cfg.siteOnly ? 'You have seen every card.' : 'You have seen every free card.';
         ctaH.textContent = 'Never run dry. Get Antics free:';
         return;
       }

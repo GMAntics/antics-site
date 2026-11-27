@@ -1360,6 +1360,7 @@ body.has-installbar { padding-bottom: calc(88px + env(safe-area-inset-bottom, 0p
 .agen[data-game="mlt"] .agen-card::before  { content: "Vote";      content: "Vote" / ""; }
 .agen[data-game="tod"] .agen-card::before  { content: "Truth or Dare"; content: "Truth or Dare" / ""; }
 .agen[data-game="odds"] .agen-card::before { content: "Challenge"; content: "Challenge" / ""; }
+.agen[data-game="name3"] .agen-card::before { content: "Name 3"; content: "Name 3" / ""; }
 
 .agen .agen-q {
   font-family: var(--font-display);

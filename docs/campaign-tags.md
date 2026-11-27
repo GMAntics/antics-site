@@ -108,6 +108,11 @@ left on a content page.
 | `site-imposter-pt-bar` | `/pt/jogo-do-impostor/` | the phone install bar |
 | `site-odds` | `/what-are-the-odds/` | the two store buttons |
 | `site-odds-laptop` | `/what-are-the-odds/` | the "On a laptop?" line |
+| `site-name3` | `/name-3/` | the two store buttons (27 Nov 2026) |
+| `site-name3-laptop` | `/name-3/` | the "On a laptop?" line |
+| `site-name3-mid` | `/name-3/` | the line under the categories |
+| `site-name3-tool` | `/name-3/` | the line under the clock |
+| `site-name3-bar` | `/name-3/` | the install bar |
 | `site-hen` | `/hen-do-games/` | end CTA |
 | `site-girls` | `/girls-night-games/` | end CTA |
 | `site-girls-inline` | `/girls-night-games/` | mid-page CTA |
