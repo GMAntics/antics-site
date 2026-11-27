@@ -34,6 +34,7 @@ left on a content page.
 | Tag | Page | Which link |
 | --- | --- | --- |
 | `site-home-hero` | `/` | the two hero store buttons |
+| `site-home-blag` | `/` | the Blag game tile (27 Nov 2026; Blag has no page of its own yet) |
 | `site-about` | `/about/` | the two store buttons |
 | `site-party-games` | `/party-games/` | the two store buttons |
 | `site-party-games-footer` | `/party-games/` | footer "Get the app" |

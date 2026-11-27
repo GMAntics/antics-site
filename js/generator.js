@@ -51,9 +51,9 @@
       copy: 'Copiar', copied: 'Copiado', copyTitle: 'Copiar para el grupo',
       deck: function () { return 'Cartas gratis aqu\u00ed. En la app hay miles.'; },
       count: function (i, n) { return 'Carta ' + i + ' de ' + n; },
-      end: function () { return 'Esas fueron todas las cartas gratis. En la app hay miles m\u00e1s y otros ocho juegos.'; },
+      end: function () { return 'Esas fueron todas las cartas gratis. En la app hay miles m\u00e1s y otros nueve juegos.'; },
       endCount: 'Ya viste todas las cartas gratis.',
-      ctaH: '\u00bfQuieres miles de cartas m\u00e1s y otros ocho juegos?',
+      ctaH: '\u00bfQuieres miles de cartas m\u00e1s y otros nueve juegos?',
       ctaEnd: 'Para que nunca se acaben, descarga Antics gratis:',
       get: 'Descarga Antics gratis',
       alt: 'Juega al impostor gratis',
@@ -76,9 +76,9 @@
       copy: 'Copiar', copied: 'Copiado', copyTitle: 'Copiar para o grupo',
       deck: function () { return 'Cartas gr\u00e1tis aqui. No app tem milhares.'; },
       count: function (i, n) { return 'Carta ' + i + ' de ' + n; },
-      end: function () { return 'Essas foram todas as cartas gr\u00e1tis. No app tem milhares, e mais oito jogos.'; },
+      end: function () { return 'Essas foram todas as cartas gr\u00e1tis. No app tem milhares, e mais nove jogos.'; },
       endCount: 'Voc\u00ea j\u00e1 viu todas as cartas gr\u00e1tis.',
-      ctaH: 'Quer milhares de cartas a mais e outros oito jogos?',
+      ctaH: 'Quer milhares de cartas a mais e outros nove jogos?',
       ctaEnd: 'Pra nunca acabar, baixe o Antics gr\u00e1tis:',
       get: 'Baixe o Antics gr\u00e1tis',
       alt: 'Jogue o jogo do impostor gr\u00e1tis',
@@ -109,9 +109,9 @@
       copy: 'Kopieren', copied: 'Kopiert', copyTitle: 'F\u00fcr die Gruppe kopieren',
       deck: function () { return 'Hier gibt\u2019s ein paar Karten gratis. In der App sind es Tausende.'; },
       count: function (i, n) { return 'Karte ' + i + ' von ' + n; },
-      end: function () { return 'Das waren alle Gratis-Karten. In der App warten Tausende mehr und acht weitere Spiele.'; },
+      end: function () { return 'Das waren alle Gratis-Karten. In der App warten Tausende mehr und neun weitere Spiele.'; },
       endCount: 'Du hast alle Gratis-Karten gesehen.',
-      ctaH: 'Lust auf Tausende Karten mehr und acht weitere Spiele?',
+      ctaH: 'Lust auf Tausende Karten mehr und neun weitere Spiele?',
       ctaEnd: 'Damit die Karten nie ausgehen, hol dir Antics gratis:',
       get: 'Antics gratis laden',
       alt: 'Imposter gratis spielen',
@@ -134,9 +134,9 @@
       copy: 'Copier', copied: 'Copi\u00e9', copyTitle: 'Copier pour le groupe',
       deck: function () { return 'Quelques cartes gratuites ici. Dans l\u2019appli, il y en a des milliers.'; },
       count: function (i, n) { return 'Carte ' + i + ' sur ' + n; },
-      end: function () { return 'Tu as tir\u00e9 toutes les cartes gratuites. L\u2019appli en a des milliers d\u2019autres, plus huit autres jeux.'; },
+      end: function () { return 'Tu as tir\u00e9 toutes les cartes gratuites. L\u2019appli en a des milliers d\u2019autres, plus neuf autres jeux.'; },
       endCount: 'Tu as vu toutes les cartes gratuites.',
-      ctaH: 'Envie de milliers de cartes en plus et de huit autres jeux\u00a0?',
+      ctaH: 'Envie de milliers de cartes en plus et de neuf autres jeux\u00a0?',
       ctaEnd: 'Pour ne jamais tomber \u00e0 court, t\u00e9l\u00e9charge Antics gratuitement\u00a0:',
       get: 'T\u00e9l\u00e9charge Antics gratuitement',
       alt: 'Joue \u00e0 l\u2019Imposteur gratuitement',
@@ -159,9 +159,9 @@
       copy: 'Copia', copied: 'Copiato', copyTitle: 'Copia per il gruppo',
       deck: function () { return 'Qui trovi qualche carta gratis. Nell\u2019app ce ne sono migliaia.'; },
       count: function (i, n) { return 'Carta ' + i + ' di ' + n; },
-      end: function () { return 'Le carte gratis sono finite. Nell\u2019app ce ne sono migliaia, pi\u00f9 altri otto giochi.'; },
+      end: function () { return 'Le carte gratis sono finite. Nell\u2019app ce ne sono migliaia, pi\u00f9 altri nove giochi.'; },
       endCount: 'Hai visto tutte le carte gratis.',
-      ctaH: 'Vuoi migliaia di carte in pi\u00f9 e altri otto giochi?',
+      ctaH: 'Vuoi migliaia di carte in pi\u00f9 e altri nove giochi?',
       ctaEnd: 'Per non restare mai senza carte, scarica Antics gratis:',
       get: 'Scarica Antics gratis',
       alt: 'Gioca all\u2019Impostore gratis',
@@ -184,9 +184,9 @@
       copy: 'Kopi\u00ebren', copied: 'Gekopieerd', copyTitle: 'Kopi\u00ebren voor de groepsapp',
       deck: function () { return 'Hier een paar gratis kaarten. In de app zijn het er duizenden.'; },
       count: function (i, n) { return 'Kaart ' + i + ' van ' + n; },
-      end: function () { return 'Dat waren alle gratis kaarten. In de app zijn er nog duizenden, plus acht andere spellen.'; },
+      end: function () { return 'Dat waren alle gratis kaarten. In de app zijn er nog duizenden, plus negen andere spellen.'; },
       endCount: 'Je hebt alle gratis kaarten gezien.',
-      ctaH: 'Zin in nog duizenden kaarten en acht andere spellen?',
+      ctaH: 'Zin in nog duizenden kaarten en negen andere spellen?',
       ctaEnd: 'Download Antics gratis, dan raken de kaarten nooit op:',
       get: 'Download Antics gratis',
       alt: 'Speel Imposter gratis',
@@ -209,9 +209,9 @@
       copy: 'Kopiuj', copied: 'Skopiowano', copyTitle: 'Skopiuj dla grupy',
       deck: function () { return 'Tu masz kilka darmowych kart. W aplikacji s\u0105 ich tysi\u0105ce.'; },
       count: function (i, n) { return 'Karta ' + i + ' z ' + n; },
-      end: function () { return 'To ju\u017c wszystkie darmowe karty. W aplikacji czekaj\u0105 tysi\u0105ce kolejnych i osiem innych gier.'; },
+      end: function () { return 'To ju\u017c wszystkie darmowe karty. W aplikacji czekaj\u0105 tysi\u0105ce kolejnych i dziewięć innych gier.'; },
       endCount: 'Wszystkie darmowe karty ju\u017c za tob\u0105.',
-      ctaH: 'Chcesz tysi\u0105ce kolejnych kart i osiem innych gier?',
+      ctaH: 'Chcesz tysi\u0105ce kolejnych kart i dziewięć innych gier?',
       ctaEnd: '\u017beby karty nigdy si\u0119 nie sko\u0144czy\u0142y, pobierz Antics za darmo:',
       get: 'Pobierz Antics za darmo',
       alt: 'Zagraj w Impostora za darmo',
@@ -601,7 +601,7 @@
 
     function ctaLine() {
       return mode === 'clean'
-        ? 'From Antics: nine party games, thousands of cards.'
+        ? 'From Antics: ten party games, thousands of cards.'
         : 'Want thousands more cards and a whole stack more games?';
     }
     function deckLine() {
@@ -628,7 +628,7 @@
         return;
       }
       if (idx >= order.length) {
-        qEl.textContent = "That's every free " + label + ' card. The app has thousands more, plus eight other games.';
+        qEl.textContent = "That's every free " + label + ' card. The app has thousands more, plus nine other games.';
         nextBtn.textContent = 'Start again';
         copyBtn.style.visibility = 'hidden';
         countEl.textContent = 'You have seen every free card.';

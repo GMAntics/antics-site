@@ -2,7 +2,7 @@
 
 This repository is the source of [anticsapp.com](https://anticsapp.com/), the
 website for Antics, a pass-the-phone party game app for iPhone and Android.
-Antics puts nine party games and thousands of cards on one phone, with no ads
+Antics puts ten party games and thousands of cards on one phone, with no ads
 and no accounts. Where a game needs a consequence it is a forfeit, so nothing
 depends on drinking. It is made for adult groups (rated 18+ on the App Store)
 by Guy Matthews, a solo founder in London, and published by Antics App Ltd.
@@ -33,7 +33,7 @@ word lists, a blog and original party data.
 
 | Section | Live pages |
 | --- | --- |
-| Game guides and question lists | Start at the hub, [/party-games/](https://anticsapp.com/party-games/). Then [Never Have I Ever](https://anticsapp.com/never-have-i-ever-questions/), [Truth or Dare](https://anticsapp.com/truth-or-dare-questions/), [Would You Rather](https://anticsapp.com/would-you-rather-questions/), [Most Likely To](https://anticsapp.com/most-likely-to-questions/), [What Are The Odds](https://anticsapp.com/what-are-the-odds/), [How to play Imposter](https://anticsapp.com/how-to-play-imposter/), [Antics mode](https://anticsapp.com/antics-mode/), [The Four Kings](https://anticsapp.com/the-four-kings/) and [Forfeit ideas](https://anticsapp.com/forfeit-ideas/) |
+| Game guides and question lists | Start at the hub, [/party-games/](https://anticsapp.com/party-games/). Then [Never Have I Ever](https://anticsapp.com/never-have-i-ever-questions/), [Truth or Dare](https://anticsapp.com/truth-or-dare-questions/), [Would You Rather](https://anticsapp.com/would-you-rather-questions/), [Most Likely To](https://anticsapp.com/most-likely-to-questions/), [What Are The Odds](https://anticsapp.com/what-are-the-odds/), [How to play Imposter](https://anticsapp.com/how-to-play-imposter/), [Antics mode](https://anticsapp.com/antics-mode/), [Name 3](https://anticsapp.com/name-3/), [The Four Kings](https://anticsapp.com/the-four-kings/) and [Forfeit ideas](https://anticsapp.com/forfeit-ideas/) |
 | Guides for occasions | [Party games for uni](https://anticsapp.com/party-games-for-uni/), [Hen do games](https://anticsapp.com/hen-do-games/), [Stag do games](https://anticsapp.com/stag-do-games/), [Party games for small groups](https://anticsapp.com/party-games-for-small-groups/) and more, every one listed in [sitemap.xml](https://anticsapp.com/sitemap.xml) |
 | Generators | [Never Have I Ever](https://anticsapp.com/never-have-i-ever-generator/), [Truth or Dare](https://anticsapp.com/truth-or-dare-generator/), [Would You Rather](https://anticsapp.com/would-you-rather-generator/), [Most Likely To](https://anticsapp.com/most-likely-to-generator/), [What Are The Odds](https://anticsapp.com/what-are-the-odds-generator/) |
 | Free browser games | [/play/](https://anticsapp.com/play/) and the [Imposter dealer](https://anticsapp.com/imposter-game/) |

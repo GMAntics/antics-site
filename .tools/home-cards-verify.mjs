@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Read-back proof for every card the home page shows (hero deal and the nine
+// Read-back proof for every card the home page shows (hero deal and the ten
 // game tiles), 7 Nov 2026, design/deal-home.
 //
 // The card law (BUILD-BRIEF.md, house rules): card text is copied VERBATIM, BY
@@ -59,6 +59,8 @@ const DECKS = {
   truths: tod.truths.map((t) => ({ t })),
   dares: tod.dares.map((t) => ({ t })),
   odds: load('data/whatAreTheOdds.ts').whatAreTheOddsPrompts.map((t) => ({ t })),
+  // Name 3 (27 Nov 2026): the tile that took What Are The Odds' slot on Home.
+  nameThree: load('data/nameThree.ts').nameThreePrompts.map((t) => ({ t })),
   // Imposter: a word and its EASY hint share an index.
   imposterEverydayObjects: imp.everydayObjectsWords.map((w, i) => ({ w, h: imp.everydayObjectsHints[i] })),
   // The Four Kings: Guy's own canon, keyed by rank; the index is the array position.
